@@ -13,7 +13,7 @@
     >
       <div class="flex h-20 items-center gap-3 px-5">
         <div v-if="isSidebarCollapsed && !isMenuOpen" class="grid h-11 w-11 shrink-0 place-items-center">
-          <AppLogo :img-style="{ height: 'clamp(2rem, 4vw, 2.75rem)' }" img-class="w-auto object-contain" />
+          <img src="/logo-icon.png" alt="Enervida Icon" style="height: clamp(2rem, 4vw, 2.75rem);" class="w-auto object-contain transition-all duration-300" />
         </div>
         <div v-else class="min-w-0">
           <AppLogo :img-style="{ height: 'clamp(2.25rem, 5vw, 3rem)' }" img-class="w-auto object-contain" />
