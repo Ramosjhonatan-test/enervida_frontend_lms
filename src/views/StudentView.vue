@@ -55,6 +55,10 @@
             <span class="text-[9px] font-black uppercase tracking-[0.2em] text-on-surface/30">Vista actual</span>
             <span class="text-[11px] font-black uppercase tracking-widest text-accent-neon">{{ currentNavLabel }}</span>
           </div>
+          <div class="flex items-center gap-2 mr-2">  
+            <ThemeToggle />
+          </div>
+          <div class="h-8 w-px bg-on-surface/5 mx-1 hidden sm:block"></div>
           <router-link to="/student/support" class="flex h-10 w-10 items-center justify-center rounded-xl bg-on-surface/5 text-on-surface/45 transition hover:text-accent-neon" title="Soporte y ayuda">
             <span class="material-symbols-outlined text-xl">help</span>
           </router-link>
@@ -129,7 +133,7 @@
               <div class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl border border-accent-neon/20 bg-accent-neon/10 shadow-inner">
                 <span class="material-symbols-outlined text-4xl text-accent-neon">verified_user</span>
               </div>
-              <h2 class="font-lexend text-3xl font-black tracking-tight">Verificacion de <span class="text-gradient-neon italic">identidad</span></h2>
+              <h2 class="font-lexend text-3xl font-black tracking-tight">Verificacion de <span class="text-gradient-neon">identidad</span></h2>
               <p class="mt-4 text-[11px] font-black uppercase leading-relaxed tracking-[0.2em] text-on-surface-variant opacity-70">
                 Confirma tus datos para la emision de certificados oficiales.
               </p>
@@ -170,6 +174,7 @@ import { useRoute, useRouter } from 'vue-router'
 import api from '@/services/api'
 import { useAuthStore } from '@/stores/auth'
 import AppLogo from '@/components/AppLogo.vue'
+import ThemeToggle from '@/components/ThemeToggle.vue'
 
 const route = useRoute()
 const router = useRouter()

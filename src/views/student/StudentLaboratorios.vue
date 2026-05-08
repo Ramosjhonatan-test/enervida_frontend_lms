@@ -15,7 +15,7 @@
           <span class="material-symbols-outlined text-5xl text-accent-neon">science</span>
         </div>
         <h2 class="mb-6 font-lexend text-4xl font-black tracking-tight md:text-5xl">
-          Modulo en <span class="text-gradient-neon italic">Construccion</span>
+          Modulo en <span class="text-gradient-neon">Construccion</span>
         </h2>
         <p class="mx-auto max-w-xl text-base leading-8 text-on-surface/55">
           Estamos preparando esta seccion para experiencias practicas, laboratorios guiados y recursos descargables.

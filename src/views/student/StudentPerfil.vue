@@ -136,7 +136,7 @@
             </li>
           </ul>
 
-          <div class="mt-8 p-4 rounded-xl bg-on-surface/5 text-[10px] font-bold text-on-surface/40 leading-relaxed italic border-l-2 border-accent-neon/30">
+          <div class="mt-8 p-4 rounded-xl bg-on-surface/5 text-[10px] font-bold text-on-surface/40 leading-relaxed border-l-2 border-accent-neon/30">
             * Su cuenta está vinculada a este equipo para mayor seguridad. Si necesita cambiar de dispositivo, contacte a soporte técnico para "Liberar" su cuenta.
           </div>
         </section>

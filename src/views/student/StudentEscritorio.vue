@@ -1,137 +1,215 @@
 <template>
-  <div class="grid grid-cols-1 gap-10 animate-in fade-in xl:grid-cols-[minmax(0,1.7fr)_380px]">
-    <div class="space-y-10">
-      <StudentPageHeader
-        eyebrow="Campus del estudiante"
-        title="Tu"
-        highlight="Escritorio"
-        description="Reorganicé el inicio para que lo urgente quede arriba: continuar un curso, ver nuevas opciones y no perder notificaciones o clases."
-        :stats="headerStats"
-      />
-
-      <section v-if="ultimoCurso" class="panel-hero p-7 md:p-10">
-        <div class="flex flex-col gap-8 lg:flex-row lg:items-center">
-          <div class="aspect-video w-full shrink-0 overflow-hidden rounded-3xl border admin-line shadow-2xl lg:w-80">
-            <img :src="getImageUrl(ultimoCurso.curso?.miniatura_url)" class="h-full w-full object-cover transition-transform duration-1000 hover:scale-105" />
-          </div>
-          <div class="flex-grow">
-            <p class="mb-4 text-[10px] font-black uppercase tracking-[0.35em] text-accent-neon">Retomar curso</p>
-            <h2 class="font-lexend text-3xl font-black leading-none tracking-tight md:text-5xl">{{ ultimoCurso.curso?.titulo }}</h2>
-            <p class="mt-4 max-w-2xl text-sm leading-7 text-on-surface/55">
-              {{ (ultimoCurso.porcentaje_progreso || 0) > 0 ? 'Continua desde donde lo dejaste y sigue avanzando con una lectura mas limpia del progreso.' : 'Empieza esta ruta hoy y convierte este espacio en tu panel principal de seguimiento.' }}
-            </p>
-            <div class="mt-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-              <router-link :to="'/student/course/' + ultimoCurso.curso.id" class="btn-premium btn-primary-neon !justify-center !px-10 !py-5 !text-[11px]">
-                {{ (ultimoCurso.porcentaje_progreso || 0) > 0 ? 'Reanudar ahora' : 'Empezar ahora' }}
-                <span class="material-symbols-outlined text-sm">play_arrow</span>
-              </router-link>
-              <div class="w-full max-w-sm">
-                <div class="mb-2 flex justify-between text-[10px] font-black uppercase tracking-widest text-on-surface/40">
-                  <span>Progreso actual</span>
-                  <span class="text-accent-neon">{{ Math.round(ultimoCurso.porcentaje_progreso || 0) }}%</span>
-                </div>
-                <div class="h-2 overflow-hidden rounded-full admin-soft-bg">
-                  <div class="h-full rounded-full bg-accent-neon shadow-[0_0_10px_var(--accent-neon)]" :style="{ width: `${ultimoCurso.porcentaje_progreso || 0}%` }"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section v-else class="panel-hero p-8 md:p-10">
-        <p class="mb-4 text-[10px] font-black uppercase tracking-[0.35em] text-accent-neon">Bienvenido al campus</p>
-        <h2 class="font-lexend text-3xl font-black leading-none tracking-tight md:text-5xl">Empieza tu aprendizaje</h2>
-        <p class="mt-4 max-w-2xl text-sm leading-7 text-on-surface/55">
-          Explora los cursos disponibles y manda tu solicitud desde una pantalla mucho mas ordenada para avanzar sin friccion.
-        </p>
-        <router-link to="/student/catalog" class="btn-premium btn-primary-neon mt-8 inline-flex !px-10 !py-5 !text-[11px]">Ver cursos</router-link>
-      </section>
-
-      <section class="student-panel p-6 md:p-8">
-        <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p class="mb-2 text-[10px] font-black uppercase tracking-[0.35em] text-accent-neon">Cursos publicados</p>
-            <h2 class="font-lexend text-2xl font-black uppercase tracking-tight">Disponibles para ti</h2>
-          </div>
-          <router-link to="/student/catalog" class="text-[10px] font-black uppercase tracking-widest text-on-surface/35 transition hover:text-accent-neon">Explorar todo</router-link>
-        </div>
-
-        <div v-if="loading" class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-          <div v-for="i in 3" :key="i" class="h-80 rounded-[32px] admin-card loading-pulse"></div>
-        </div>
-
-        <div v-else class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-          <article v-for="curso in availableCourses.slice(0, 3)" :key="curso.id" class="admin-card group overflow-hidden rounded-[36px] border-admin-border transition-all duration-500 hover:-translate-y-1 hover:border-accent-neon/30">
-            <div class="relative h-52 overflow-hidden">
-              <img :src="getImageUrl(curso.miniatura_url)" class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-              <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
-              <span class="absolute left-4 top-4 rounded-lg border border-accent-neon/20 bg-surface-container/80 px-3 py-1.5 text-[8px] font-black uppercase tracking-widest text-accent-neon">
-                {{ curso.categoria?.nombre || curso.nivel || 'Curso' }}
-              </span>
-            </div>
-            <div class="p-7">
-              <h3 class="font-lexend text-xl font-black leading-tight transition-colors group-hover:text-accent-neon">{{ curso.titulo }}</h3>
-              <p class="mt-3 line-clamp-3 text-sm leading-6 text-on-surface/45">{{ curso.descripcion_corta || curso.descripcion || 'Formacion tecnica especializada.' }}</p>
-              <div class="mt-8 flex items-center justify-between gap-4">
-                <span class="text-lg font-black text-accent-neon">{{ curso.precio || '0.00' }} <span class="text-[10px]">BS</span></span>
-                <button @click="$emit('enroll', curso.id)" class="btn-premium btn-primary-neon !rounded-xl !px-5 !py-3 !text-[10px]">Inscribirme</button>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
+  <div class="relative min-h-screen">
+    <!-- Orbes decorativos de fondo -->
+    <div class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div class="absolute -left-[10%] -top-[10%] h-[500px] w-[500px] rounded-full bg-accent-neon/10 blur-[120px] animate-pulse"></div>
+      <div class="absolute -right-[5%] top-[20%] h-[400px] w-[400px] rounded-full bg-accent-solar/5 blur-[100px]"></div>
     </div>
 
-    <aside class="space-y-8">
-      <section class="student-panel p-7">
-        <h2 class="mb-7 flex items-center gap-3 text-sm font-black uppercase tracking-[0.18em] text-on-surface/65">
-          <span class="material-symbols-outlined text-accent-neon">notifications</span>
-          Notificaciones
-        </h2>
-        <div v-if="notifications.length === 0" class="py-10 text-center text-[10px] font-black uppercase tracking-widest text-on-surface/25">
-          Todo al dia
+    <div class="relative z-10 max-w-7xl mx-auto py-10 px-6">
+      <div class="space-y-12">
+        <!-- Header -->
+        <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+          <StudentPageHeader
+            :eyebrow="`Hola, ${authStore.user?.nombres || 'Estudiante'}`"
+            title="Tu"
+            highlight="Escritorio"
+            description="Bienvenido de nuevo. Aquí tienes un resumen de tu actividad para continuar tu formación."
+          />
         </div>
-        <div v-else class="space-y-4">
-          <div v-for="notif in notifications.slice(0, 5)" :key="notif.id" class="flex gap-4 rounded-2xl border admin-line admin-soft-bg p-4">
-            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-neon/10 text-accent-neon">
-              <span class="material-symbols-outlined text-sm">info</span>
-            </div>
-            <div class="min-w-0">
-              <h3 class="truncate text-xs font-black">{{ notif.titulo }}</h3>
-              <p class="mt-1 line-clamp-2 text-[11px] leading-5 text-on-surface/45">{{ notif.mensaje }}</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <section class="student-panel p-7">
-        <h2 class="mb-7 flex items-center gap-3 text-sm font-black uppercase tracking-[0.18em] text-on-surface/65">
-          <span class="material-symbols-outlined text-accent-solar">calendar_month</span>
-          Calendario
-        </h2>
-        <div v-if="liveClasses.length === 0" class="py-10 text-center text-[10px] font-black uppercase tracking-widest text-on-surface/25">
-          No hay clases programadas
-        </div>
-        <div v-else class="space-y-4">
-          <div v-for="clase in liveClasses.slice(0, 3)" :key="clase.id" class="rounded-2xl border admin-line admin-soft-bg p-5">
-            <div class="mb-2 flex items-center justify-between gap-3">
-              <span class="text-[9px] font-black uppercase tracking-widest text-accent-neon">{{ formatDate(clase.fecha_inicio) }}</span>
-              <span class="text-[9px] font-black text-on-surface/25">{{ formatTime(clase.fecha_inicio) }}</span>
-            </div>
-            <h3 class="text-xs font-black uppercase tracking-widest text-on-surface/70">{{ clase.titulo }}</h3>
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-10">
+          <!-- Main Column -->
+          <div class="space-y-12">
+            <!-- Curso Principal / Hero -->
+            <section v-if="ultimoCurso" class="panel-hero group relative p-8 md:p-12 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div class="flex flex-col gap-10 xl:flex-row xl:items-center">
+                <div class="relative aspect-video w-full shrink-0 overflow-hidden rounded-[32px] border border-white/10 shadow-2xl xl:w-[320px]">
+                  <img :src="getImageUrl(ultimoCurso.curso?.miniatura_url)" class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+                </div>
+                
+                <div class="flex-grow">
+                  <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-accent-neon/10 px-4 py-1.5 border border-accent-neon/20">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-neon opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-neon"></span>
+                    </span>
+                    <span class="text-[10px] font-black uppercase tracking-[0.2em] text-accent-neon">Retomar ahora</span>
+                  </div>
+                  
+                  <h2 class="font-lexend text-3xl font-black leading-tight tracking-tight text-on-surface md:text-4xl">
+                    {{ ultimoCurso.curso?.titulo }}
+                  </h2>
+                  
+                  <div class="mt-8 flex flex-col gap-6 sm:flex-row sm:items-center">
+                    <router-link :to="'/student/course/' + ultimoCurso.curso.id" class="btn-premium btn-primary-neon !px-10 !py-5 !text-[11px] shadow-neon-sm">
+                      {{ (ultimoCurso.porcentaje_progreso || 0) > 0 ? 'Reanudar curso' : 'Empezar ahora' }}
+                      <span class="material-symbols-outlined text-lg">play_arrow</span>
+                    </router-link>
+                    
+                    <div class="flex-grow max-w-xs">
+                      <div class="mb-3 flex justify-between text-[10px] font-black uppercase tracking-widest text-on-surface/40">
+                        <span>Tu progreso</span>
+                        <span class="text-accent-neon">{{ Math.round(ultimoCurso.porcentaje_progreso || 0) }}%</span>
+                      </div>
+                      <div class="glass-progress-bar h-2">
+                        <div class="glass-progress-fill" :style="{ width: `${ultimoCurso.porcentaje_progreso || 0}%` }"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Otros cursos en progreso -->
+            <section v-if="otrosCursos.length > 0" class="animate-in fade-in slide-in-from-bottom-6 duration-700">
+              <div class="mb-8 flex items-center justify-between">
+                <h3 class="font-lexend text-2xl font-black">Continuar <span class="text-accent-neon">formación</span></h3>
+                <router-link to="/student/my-courses" class="text-[10px] font-black uppercase tracking-widest text-accent-neon hover:underline">Ver todos</router-link>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div v-for="ins in otrosCursos" :key="ins.id" class="glass-card-premium group relative flex items-center gap-6 p-5 transition-all hover:bg-white/[0.05] border-white/5">
+                  <div class="h-20 w-24 shrink-0 overflow-hidden rounded-2xl border border-white/5 bg-on-surface/5">
+                    <img :src="getImageUrl(ins.curso?.miniatura_url)" class="h-full w-full object-cover" />
+                  </div>
+                  <div class="min-w-0 flex-grow">
+                    <h4 class="truncate font-lexend text-base font-black">{{ ins.curso?.titulo }}</h4>
+                    <div class="mt-3 flex items-center gap-4">
+                      <div class="h-1.5 flex-grow overflow-hidden rounded-full bg-white/5">
+                        <div class="h-full bg-accent-neon/40 transition-all" :style="{ width: `${ins.porcentaje_progreso || 0}%` }"></div>
+                      </div>
+                      <span class="text-[9px] font-black text-on-surface/30">{{ Math.round(ins.porcentaje_progreso || 0) }}%</span>
+                    </div>
+                  </div>
+                  <router-link :to="'/student/course/' + ins.curso?.id" class="absolute inset-0 z-10" aria-label="Continuar curso"></router-link>
+                </div>
+              </div>
+            </section>
+
+            <!-- Recomendaciones -->
+            <section v-if="availableCourses.length > 0 && inscripciones.length < 5" class="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+              <div class="flex items-center justify-between">
+                <h3 class="font-lexend text-2xl font-black">Explorar <span class="text-accent-solar">Nuevos Cursos</span></h3>
+                <router-link to="/student/catalog" class="text-[10px] font-black uppercase tracking-widest text-accent-solar hover:underline">Ver catálogo</router-link>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div v-for="curso in availableCourses.slice(0, 3)" :key="curso.id" class="glass-card-premium group overflow-hidden flex flex-col border-white/5">
+                  <div class="relative aspect-video overflow-hidden">
+                    <img :src="getImageUrl(curso.miniatura_url)" class="h-full w-full object-cover transition-transform group-hover:scale-110" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  </div>
+                  <div class="p-5 flex-grow flex flex-col">
+                    <h4 class="font-lexend font-black text-base line-clamp-1">{{ curso.titulo }}</h4>
+                    <p class="text-[10px] text-on-surface/40 mt-2 line-clamp-2 leading-relaxed">{{ curso.descripcion }}</p>
+                    <div class="mt-6 flex items-center justify-between">
+                      <span class="text-xs font-bold text-accent-neon">Gratis</span>
+                      <button @click="$emit('enroll', curso.id)" class="text-[9px] font-black uppercase tracking-widest py-2 px-4 rounded-xl bg-on-surface/5 hover:bg-accent-neon hover:text-primary transition-all">Inscribirme</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Estado vacío si no hay cursos -->
+            <section v-if="!ultimoCurso && inscripciones.length === 0" class="student-empty flex flex-col items-center justify-center p-16 text-center rounded-[48px] border-dashed">
+              <div class="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-accent-neon/10 text-accent-neon">
+                <span class="material-symbols-outlined text-4xl">school</span>
+              </div>
+              <h2 class="font-lexend text-3xl font-black">Comienza tu viaje</h2>
+              <p class="mt-4 max-w-md text-on-surface/50">Explora nuestro catálogo de cursos especializados y da el primer paso en tu formación profesional hoy mismo.</p>
+              <router-link to="/student/catalog" class="btn-premium btn-primary-neon mt-10 !px-12">Ver catálogo</router-link>
+            </section>
           </div>
+
+          <!-- Sidebar Column -->
+          <aside class="space-y-10">
+            <!-- Welcome / Announcements -->
+            <div class="glass-card-premium p-8 border-accent-neon/10 bg-accent-neon/[0.02] rounded-[40px]">
+              <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-neon text-primary mb-6">
+                <span class="material-symbols-outlined">campaign</span>
+              </div>
+              <h4 class="font-lexend text-xl font-black mb-3">Anuncio <span class="text-accent-neon">Oficial</span></h4>
+              <p class="text-sm text-on-surface/60 leading-relaxed">
+                ¡Nueva sección de laboratorios próximamente! Prepárate para aplicar tus conocimientos en entornos reales.
+              </p>
+              <div class="mt-6 pt-6 border-t border-white/5 flex items-center justify-between">
+                <span class="text-[9px] font-black uppercase tracking-widest text-on-surface/30">Hace 2 horas</span>
+                <button class="text-[9px] font-black uppercase tracking-widest text-accent-neon">Saber más</button>
+              </div>
+            </div>
+
+            <!-- Stats Grid in Sidebar -->
+            <div class="grid grid-cols-2 gap-4">
+              <div class="glass-card-premium p-6 rounded-[32px] border-white/5 bg-white/[0.01]">
+                <div class="text-[9px] font-black uppercase tracking-widest text-on-surface/30 mb-3">Activos</div>
+                <div class="text-3xl font-lexend font-black text-accent-neon">{{ cursosActivos.length }}</div>
+                <div class="mt-2 text-[10px] font-bold text-on-surface/20 uppercase tracking-tighter">Cursos hoy</div>
+              </div>
+              <div class="glass-card-premium p-6 rounded-[32px] border-white/5 bg-white/[0.01]">
+                <div class="text-[9px] font-black uppercase tracking-widest text-on-surface/30 mb-3">Éxito</div>
+                <div class="text-3xl font-lexend font-black text-accent-solar">{{ cursosCompletados.length }}</div>
+                <div class="mt-2 text-[10px] font-bold text-on-surface/20 uppercase tracking-tighter">Terminados</div>
+              </div>
+            </div>
+
+            <!-- Clases en Vivo Sidebar -->
+            <section v-if="liveClasses && liveClasses.length > 0" class="space-y-6">
+              <div class="flex items-center justify-between px-2">
+                <h3 class="font-lexend text-xl font-black">Próximas <span class="text-accent-neon">Vivos</span></h3>
+                <router-link to="/student/live-classes" class="text-[9px] font-black uppercase tracking-widest text-on-surface/30 hover:text-accent-neon">Ver todos</router-link>
+              </div>
+              
+              <div class="space-y-4">
+                <div v-for="clase in liveClasses.slice(0, 3)" :key="clase.id" class="glass-card-premium p-5 flex flex-col gap-3 border-white/5 hover:border-accent-neon/20 transition-all">
+                  <div class="flex items-center justify-between">
+                    <span class="text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded bg-accent-neon/10 text-accent-neon border border-accent-neon/10">Clase</span>
+                    <span class="text-[9px] font-bold text-on-surface/30">{{ formatDate(clase.fecha) }}</span>
+                  </div>
+                  <h4 class="font-lexend font-black text-sm truncate">{{ clase.titulo }}</h4>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-accent-neon text-base">schedule</span>
+                      <span class="text-[10px] font-black text-on-surface/50">{{ formatTime(clase.fecha) }}</span>
+                    </div>
+                    <router-link to="/student/live-classes" class="text-[9px] font-black uppercase tracking-widest text-accent-neon">Entrar</router-link>
+                  </div>
+                </div>
+              </div>
+            </section>
+            
+            <!-- Quick Link Support -->
+            <router-link to="/student/support" class="flex items-center justify-between p-6 glass-card-premium rounded-[32px] border-white/5 group overflow-hidden">
+              <div class="relative z-10">
+                <p class="text-[9px] font-black uppercase tracking-[0.2em] text-accent-solar mb-1">¿Necesitas ayuda?</p>
+                <p class="text-sm font-black">Centro de Soporte</p>
+              </div>
+              <div class="relative z-10 h-10 w-10 flex items-center justify-center rounded-xl bg-accent-solar text-primary shadow-solar-sm group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined">help</span>
+              </div>
+              <div class="absolute -right-4 -bottom-4 h-24 w-24 rounded-full bg-accent-solar/10 blur-2xl group-hover:bg-accent-solar/20 transition-all"></div>
+            </router-link>
+          </aside>
         </div>
-      </section>
-    </aside>
+      </div>
+    </div>
+      
+
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
 import StudentPageHeader from '@/components/student/StudentPageHeader.vue'
+import { useAuthStore } from '@/stores/auth'
+
+const authStore = useAuthStore()
 
 const props = defineProps({
+  inscripciones: {
+    type: Array,
+    default: () => [],
+  },
   ultimoCurso: {
     type: Object,
     default: null,
@@ -156,26 +234,18 @@ const props = defineProps({
 
 defineEmits(['enroll'])
 
-const headerStats = computed(() => [
-  {
-    label: 'Cursos sugeridos',
-    value: props.loading ? '...' : props.availableCourses.length,
-    help: 'Oferta visible para continuar tu ruta',
-    icon: 'menu_book',
-  },
-  {
-    label: 'Alertas',
-    value: props.notifications.length,
-    help: 'Mensajes recientes del campus',
-    icon: 'notifications',
-  },
-  {
-    label: 'En vivo',
-    value: props.liveClasses.length,
-    help: 'Sesiones proximas de tus cursos',
-    icon: 'videocam',
-  },
-])
+const cursosActivos = computed(() => {
+  return props.inscripciones.filter(ins => ins.estado === 'activa')
+})
+
+const cursosCompletados = computed(() => {
+  return props.inscripciones.filter(ins => ins.porcentaje_progreso >= 100)
+})
+
+const otrosCursos = computed(() => {
+  if (!props.ultimoCurso) return cursosActivos.value
+  return cursosActivos.value.filter(ins => ins.id !== props.ultimoCurso.id)
+})
 
 function getImageUrl(url) {
   if (!url) return null
@@ -197,3 +267,4 @@ function formatTime(value) {
   return new Date(value).toLocaleTimeString('es-BO', { hour: '2-digit', minute: '2-digit' })
 }
 </script>
+

@@ -1,69 +1,76 @@
 <template>
-  <section class="space-y-10 animate-in fade-in">
-    <StudentPageHeader
-      eyebrow="Programas de formacion"
-      title="Catalogo de"
-      highlight="Cursos"
-      description="Explora las rutas disponibles, compara niveles y envia tu solicitud desde una vista mas clara y comoda."
-      :stats="headerStats"
-    />
-
-    <div v-if="loading" class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      <div v-for="i in 8" :key="i" class="h-80 rounded-[32px] admin-card loading-pulse"></div>
+  <div class="relative min-h-screen">
+    <!-- Orbes decorativos de fondo -->
+    <div class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div class="absolute -left-[10%] -top-[10%] h-[500px] w-[500px] rounded-full bg-accent-neon/5 blur-[120px]"></div>
+      <div class="absolute -right-[5%] top-[20%] h-[400px] w-[400px] rounded-full bg-accent-solar/5 blur-[100px]"></div>
     </div>
 
-    <div v-else-if="availableCourses.length === 0" class="student-empty px-6 py-14 text-center sm:px-10">
-      <div class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-accent-neon/10 text-accent-neon">
-        <span class="material-symbols-outlined text-4xl">explore</span>
+    <div class="relative z-10 space-y-12">
+      <StudentPageHeader
+        eyebrow="Programas de formación"
+        title="Catálogo de"
+        highlight="Cursos"
+        description="Explora las rutas disponibles, compara niveles y envía tu solicitud desde una vista más clara y cómoda."
+      />
+
+      <div v-if="loading" class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div v-for="i in 8" :key="i" class="h-80 rounded-[32px] course-card-glass loading-pulse"></div>
       </div>
-      <h2 class="font-lexend text-2xl font-black uppercase tracking-tight">No hay cursos disponibles</h2>
-      <p class="mx-auto mt-4 max-w-xl text-sm leading-7 text-on-surface/45">
-        Cuando se publiquen nuevas rutas formativas, apareceran aqui con sus niveles, precios y acceso rapido.
-      </p>
-    </div>
 
-    <div v-else class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      <article
-        v-for="curso in availableCourses"
-        :key="curso.id"
-        class="admin-card group flex h-full flex-col overflow-hidden rounded-[36px] border-admin-border transition-all duration-500 hover:-translate-y-1 hover:border-accent-neon/30"
-      >
-        <div class="relative h-52 overflow-hidden">
-          <img :src="getImageUrl(curso.miniatura_url)" class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-          <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
-          <span class="absolute bottom-4 left-4 rounded-xl bg-accent-neon px-3 py-1.5 text-[9px] font-black uppercase tracking-widest text-primary">
-            {{ curso.nivel || 'Basico' }}
-          </span>
+      <div v-else-if="availableCourses.length === 0" class="student-empty flex flex-col items-center justify-center p-16 text-center">
+        <div class="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-accent-neon/10 text-accent-neon">
+          <span class="material-symbols-outlined text-5xl">explore</span>
         </div>
+        <h2 class="font-lexend text-3xl font-black">No hay cursos disponibles</h2>
+        <p class="mx-auto mt-4 max-w-md text-on-surface/50">
+          Cuando se publiquen nuevas rutas formativas, aparecerán aquí con sus niveles, precios y acceso rápido.
+        </p>
+      </div>
 
-        <div class="flex flex-1 flex-col p-7">
-          <div class="mb-4 flex items-center justify-between gap-3">
-            <span class="rounded-full border border-accent-neon/20 bg-accent-neon/10 px-3 py-1 text-[8px] font-black uppercase tracking-[0.22em] text-accent-neon">
-              {{ curso.categoria?.nombre || 'Curso' }}
+      <div v-else class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <article
+          v-for="curso in availableCourses"
+          :key="curso.id"
+          class="course-card-glass group"
+        >
+          <div class="relative h-56 overflow-hidden">
+            <img :src="getImageUrl(curso.miniatura_url)" class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+            <div class="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent"></div>
+            <span class="absolute bottom-6 left-6 rounded-full bg-accent-neon px-4 py-2 text-[9px] font-black uppercase tracking-widest text-primary shadow-xl">
+              {{ curso.nivel || 'Básico' }}
             </span>
-            <span class="text-[10px] font-black uppercase tracking-widest text-on-surface/30">Acceso guiado</span>
           </div>
 
-          <h3 class="font-lexend text-xl font-black leading-tight transition-colors group-hover:text-accent-neon">
-            {{ curso.titulo }}
-          </h3>
-          <p class="mt-3 line-clamp-3 text-sm leading-6 text-on-surface/45">
-            {{ curso.descripcion_corta || 'Formacion tecnica especializada para avanzar con criterio y buen ritmo.' }}
-          </p>
-
-          <div class="mt-auto flex items-end justify-between gap-4 pt-8">
-            <div>
-              <p class="text-[9px] font-black uppercase tracking-[0.22em] text-on-surface/30">Inversion</p>
-              <span class="text-lg font-black text-accent-neon">{{ curso.precio || '0.00' }} <span class="text-[10px]">BS</span></span>
+          <div class="flex flex-1 flex-col p-8">
+            <div class="mb-6 flex items-center justify-between gap-3">
+              <span class="rounded-full border border-accent-neon/20 bg-accent-neon/10 px-3 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-accent-neon">
+                {{ curso.categoria?.nombre || 'Curso' }}
+              </span>
+              <span class="text-[10px] font-black uppercase tracking-widest text-on-surface/30">Acceso guiado</span>
             </div>
-            <button @click="$emit('enroll', curso.id)" class="btn-premium btn-primary-neon !rounded-xl !px-5 !py-3 !text-[10px]">
-              Inscribirme
-            </button>
+
+            <h3 class="font-lexend text-2xl font-black leading-tight text-on-surface group-hover:text-accent-neon transition-colors">
+              {{ curso.titulo }}
+            </h3>
+            <p class="mt-4 line-clamp-3 text-sm leading-relaxed text-on-surface/50">
+              {{ curso.descripcion_corta || 'Formación técnica especializada para avanzar con criterio y buen ritmo.' }}
+            </p>
+
+            <div class="mt-auto flex items-end justify-between gap-4 pt-10">
+              <div>
+                <p class="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface/30">Inversión</p>
+                <span class="text-2xl font-black text-accent-neon">{{ curso.precio || '0.00' }} <span class="text-[10px]">BS</span></span>
+              </div>
+              <button @click="$emit('enroll', curso.id)" class="btn-premium btn-primary-neon !rounded-2xl !px-8 !py-4 !text-[11px]">
+                Inscribirme
+              </button>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script setup>
