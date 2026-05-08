@@ -8,7 +8,7 @@
       <!-- Título de Sección -->
       <div class="text-center mb-16 md:mb-24 animate-in fade-in slide-in-from-top duration-1000">
         <span class="text-accent-neon font-black tracking-[0.5em] uppercase text-[10px] mb-6 block opacity-60">Por qué elegirnos</span>
-        <h2 class="font-lexend text-4xl md:text-7xl font-black text-on-surface tracking-tighter leading-none italic">Tu Futuro <span class="text-gradient-neon not-italic">Sostenible</span> Comienza Aquí</h2>
+        <h2 class="font-lexend text-4xl md:text-7xl font-black text-on-surface tracking-tighter leading-none ">Tu Futuro <span class="text-gradient-neon ">Sostenible</span> Comienza Aquí</h2>
       </div>
  
        <!-- Rejilla de Beneficios -->

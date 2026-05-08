@@ -4,7 +4,7 @@
     <div class="panel-hero p-6 sm:p-8">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <h2 class="text-3xl font-black text-on-surface font-lexend tracking-tighter">Gestión de <span class="text-accent-neon italic">Categorías</span></h2>
+          <h2 class="text-3xl font-black text-on-surface font-lexend tracking-tighter">Gestión de <span class="text-accent-neon ">Categorías</span></h2>
           <p class="text-on-surface/40 mt-1 text-xs font-bold uppercase tracking-widest">Organiza tus cursos por temáticas y áreas de conocimiento</p>
         </div>
         <button @click="toggleForm()" class="btn-premium btn-primary-neon !py-4 gap-2">
@@ -23,7 +23,7 @@
           </div>
           <div>
             <h3 class="text-lg font-black text-on-surface font-lexend tracking-tighter">
-              {{ isEditing ? 'Editar' : 'Nueva' }} <span class="text-accent-neon italic">Categoría</span>
+              {{ isEditing ? 'Editar' : 'Nueva' }} <span class="text-accent-neon ">Categoría</span>
             </h3>
             <p class="text-[10px] font-bold text-on-surface/40 uppercase tracking-widest">Completa los datos de la categoría</p>
           </div>

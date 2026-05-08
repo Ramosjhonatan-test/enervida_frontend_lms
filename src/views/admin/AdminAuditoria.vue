@@ -4,7 +4,7 @@
     <div class="panel-hero p-6 sm:p-8">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <h2 class="text-3xl font-black text-on-surface font-lexend tracking-tighter">Bitácora de <span class="text-accent-neon italic">Auditoría</span></h2>
+          <h2 class="text-3xl font-black text-on-surface font-lexend tracking-tighter">Bitácora de <span class="text-accent-neon ">Auditoría</span></h2>
           <p class="text-on-surface/40 mt-1 text-xs font-bold uppercase tracking-widest">Registro de todas las acciones realizadas en el sistema</p>
         </div>
         <button @click="fetchLogs" class="btn-premium btn-secondary-glass !py-4 gap-2">

@@ -10,7 +10,7 @@
         <span class="text-accent-neon font-black tracking-[0.5em] uppercase text-[10px] mb-8 block drop-shadow-sm">Próximo paso</span>
         <h2 class="font-lexend text-4xl md:text-8xl text-on-surface font-black mb-10 leading-none tracking-tighter">
           ¿Listo para <br/>
-          <span class="text-gradient-neon italic drop-shadow-2xl">Liderar el Cambio?</span>
+          <span class="text-gradient-neon  drop-shadow-2xl">Liderar el Cambio?</span>
         </h2>
         <p class="text-on-surface/70 text-lg md:text-2xl max-w-2xl mx-auto mb-16 font-medium leading-relaxed">
           Únete a la red más exclusiva de profesionales en energías renovables. Tu futuro sostenible comienza hoy.

@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       <div class="text-center mb-16 md:mb-24 animate-in fade-in slide-in-from-top duration-1000">
         <span class="text-accent-neon font-black tracking-[0.5em] uppercase text-[10px] mb-4 block">Lo que dicen de nosotros</span>
-        <h2 class="font-lexend text-4xl md:text-5xl font-black text-on-surface italic">Historias de <span class="text-gradient-neon not-italic">Éxito</span></h2>
+        <h2 class="font-lexend text-4xl md:text-5xl font-black text-on-surface ">Historias de <span class="text-gradient-neon not-italic">Éxito</span></h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
         <div v-for="(testimonial, index) in testimonials" :key="index"
@@ -13,7 +13,7 @@
           <!-- Ícono de Cita -->
           <span :class="['text-8xl md:text-9xl absolute -top-6 -left-6 md:-top-8 md:-left-8 opacity-10 font-serif transition-all duration-500 group-hover/card:opacity-20 group-hover/card:scale-110', testimonial.iconClass]">“</span>
           
-          <p class="text-on-surface/80 italic mb-8 md:mb-12 leading-relaxed text-lg font-light relative z-10">
+          <p class="text-on-surface/80  mb-8 md:mb-12 leading-relaxed text-lg font-light relative z-10">
             "{{ testimonial.text }}"
           </p>
           
