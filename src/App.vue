@@ -8,12 +8,12 @@ const isLoading = ref(true)
 // Lógica de Tema
 const initTheme = () => {
   const savedTheme = localStorage.getItem('theme')
-  // Default to light; only enable dark when the user chose it.
-  if (savedTheme === 'dark') {
-    document.documentElement.classList.add('dark')
-  } else {
+  // Default to dark; only enable light when the user explicitly chose it.
+  if (savedTheme === 'light') {
     document.documentElement.classList.remove('dark')
-    if (!savedTheme) localStorage.setItem('theme', 'light')
+  } else {
+    document.documentElement.classList.add('dark')
+    if (!savedTheme) localStorage.setItem('theme', 'dark')
   }
 }
 
