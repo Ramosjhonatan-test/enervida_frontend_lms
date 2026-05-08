@@ -16,8 +16,7 @@
       <!-- Header -->
       <div class="text-center mb-10">
         <div class="inline-block relative cursor-pointer group" @click="$router.push('/')">
-          <h1 class="text-5xl md:text-6xl font-black text-on-surface tracking-tighter italic neon-text mb-2 group-hover:scale-105 transition-transform">ENERVIDA</h1>
-          <div class="absolute inset-0 bg-accent-neon/30 blur-3xl rounded-full scale-150 opacity-20"></div>
+          <AppLogo img-class="h-14 md:h-20 w-auto object-contain mx-auto mb-2 group-hover:scale-105 transition-transform" />
         </div>
         <p class="text-on-surface-variant tracking-[0.4em] uppercase text-[9px] font-bold opacity-70">Renewable Energy Elite</p>
       </div>
@@ -77,6 +76,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
+import AppLogo from '@/components/AppLogo.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
@@ -158,7 +158,7 @@ const handleReset = async () => {
     box-shadow: var(--shadow-premium);
 }
 
-.neon-text { text-shadow: 0 0 30px var(--accent-neon); }
+
 
 .input-cyber {
     width: 100%;

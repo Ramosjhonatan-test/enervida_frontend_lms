@@ -3,9 +3,8 @@
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid md:grid-cols-4 gap-20 mb-24">
         <div class="col-span-2">
-          <div class="text-4xl font-black text-on-surface tracking-tighter font-lexend italic mb-10 flex items-center gap-3">
-            <span class="w-10 h-10 bg-accent-neon rounded-xl flex items-center justify-center text-primary not-italic shadow-lg shadow-accent-neon/20">E</span>
-            <span class="text-gradient-neon">ENERVIDA</span>
+          <div class="mb-10">
+            <AppLogo img-class="h-14 w-auto object-contain" />
           </div>
           <p class="text-on-surface/70 max-w-sm font-medium text-lg leading-relaxed">
             Elevando los estándares de la educación técnica en energías renovables para un futuro boliviano más limpio y tecnológicamente avanzado.
@@ -48,6 +47,7 @@
 </template>
 
 <script setup>
+import AppLogo from './AppLogo.vue'
 const currentYear = new Date().getFullYear();
 </script>
 

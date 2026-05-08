@@ -2,9 +2,8 @@
   <header class="fixed top-0 w-full z-[999] transition-all duration-500" :class="[isScrolled ? 'py-2 px-2 md:py-4 md:px-6' : 'py-4 px-4 md:py-8 md:px-12']">
     <nav class="max-w-7xl mx-auto glass-premium rounded-full h-14 md:h-20 px-4 md:px-10 flex items-center justify-between shadow-2xl relative">
       <!-- Logo -->
-      <div @click="$router.push('/')" class="flex items-center gap-2 md:gap-3 cursor-pointer shrink-0">
-        <div class="w-8 h-8 md:w-11 md:h-11 bg-accent-neon rounded-xl rotate-12 flex items-center justify-center text-primary text-sm md:text-2xl font-black shadow-[0_0_20px_rgba(16,255,157,0.4)] transition-transform hover:rotate-0">E</div>
-        <span class="text-lg md:text-2xl font-black text-on-surface tracking-tighter font-lexend italic logo-text">ENERVIDA</span>
+      <div @click="$router.push('/')" class="flex items-center cursor-pointer shrink-0">
+        <AppLogo img-class="h-8 md:h-11 w-auto object-contain logo-img" />
       </div>
  
       <!-- Desktop Menu -->
@@ -56,6 +55,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import ThemeToggle from './ThemeToggle.vue'
+import AppLogo from './AppLogo.vue'
 
 const isMenuOpen = ref(false)
 const isScrolled = ref(false)
@@ -101,6 +101,6 @@ onUnmounted(() => {
 }
 
 @media (max-width: 400px) {
-    .logo-text { display: none; }
+    .logo-img { height: 1.5rem; }
 }
 </style>

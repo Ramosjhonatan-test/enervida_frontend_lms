@@ -2,10 +2,9 @@
   <aside class="w-64 bg-surface-container h-screen border-r border-input-border fixed top-0 left-0 pt-6">
     <div class="px-6">
       <div class="flex items-center gap-3 mb-6">
-        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">E</div>
-        <div>
-          <div class="text-sm font-semibold">ENERVIDA</div>
-          <div class="text-xs text-on-surface-variant">Admin panel</div>
+        <div class="min-w-0">
+          <AppLogo img-class="h-10 w-auto object-contain" />
+          <div class="text-xs text-on-surface-variant mt-1">Admin panel</div>
         </div>
       </div>
       <nav class="space-y-1">
@@ -35,5 +34,6 @@
 </template>
 
 <script setup>
+import AppLogo from '@/components/AppLogo.vue'
 // Sidebar for admin sections
 </script>

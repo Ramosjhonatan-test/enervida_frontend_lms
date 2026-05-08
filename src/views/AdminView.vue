@@ -12,12 +12,12 @@
       ]"
     >
       <div class="flex h-20 items-center gap-3 px-5">
-        <div class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-accent-neon text-primary shadow-neon-sm">
-          <span class="font-lexend text-xl font-black italic">E</span>
+        <div v-if="isSidebarCollapsed && !isMenuOpen" class="grid h-11 w-11 shrink-0 place-items-center">
+          <AppLogo img-class="h-11 w-11 object-contain" />
         </div>
-        <div v-if="!isSidebarCollapsed || isMenuOpen" class="min-w-0">
-          <p class="font-lexend text-lg font-black italic tracking-tight">ENERVIDA</p>
-          <p class="text-[10px] font-black uppercase tracking-[0.26em] text-on-surface-variant">Campus admin</p>
+        <div v-else class="min-w-0">
+          <AppLogo img-class="h-12 w-auto object-contain" />
+          <p class="text-[10px] font-black uppercase tracking-[0.26em] text-on-surface-variant mt-1">Campus admin</p>
         </div>
         <button
           class="admin-soft-hover ml-auto grid h-10 w-10 place-items-center rounded-xl text-on-surface-variant hover:text-on-surface lg:hidden"
@@ -151,6 +151,7 @@ import { computed, ref, watch, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import ThemeToggle from '@/components/ThemeToggle.vue'
+import AppLogo from '@/components/AppLogo.vue'
 
 const route = useRoute()
 const router = useRouter()

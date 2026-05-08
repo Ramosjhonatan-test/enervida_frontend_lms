@@ -21,13 +21,7 @@
           </button>
 
           <router-link to="/student/dashboard" class="flex min-w-0 items-center gap-3">
-          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-neon shadow-lg shadow-accent-neon/20">
-            <span class="material-symbols-outlined text-primary">school</span>
-          </div>
-            <div class="min-w-0">
-              <span class="block truncate font-lexend text-lg font-black uppercase tracking-tight md:text-xl">Ener<span class="text-accent-neon">vida</span></span>
-              <span class="hidden text-[10px] font-black uppercase tracking-[0.22em] text-on-surface/35 sm:block">Campus del estudiante</span>
-            </div>
+            <AppLogo img-class="h-10 md:h-12 w-auto object-contain" />
           </router-link>
 
           <div class="hidden items-center gap-1 lg:flex">
@@ -175,6 +169,7 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import api from '@/services/api'
 import { useAuthStore } from '@/stores/auth'
+import AppLogo from '@/components/AppLogo.vue'
 
 const route = useRoute()
 const router = useRouter()

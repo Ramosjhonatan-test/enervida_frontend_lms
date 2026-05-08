@@ -15,8 +15,7 @@
       <!-- Header -->
       <div class="text-center mb-8 md:mb-12 animate-in fade-in slide-in-from-top duration-700">
         <div class="inline-block relative cursor-pointer group mb-4" @click="$router.push('/')">
-          <h1 class="text-5xl md:text-7xl font-black text-on-surface tracking-tighter italic neon-text transition-all duration-500 group-hover:scale-105 group-hover:rotate-1">ENERVIDA</h1>
-          <div class="absolute inset-0 bg-accent-neon/40 blur-[80px] rounded-full scale-150 opacity-20 group-hover:opacity-40 transition-opacity"></div>
+          <AppLogo img-class="h-16 md:h-24 w-auto object-contain mx-auto transition-all duration-500 group-hover:scale-105" />
         </div>
         <p class="text-on-surface-variant tracking-[0.5em] uppercase text-[10px] font-black opacity-80">Elite Renewable Education</p>
       </div>
@@ -130,6 +129,7 @@
 
 <script setup>
 import { onMounted, ref, reactive } from 'vue'
+import AppLogo from '@/components/AppLogo.vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useTokenClient } from 'vue3-google-signin'
@@ -231,7 +231,7 @@ const handleRegister = async () => {
     box-shadow: var(--shadow-premium);
 }
 
-.neon-text { text-shadow: 0 0 30px var(--accent-neon); }
+
 
 .input-cyber {
     width: 100%;

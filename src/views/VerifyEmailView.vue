@@ -14,7 +14,7 @@
     <main class="relative z-20 w-full max-w-[440px] px-6">
       <!-- Header -->
       <div class="text-center mb-10">
-        <h1 class="text-5xl md:text-6xl font-black text-on-surface tracking-tighter italic neon-text mb-2">ENERVIDA</h1>
+        <AppLogo img-class="h-14 md:h-20 w-auto object-contain mx-auto mb-2" />
         <p class="text-on-surface-variant tracking-[0.4em] uppercase text-[9px] font-bold opacity-70">Verificación de Identidad</p>
       </div>
  
@@ -55,6 +55,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
+import AppLogo from '@/components/AppLogo.vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
@@ -125,7 +126,7 @@ onMounted(async () => {
     box-shadow: var(--shadow-premium);
 }
 
-.neon-text { text-shadow: 0 0 30px var(--accent-neon); }
+
 
 .loader-cyber {
     width: 48px;
