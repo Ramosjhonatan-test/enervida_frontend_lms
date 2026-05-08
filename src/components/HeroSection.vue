@@ -1,42 +1,83 @@
 <template>
-  <section class="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden">
-    <div class="absolute inset-0 z-0 overflow-hidden">
-      <img alt="Renewable Energy Background" class="w-full h-full object-cover opacity-[0.08] dark:opacity-20 scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYqEN0yv9-xDfGML8BKVaLeKMnIqE6-OkjzGKoFXPJiU9FFw9zhnC1q8mFipr3w9iO0l9J6HhoDTOOHd9NOhFA2Cukv90x29ok1bgv7ZhfNMGcRrnlgUOuJkrmLXQtc1X054fmQDRsa1HUvfUSao1VGcxKpSNz-SUI_kbb68TGASCSti4Ls-uncakV98Yo42l9mVA8SrOtzZNlUSQOqQFUaJxJ9CAcKG7iWL9pbkSXizSMkipm2ui5xkzQTxjPZKpHUXZQEq2PHxML"/>
-      <div class="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background"></div>
+  <section class="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-background">
+    <!-- Soft Background Elements -->
+    <div class="absolute inset-0 z-0 opacity-30 dark:opacity-20 pointer-events-none">
+      <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-accent-neon/10 rounded-full blur-[120px]"></div>
+      <div class="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-accent-solar/5 rounded-full blur-[100px]"></div>
     </div>
-    <div class="container max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center relative z-10">
-      <!-- Contenido Principal con animación de entrada -->
-      <div class="space-y-6 lg:space-y-12 animate-in slide-in-from-left fade-in duration-1000">
-        <div class="inline-flex items-center gap-3 px-5 py-2.5 glass-premium rounded-full">
-          <span class="w-2.5 h-2.5 bg-accent-neon rounded-full glow-neon animate-pulse"></span>
-          <span class="text-[12px] font-black tracking-[0.3em] uppercase text-on-surface">Líderes en Innovación Solar</span>
+
+    <div class="container max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10">
+      <!-- Content Column -->
+      <div class="space-y-8 animate-in fade-in slide-in-from-left duration-1000">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent-neon/10 border border-accent-neon/20">
+          <span class="w-2 h-2 bg-accent-neon rounded-full animate-pulse"></span>
+          <span class="text-[10px] font-bold tracking-widest uppercase text-accent-neon">Academia de Energía Sostenible</span>
         </div>
-        <h1 class="font-lexend font-black text-5xl md:text-7xl text-on-surface leading-tight tracking-tighter">
-          El Futuro es <br/>
-          <span class="text-gradient-neon italic drop-shadow-2xl">Sostenible.</span>
+        
+        <h1 class="font-lexend font-black text-5xl md:text-6xl lg:text-7xl text-on-surface leading-[1.1] tracking-tight">
+          Impulsa tu carrera en <br/>
+          <span class="text-gradient-neon">Energía Renovable</span>
         </h1>
-        <p class="text-lg text-on-surface/60 max-w-lg leading-relaxed font-light">
-          Domina las tecnologías que están transformando la matriz energética global. Educación técnica de élite con estándares europeos.
+        
+        <p class="text-lg md:text-xl text-on-surface-variant max-w-xl leading-relaxed font-medium">
+          Domina las tecnologías que están transformando el mundo con educación técnica de élite y certificación internacional.
         </p>
-        <div class="flex flex-col sm:flex-row gap-6 md:gap-8 pt-4">
-          <button class="btn-premium btn-primary-neon !px-12 !py-5 !text-sm shadow-[0_20px_50px_rgba(16,255,157,0.3)] hover:shadow-[0_20px_60px_rgba(16,255,157,0.5)]">
-            Explorar Academia
+        
+        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+          <button @click="$router.push('/register')" class="btn-premium btn-primary-neon !px-10 !py-4 shadow-neon-sm">
+            Empezar ahora
           </button>
-          <button class="btn-premium btn-secondary-glass !px-12 !py-5 !text-sm border-on-surface/20 shadow-premium">
-            Ver Proyectos
+          <button class="btn-premium btn-secondary-glass !px-10 !py-4">
+            Ver Cursos
           </button>
+        </div>
+
+        <div class="flex items-center gap-6 pt-8 border-t border-on-surface/5">
+          <div class="flex -space-x-3">
+            <div v-for="i in 4" :key="i" class="w-10 h-10 rounded-full border-2 border-background bg-surface-container flex items-center justify-center text-[10px] font-bold overflow-hidden">
+              <img :src="`https://i.pravatar.cc/100?img=${i+10}`" alt="User" />
+            </div>
+          </div>
+          <p class="text-sm text-on-surface-variant font-semibold">
+            <span class="text-on-surface font-bold">+500 profesionales</span> ya están aprendiendo
+          </p>
         </div>
       </div>
-      <!-- Imagen y Mini Badge con animación de entrada -->
-      <div class="hidden lg:block relative animate-in slide-in-from-right fade-in duration-1000 delay-200">
-        <div class="w-full aspect-[4/5] glass-premium rounded-premium rotate-3 relative overflow-hidden group floating-element">
-          <img alt="Tech Hero" class="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCddjxVlUOd7L2eWfILd8Ze7gG7_oOQ1llSZKOOoox6ouPmqXXHVlsaBch1cdGWimZdAndUSgWT12XMqsEra67n7q4bweVeHEaWyQh6qwbbLV5vcveqRtFnG52ogDwMmzb2g8ndmC5K2ikMliyC1YG7VtWv6qmnTneAvqreq61iSvB-NJqYj_BAIjxyL5L_2d84UZDUEQ6w7V4O5hH4xDHxQZF5n1wSxy12U-lt4cIh2rqVKOHmYLGm2_5Z9eWi1DvDwD02aznper-y"/>
-          <div class="absolute inset-0 bg-gradient-to-tr from-primary/40 to-transparent"></div>
+
+      <!-- Visual Column -->
+      <div class="relative animate-in fade-in slide-in-from-right duration-1000 delay-200">
+        <div class="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border border-white/5 aspect-square lg:aspect-[4/3] group">
+          <img 
+            alt="Sustainable Energy Tech" 
+            class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 group-hover:rotate-1" 
+            src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60"></div>
+          
+          <!-- Floating UI Element with Enhanced Glass -->
+          <div class="absolute bottom-8 left-8 right-8 p-8 glass-premium rounded-[2rem] border border-white/10 shadow-2xl animate-float backdrop-blur-3xl bg-white/5">
+            <div class="flex items-center justify-between">
+              <div class="space-y-1">
+                <div class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-accent-neon rounded-full animate-pulse"></span>
+                  <p class="text-[9px] uppercase tracking-[0.3em] font-black text-accent-neon">Sesión en Vivo</p>
+                </div>
+                <h4 class="text-base font-black text-on-surface font-lexend">Sistemas Fotovoltaicos Avanzados</h4>
+                <p class="text-[11px] text-on-surface-variant font-medium">Instructor: Ing. Carlos Méndez</p>
+              </div>
+              <div class="flex flex-col items-center gap-2">
+                <div class="bg-accent-neon text-primary p-3 rounded-2xl shadow-neon-sm cursor-pointer hover:scale-110 transition-transform">
+                  <span class="material-symbols-outlined text-2xl">play_arrow</span>
+                </div>
+                <span class="text-[8px] font-black uppercase tracking-widest text-on-surface-variant">Unirse</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="absolute -bottom-10 -left-10 w-52 h-52 glass-premium rounded-premium -rotate-6 flex flex-col items-center justify-center p-6 text-center border-accent-neon/30">
-          <div class="text-4xl font-black text-accent-neon glow-neon">500+</div>
-          <div class="text-[11px] font-black uppercase tracking-[0.2em] text-on-surface/60 mt-2">Expertos<br/>Certificados</div>
-        </div>
+
+        <!-- Background Decorative Orbs -->
+        <div class="absolute -top-20 -right-20 w-64 h-64 bg-accent-solar/10 rounded-full blur-[100px] animate-pulse"></div>
+        <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-accent-neon/10 rounded-full blur-[100px] animate-pulse delay-700"></div>
       </div>
     </div>
   </section>
@@ -47,10 +88,18 @@
 
 <style scoped>
 @keyframes float {
-    0%, 100% { transform: translateY(0) rotate(3deg); }
-    50% { transform: translateY(-15px) rotate(1deg); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
-.floating-element {
-    animation: float 5s ease-in-out infinite;
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.text-gradient-neon {
+  background: linear-gradient(135deg, var(--accent-neon) 0%, var(--accent-solar) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 </style>

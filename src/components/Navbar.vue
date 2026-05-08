@@ -32,8 +32,7 @@
       <!-- Mobile Menu Dropdown -->
       <transition name="mobile-menu">
         <div v-if="isMenuOpen" 
-             class="absolute top-[calc(100%+0.75rem)] left-0 w-full rounded-[2rem] p-8 flex flex-col gap-6 lg:hidden border border-on-surface/10 shadow-[0_30px_60px_rgba(0,0,0,0.3)] z-[1000] overflow-hidden transition-all duration-300"
-             style="background-color: var(--background); opacity: 1 !important;">
+             class="absolute top-[calc(100%+0.75rem)] left-0 w-full glass-premium rounded-[2.5rem] p-8 flex flex-col gap-6 lg:hidden shadow-[0_40px_80px_rgba(0,0,0,0.5)] z-[1000] overflow-hidden transition-all duration-300">
           <div class="absolute inset-0 bg-accent-neon/5 pointer-events-none"></div>
           
           <router-link to="/" class="relative z-10 text-accent-neon font-black uppercase tracking-[0.3em] text-xs py-2" @click="isMenuOpen = false">Inicio</router-link>
