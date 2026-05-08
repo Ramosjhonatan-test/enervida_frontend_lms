@@ -9,7 +9,7 @@
     />
 
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-      <section class="admin-card group rounded-[40px] border-admin-border p-8 text-center transition-all hover:border-accent-neon/30">
+      <section class="course-card-premium group rounded-[40px] border-admin-border p-8 text-center transition-all hover:border-accent-neon/30">
         <div class="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-3xl bg-accent-neon/10 text-accent-neon shadow-inner">
           <span class="material-symbols-outlined text-4xl">contact_support</span>
         </div>
@@ -18,7 +18,7 @@
         <button class="btn-premium btn-primary-neon mt-8 !w-full !py-4 !text-[10px]">Ir a FAQs</button>
       </section>
 
-      <section class="admin-card group rounded-[40px] border-admin-border bg-gradient-to-b from-accent-neon/5 to-transparent p-8 text-center transition-all hover:border-accent-neon/30">
+      <section class="course-card-premium group rounded-[40px] border-admin-border bg-gradient-to-b from-accent-neon/5 to-transparent p-8 text-center transition-all hover:border-accent-neon/30">
         <div class="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-3xl bg-accent-neon text-primary shadow-neon-sm">
           <span class="material-symbols-outlined text-4xl">chat</span>
         </div>
@@ -30,7 +30,7 @@
         </a>
       </section>
 
-      <section class="admin-card group rounded-[40px] border-admin-border p-8 text-center transition-all hover:border-accent-neon/30">
+      <section class="course-card-premium group rounded-[40px] border-admin-border p-8 text-center transition-all hover:border-accent-neon/30">
         <div class="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-3xl bg-accent-neon/10 text-accent-neon shadow-inner">
           <span class="material-symbols-outlined text-4xl">mail</span>
         </div>
@@ -40,7 +40,7 @@
       </section>
     </div>
 
-    <section class="student-panel p-8 md:p-10">
+    <section class="course-card-premium p-8 md:p-10">
       <div class="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
           <p class="text-[10px] font-black uppercase tracking-[0.24em] text-accent-neon">Monitoreo</p>

@@ -15,7 +15,7 @@
       />
 
       <div v-if="loading" class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        <div v-for="i in 8" :key="i" class="h-80 rounded-[32px] course-card-glass loading-pulse"></div>
+        <div v-for="i in 8" :key="i" class="h-80 rounded-[32px] course-card-premium loading-pulse"></div>
       </div>
 
       <div v-else-if="availableCourses.length === 0" class="student-empty flex flex-col items-center justify-center p-16 text-center">
@@ -32,11 +32,11 @@
         <article
           v-for="curso in availableCourses"
           :key="curso.id"
-          class="course-card-glass group"
+          class="course-card-premium group"
         >
           <div class="relative h-56 overflow-hidden">
             <img :src="getImageUrl(curso.miniatura_url)" class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-            <div class="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
             <span class="absolute bottom-6 left-6 rounded-full bg-accent-neon px-4 py-2 text-[9px] font-black uppercase tracking-widest text-primary shadow-xl">
               {{ curso.nivel || 'Básico' }}
             </span>

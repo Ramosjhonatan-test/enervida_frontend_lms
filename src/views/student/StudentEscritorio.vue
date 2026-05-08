@@ -24,7 +24,7 @@
             <!-- Curso Principal / Hero -->
             <section v-if="ultimoCurso" class="panel-hero group relative p-8 md:p-12 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div class="flex flex-col gap-10 xl:flex-row xl:items-center">
-                <div class="relative aspect-video w-full shrink-0 overflow-hidden rounded-[32px] border border-white/10 shadow-2xl xl:w-[320px]">
+                <div class="relative aspect-video w-full shrink-0 overflow-hidden rounded-[32px] border border-on-surface/10 shadow-2xl xl:w-[320px]">
                   <img :src="getImageUrl(ultimoCurso.curso?.miniatura_url)" class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
                   <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
                 </div>
@@ -69,14 +69,14 @@
                 <router-link to="/student/my-courses" class="text-[10px] font-black uppercase tracking-widest text-accent-neon hover:underline">Ver todos</router-link>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div v-for="ins in otrosCursos" :key="ins.id" class="glass-card-premium group relative flex items-center gap-6 p-5 transition-all hover:bg-white/[0.05] border-white/5">
-                  <div class="h-20 w-24 shrink-0 overflow-hidden rounded-2xl border border-white/5 bg-on-surface/5">
+                <div v-for="ins in otrosCursos" :key="ins.id" class="course-card-premium group relative flex items-center gap-6 p-5 transition-all">
+                  <div class="h-20 w-24 shrink-0 overflow-hidden rounded-2xl border border-on-surface/5 bg-on-surface/5">
                     <img :src="getImageUrl(ins.curso?.miniatura_url)" class="h-full w-full object-cover" />
                   </div>
                   <div class="min-w-0 flex-grow">
                     <h4 class="truncate font-lexend text-base font-black">{{ ins.curso?.titulo }}</h4>
                     <div class="mt-3 flex items-center gap-4">
-                      <div class="h-1.5 flex-grow overflow-hidden rounded-full bg-white/5">
+                      <div class="h-1.5 flex-grow overflow-hidden rounded-full bg-on-surface/5">
                         <div class="h-full bg-accent-neon/40 transition-all" :style="{ width: `${ins.porcentaje_progreso || 0}%` }"></div>
                       </div>
                       <span class="text-[9px] font-black text-on-surface/30">{{ Math.round(ins.porcentaje_progreso || 0) }}%</span>
@@ -94,7 +94,7 @@
                 <router-link to="/student/catalog" class="text-[10px] font-black uppercase tracking-widest text-accent-solar hover:underline">Ver catálogo</router-link>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                <div v-for="curso in availableCourses.slice(0, 3)" :key="curso.id" class="glass-card-premium group overflow-hidden flex flex-col border-white/5">
+                <div v-for="curso in availableCourses.slice(0, 3)" :key="curso.id" class="course-card-premium group overflow-hidden flex flex-col">
                   <div class="relative aspect-video overflow-hidden">
                     <img :src="getImageUrl(curso.miniatura_url)" class="h-full w-full object-cover transition-transform group-hover:scale-110" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -112,7 +112,7 @@
             </section>
 
             <!-- Estado vacío si no hay cursos -->
-            <section v-if="!ultimoCurso && inscripciones.length === 0" class="student-empty flex flex-col items-center justify-center p-16 text-center rounded-[48px] border-dashed">
+            <section v-if="!ultimoCurso && inscripciones.length === 0" class="course-card-premium flex flex-col items-center justify-center p-16 text-center rounded-[48px] border-dashed">
               <div class="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-accent-neon/10 text-accent-neon">
                 <span class="material-symbols-outlined text-4xl">school</span>
               </div>
@@ -125,7 +125,7 @@
           <!-- Sidebar Column -->
           <aside class="space-y-10">
             <!-- Welcome / Announcements -->
-            <div class="glass-card-premium p-8 border-accent-neon/10 bg-accent-neon/[0.02] rounded-[40px]">
+            <div class="course-card-premium p-8 rounded-[40px]">
               <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-neon text-primary mb-6">
                 <span class="material-symbols-outlined">campaign</span>
               </div>
@@ -133,7 +133,7 @@
               <p class="text-sm text-on-surface/60 leading-relaxed">
                 ¡Nueva sección de laboratorios próximamente! Prepárate para aplicar tus conocimientos en entornos reales.
               </p>
-              <div class="mt-6 pt-6 border-t border-white/5 flex items-center justify-between">
+              <div class="mt-6 pt-6 border-t border-on-surface/5 flex items-center justify-between">
                 <span class="text-[9px] font-black uppercase tracking-widest text-on-surface/30">Hace 2 horas</span>
                 <button class="text-[9px] font-black uppercase tracking-widest text-accent-neon">Saber más</button>
               </div>
@@ -141,12 +141,12 @@
 
             <!-- Stats Grid in Sidebar -->
             <div class="grid grid-cols-2 gap-4">
-              <div class="glass-card-premium p-6 rounded-[32px] border-white/5 bg-white/[0.01]">
+              <div class="course-card-premium p-6 rounded-[32px]">
                 <div class="text-[9px] font-black uppercase tracking-widest text-on-surface/30 mb-3">Activos</div>
                 <div class="text-3xl font-lexend font-black text-accent-neon">{{ cursosActivos.length }}</div>
                 <div class="mt-2 text-[10px] font-bold text-on-surface/20 uppercase tracking-tighter">Cursos hoy</div>
               </div>
-              <div class="glass-card-premium p-6 rounded-[32px] border-white/5 bg-white/[0.01]">
+              <div class="course-card-premium p-6 rounded-[32px]">
                 <div class="text-[9px] font-black uppercase tracking-widest text-on-surface/30 mb-3">Éxito</div>
                 <div class="text-3xl font-lexend font-black text-accent-solar">{{ cursosCompletados.length }}</div>
                 <div class="mt-2 text-[10px] font-bold text-on-surface/20 uppercase tracking-tighter">Terminados</div>
@@ -161,7 +161,7 @@
               </div>
               
               <div class="space-y-4">
-                <div v-for="clase in liveClasses.slice(0, 3)" :key="clase.id" class="glass-card-premium p-5 flex flex-col gap-3 border-white/5 hover:border-accent-neon/20 transition-all">
+                <div v-for="clase in liveClasses.slice(0, 3)" :key="clase.id" class="course-card-premium p-5 flex flex-col gap-3 transition-all hover:border-accent-neon/20">
                   <div class="flex items-center justify-between">
                     <span class="text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded bg-accent-neon/10 text-accent-neon border border-accent-neon/10">Clase</span>
                     <span class="text-[9px] font-bold text-on-surface/30">{{ formatDate(clase.fecha) }}</span>
@@ -179,7 +179,7 @@
             </section>
             
             <!-- Quick Link Support -->
-            <router-link to="/student/support" class="flex items-center justify-between p-6 glass-card-premium rounded-[32px] border-white/5 group overflow-hidden">
+            <router-link to="/student/support" class="flex items-center justify-between p-6 course-card-premium rounded-[32px] group overflow-hidden">
               <div class="relative z-10">
                 <p class="text-[9px] font-black uppercase tracking-[0.2em] text-accent-solar mb-1">¿Necesitas ayuda?</p>
                 <p class="text-sm font-black">Centro de Soporte</p>

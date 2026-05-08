@@ -4,35 +4,47 @@
 
 @layer base {
   :root {
-    --background: #F8FAFC;
+    /* Fondo ligeramente más gris para resaltar las tarjetas blancas */
+    --background: #F3F4F6;
+    
+    /* Textos y Acentos (sin tocar según instrucción) */
     --on-surface: #0F172A;
     --on-surface-variant: #64748B;
     --primary: #064e3b;
     --accent-neon: #059669;
     --accent-solar: #EAB308;
+    
+    /* Superficies en Blanco Puro */
     --surface-container: #FFFFFF;
-    --surface-card: rgba(255, 255, 255, 0.8);
-    --surface-glass: rgba(255, 255, 255, 0.72);
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(0, 0, 0, 0.05);
-    --input-bg: rgba(0, 0, 0, 0.02);
-    --input-bg-focus: rgba(255, 255, 255, 0.92);
-    --input-border: rgba(0, 0, 0, 0.08);
-    --admin-border: rgba(15, 23, 42, 0.08);
+    --surface-card: #FFFFFF;
+    --surface-glass: rgba(255, 255, 255, 0.9);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    
+    /* Bordes y Sombras muy suaves */
+    --glass-border: #E5E7EB;
+    --input-bg: #FFFFFF;
+    --input-bg-focus: #FFFFFF;
+    --input-border: #E5E7EB;
+    
+    --admin-border: #E5E7EB;
     --admin-border-strong: rgba(5, 150, 105, 0.22);
-    --admin-soft: rgba(255, 255, 255, 0.64);
-    --admin-soft-hover: rgba(15, 23, 42, 0.05);
-    --shadow-premium: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+    --admin-soft: rgba(255, 255, 255, 0.9);
+    --admin-soft-hover: rgba(15, 23, 42, 0.03);
+    
+    /* Sombra suave y difuminada para despegar del fondo gris */
+    --shadow-premium: 0 10px 40px -10px rgba(0, 0, 0, 0.06);
+    
     --primary-container: #ecfdf5;
     --secondary-container: #fefce8;
     --tertiary-container: #f0f9ff;
     --on-primary-container: #065f46;
     --on-secondary-container: #854d0e;
     --on-tertiary-container: #075985;
-    --clay-surface: #e9eef5;
-    --clay-surface-soft: #f4f7fb;
-    --clay-shadow-dark: rgba(15, 23, 42, 0.16);
-    --clay-shadow-light: rgba(255, 255, 255, 0.95);
+    
+    --clay-surface: #F9FAFB;
+    --clay-surface-soft: #FFFFFF;
+    --clay-shadow-dark: rgba(0, 0, 0, 0.05);
+    --clay-shadow-light: #FFFFFF;
   }
 
   html.dark {
@@ -288,6 +300,34 @@
       -10px -10px 24px -8px var(--clay-shadow-light),
       inset 1px 1px 2px rgba(255, 255, 255, 0.28);
     transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+  }
+
+  .course-card-premium {
+    background: var(--surface-container);
+    border: 1px solid color-mix(in srgb, var(--on-surface) 5%, transparent 95%);
+    border-radius: 40px;
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.04);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .course-card-premium:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+    border-color: color-mix(in srgb, var(--accent-neon) 20%, transparent 80%);
+  }
+
+  .dark .course-card-premium {
+    background: color-mix(in srgb, var(--surface-container) 60%, transparent 40%);
+    border-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .dark .course-card-premium:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+    border-color: color-mix(in srgb, var(--accent-neon) 40%, transparent 60%);
   }
 
   .glass-shell {

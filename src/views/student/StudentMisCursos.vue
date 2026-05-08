@@ -15,7 +15,7 @@
       />
 
       <div v-if="loading" class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <div v-for="i in 3" :key="i" class="h-96 rounded-[40px] course-card-glass loading-pulse"></div>
+        <div v-for="i in 3" :key="i" class="h-96 course-card-premium loading-pulse"></div>
       </div>
 
       <div v-else-if="inscripciones.length === 0" class="student-empty flex flex-col items-center justify-center p-16 text-center">
@@ -33,11 +33,11 @@
         <article
           v-for="ins in inscripciones"
           :key="ins.id"
-          class="course-card-glass group"
+          class="course-card-premium group"
         >
           <div class="relative h-56 overflow-hidden">
             <img :src="getImageUrl(ins.curso?.miniatura_url)" class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-            <div class="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
             <div class="absolute bottom-6 left-6 flex flex-wrap gap-2">
               <span
                 :class="[
@@ -49,7 +49,7 @@
               >
                 {{ ins.estado === 'COMPLETADO' ? '✓ Completado' : ins.estado }}
               </span>
-              <span class="rounded-full border border-white/10 bg-white/5 backdrop-blur-md px-4 py-1.5 text-[9px] font-black uppercase tracking-widest text-white/80">
+              <span class="rounded-full border border-on-surface/10 bg-on-surface/5 backdrop-blur-md px-4 py-1.5 text-[9px] font-black uppercase tracking-widest text-on-surface/80">
                 {{ ins.curso?.nivel || 'Ruta guiada' }}
               </span>
             </div>

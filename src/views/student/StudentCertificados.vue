@@ -15,7 +15,7 @@
       />
 
       <div v-if="loading" class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <div v-for="i in 3" :key="i" class="h-80 rounded-[40px] course-card-glass loading-pulse"></div>
+        <div v-for="i in 3" :key="i" class="h-80 rounded-[40px] course-card-premium loading-pulse"></div>
       </div>
 
       <div v-else-if="certificates.length === 0" class="student-empty flex flex-col items-center justify-center p-16 text-center">
@@ -33,9 +33,9 @@
         <article
           v-for="cert in certificates"
           :key="cert.id"
-          class="course-card-glass group"
+          class="course-card-premium group"
         >
-          <div class="relative aspect-[4/3] overflow-hidden bg-white/5 p-10">
+          <div class="relative aspect-[4/3] overflow-hidden bg-on-surface/5 p-10">
             <div class="absolute inset-0 bg-gradient-to-br from-accent-neon/20 via-transparent to-accent-solar/20 opacity-50"></div>
             <span class="material-symbols-outlined absolute right-8 top-8 text-6xl text-accent-neon/10 transition-all group-hover:scale-110 group-hover:text-accent-neon/30">verified</span>
             
@@ -45,7 +45,7 @@
                 <h3 class="mt-6 font-lexend text-2xl font-black leading-tight text-on-surface/90">{{ cert.curso?.titulo }}</h3>
               </div>
               
-              <div class="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md px-6 py-4">
+              <div class="rounded-2xl border border-on-surface/10 bg-on-surface/5 backdrop-blur-md px-6 py-4">
                 <p class="text-[9px] font-black uppercase tracking-[0.3em] text-on-surface/30">Código de validación</p>
                 <p class="mt-2 text-xs font-black uppercase tracking-[0.2em] text-accent-neon">{{ cert.codigo_certificado }}</p>
               </div>
@@ -53,7 +53,7 @@
           </div>
 
           <div class="flex flex-1 flex-col p-8">
-            <div class="mb-6 flex items-center justify-between gap-4 border-b border-white/5 pb-6">
+            <div class="mb-6 flex items-center justify-between gap-4 border-b border-on-surface/5 pb-6">
               <div class="flex flex-col">
                 <span class="text-[9px] font-black uppercase tracking-widest text-on-surface/30">Emisión</span>
                 <span class="text-sm font-bold text-on-surface/80">{{ formatDate(cert.fecha_emision) }}</span>

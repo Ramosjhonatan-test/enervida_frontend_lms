@@ -9,7 +9,7 @@
     />
 
     <div class="grid grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1.6fr)_minmax(320px,0.9fr)]">
-      <section class="student-panel p-6 md:p-10">
+      <section class="course-card-premium p-6 md:p-10">
         <div class="mb-8 flex items-center justify-between gap-4">
           <div>
             <p class="text-[10px] font-black uppercase tracking-[0.22em] text-accent-neon">Datos personales</p>
@@ -66,7 +66,7 @@
       </section>
 
       <aside class="space-y-8">
-        <section class="student-panel overflow-hidden p-8 text-center">
+        <section class="course-card-premium overflow-hidden p-8 text-center">
           <div class="relative mx-auto mb-6 h-32 w-32">
             <div class="flex h-full w-full items-center justify-center rounded-[40px] border-2 border-dashed border-accent-neon/30 bg-accent-neon/5 text-4xl font-black text-accent-neon shadow-inner">
               <img
@@ -97,7 +97,7 @@
           </div>
         </section>
 
-        <section class="student-panel p-8">
+        <section class="course-card-premium p-8">
           <h3 class="mb-6 flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-on-surface/40">
             <span class="material-symbols-outlined text-accent-neon">security</span>
             Seguridad de cuenta
