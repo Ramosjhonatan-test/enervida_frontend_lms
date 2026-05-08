@@ -1,5 +1,5 @@
 <template>
-  <section class="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-background">
+  <section id="inicio" class="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-background">
     <!-- Soft Background Elements -->
     <div class="absolute inset-0 z-0 opacity-30 dark:opacity-20 pointer-events-none">
       <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-accent-neon/10 rounded-full blur-[120px]"></div>

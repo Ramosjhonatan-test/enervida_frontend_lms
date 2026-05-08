@@ -1,5 +1,5 @@
 <template>
-  <section class="py-20 md:py-40 relative overflow-hidden">
+  <section id="cursos" class="py-20 md:py-40 relative overflow-hidden">
     <!-- Decoración de fondo -->
     <div class="absolute top-1/4 -right-20 w-96 h-96 bg-primary-container/10 blur-[120px] rounded-full"></div>
     <div class="absolute bottom-1/4 -left-20 w-96 h-96 bg-tertiary-container/10 blur-[120px] rounded-full"></div>
@@ -24,26 +24,31 @@
         <div v-for="(course, index) in courses" :key="index" 
              :class="['group relative animate-in fade-in slide-in-from-bottom duration-1000', course.extraClass]"
              :style="{ 'animation-delay': `${index * 150}ms` }">
-          <div :class="['relative h-[550px] md:h-[650px] glass-card overflow-hidden group/card card-premium-hover border-on-surface/10', course.roundedClass]">
+          <div :class="['relative h-full min-h-[600px] lg:min-h-[650px] flex flex-col justify-end pb-8 glass-card overflow-hidden group/card card-premium-hover border-on-surface/10', course.roundedClass]">
             <!-- Image Overlay -->
             <div class="absolute inset-0 overflow-hidden">
               <img :alt="course.title" class="w-full h-full object-cover opacity-60 group-hover/card:opacity-80 group-hover/card:scale-110 transition-all duration-1000 ease-out" :src="course.image"/>
-              <div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
             </div>
             
-            <div :class="['absolute top-8 left-8 glass-premium rounded-full px-6 py-2.5 text-[10px] md:text-[11px] font-black uppercase tracking-widest border-on-surface/10 shadow-lg', course.accentTextClass]">
+            <div :class="['absolute top-8 left-8 glass-premium rounded-full px-6 py-2.5 text-[10px] md:text-[11px] font-black uppercase tracking-widest border-on-surface/10 shadow-lg z-10', course.accentTextClass]">
               {{ course.duration }}
             </div>
 
-            <div class="absolute bottom-10 left-8 right-8 flex flex-col items-start transform group-hover/card:translate-y-[-10px] transition-transform duration-500">
-              <h3 class="font-lexend text-2xl md:text-4xl text-on-surface font-black mb-4 md:mb-6 leading-[1.1] tracking-tighter" v-html="course.title"></h3>
-              <p class="text-on-surface/70 text-sm md:text-lg font-medium mb-10 line-clamp-3 leading-relaxed">{{ course.description }}</p>
+            <div class="relative z-10 p-8 pt-32 flex flex-col items-start transform group-hover/card:translate-y-[-5px] transition-transform duration-500 w-full h-full justify-end">
+              <h3 class="font-lexend text-2xl md:text-3xl lg:text-4xl text-on-surface font-black mb-4 md:mb-6 leading-[1.1] tracking-tighter" v-html="course.title"></h3>
+              <ul class="text-on-surface/90 text-xs md:text-sm font-medium mb-8 space-y-2 w-full">
+                <li v-for="(item, idx) in course.items" :key="idx" class="flex items-start gap-2">
+                   <span class="material-symbols-outlined text-accent-neon text-base mt-0.5 opacity-80 shrink-0">play_arrow</span>
+                   <span class="leading-tight">{{ item }}</span>
+                </li>
+              </ul>
               
               <div class="w-full flex items-center justify-between gap-4 mt-auto">
-                 <button class="btn-premium btn-primary-neon !px-8 !py-4 !text-[10px] shadow-lg flex-1">
+                 <button class="btn-premium btn-primary-neon !px-6 !py-3 md:!px-8 md:!py-4 !text-[10px] shadow-lg flex-1">
                    Inscribirse Ahora
                  </button>
-                 <button class="w-12 h-12 rounded-full glass-premium flex items-center justify-center border-on-surface/10 text-on-surface hover:bg-accent-neon hover:text-primary transition-all">
+                 <button class="w-12 h-12 shrink-0 rounded-full glass-premium flex items-center justify-center border-on-surface/10 text-on-surface hover:bg-accent-neon hover:text-primary transition-all">
                     <span class="material-symbols-outlined text-sm">arrow_forward</span>
                  </button>
               </div>
@@ -61,10 +66,14 @@ import { ref } from 'vue'
 
 const courses = ref([
   {
-    title: 'Fundamentos <br/>Fotovoltaicos',
-    description: 'El inicio de tu carrera en energías renovables de alto nivel.',
-    duration: '4 Semanas',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAFTJY9YYK9FjBUBdFYddUZ4k_V9b4LsWZ81LHc2-9JKALSxqQ-CztyCMMfampOT2j_iWirfuc4tPv-79UYZeiCZC5EubxmXpfV8nKfPaNOF9bkPtxxAvUw6diIWcK06C9L8b5kElLwAvCcQ7uvIa5flXr7FEVR6lcG-uN-ok8tCvabk200p8FLabcy1J8aB-nRb_fqT24QpdIHmTgNk1emuz3UuFlvGk6Brs7VsDx4f1OLvNejHOnp7sC49bJFrjM0qvDUxoSKaHiK',
+    title: 'Para Todos <br/><span class="text-xl md:text-2xl text-accent-neon opacity-90">VIVENCIALES</span>',
+    items: [
+      'Domingos de familia',
+      'Lun-Vie de estudiantes',
+      'Sábados de técnicos'
+    ],
+    duration: 'Presencial',
+    image: 'https://ovacen.com/wp-content/uploads/2022/09/energia-solar-fotovoltaica.jpg',
     roundedClass: 'rounded-organic-1',
     accentTextClass: 'text-accent-neon',
     accentGlowClass: 'glow-neon',
@@ -73,10 +82,18 @@ const courses = ref([
     extraClass: ''
   },
   {
-    title: 'Certificación <br/>Industrial',
-    description: 'Práctica avanzada en plantas de generación masiva.',
-    duration: '6 Semanas',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCnlgl-Vp4qg2tOiAuz8sVfgGbq1P8NF1jg5wcCkjzAhew9aq1K-hoEbx4gmwNSUUzedcpIGzR1IxB9zXqIsrtuRmXdIkcG54zg0QBWZPcBFUglFfvVx4DwdG9aU0fUyPv1kr9HcUG9lLfqiJ47KwrjwovzeQmx7XJnAdPQ1DNGUJ0MWEO-EYeg__zOHqqdBoHL-puC6wQS-kvB9XM7ywpUwqOnlA2XCOPL6FtGc9qFXd8WupKacb9xxBZMZK8ehlNojjKNVSYDdxOP',
+    title: 'Para Todos <br/><span class="text-xl md:text-2xl text-accent-solar opacity-90">ONLINE</span> <br> <span class="text-lg text-accent-oacity-90">ENERGIA SOLAR PARA:</span>' ,
+    items: [
+      'TODOS',
+      'CALOR',
+      'ELECTRICIDAD',
+      'CONSTRUCCIÓN',
+      'PRODUCCIÓN AGROPECUARIA',
+      'INDUSTRIA',
+      'ILUMINACIÓN PÚBLICA'
+    ],
+    duration: 'Virtual',
+    image: 'https://solarplak.es/energia/imagenes/Caracteristicas-de-las-energias-renovables.jpg',
     roundedClass: 'rounded-premium',
     borderClass: 'border-accent-solar/20',
     accentTextClass: 'text-accent-solar',
@@ -86,10 +103,18 @@ const courses = ref([
     extraClass: 'md:mt-12'
   },
   {
-    title: 'Smart Grids <br/>& IoT',
-    description: 'La digitalización total de la infraestructura energética.',
-    duration: '8 Semanas',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCf3xExhOznmJLKKBrTNSNe9PIbvNhfEV2vS3Bfcv4n27nFwSq-JJ6EIu9uk8n-xEeunLTXu3v42DSXz9BTPe1WLnxhzdGD8YAPv8M9T1Otw7pYO-Vw_zfOPrr7AhWx8CNeI8cjWMx8Bz_Cv42OgypSVJjrpr-h5wtKxVDxZ1tfiDBtmtez50kK9s5etWOcDgH-mzUSKQGu0qOPwIrcUpalnBdAIHkXvbnhoTFu_yYJc7dQAGSR0laNCQBqXRVqRkEMoe14bK2ZQfsa',
+    title: 'Especializados <br/><span class="text-xl md:text-2xl text-accent-neon opacity-90">PARA TÉCNICOS</span>',
+    items: [ 
+      'Diseño en PVSyst',
+      'Generación Distribuida',
+      'Sistemas Aislados',
+      'Sistemas Híbridos',
+      'Sistemas de bombeo solar',
+      'Sistemas Termosolares',
+      'Luminarias solares'
+    ],
+    duration: 'Avanzado',
+    image: 'https://www.ipsantotomas.cl/web/wp-content/uploads/sites/27/2023/10/TEC_ENERGIA_SOLAR.jpg',
     roundedClass: 'rounded-organic-2',
     accentTextClass: 'text-accent-neon',
     accentGlowClass: 'glow-neon',

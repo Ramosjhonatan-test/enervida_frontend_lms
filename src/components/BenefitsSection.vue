@@ -1,5 +1,5 @@
 <template>
-  <section class="py-20 md:py-32 relative overflow-hidden border-y border-on-surface/5">
+  <section id="impacto" class="py-20 md:py-32 relative overflow-hidden border-y border-on-surface/5">
     <!-- Fondos sutiles de ambiente -->
     <div class="absolute -top-40 -right-40 w-[400px] h-[400px] md:w-[800px] md:h-[800px] bg-accent-neon/10 blur-[80px] md:blur-[160px] rounded-full"></div>
     <div class="absolute -bottom-40 -left-40 w-[400px] h-[400px] md:w-[800px] md:h-[800px] bg-accent-solar/5 blur-[80px] md:blur-[160px] rounded-full"></div>

@@ -1,5 +1,5 @@
 <template>
-  <section class="py-20 md:py-40 relative overflow-hidden">
+  <section id="socios" class="py-20 md:py-40 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       <div class="text-center mb-16 md:mb-24 animate-in fade-in slide-in-from-top duration-1000">
         <span class="text-accent-neon font-black tracking-[0.5em] uppercase text-[10px] mb-4 block">Lo que dicen de nosotros</span>

@@ -1,17 +1,22 @@
 <template>
   <header class="fixed top-0 w-full z-[999] transition-all duration-500" :class="[isScrolled ? 'py-2 px-2 md:py-4 md:px-6' : 'py-4 px-4 md:py-8 md:px-12']">
-    <nav class="max-w-7xl mx-auto glass-premium rounded-full h-14 md:h-20 px-4 md:px-10 flex items-center justify-between shadow-2xl relative">
+    <nav class="max-w-7xl mx-auto glass-premium rounded-full h-16 md:h-24 px-4 md:px-10 flex items-center justify-between shadow-2xl relative">
       <!-- Logo -->
-      <div @click="$router.push('/')" class="flex items-center cursor-pointer shrink-0">
-        <AppLogo img-class="logo-img w-auto object-contain" />
-      </div>
- 
+      <router-link to="/" class="flex items-center gap-3 z-50 group">
+        <AppLogo 
+          :img-style="{ height: isScrolled ? '2.5rem' : 'clamp(3.5rem, 8vw, 5rem)' }" 
+          img-class="w-auto object-contain drop-shadow-md transition-all duration-500 ease-out origin-left" 
+        />
+      </router-link>
+
       <!-- Desktop Menu -->
-      <div class="hidden lg:flex gap-10 items-center font-lexend text-[11px] font-bold tracking-[0.3em] uppercase">
-        <router-link to="/" class="text-accent-neon hover:scale-110 transition-all">Inicio</router-link>
-        <a class="text-on-surface/60 hover:text-on-surface hover:scale-110 transition-all" href="#">Cursos</a>
-        <a class="text-on-surface/60 hover:text-on-surface hover:scale-110 transition-all" href="#">Proyectos</a>
-        <a class="text-on-surface/60 hover:text-on-surface hover:scale-110 transition-all" href="#">Nosotros</a>
+      <div class="hidden lg:flex gap-5 xl:gap-8 items-center font-lexend text-[10px] xl:text-[13px] font-bold tracking-[0.15em] xl:tracking-[0.2em] uppercase">
+        <a @click.prevent="scrollTo('#inicio')" :class="[currentSection === 'inicio' ? 'text-accent-neon scale-110' : 'text-on-surface/60 hover:text-on-surface hover:scale-110', 'transition-all cursor-pointer']">INICIO</a>
+        <a @click.prevent="scrollTo('#cursos')" :class="[currentSection === 'cursos' ? 'text-accent-neon scale-110' : 'text-on-surface/60 hover:text-on-surface hover:scale-110', 'transition-all cursor-pointer']">CURSOS</a>
+        <a @click.prevent="scrollTo('#impacto')" :class="[currentSection === 'impacto' ? 'text-accent-neon scale-110' : 'text-on-surface/60 hover:text-on-surface hover:scale-110', 'transition-all cursor-pointer']">IMPACTO</a>
+        <a @click.prevent="scrollTo('#socios')" :class="[currentSection === 'socios' ? 'text-accent-neon scale-110' : 'text-on-surface/60 hover:text-on-surface hover:scale-110', 'transition-all cursor-pointer']">SOCIOS</a>
+        <a @click.prevent="scrollTo('#nosotros')" :class="[currentSection === 'nosotros' ? 'text-accent-neon scale-110' : 'text-on-surface/60 hover:text-on-surface hover:scale-110', 'transition-all cursor-pointer']">NOSOTROS</a>
+        <a @click.prevent="scrollTo('#contacto')" :class="[currentSection === 'contacto' ? 'text-accent-neon scale-110' : 'text-on-surface/60 hover:text-on-surface hover:scale-110', 'transition-all cursor-pointer']">CONTACTO</a>
       </div>
 
       <!-- Actions -->
@@ -35,10 +40,12 @@
              class="absolute top-[calc(100%+0.75rem)] left-0 w-full glass-premium rounded-[2.5rem] p-8 flex flex-col gap-6 lg:hidden shadow-[0_40px_80px_rgba(0,0,0,0.5)] z-[1000] overflow-hidden transition-all duration-300">
           <div class="absolute inset-0 bg-accent-neon/5 pointer-events-none"></div>
           
-          <router-link to="/" class="relative z-10 text-accent-neon font-black uppercase tracking-[0.3em] text-xs py-2" @click="isMenuOpen = false">Inicio</router-link>
-          <a class="relative z-10 text-on-surface font-black uppercase tracking-[0.3em] text-xs py-2 hover:text-accent-neon transition-colors" href="#" @click="isMenuOpen = false">Cursos</a>
-          <a class="relative z-10 text-on-surface font-black uppercase tracking-[0.3em] text-xs py-2 hover:text-accent-neon transition-colors" href="#" @click="isMenuOpen = false">Proyectos</a>
-          <a class="relative z-10 text-on-surface font-black uppercase tracking-[0.3em] text-xs py-2 hover:text-accent-neon transition-colors" href="#" @click="isMenuOpen = false">Nosotros</a>
+          <a @click.prevent="scrollTo('#inicio')" :class="[currentSection === 'inicio' ? 'text-accent-neon' : 'text-on-surface hover:text-accent-neon', 'relative z-10 font-black uppercase tracking-[0.2em] text-sm py-2 cursor-pointer transition-colors']">INICIO</a>
+          <a @click.prevent="scrollTo('#cursos')" :class="[currentSection === 'cursos' ? 'text-accent-neon' : 'text-on-surface hover:text-accent-neon', 'relative z-10 font-black uppercase tracking-[0.2em] text-sm py-2 cursor-pointer transition-colors']">CURSOS</a>
+          <a @click.prevent="scrollTo('#impacto')" :class="[currentSection === 'impacto' ? 'text-accent-neon' : 'text-on-surface hover:text-accent-neon', 'relative z-10 font-black uppercase tracking-[0.2em] text-sm py-2 cursor-pointer transition-colors']">IMPACTO</a>
+          <a @click.prevent="scrollTo('#socios')" :class="[currentSection === 'socios' ? 'text-accent-neon' : 'text-on-surface hover:text-accent-neon', 'relative z-10 font-black uppercase tracking-[0.2em] text-sm py-2 cursor-pointer transition-colors']">SOCIOS</a>
+          <a @click.prevent="scrollTo('#nosotros')" :class="[currentSection === 'nosotros' ? 'text-accent-neon' : 'text-on-surface hover:text-accent-neon', 'relative z-10 font-black uppercase tracking-[0.2em] text-sm py-2 cursor-pointer transition-colors']">NOSOTROS</a>
+          <a @click.prevent="scrollTo('#contacto')" :class="[currentSection === 'contacto' ? 'text-accent-neon' : 'text-on-surface hover:text-accent-neon', 'relative z-10 font-black uppercase tracking-[0.2em] text-sm py-2 cursor-pointer transition-colors']">CONTACTO</a>
           
           <hr class="border-on-surface/10 relative z-10 my-2" />
           
@@ -53,14 +60,63 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import ThemeToggle from './ThemeToggle.vue'
 import AppLogo from './AppLogo.vue'
 
+const router = useRouter()
+const route = useRoute()
+
 const isMenuOpen = ref(false)
 const isScrolled = ref(false)
+const currentSection = ref('inicio')
+
+const scrollTo = (hash) => {
+  isMenuOpen.value = false;
+  
+  if (route.path !== '/') {
+    router.push('/').then(() => {
+      setTimeout(() => performScroll(hash), 300);
+    });
+  } else {
+    setTimeout(() => performScroll(hash), 100);
+  }
+}
+
+const performScroll = (hash) => {
+  const el = document.querySelector(hash);
+  if (el) {
+    const yOffset = -80; // offset for fixed navbar
+    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 50
+
+  if (route.path === '/') {
+    const sections = ['inicio', 'cursos', 'impacto', 'socios', 'nosotros', 'contacto'];
+    let current = '';
+    
+    // We iterate backwards to find the last section that we have scrolled past
+    for (let i = sections.length - 1; i >= 0; i--) {
+      const section = sections[i];
+      const el = document.getElementById(section);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        // Adjust threshold based on typical header height and some padding
+        if (rect.top <= 150) {
+          current = section;
+          break;
+        }
+      }
+    }
+    
+    if (current && currentSection.value !== current) {
+      currentSection.value = current;
+    }
+  }
 }
 
 // Bloquear scroll cuando el menú móvil está abierto
@@ -100,6 +156,6 @@ onUnmounted(() => {
 }
 
 .logo-img {
-    height: clamp(1.75rem, 4vw, 2.75rem);
+    height: clamp(4rem, 8vw, 6.5rem);
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <section class="py-20 md:py-40 px-4 md:px-6 relative overflow-hidden">
+  <section id="nosotros" class="py-20 md:py-40 px-4 md:px-6 relative overflow-hidden">
     <div class="max-w-6xl mx-auto glass-card rounded-[40px] md:rounded-[80px] relative overflow-hidden p-12 md:p-32 text-center border-accent-neon/20 shadow-2xl animate-in fade-in slide-in-from-bottom duration-1000">
       <!-- Background Effects -->
       <div class="absolute inset-0 bg-gradient-to-br from-accent-neon/10 via-transparent to-accent-solar/10 opacity-30"></div>
