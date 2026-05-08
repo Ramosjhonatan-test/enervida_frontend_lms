@@ -15,7 +15,7 @@
       <!-- Header -->
       <div class="text-center mb-8 md:mb-12 animate-in fade-in slide-in-from-top duration-700">
         <div class="inline-block relative cursor-pointer group mb-4" @click="$router.push('/')">
-          <AppLogo img-class="h-16 md:h-24 w-auto object-contain mx-auto transition-all duration-500 group-hover:scale-105" />
+          <AppLogo :img-style="{ height: 'clamp(3.5rem, 8vw, 6rem)' }" img-class="w-auto object-contain mx-auto transition-all duration-500 group-hover:scale-105" />
         </div>
         <p class="text-on-surface-variant tracking-[0.5em] uppercase text-[10px] font-black opacity-80">Elite Renewable Education</p>
       </div>

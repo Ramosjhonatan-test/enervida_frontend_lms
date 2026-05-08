@@ -4,7 +4,7 @@
       <div class="grid md:grid-cols-4 gap-20 mb-24">
         <div class="col-span-2">
           <div class="mb-10">
-            <AppLogo img-class="h-14 w-auto object-contain" />
+            <AppLogo :img-style="{ height: 'clamp(2.5rem, 5vw, 3.5rem)' }" img-class="w-auto object-contain" />
           </div>
           <p class="text-on-surface/70 max-w-sm font-medium text-lg leading-relaxed">
             Elevando los estándares de la educación técnica en energías renovables para un futuro boliviano más limpio y tecnológicamente avanzado.

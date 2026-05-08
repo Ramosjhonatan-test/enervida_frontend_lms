@@ -13,10 +13,10 @@
     >
       <div class="flex h-20 items-center gap-3 px-5">
         <div v-if="isSidebarCollapsed && !isMenuOpen" class="grid h-11 w-11 shrink-0 place-items-center">
-          <AppLogo img-class="h-11 w-11 object-contain" />
+          <AppLogo :img-style="{ height: 'clamp(2rem, 4vw, 2.75rem)' }" img-class="w-auto object-contain" />
         </div>
         <div v-else class="min-w-0">
-          <AppLogo img-class="h-12 w-auto object-contain" />
+          <AppLogo :img-style="{ height: 'clamp(2.25rem, 5vw, 3rem)' }" img-class="w-auto object-contain" />
           <p class="text-[10px] font-black uppercase tracking-[0.26em] text-on-surface-variant mt-1">Campus admin</p>
         </div>
         <button

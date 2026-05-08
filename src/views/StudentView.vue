@@ -21,7 +21,7 @@
           </button>
 
           <router-link to="/student/dashboard" class="flex min-w-0 items-center gap-3">
-            <AppLogo img-class="h-10 md:h-12 w-auto object-contain" />
+            <AppLogo :img-style="{ height: 'clamp(2rem, 4vw, 3rem)' }" img-class="w-auto object-contain" />
           </router-link>
 
           <div class="hidden items-center gap-1 lg:flex">

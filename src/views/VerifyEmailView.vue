@@ -14,7 +14,7 @@
     <main class="relative z-20 w-full max-w-[440px] px-6">
       <!-- Header -->
       <div class="text-center mb-10">
-        <AppLogo img-class="h-14 md:h-20 w-auto object-contain mx-auto mb-2" />
+        <AppLogo :img-style="{ height: 'clamp(3rem, 7vw, 5rem)' }" img-class="w-auto object-contain mx-auto mb-2" />
         <p class="text-on-surface-variant tracking-[0.4em] uppercase text-[9px] font-bold opacity-70">Verificación de Identidad</p>
       </div>
  

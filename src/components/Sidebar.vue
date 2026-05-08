@@ -3,7 +3,7 @@
     <div class="px-6">
       <div class="flex items-center gap-3 mb-6">
         <div class="min-w-0">
-          <AppLogo img-class="h-10 w-auto object-contain" />
+          <AppLogo :img-style="{ height: 'clamp(2rem, 4vw, 2.5rem)' }" img-class="w-auto object-contain" />
           <div class="text-xs text-on-surface-variant mt-1">Admin panel</div>
         </div>
       </div>

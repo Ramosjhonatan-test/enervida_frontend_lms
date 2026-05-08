@@ -3,7 +3,7 @@
     <nav class="max-w-7xl mx-auto glass-premium rounded-full h-14 md:h-20 px-4 md:px-10 flex items-center justify-between shadow-2xl relative">
       <!-- Logo -->
       <div @click="$router.push('/')" class="flex items-center cursor-pointer shrink-0">
-        <AppLogo img-class="h-8 md:h-11 w-auto object-contain logo-img" />
+        <AppLogo img-class="logo-img w-auto object-contain" />
       </div>
  
       <!-- Desktop Menu -->
@@ -100,7 +100,7 @@ onUnmounted(() => {
     transform: translateY(-20px) scale(0.95); 
 }
 
-@media (max-width: 400px) {
-    .logo-img { height: 1.5rem; }
+.logo-img {
+    height: clamp(1.75rem, 4vw, 2.75rem);
 }
 </style>

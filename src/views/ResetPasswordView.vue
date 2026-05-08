@@ -16,7 +16,7 @@
       <!-- Header -->
       <div class="text-center mb-10">
         <div class="inline-block relative cursor-pointer group" @click="$router.push('/')">
-          <AppLogo img-class="h-14 md:h-20 w-auto object-contain mx-auto mb-2 group-hover:scale-105 transition-transform" />
+          <AppLogo :img-style="{ height: 'clamp(3rem, 7vw, 5rem)' }" img-class="w-auto object-contain mx-auto mb-2 group-hover:scale-105 transition-transform" />
         </div>
         <p class="text-on-surface-variant tracking-[0.4em] uppercase text-[9px] font-bold opacity-70">Renewable Energy Elite</p>
       </div>
