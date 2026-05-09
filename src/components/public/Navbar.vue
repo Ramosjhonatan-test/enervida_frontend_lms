@@ -61,8 +61,8 @@
 <script setup>
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import ThemeToggle from './ThemeToggle.vue'
-import AppLogo from './AppLogo.vue'
+import ThemeToggle from '@/components/global/ThemeToggle.vue'
+import AppLogo from '@/components/global/AppLogo.vue'
 
 const router = useRouter()
 const route = useRoute()

@@ -110,7 +110,7 @@
 
 <script setup>
 import { useRouter, useRoute } from 'vue-router'
-import AppLogo from './AppLogo.vue'
+import AppLogo from '@/components/global/AppLogo.vue'
 
 const currentYear = new Date().getFullYear();
 
