@@ -194,7 +194,6 @@ import { useAuthStore } from '@/stores/auth'
 const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
-const authStore = useAuthStore()
 
 const curso = ref(null)
 const activeLeccion = ref(null)
