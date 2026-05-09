@@ -59,6 +59,10 @@
             <ThemeToggle />
           </div>
           <div class="h-8 w-px bg-on-surface/5 mx-1 hidden sm:block"></div>
+          <NotificationDropdown 
+            :notifications="notifications" 
+            @update="fetchStudentData" 
+          />
           <router-link to="/student/support" class="flex h-10 w-10 items-center justify-center rounded-xl bg-on-surface/5 text-on-surface/45 transition hover:text-accent-neon" title="Soporte y ayuda">
             <span class="material-symbols-outlined text-xl">help</span>
           </router-link>
@@ -173,8 +177,9 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import api from '@/services/api'
 import { useAuthStore } from '@/stores/auth'
-import AppLogo from '@/components/AppLogo.vue'
-import ThemeToggle from '@/components/ThemeToggle.vue'
+import AppLogo from '@/components/global/AppLogo.vue'
+import ThemeToggle from '@/components/global/ThemeToggle.vue'
+import NotificationDropdown from '@/components/global/NotificationDropdown.vue'
 
 const route = useRoute()
 const router = useRouter()

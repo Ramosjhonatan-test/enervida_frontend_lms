@@ -26,25 +26,33 @@
         <div class="absolute inset-0 bg-gradient-to-br from-accent-neon/5 to-transparent"></div>
         
         <div class="relative z-10">
-          <h2 class="text-2xl md:text-3xl font-black text-on-surface mb-2 font-lexend">Recuperar Acceso</h2>
-          <p class="text-on-surface-variant text-sm mb-10 font-light">Ingresa tu correo electrónico para recibir un enlace de recuperación.</p>
+          <h2 class="text-2xl md:text-3xl font-black text-on-surface mb-2 font-lexend">Nueva Contraseña</h2>
+          <p class="text-on-surface-variant text-sm mb-10 font-light">Establece tu nueva clave de acceso para continuar.</p>
           
           <div v-if="success" class="text-center space-y-6">
-            <div class="w-16 h-16 bg-accent-neon/20 rounded-full flex items-center justify-center mx-auto animate-bounce">
-              <span class="material-symbols-outlined text-accent-neon text-3xl">check_circle</span>
+            <div class="w-16 h-16 bg-accent-neon/20 rounded-full flex items-center justify-center mx-auto">
+              <span class="material-symbols-outlined text-accent-neon text-3xl">verified</span>
             </div>
-            <p class="text-on-surface text-sm font-medium">Hemos enviado las instrucciones a tu correo. Por favor revisa tu bandeja de entrada.</p>
-            <button @click="$router.push('/login')" class="btn-premium btn-secondary-glass w-full py-4">
-              Volver al Inicio
+            <p class="text-on-surface text-sm font-medium">¡Contraseña actualizada! Ya puedes iniciar sesión con tu nueva clave.</p>
+            <button @click="$router.push('/login')" class="btn-premium btn-primary-neon w-full py-4">
+              Ir al Login
             </button>
           </div>
 
-          <form v-else class="space-y-6" @submit.prevent="handleForgot">
+          <form v-else class="space-y-6" @submit.prevent="handleReset">
             <div class="space-y-2">
-              <label class="block text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em] ml-1">Email Corporativo</label>
+              <label class="block text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em] ml-1">Nueva Contraseña</label>
               <div class="relative">
-                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/40 text-xl">mail</span>
-                <input v-model="email" class="input-cyber" placeholder="usuario@enervida.bo" type="email" required/>
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/40 text-xl">lock</span>
+                <input v-model="password" class="input-cyber" placeholder="••••••••" type="password" required minlength="8"/>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label class="block text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em] ml-1">Confirmar Contraseña</label>
+              <div class="relative">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/40 text-xl">lock_reset</span>
+                <input v-model="confirmPassword" class="input-cyber" placeholder="••••••••" type="password" required minlength="8"/>
               </div>
             </div>
 
@@ -52,14 +60,12 @@
               {{ error }}
             </div>
 
-            <button :disabled="loading" class="btn-premium btn-primary-neon w-full py-4 mt-4" type="submit">
-              {{ loading ? 'Enviando...' : 'Enviar Enlace' }}
+            <button :disabled="loading || !token" class="btn-premium btn-primary-neon w-full py-4 mt-4" type="submit">
+              {{ loading ? 'Actualizando...' : 'Restablecer Contraseña' }}
             </button>
 
-            <div class="text-center pt-4">
-              <router-link to="/login" class="text-[10px] text-on-surface-variant hover:text-accent-neon uppercase font-bold tracking-[0.2em] transition-colors">
-                Regresar al Login
-              </router-link>
+            <div v-if="!token" class="text-error text-[9px] text-center uppercase font-bold tracking-widest mt-4">
+              Token de recuperación no válido o ausente.
             </div>
           </form>
         </div>
@@ -70,16 +76,21 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import AppLogo from '@/components/AppLogo.vue'
+import AppLogo from '@/components/global/AppLogo.vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
+const route = useRoute()
+const router = useRouter()
 const authStore = useAuthStore()
 const particlesContainer = ref(null)
 
-const email = ref('')
+const password = ref('')
+const confirmPassword = ref('')
 const error = ref('')
 const success = ref(false)
 const loading = ref(false)
+const token = ref(route.query.token || '')
 
 onMounted(() => {
   if (particlesContainer.value) {
@@ -95,16 +106,24 @@ onMounted(() => {
   }
 })
 
-const handleForgot = async () => {
+const handleReset = async () => {
+  if (password.value !== confirmPassword.value) {
+    error.value = 'Las contraseñas no coinciden'
+    return
+  }
+
   error.value = ''
   loading.value = true
   
   try {
-    await authStore.forgotPassword(email.value)
+    await authStore.resetPassword({
+      token: token.value,
+      newPassword: password.value
+    })
     success.value = true
   } catch (err) {
-    console.error('Error en recuperación:', err)
-    error.value = err.response?.data?.message || 'Error al enviar el correo de recuperación'
+    console.error('Error en restablecimiento:', err)
+    error.value = err.response?.data?.message || 'Error al restablecer la contraseña'
   } finally {
     loading.value = false
   }

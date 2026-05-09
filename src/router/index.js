@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import LoginView from '../views/LoginView.vue'
-import RegisterView from '../views/RegisterView.vue'
-import AdminView from '../views/AdminView.vue'
-import StudentView from '../views/StudentView.vue'
+import HomeView from '../views/public/Inicio.vue'
+import LoginView from '../views/auth/Acceso.vue'
+import RegisterView from '../views/auth/Registro.vue'
+import AdminLayout from '../views/admin/AdminLayout.vue'
+import EstudianteLayout from '../views/estudiante/EstudianteLayout.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const router = createRouter({
@@ -28,7 +28,7 @@ const router = createRouter({
     },
     {
       path: '/admin',
-      component: AdminView,
+      component: AdminLayout,
       meta: { requiresAuth: true, role: 'admin' }, // Admin
       children: [
         {
@@ -156,7 +156,7 @@ const router = createRouter({
     },
     {
       path: '/student',
-      component: StudentView,
+      component: EstudianteLayout,
       meta: { requiresAuth: true, role: 'estudiante' }, // Student
       children: [
         {
@@ -166,75 +166,75 @@ const router = createRouter({
         {
           path: 'dashboard',
           name: 'student-dashboard',
-          component: () => import('../views/student/StudentEscritorio.vue')
+          component: () => import('../views/estudiante/EstudianteEscritorio.vue')
         },
         {
           path: 'catalog',
           name: 'student-catalog',
-          component: () => import('../views/student/StudentCatalogo.vue')
+          component: () => import('../views/estudiante/EstudianteCatalogo.vue')
         },
         {
           path: 'my-courses',
           name: 'student-my-courses',
-          component: () => import('../views/student/StudentMisCursos.vue')
+          component: () => import('../views/estudiante/EstudianteMisCursos.vue')
         },
         {
           path: 'labs',
           name: 'student-labs',
-          component: () => import('../views/student/StudentLaboratorios.vue')
+          component: () => import('../views/estudiante/EstudianteLaboratorios.vue')
         },
         {
           path: 'certificates',
           name: 'student-certificates',
-          component: () => import('../views/student/StudentCertificados.vue')
+          component: () => import('../views/estudiante/EstudianteCertificados.vue')
         },
         {
           path: 'live-classes',
           name: 'student-live-classes',
-          component: () => import('../views/student/StudentClasesVivo.vue')
+          component: () => import('../views/estudiante/EstudianteClasesVivo.vue')
         },
         {
           path: 'profile',
           name: 'student-profile',
-          component: () => import('../views/student/StudentPerfil.vue')
+          component: () => import('../views/estudiante/EstudiantePerfil.vue')
         },
         {
           path: 'support',
           name: 'student-support',
-          component: () => import('../views/student/StudentSoporte.vue')
+          component: () => import('../views/estudiante/EstudianteSoporte.vue')
         }
       ]
     },
     {
       path: '/student/course/:id',
       name: 'course-player',
-      component: () => import('../views/CoursePlayerView.vue'),
+      component: () => import('../views/estudiante/ReproductorCurso.vue'),
       meta: { requiresAuth: true, role: 'estudiante' },
       props: true
     },
     {
       path: '/student/exam/:id',
       name: 'exam-player',
-      component: () => import('../views/ExamView.vue'),
+      component: () => import('../views/estudiante/Evaluacion.vue'),
       meta: { requiresAuth: true, role: 'estudiante' },
       props: true
     },
     {
       path: '/forgot-password',
       name: 'forgot-password',
-      component: () => import('../views/ForgotPasswordView.vue'),
+      component: () => import('../views/auth/RecuperarPassword.vue'),
       meta: { guest: true }
     },
     {
       path: '/reset-password',
       name: 'reset-password',
-      component: () => import('../views/ResetPasswordView.vue'),
+      component: () => import('../views/auth/RestablecerPassword.vue'),
       meta: { guest: true }
     },
     {
       path: '/verify-email',
       name: 'verify-email',
-      component: () => import('../views/VerifyEmailView.vue'),
+      component: () => import('../views/auth/VerificarEmail.vue'),
       meta: { guest: true }
     }
   ]

@@ -150,8 +150,8 @@
 import { computed, ref, watch, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import ThemeToggle from '@/components/ThemeToggle.vue'
-import AppLogo from '@/components/AppLogo.vue'
+import ThemeToggle from '@/components/global/ThemeToggle.vue'
+import AppLogo from '@/components/global/AppLogo.vue'
 
 const route = useRoute()
 const router = useRouter()

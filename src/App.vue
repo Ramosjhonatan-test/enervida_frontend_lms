@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { RouterView } from 'vue-router'
-import LoadingScreen from '@/components/LoadingScreen.vue'
+import LoadingScreen from '@/components/global/LoadingScreen.vue'
 
 const isLoading = ref(true)
 

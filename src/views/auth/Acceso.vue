@@ -6,59 +6,53 @@
       <div class="absolute -bottom-[10%] -left-[5%] w-[600px] h-[600px] bg-accent-solar/5 rounded-full blur-[140px] animate-pulse-slow delay-1000"></div>
     </div>
 
-    <main class="relative z-10 w-full max-w-[560px] px-6 py-12 flex flex-col items-center">
+    <main class="relative z-10 w-full max-w-[480px] px-6 py-12 flex flex-col items-center">
       <!-- Header -->
       <div class="text-center mb-8 animate-in fade-in slide-in-from-top duration-1000">
         <div class="inline-block cursor-pointer mb-6 transition-transform hover:scale-105 active:scale-95" @click="$router.push('/')">
           <AppLogo :img-style="{ height: '4rem' }" img-class="w-auto object-contain mx-auto" />
         </div>
-        <h2 class="text-3xl font-black text-on-surface font-lexend tracking-tight uppercase">Únete a Enervida</h2>
-        <p class="text-on-surface-variant text-sm mt-2 font-medium tracking-wide">Comienza tu viaje en energía sostenible</p>
+        <h2 class="text-3xl font-black text-on-surface font-lexend tracking-tight uppercase">Bienvenido</h2>
+        <p class="text-on-surface-variant text-sm mt-2 font-medium tracking-wide">Accede a tu panel de control</p>
       </div>
  
       <!-- Glass Card -->
       <div class="w-full glass-card p-10 rounded-[3rem] shadow-2xl relative animate-in fade-in slide-in-from-bottom duration-1000 delay-200 overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
         
-        <form class="space-y-6 relative z-10" @submit.prevent="handleRegister">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="space-y-2">
-              <label class="block text-[10px] font-black text-accent-neon uppercase tracking-[0.2em] ml-1">Nombre</label>
-              <div class="relative group">
-                <div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/30 group-focus-within:text-accent-neon transition-all duration-300">
-                  <span class="material-symbols-outlined text-xl">person</span>
-                </div>
-                <input v-model="form.nombres" class="input-glass pl-14" placeholder="Juan" type="text" required/>
-              </div>
-            </div>
-            <div class="space-y-2">
-              <label class="block text-[10px] font-black text-accent-neon uppercase tracking-[0.2em] ml-1">Apellido</label>
-              <div class="relative group">
-                <div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/30 group-focus-within:text-accent-neon transition-all duration-300">
-                  <span class="material-symbols-outlined text-xl">badge</span>
-                </div>
-                <input v-model="form.apellidos" class="input-glass pl-14" placeholder="Pérez" type="text" required/>
-              </div>
-            </div>
-          </div>
-
+        <form class="space-y-6 relative z-10" @submit.prevent="handleLogin">
           <div class="space-y-2">
             <label class="block text-[10px] font-black text-accent-neon uppercase tracking-[0.2em] ml-1">Email Corporativo</label>
             <div class="relative group">
               <div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/30 group-focus-within:text-accent-neon transition-all duration-300">
                 <span class="material-symbols-outlined text-xl">alternate_email</span>
               </div>
-              <input v-model="form.correo" class="input-glass pl-14" placeholder="usuario@enervida.com" type="email" required/>
+              <input 
+                v-model="email" 
+                class="input-glass pl-14" 
+                placeholder="usuario@enervida.com" 
+                type="email" 
+                required
+              />
             </div>
           </div>
           
           <div class="space-y-2">
-            <label class="block text-[10px] font-black text-accent-neon uppercase tracking-[0.2em] ml-1">Contraseña</label>
+            <div class="flex justify-between items-center px-1">
+              <label class="block text-[10px] font-black text-accent-neon uppercase tracking-[0.2em]">Contraseña</label>
+              <router-link to="/forgot-password" class="text-[9px] text-on-surface-variant hover:text-accent-solar transition-colors font-black tracking-widest uppercase">¿Olvidaste tu clave?</router-link>
+            </div>
             <div class="relative group">
               <div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/30 group-focus-within:text-accent-neon transition-all duration-300">
                 <span class="material-symbols-outlined text-xl">lock_open</span>
               </div>
-              <input v-model="form.contrasena_hash" class="input-glass pl-14" placeholder="••••••••" type="password" required/>
+              <input 
+                v-model="password" 
+                class="input-glass pl-14" 
+                placeholder="••••••••" 
+                type="password" 
+                required
+              />
             </div>
           </div>
 
@@ -69,15 +63,15 @@
           <button :disabled="loading" class="btn-premium btn-primary-neon w-full !py-4.5 !rounded-2xl group overflow-hidden relative" type="submit">
             <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
             <span v-if="!loading" class="flex items-center gap-2 relative z-10">
-              Crear Cuenta
-              <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">person_add</span>
+              Iniciar Sesión
+              <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
             </span>
             <span v-else class="flex items-center gap-2 relative z-10">
               <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Procesando...
+              Autenticando...
             </span>
           </button>
         </form>
@@ -85,7 +79,7 @@
         <div class="relative my-10">
           <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-on-surface/5"></div></div>
           <div class="relative flex justify-center text-[9px] uppercase tracking-[0.3em] font-black text-on-surface-variant/40">
-            <span class="bg-surface-card px-4">Registro Social</span>
+            <span class="bg-surface-card px-4">Entrada Social</span>
           </div>
         </div>
 
@@ -95,13 +89,13 @@
           class="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 flex items-center justify-center gap-3 transition-all hover:bg-white/10 active:scale-95 group"
         >
           <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5 grayscale group-hover:grayscale-0 transition-all" alt="Google" />
-          <span class="text-on-surface font-bold text-xs uppercase tracking-widest">Registrarse con Google</span>
+          <span class="text-on-surface font-bold text-xs uppercase tracking-widest">Continuar con Google</span>
         </button>
 
         <div class="text-center mt-10 pt-6 border-t border-on-surface/5">
           <p class="text-on-surface-variant text-[11px] font-medium tracking-wide">
-            ¿Ya tienes una cuenta? 
-            <router-link to="/login" class="text-accent-neon font-black hover:text-accent-solar transition-colors uppercase ml-1">Inicia Sesión</router-link>
+            ¿Aún no tienes acceso? 
+            <router-link to="/register" class="text-accent-neon font-black hover:text-accent-solar transition-colors uppercase ml-1">Crea una cuenta</router-link>
           </p>
         </div>
       </div>
@@ -110,8 +104,8 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import AppLogo from '@/components/AppLogo.vue'
+import { ref } from 'vue'
+import AppLogo from '@/components/global/AppLogo.vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useTokenClient } from 'vue3-google-signin'
@@ -119,45 +113,53 @@ import { useTokenClient } from 'vue3-google-signin'
 const router = useRouter()
 const authStore = useAuthStore()
 const loading = ref(false)
+const email = ref('')
+const password = ref('')
 const error = ref('')
-
-const form = reactive({
-  nombres: '',
-  apellidos: '',
-  correo: '',
-  contrasena_hash: ''
-})
 
 const { login: customGoogleLogin } = useTokenClient({
   onSuccess: async (tokenResponse) => {
     loading.value = true
     try {
-      await authStore.googleLogin({ 
+      const user = await authStore.googleLogin({ 
         access_token: tokenResponse.access_token 
       })
-      router.push('/student')
+      
+      if (user.rol?.nombre === 'admin') {
+        router.push('/admin')
+      } else {
+        router.push('/student')
+      }
     } catch (err) {
-      console.error('Error google register:', err)
-      error.value = err.response?.data?.message || 'Error al registrar con Google'
+      console.error('Error google login:', err)
+      error.value = err.response?.data?.message || 'Error al validar cuenta de Google'
     } finally {
       loading.value = false
     }
   },
   onError: () => {
-    error.value = 'Error al registrar con Google'
+    error.value = 'Error al iniciar sesión con Google'
   }
 })
 
-const handleRegister = async () => {
+const handleLogin = async () => {
   error.value = ''
   loading.value = true
   
   try {
-    await authStore.register(form)
-    router.push('/student')
+    const user = await authStore.login({
+      correo: email.value,
+      contrasena: password.value
+    })
+    
+    if (user.rol?.nombre === 'admin') {
+      router.push('/admin')
+    } else {
+      router.push('/student')
+    }
   } catch (err) {
-    console.error('Error en registro:', err)
-    error.value = err.response?.data?.message || 'Error al crear la cuenta'
+    console.error('Error en login:', err)
+    error.value = err.response?.data?.message || 'Credenciales inválidas o error de conexión'
   } finally {
     loading.value = false
   }

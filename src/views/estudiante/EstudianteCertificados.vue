@@ -7,7 +7,7 @@
     </div>
 
     <div class="relative z-10 space-y-12">
-      <StudentPageHeader
+      <EstudiantePageHeader
         eyebrow="Logros académicos"
         title="Mis"
         highlight="Certificados"
@@ -79,7 +79,7 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue'
 import api from '@/services/api'
-import StudentPageHeader from '@/components/student/StudentPageHeader.vue'
+import EstudiantePageHeader from '@/components/estudiante/EstudiantePageHeader.vue'
 
 const certificates = ref([])
 const loading = ref(true)

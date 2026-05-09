@@ -10,7 +10,7 @@
       <div class="space-y-12">
         <!-- Header -->
         <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-          <StudentPageHeader
+          <EstudiantePageHeader
             :eyebrow="`Hola, ${authStore.user?.nombres || 'Estudiante'}`"
             title="Tu"
             highlight="Escritorio"
@@ -200,7 +200,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import StudentPageHeader from '@/components/student/StudentPageHeader.vue'
+import EstudiantePageHeader from '@/components/estudiante/EstudiantePageHeader.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()

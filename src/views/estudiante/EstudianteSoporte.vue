@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-10 animate-in fade-in">
-    <StudentPageHeader
+    <EstudiantePageHeader
       eyebrow="Centro de ayuda"
       title="Soporte"
       highlight="Tecnico"
@@ -65,7 +65,7 @@
 </template>
 
 <script setup>
-import StudentPageHeader from '@/components/student/StudentPageHeader.vue'
+import EstudiantePageHeader from '@/components/estudiante/EstudiantePageHeader.vue'
 
 const headerStats = [
   {

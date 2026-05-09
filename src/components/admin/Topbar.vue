@@ -39,7 +39,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import ThemeToggle from '@/components/ThemeToggle.vue'
+import ThemeToggle from '@/components/global/ThemeToggle.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()

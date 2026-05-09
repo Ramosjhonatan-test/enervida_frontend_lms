@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-10 animate-in fade-in">
-    <StudentPageHeader
+    <EstudiantePageHeader
       eyebrow="Configuracion"
       title="Mi"
       highlight="Perfil"
@@ -149,7 +149,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import api from '@/services/api'
-import StudentPageHeader from '@/components/student/StudentPageHeader.vue'
+import EstudiantePageHeader from '@/components/estudiante/EstudiantePageHeader.vue'
 
 const authStore = useAuthStore()
 const saving = ref(false)

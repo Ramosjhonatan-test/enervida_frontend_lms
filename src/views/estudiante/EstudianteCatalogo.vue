@@ -7,7 +7,7 @@
     </div>
 
     <div class="relative z-10 space-y-12">
-      <StudentPageHeader
+      <EstudiantePageHeader
         eyebrow="Programas de formación"
         title="Catálogo de"
         highlight="Cursos"
@@ -75,7 +75,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import StudentPageHeader from '@/components/student/StudentPageHeader.vue'
+import EstudiantePageHeader from '@/components/estudiante/EstudiantePageHeader.vue'
 
 const props = defineProps({
   availableCourses: {

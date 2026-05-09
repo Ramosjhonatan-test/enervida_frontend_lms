@@ -55,7 +55,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import AppLogo from '@/components/AppLogo.vue'
+import AppLogo from '@/components/global/AppLogo.vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
