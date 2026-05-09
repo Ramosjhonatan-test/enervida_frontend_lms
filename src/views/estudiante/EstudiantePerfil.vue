@@ -54,9 +54,11 @@
           </div>
 
           <div class="flex flex-col gap-3 pt-2 sm:flex-row">
-            <button type="submit" :disabled="saving" class="btn-premium btn-primary-neon !w-full sm:!w-auto !px-12 !py-5">
+            <button type="submit" :disabled="saving" class="btn-premium btn-primary-neon !w-full sm:!w-auto !px-12 !py-5 relative overflow-hidden">
+              <div v-if="saving" class="shimmer-effect"></div>
+              <span v-if="!saving" class="material-symbols-outlined text-sm">save</span>
+              <div v-else class="animate-spin rounded-full h-4 w-4 border-t-2 border-primary"></div>
               {{ saving ? 'Guardando...' : 'Guardar perfil' }}
-              <span class="material-symbols-outlined text-sm">save</span>
             </button>
             <button type="button" class="btn-premium btn-secondary-glass !w-full sm:!w-auto !px-8 !py-5">
               Ver historial
@@ -149,9 +151,12 @@
 import { ref, computed, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import api from '@/services/api'
+import { getFileUrl } from '@/config'
+import { useNotificationStore } from '@/stores/notificationStore'
 import EstudiantePageHeader from '@/components/estudiante/EstudiantePageHeader.vue'
 
 const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
 const saving = ref(false)
 const showPassword = ref(false)
 const profileImageFailed = ref(false)
@@ -192,10 +197,7 @@ const userInitials = computed(() => {
 
 const profileImageUrl = computed(() => {
   const url = authStore.user?.imagen_perfil || authStore.user?.foto
-  if (!url) return null
-  if (url.startsWith('http')) return url
-  const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '')
-  return `${baseUrl}/${url.replace(/^\//, '')}`
+  return getFileUrl(url)
 })
 
 const headerStats = computed(() => [
@@ -237,12 +239,19 @@ async function handleUpdateProfile() {
     const response = await api.patch('/usuarios/profile', data)
 
     await authStore.updateUser(response.data)
-
-    alert('Perfil actualizado correctamente')
+    notificationStore.addNotification({
+      title: 'Perfil Actualizado',
+      message: 'Tus datos se han guardado correctamente.',
+      type: 'success'
+    })
     form.value.contrasena = ''
   } catch (error) {
     console.error('Error updating profile:', error)
-    alert('No se pudo actualizar el perfil')
+    notificationStore.addNotification({
+      title: 'Error al Guardar',
+      message: 'No se pudo actualizar tu información de perfil.',
+      type: 'error'
+    })
   } finally {
     saving.value = false
   }

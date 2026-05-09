@@ -35,7 +35,7 @@
        <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
          <div v-for="curso in filteredCursos" :key="curso.id" class="group glass-shell border border-on-surface/10 hover:border-accent-neon/30 rounded-3xl overflow-hidden transition-all duration-300">
            <div class="h-48 bg-on-surface/5 relative overflow-hidden">
-             <img v-if="curso.miniatura_url" :src="getImageUrl(curso.miniatura_url)" alt="Miniatura" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+             <img v-if="curso.miniatura_url" :src="getFileUrl(curso.miniatura_url)" alt="Miniatura" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
              <div v-else class="w-full h-full flex items-center justify-center bg-on-surface/5">
                <span class="material-symbols-outlined text-4xl text-on-surface/20">image</span>
              </div>
@@ -67,6 +67,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import api from '@/services/api';
+import { getFileUrl } from '@/config';
 
 const cursos = ref([]);
 const loading = ref(true);
@@ -94,14 +95,6 @@ const deleteCurso = async (id) => {
       alert('Error al eliminar el curso. Verifica si tiene módulos o dependencias.');
     }
   }
-};
-
-const getImageUrl = (url) => {
-  if (!url) return null;
-  if (url.startsWith('http')) return url;
-  const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '');
-  const cleanUrl = url.startsWith('/') ? url : `/${url}`;
-  return `${baseUrl}${cleanUrl}`;
 };
 
 const filteredCursos = computed(() => {

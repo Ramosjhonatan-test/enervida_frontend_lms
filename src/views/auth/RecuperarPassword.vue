@@ -52,8 +52,16 @@
               {{ error }}
             </div>
 
-            <button :disabled="loading" class="btn-premium btn-primary-neon w-full py-4 mt-4" type="submit">
-              {{ loading ? 'Enviando...' : 'Enviar Enlace' }}
+            <button :disabled="loading" class="btn-premium btn-primary-neon w-full py-4 mt-4 relative overflow-hidden" type="submit">
+              <div v-if="loading" class="shimmer-effect"></div>
+              <span v-if="!loading" class="flex items-center justify-center gap-2">
+                Enviar Enlace
+                <span class="material-symbols-outlined text-sm">send</span>
+              </span>
+              <span v-else class="flex items-center justify-center gap-2 font-black tracking-widest uppercase text-[10px]">
+                <div class="animate-spin rounded-full h-4 w-4 border-t-2 border-primary mr-2"></div>
+                Enviando Instrucciones...
+              </span>
             </button>
 
             <div class="text-center pt-4">
@@ -72,8 +80,10 @@
 import { onMounted, ref } from 'vue'
 import AppLogo from '@/components/global/AppLogo.vue'
 import { useAuthStore } from '@/stores/auth'
+import { useNotificationStore } from '@/stores/notificationStore'
 
 const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
 const particlesContainer = ref(null)
 
 const email = ref('')
@@ -102,9 +112,20 @@ const handleForgot = async () => {
   try {
     await authStore.forgotPassword(email.value)
     success.value = true
+    notificationStore.addNotification({
+      title: 'Correo Enviado',
+      message: 'Revisa tu bandeja de entrada para continuar.',
+      type: 'success'
+    })
   } catch (err) {
     console.error('Error en recuperación:', err)
-    error.value = err.response?.data?.message || 'Error al enviar el correo de recuperación'
+    const msg = err.response?.data?.message || 'Error al enviar el correo de recuperación'
+    error.value = msg
+    notificationStore.addNotification({
+      title: 'Error de Envío',
+      message: msg,
+      type: 'error'
+    })
   } finally {
     loading.value = false
   }

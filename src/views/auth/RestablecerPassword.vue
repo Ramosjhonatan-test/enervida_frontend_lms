@@ -60,8 +60,16 @@
               {{ error }}
             </div>
 
-            <button :disabled="loading || !token" class="btn-premium btn-primary-neon w-full py-4 mt-4" type="submit">
-              {{ loading ? 'Actualizando...' : 'Restablecer Contraseña' }}
+            <button :disabled="loading || !token" class="btn-premium btn-primary-neon w-full py-4 mt-4 relative overflow-hidden" type="submit">
+              <div v-if="loading" class="shimmer-effect"></div>
+              <span v-if="!loading" class="flex items-center justify-center gap-2">
+                Actualizar Credenciales
+                <span class="material-symbols-outlined text-sm">security</span>
+              </span>
+              <span v-else class="flex items-center justify-center gap-2 font-black tracking-widest uppercase text-[10px]">
+                <div class="animate-spin rounded-full h-4 w-4 border-t-2 border-primary mr-2"></div>
+                Encriptando y Guardando...
+              </span>
             </button>
 
             <div v-if="!token" class="text-error text-[9px] text-center uppercase font-bold tracking-widest mt-4">
@@ -79,10 +87,12 @@ import { onMounted, ref } from 'vue'
 import AppLogo from '@/components/global/AppLogo.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { useNotificationStore } from '@/stores/notificationStore'
 
 const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
 const particlesContainer = ref(null)
 
 const password = ref('')
@@ -121,9 +131,20 @@ const handleReset = async () => {
       newPassword: password.value
     })
     success.value = true
+    notificationStore.addNotification({
+      title: 'Contraseña Actualizada',
+      message: 'Tu acceso ha sido restaurado correctamente.',
+      type: 'success'
+    })
   } catch (err) {
     console.error('Error en restablecimiento:', err)
-    error.value = err.response?.data?.message || 'Error al restablecer la contraseña'
+    const msg = err.response?.data?.message || 'Error al restablecer la contraseña'
+    error.value = msg
+    notificationStore.addNotification({
+      title: 'Error de Actualización',
+      message: msg,
+      type: 'error'
+    })
   } finally {
     loading.value = false
   }

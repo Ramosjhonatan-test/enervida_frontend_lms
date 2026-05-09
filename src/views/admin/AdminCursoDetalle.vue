@@ -197,6 +197,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import api from '@/services/api';
+import { getFileUrl } from '@/config';
 
 const route = useRoute();
 const curso = ref(null);
@@ -292,9 +293,7 @@ const uploadLeccionFile = async () => {
     
     uploadProgress.value = 100; // Asegurar 100% al finalizar
     const url = res.data.url;
-    const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '');
-    const cleanUrl = url.startsWith('/') ? url : `/${url}`;
-    leccionUrl.value = `${baseUrl}${cleanUrl}`;
+    leccionUrl.value = getFileUrl(url);
   } catch (error) {
     console.error('Error uploading leccion file:', error);
     alert('Error al subir el archivo');

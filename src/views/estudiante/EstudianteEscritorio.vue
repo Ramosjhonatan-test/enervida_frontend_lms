@@ -25,7 +25,7 @@
             <section v-if="ultimoCurso" class="panel-hero group relative p-8 md:p-12 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div class="flex flex-col gap-10 xl:flex-row xl:items-center">
                 <div class="relative aspect-video w-full shrink-0 overflow-hidden rounded-[32px] border border-on-surface/10 shadow-2xl xl:w-[320px]">
-                  <img :src="getImageUrl(ultimoCurso.curso?.miniatura_url)" class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                  <img :src="getFileUrl(ultimoCurso.curso?.miniatura_url)" class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
                   <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
                 </div>
                 
@@ -71,7 +71,7 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div v-for="ins in otrosCursos" :key="ins.id" class="course-card-premium group relative flex items-center gap-6 p-5 transition-all">
                   <div class="h-20 w-24 shrink-0 overflow-hidden rounded-2xl border border-on-surface/5 bg-on-surface/5">
-                    <img :src="getImageUrl(ins.curso?.miniatura_url)" class="h-full w-full object-cover" />
+                    <img :src="getFileUrl(ins.curso?.miniatura_url)" class="h-full w-full object-cover" />
                   </div>
                   <div class="min-w-0 flex-grow">
                     <h4 class="truncate font-lexend text-base font-black">{{ ins.curso?.titulo }}</h4>
@@ -96,7 +96,7 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 <div v-for="curso in availableCourses.slice(0, 3)" :key="curso.id" class="course-card-premium group overflow-hidden flex flex-col">
                   <div class="relative aspect-video overflow-hidden">
-                    <img :src="getImageUrl(curso.miniatura_url)" class="h-full w-full object-cover transition-transform group-hover:scale-110" />
+                    <img :src="getFileUrl(curso.miniatura_url)" class="h-full w-full object-cover transition-transform group-hover:scale-110" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                   </div>
                   <div class="p-5 flex-grow flex flex-col">
@@ -202,6 +202,7 @@
 import { computed } from 'vue'
 import EstudiantePageHeader from '@/components/estudiante/EstudiantePageHeader.vue'
 import { useAuthStore } from '@/stores/auth'
+import { getFileUrl } from '@/config'
 
 const authStore = useAuthStore()
 
@@ -246,16 +247,6 @@ const otrosCursos = computed(() => {
   if (!props.ultimoCurso) return cursosActivos.value
   return cursosActivos.value.filter(ins => ins.id !== props.ultimoCurso.id)
 })
-
-function getImageUrl(url) {
-  if (!url) return null
-  const value = String(url).trim().replaceAll('\\', '/')
-  if (!value) return null
-  if (value.startsWith('http')) return value
-  const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '')
-  const cleanUrl = value.startsWith('/') ? value : `/${value}`
-  return `${baseUrl}${cleanUrl}`
-}
 
 function formatDate(value) {
   if (!value) return 'Sin fecha'

@@ -176,6 +176,7 @@
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import api from '@/services/api'
+import { getFileUrl } from '@/config'
 import { useAuthStore } from '@/stores/auth'
 import AppLogo from '@/components/global/AppLogo.vue'
 import ThemeToggle from '@/components/global/ThemeToggle.vue'
@@ -232,7 +233,7 @@ const currentNavLabel = computed(() => {
   return current?.text || 'Mi campus'
 })
 
-const profileImageUrl = computed(() => getProfileImageUrl(
+const profileImageUrl = computed(() => getFileUrl(
   authStore.user?.imagen_perfil ||
   authStore.user?.foto ||
   authStore.user?.picture ||
@@ -258,26 +259,6 @@ onMounted(() => {
 onUnmounted(() => {
   document.body.style.overflow = ''
 })
-
-function getImageUrl(url) {
-  if (!url) return null
-  const value = String(url).trim().replaceAll('\\', '/')
-  if (!value) return null
-  if (value.startsWith('http')) return value
-  const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '')
-  const cleanUrl = value.startsWith('/') ? value : `/${value}`
-  return `${baseUrl}${cleanUrl}`
-}
-
-function getProfileImageUrl(url) {
-  if (!url) return null
-  const value = String(url).trim().replaceAll('\\', '/')
-  if (!value) return null
-  if (value.startsWith('data:image')) return value
-  if (value.startsWith('//')) return `https:${value}`
-  if (value.startsWith('http')) return value
-  return getImageUrl(value)
-}
 
 function normalizeArray(value) {
   return Array.isArray(value) ? value : []

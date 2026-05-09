@@ -35,7 +35,7 @@
           class="course-card-premium group"
         >
           <div class="relative h-56 overflow-hidden">
-            <img :src="getImageUrl(curso.miniatura_url)" class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+            <img :src="getFileUrl(curso.miniatura_url)" class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
             <span class="absolute bottom-6 left-6 rounded-full bg-accent-neon px-4 py-2 text-[9px] font-black uppercase tracking-widest text-primary shadow-xl">
               {{ curso.nivel || 'Básico' }}
@@ -76,6 +76,7 @@
 <script setup>
 import { computed } from 'vue'
 import EstudiantePageHeader from '@/components/estudiante/EstudiantePageHeader.vue'
+import { getFileUrl } from '@/config'
 
 const props = defineProps({
   availableCourses: {
@@ -105,13 +106,4 @@ const headerStats = computed(() => [
   },
 ])
 
-function getImageUrl(url) {
-  if (!url) return null
-  const value = String(url).trim().replaceAll('\\', '/')
-  if (!value) return null
-  if (value.startsWith('http')) return value
-  const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '')
-  const cleanUrl = value.startsWith('/') ? value : `/${value}`
-  return `${baseUrl}${cleanUrl}`
-}
 </script>

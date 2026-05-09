@@ -25,7 +25,7 @@
           <!-- Left Side: Hero Visualization -->
           <div class="relative w-full md:w-[45%] h-72 md:h-auto overflow-hidden shrink-0 group/hero">
             <img 
-              :src="getImageUrl(course?.miniatura_url)" 
+              :src="getFileUrl(course?.miniatura_url)" 
               class="h-full w-full object-cover transition-transform duration-1000 group-hover/hero:scale-110" 
               :alt="course?.titulo"
             />
@@ -267,6 +267,7 @@
 
 <script setup>
 import { Transition, onMounted, onUnmounted, ref, watch } from 'vue'
+import { getFileUrl } from '@/config'
 
 const props = defineProps({
   isOpen: Boolean,
@@ -280,15 +281,6 @@ const emit = defineEmits(['close', 'enroll'])
 
 function close() {
   emit('close')
-}
-
-function getImageUrl(url) {
-  if (!url) return null
-  const value = String(url).trim().replaceAll('\\', '/')
-  if (!value) return null
-  if (value.startsWith('http')) return value
-  const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '')
-  return `${baseUrl}${value.startsWith('/') ? value : '/' + value}`
 }
 
 // Lock scroll when open

@@ -60,18 +60,25 @@
             {{ error }}
           </div>
 
-          <button :disabled="loading" class="btn-premium btn-primary-neon w-full !py-4.5 !rounded-2xl group overflow-hidden relative" type="submit">
+          <button 
+            :disabled="loading" 
+            class="btn-premium btn-primary-neon w-full !py-4.5 !rounded-2xl group overflow-hidden relative" 
+            type="submit"
+          >
+            <!-- Loading Shimmer -->
+            <div v-if="loading" class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
+            
             <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
             <span v-if="!loading" class="flex items-center gap-2 relative z-10">
               Iniciar Sesión
               <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
             </span>
-            <span v-else class="flex items-center gap-2 relative z-10">
-              <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24">
+            <span v-else class="flex items-center gap-3 relative z-10 font-black">
+              <svg class="animate-spin h-5 w-5 text-primary" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Autenticando...
+              Verificando Credenciales...
             </span>
           </button>
         </form>
@@ -86,10 +93,14 @@
         <button 
           type="button"
           @click="customGoogleLogin"
-          class="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 flex items-center justify-center gap-3 transition-all hover:bg-white/10 active:scale-95 group"
+          :disabled="loading"
+          class="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 flex items-center justify-center gap-3 transition-all hover:bg-white/10 active:scale-95 group relative overflow-hidden"
         >
-          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5 grayscale group-hover:grayscale-0 transition-all" alt="Google" />
-          <span class="text-on-surface font-bold text-xs uppercase tracking-widest">Continuar con Google</span>
+          <div v-if="loading" class="absolute inset-0 bg-white/5 animate-pulse"></div>
+          <img v-if="!loading" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5 grayscale group-hover:grayscale-0 transition-all" alt="Google" />
+          <span class="text-on-surface font-bold text-xs uppercase tracking-widest relative z-10">
+            {{ loading ? 'Conectando...' : 'Continuar con Google' }}
+          </span>
         </button>
 
         <div class="text-center mt-10 pt-6 border-t border-on-surface/5">

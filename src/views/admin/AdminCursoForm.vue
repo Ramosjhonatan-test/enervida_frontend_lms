@@ -168,10 +168,11 @@
 
         <!-- Actions -->
         <div class="flex flex-col gap-3 mt-4">
-          <button type="submit" :disabled="saving" class="btn-premium btn-primary-neon w-full justify-center">
-            <div v-if="saving" class="animate-spin rounded-full h-4 w-4 border-t-2 border-primary"></div>
-            <span v-else class="material-symbols-outlined text-sm">save</span>
-            {{ isEditing ? 'Guardar Cambios' : 'Crear Curso' }}
+          <button type="submit" :disabled="saving" class="btn-premium btn-primary-neon w-full justify-center relative overflow-hidden">
+            <div v-if="saving" class="shimmer-effect"></div>
+            <span v-if="!saving" class="material-symbols-outlined text-sm">save</span>
+            <div v-else class="animate-spin rounded-full h-4 w-4 border-t-2 border-primary"></div>
+            {{ saving ? 'Guardando...' : (isEditing ? 'Guardar Cambios' : 'Crear Curso') }}
           </button>
           <router-link to="/admin/cursos" class="btn-premium btn-secondary-glass w-full justify-center text-on-surface/60 hover:text-on-surface">
             Cancelar
@@ -187,10 +188,13 @@ import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import api from '@/services/api';
 import { useAuthStore } from '@/stores/auth';
+import { useNotificationStore } from '@/stores/notificationStore';
+import { getFileUrl } from '@/config';
 
 const router = useRouter();
 const route = useRoute();
 const authStore = useAuthStore();
+const notificationStore = useNotificationStore();
 
 const isEditing = ref(false);
 const saving = ref(false);
@@ -216,15 +220,7 @@ const form = ref({
   precio: 0
 });
 
-const getImageUrl = (url) => {
-  if (!url) return null;
-  if (url.startsWith('http')) return url;
-  
-  const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '');
-  const cleanUrl = url.startsWith('/') ? url : `/${url}`;
-  
-  return `${baseUrl}${cleanUrl}`;
-};
+// getImageUrl was replaced by getFileUrl from config
 
 const fetchCategorias = async () => {
   try {
@@ -254,10 +250,10 @@ const fetchCurso = async (id) => {
       precio: curso.precio
     };
     if (curso.miniatura_url) {
-      previewUrl.value = getImageUrl(curso.miniatura_url);
+      previewUrl.value = getFileUrl(curso.miniatura_url);
       // Si la URL empieza con http (y no es el localhost) o no empieza con /uploads, 
       // asumimos que es una URL pegada manualmente
-      if (curso.miniatura_url.startsWith('http') && !curso.miniatura_url.includes('localhost')) {
+      if (curso.miniatura_url.startsWith('http') && !curso.miniatura_url.includes('enervida.info')) {
         uploadMode.value = 'url';
       } else if (!curso.miniatura_url.startsWith('/uploads')) {
         uploadMode.value = 'url';
@@ -325,14 +321,28 @@ const saveCurso = async () => {
   try {
     if (isEditing.value) {
       await api.patch(`/cursos/${route.params.id}`, payload);
+      notificationStore.addNotification({
+        title: 'Curso Actualizado',
+        message: 'Los cambios se han guardado correctamente.',
+        type: 'success'
+      });
       router.push(`/admin/cursos/${route.params.id}`);
     } else {
       const response = await api.post('/cursos', payload);
+      notificationStore.addNotification({
+        title: 'Curso Creado',
+        message: 'El nuevo curso ya está disponible en el catálogo.',
+        type: 'success'
+      });
       router.push(`/admin/cursos/${response.data.id}`);
     }
   } catch (error) {
     console.error('Error saving course:', error);
-    alert('Error al guardar el curso. Revisa los datos.');
+    notificationStore.addNotification({
+      title: 'Error de Guardado',
+      message: 'No se pudo procesar la solicitud del curso.',
+      type: 'error'
+    });
   } finally {
     saving.value = false;
   }

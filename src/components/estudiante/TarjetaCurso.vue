@@ -9,7 +9,7 @@
     <!-- Miniatura con Overlay Super Premium -->
     <div class="relative aspect-[16/10] overflow-hidden">
       <img 
-        :src="getImageUrl(course?.miniatura_url)" 
+        :src="getFileUrl(course?.miniatura_url)" 
         :alt="course?.titulo"
         class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" 
       />
@@ -184,6 +184,8 @@
 </template>
 
 <script setup>
+import { getFileUrl } from '@/config'
+
 defineProps({
   course: {
     type: Object,
@@ -200,15 +202,6 @@ defineProps({
 })
 
 defineEmits(['action', 'view-details'])
-
-function getImageUrl(url) {
-  if (!url) return null
-  const value = String(url).trim().replaceAll('\\', '/')
-  if (!value) return null
-  if (value.startsWith('http')) return value
-  const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '')
-  return `${baseUrl}${value.startsWith('/') ? value : '/' + value}`
-}
 </script>
 
 <style scoped>

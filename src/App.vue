@@ -28,11 +28,13 @@ onMounted(() => {
 
 <template>
   <LoadingScreen :isLoading="isLoading" />
-  <NotificationToast />
 
-  <div :class="{'opacity-0': isLoading}" class="transition-opacity duration-1000 ease-out">
+  <div :class="{'opacity-0': isLoading}" class="transition-opacity duration-1000 ease-out flex-1">
     <RouterView />
   </div>
+
+  <!-- Notificaciones Globales (Fuera de RouterView para persistencia) -->
+  <NotificationToast />
 </template>
 
 <style>

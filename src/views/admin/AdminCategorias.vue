@@ -42,9 +42,10 @@
 
           <div class="flex items-end gap-3 shrink-0">
             <button type="button" @click="showForm = false" class="btn-premium glass-shell justify-center !py-3.5 !px-6">Cancelar</button>
-            <button type="submit" :disabled="saving" class="btn-premium btn-primary-neon justify-center !py-3.5 !px-8">
-              <span v-if="saving" class="animate-spin rounded-full h-4 w-4 border-t-2 border-primary"></span>
-              <span v-else>{{ isEditing ? 'Guardar' : 'Crear' }}</span>
+            <button type="submit" :disabled="saving" class="btn-premium btn-primary-neon justify-center !py-3.5 !px-8 relative overflow-hidden">
+              <div v-if="saving" class="shimmer-effect"></div>
+              <span v-if="!saving">{{ isEditing ? 'Guardar' : 'Crear' }}</span>
+              <div v-else class="animate-spin rounded-full h-4 w-4 border-t-2 border-primary"></div>
             </button>
           </div>
         </form>
@@ -111,10 +112,12 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import api from '@/services/api';
+import { useNotificationStore } from '@/stores/notificationStore';
 
 const categorias = ref([]);
 const loading = ref(true);
 const saving = ref(false);
+const notificationStore = useNotificationStore();
 const showForm = ref(false);
 const isEditing = ref(false);
 
@@ -157,14 +160,28 @@ const saveCategoria = async () => {
   try {
     if (isEditing.value) {
       await api.patch(`/categorias/${form.value.id}`, form.value);
+      notificationStore.addNotification({
+        title: 'Categoría Actualizada',
+        message: 'Los cambios se han guardado correctamente.',
+        type: 'success'
+      });
     } else {
       await api.post('/categorias', form.value);
+      notificationStore.addNotification({
+        title: 'Categoría Creada',
+        message: 'La nueva categoría ha sido registrada exitosamente.',
+        type: 'success'
+      });
     }
     showForm.value = false;
     await fetchCategorias();
   } catch (error) {
     console.error('Error saving category:', error);
-    alert('Error al guardar la categoría.');
+    notificationStore.addNotification({
+      title: 'Error de Servidor',
+      message: 'No se pudo procesar la solicitud de categoría.',
+      type: 'error'
+    });
   } finally {
     saving.value = false;
   }
@@ -174,10 +191,19 @@ const deleteCategoria = async (id) => {
   if (!confirm('¿Estás seguro de eliminar esta categoría? Si tiene cursos asociados, podría haber errores.')) return;
   try {
     await api.delete(`/categorias/${id}`);
+    notificationStore.addNotification({
+      title: 'Categoría Eliminada',
+      message: 'El registro ha sido removido del sistema.',
+      type: 'success'
+    });
     await fetchCategorias();
   } catch (error) {
     console.error('Error deleting category:', error);
-    alert('No se pudo eliminar la categoría. Verifique si tiene cursos asociados.');
+    notificationStore.addNotification({
+      title: 'Acción Bloqueada',
+      message: 'No se puede eliminar una categoría con cursos asociados.',
+      type: 'error'
+    });
   }
 };
 

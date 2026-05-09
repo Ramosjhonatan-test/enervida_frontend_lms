@@ -67,17 +67,16 @@
           </div>
 
           <button :disabled="loading" class="btn-premium btn-primary-neon w-full !py-4.5 !rounded-2xl group overflow-hidden relative" type="submit">
-            <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+            <!-- Shimmer effect when loading -->
+            <div v-if="loading" class="shimmer-effect"></div>
+            
             <span v-if="!loading" class="flex items-center gap-2 relative z-10">
               Crear Cuenta
               <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">person_add</span>
             </span>
-            <span v-else class="flex items-center gap-2 relative z-10">
-              <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-              Procesando...
+            <span v-else class="flex items-center gap-2 relative z-10 font-black tracking-widest uppercase text-[11px]">
+              <div class="animate-spin rounded-full h-4 w-4 border-t-2 border-primary mr-2"></div>
+              Procesando Registro...
             </span>
           </button>
         </form>
@@ -114,10 +113,12 @@ import { ref, reactive } from 'vue'
 import AppLogo from '@/components/global/AppLogo.vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { useNotificationStore } from '@/stores/notificationStore'
 import { useTokenClient } from 'vue3-google-signin'
 
 const router = useRouter()
 const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
 const loading = ref(false)
 const error = ref('')
 
@@ -135,10 +136,21 @@ const { login: customGoogleLogin } = useTokenClient({
       await authStore.googleLogin({ 
         access_token: tokenResponse.access_token 
       })
+      notificationStore.addNotification({
+        title: '¡Acceso Exitoso!',
+        message: 'Bienvenido a Enervida. Tu cuenta de Google ha sido vinculada.',
+        type: 'success'
+      })
       router.push('/student')
     } catch (err) {
       console.error('Error google register:', err)
-      error.value = err.response?.data?.message || 'Error al registrar con Google'
+      const msg = err.response?.data?.message || 'Error al registrar con Google'
+      error.value = msg
+      notificationStore.addNotification({
+        title: 'Error de Registro',
+        message: msg,
+        type: 'error'
+      })
     } finally {
       loading.value = false
     }
@@ -154,10 +166,21 @@ const handleRegister = async () => {
   
   try {
     await authStore.register(form)
+    notificationStore.addNotification({
+      title: '¡Bienvenido, ' + form.nombres + '!',
+      message: 'Tu cuenta ha sido creada exitosamente. Iniciando sesión...',
+      type: 'success'
+    })
     router.push('/student')
   } catch (err) {
     console.error('Error en registro:', err)
-    error.value = err.response?.data?.message || 'Error al crear la cuenta'
+    const msg = err.response?.data?.message || 'Error al crear la cuenta'
+    error.value = msg
+    notificationStore.addNotification({
+      title: 'Error en Registro',
+      message: msg,
+      type: 'error'
+    })
   } finally {
     loading.value = false
   }

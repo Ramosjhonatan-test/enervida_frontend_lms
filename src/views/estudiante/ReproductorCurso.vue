@@ -188,10 +188,12 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import api from '@/services/api'
+import { getFileUrl } from '@/config'
 import { useAuthStore } from '@/stores/auth'
 
 const route = useRoute()
 const router = useRouter()
+const authStore = useAuthStore()
 const authStore = useAuthStore()
 
 const curso = ref(null)
@@ -308,14 +310,7 @@ const getYoutubeEmbed = (url) => {
   return `https://www.youtube.com/embed/${id}`
 }
 
-const getFileUrl = (url) => {
-  if (!url) return null
-  const value = String(url).trim().replaceAll('\\', '/')
-  if (value.startsWith('http')) return value
-  const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '')
-  const cleanUrl = value.startsWith('/') ? value : `/${value}`
-  return `${baseUrl}${cleanUrl}`
-}
+// ... (rest of the functions)
 
 onMounted(() => {
   fetchCourseData()

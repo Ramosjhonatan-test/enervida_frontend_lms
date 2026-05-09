@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed top-6 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-3 pointer-events-none w-full max-w-[420px] px-4">
+  <div class="fixed top-8 left-1/2 -translate-x-1/2 z-[2000] flex flex-col gap-4 pointer-events-none w-full max-w-[440px] px-4">
     <TransitionGroup 
       name="notification"
     >
@@ -65,10 +65,30 @@
 
 <script setup>
 import { useNotificationStore } from '@/stores/notificationStore'
-import { ref } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 
 const store = useNotificationStore()
 const progressWidths = ref({})
+
+// Lógica de progreso para cada notificación
+watch(() => store.notifications, (newNotifs) => {
+  newNotifs.forEach(n => {
+    if (progressWidths.value[n.id] === undefined) {
+      progressWidths.value[n.id] = 100
+      const duration = 5000 // Coincide con el store
+      const step = 100 / (duration / 16) // ~60fps
+      
+      const interval = setInterval(() => {
+        if (progressWidths.value[n.id] > 0) {
+          progressWidths.value[n.id] -= step
+        } else {
+          clearInterval(interval)
+          delete progressWidths.value[n.id]
+        }
+      }, 16)
+    }
+  })
+}, { deep: true })
 
 const getIcon = (type) => {
   switch (type) {
@@ -78,6 +98,10 @@ const getIcon = (type) => {
     default: return 'notifications'
   }
 }
+
+onMounted(() => {
+  console.log('NotificationToast montado en modo global')
+})
 </script>
 
 <style scoped>

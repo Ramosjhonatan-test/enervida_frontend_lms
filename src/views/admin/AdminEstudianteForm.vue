@@ -76,17 +76,15 @@
         <button type="button" @click="$router.back()" class="px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest text-on-surface/40 hover:text-on-surface transition-all">
           Cancelar
         </button>
-        <button type="submit" :disabled="saving" class="btn-premium btn-primary-neon !py-4 !px-12 gap-2">
-          <span class="material-symbols-outlined text-sm">{{ saving ? 'sync' : 'save' }}</span>
-          {{ saving ? 'Guardando...' : (isEdit ? 'Actualizar' : 'Registrar Estudiante') }}
+        <button type="submit" :disabled="saving" class="btn-premium btn-primary-neon !py-4 !px-12 gap-2 relative overflow-hidden">
+          <div v-if="saving" class="shimmer-effect"></div>
+          <span v-if="!saving" class="material-symbols-outlined text-sm">save</span>
+          <div v-else class="animate-spin rounded-full h-4 w-4 border-t-2 border-primary"></div>
+          {{ saving ? 'Procesando...' : (isEdit ? 'Actualizar' : 'Registrar Estudiante') }}
         </button>
       </div>
     </form>
 
-    <!-- Overlay de carga -->
-    <div v-if="loading" class="fixed inset-0 bg-background/60 backdrop-blur-md z-[200] flex items-center justify-center">
-       <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-accent-neon"></div>
-    </div>
   </div>
 </template>
 
@@ -94,9 +92,11 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import api from '@/services/api'
+import { useNotificationStore } from '@/stores/notificationStore'
 
 const route = useRoute()
 const router = useRouter()
+const notificationStore = useNotificationStore()
 const isEdit = computed(() => !!route.params.id)
 
 const form = ref({
@@ -171,6 +171,13 @@ const saveEstudiante = async () => {
 
       await api.post('/usuarios', payload)
     }
+    
+    notificationStore.addNotification({
+      title: isEdit.value ? 'Estudiante Actualizado' : 'Estudiante Registrado',
+      message: `El estudiante ${payload.nombres} ha sido ${isEdit.value ? 'actualizado' : 'registrado'} correctamente.`,
+      type: 'success'
+    })
+    
     router.push('/admin/estudiantes')
   } catch (error) {
     console.error('Error saving student:', error)
@@ -179,7 +186,7 @@ const saveEstudiante = async () => {
     
     if (errorData) {
       if (Array.isArray(errorData.message)) {
-        errorMsg = errorData.message.join('\n')
+        errorMsg = errorData.message.join(', ')
       } else {
         errorMsg = errorData.message || errorData.error || errorMsg
       }
@@ -187,7 +194,11 @@ const saveEstudiante = async () => {
       errorMsg = error.message || errorMsg
     }
     
-    alert(errorMsg)
+    notificationStore.addNotification({
+      title: 'Error de Servidor',
+      message: errorMsg,
+      type: 'error'
+    })
   } finally {
     saving.value = false
   }
