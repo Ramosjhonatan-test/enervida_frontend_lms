@@ -22,8 +22,9 @@
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
         <div v-for="(course, index) in courses" :key="index" 
-             :class="['group relative animate-in fade-in slide-in-from-bottom duration-1000', course.extraClass]"
-             :style="{ 'animation-delay': `${index * 150}ms` }">
+             :class="['group relative animate-in fade-in slide-in-from-bottom duration-1000 cursor-pointer', course.extraClass]"
+             :style="{ 'animation-delay': `${index * 150}ms` }"
+             @click="navigateTo(course.link)">
           <div :class="['relative h-full min-h-[600px] lg:min-h-[650px] flex flex-col justify-end pb-8 glass-card overflow-hidden group/card card-premium-hover border-on-surface/10', course.roundedClass]">
             <!-- Image Overlay -->
             <div class="absolute inset-0 overflow-hidden">
@@ -46,7 +47,7 @@
               
               <div class="w-full flex items-center justify-between gap-4 mt-auto">
                  <button class="btn-premium btn-primary-neon !px-6 !py-3 md:!px-8 md:!py-4 !text-[10px] shadow-lg flex-1">
-                   Inscribirse Ahora
+                   Ver Detalles
                  </button>
                  <button class="w-12 h-12 shrink-0 rounded-full glass-premium flex items-center justify-center border-on-surface/10 text-on-surface hover:bg-accent-neon hover:text-primary transition-all">
                     <span class="material-symbols-outlined text-sm">arrow_forward</span>
@@ -63,6 +64,13 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const navigateTo = (link) => {
+  if (link) router.push(link)
+}
 
 const courses = ref([
   {
@@ -79,7 +87,8 @@ const courses = ref([
     accentGlowClass: 'glow-neon',
     accentBorderClass: 'border-accent-neon/30',
     accentBgClass: 'bg-accent-neon',
-    extraClass: ''
+    extraClass: '',
+    link: '/cursos/vivenciales'
   },
   {
     title: 'Para Todos <br/><span class="text-xl md:text-2xl text-accent-solar opacity-90">ONLINE</span> <br> <span class="text-lg text-accent-oacity-90">ENERGIA SOLAR PARA:</span>' ,
@@ -100,7 +109,8 @@ const courses = ref([
     accentGlowClass: 'glow-solar',
     accentBorderClass: 'border-accent-solar/30',
     accentBgClass: 'bg-accent-solar',
-    extraClass: 'md:mt-12'
+    extraClass: 'md:mt-12',
+    link: '/cursos/online'
   },
   {
     title: 'Especializados <br/><span class="text-xl md:text-2xl text-accent-neon opacity-90">PARA TÉCNICOS</span>',
@@ -120,7 +130,8 @@ const courses = ref([
     accentGlowClass: 'glow-neon',
     accentBorderClass: 'border-accent-neon/30',
     accentBgClass: 'bg-accent-neon',
-    extraClass: ''
+    extraClass: '',
+    link: '/cursos/tecnicos'
   }
 ])
 </script>

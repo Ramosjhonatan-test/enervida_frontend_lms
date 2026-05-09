@@ -15,6 +15,21 @@ const router = createRouter({
       component: HomeView
     },
     {
+      path: '/cursos/vivenciales',
+      name: 'cursos-vivenciales',
+      component: () => import('../views/public/CursosVivenciales.vue')
+    },
+    {
+      path: '/cursos/online',
+      name: 'cursos-online',
+      component: () => import('../views/public/CursosOnline.vue')
+    },
+    {
+      path: '/cursos/tecnicos',
+      name: 'cursos-tecnicos',
+      component: () => import('../views/public/CursosTecnicos.vue')
+    },
+    {
       path: '/login',
       name: 'login',
       component: LoginView,
