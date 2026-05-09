@@ -109,13 +109,26 @@ import AppLogo from '@/components/global/AppLogo.vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useTokenClient } from 'vue3-google-signin'
+import { useNotificationStore } from '@/stores/notificationStore'
+import confetti from 'canvas-confetti'
 
 const router = useRouter()
 const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
 const loading = ref(false)
 const email = ref('')
 const password = ref('')
 const error = ref('')
+
+const triggerConfetti = () => {
+  confetti({
+    particleCount: 150,
+    spread: 70,
+    origin: { y: 0.6 },
+    colors: ['#06b6d4', '#0ea5a4', '#EAB308'],
+    disableForReducedMotion: true
+  })
+}
 
 const { login: customGoogleLogin } = useTokenClient({
   onSuccess: async (tokenResponse) => {
@@ -125,6 +138,13 @@ const { login: customGoogleLogin } = useTokenClient({
         access_token: tokenResponse.access_token 
       })
       
+      triggerConfetti()
+      notificationStore.addNotification({
+        title: '¡Acceso Exitoso!',
+        message: `Bienvenido de nuevo, ${user.nombre || 'estudiante'}.`,
+        type: 'success'
+      })
+
       if (user.rol?.nombre === 'admin') {
         router.push('/admin')
       } else {
@@ -132,13 +152,24 @@ const { login: customGoogleLogin } = useTokenClient({
       }
     } catch (err) {
       console.error('Error google login:', err)
-      error.value = err.response?.data?.message || 'Error al validar cuenta de Google'
+      const msg = err.response?.data?.message || 'Error al validar cuenta de Google'
+      error.value = msg
+      notificationStore.addNotification({
+        title: 'Error de Autenticación',
+        message: msg,
+        type: 'error'
+      })
     } finally {
       loading.value = false
     }
   },
   onError: () => {
     error.value = 'Error al iniciar sesión con Google'
+    notificationStore.addNotification({
+      title: 'Google Login',
+      message: 'Se canceló o falló el inicio de sesión con Google.',
+      type: 'error'
+    })
   }
 })
 
@@ -152,6 +183,13 @@ const handleLogin = async () => {
       contrasena: password.value
     })
     
+    triggerConfetti()
+    notificationStore.addNotification({
+      title: '¡Bienvenido!',
+      message: 'Has iniciado sesión correctamente.',
+      type: 'success'
+    })
+
     if (user.rol?.nombre === 'admin') {
       router.push('/admin')
     } else {
@@ -159,7 +197,13 @@ const handleLogin = async () => {
     }
   } catch (err) {
     console.error('Error en login:', err)
-    error.value = err.response?.data?.message || 'Credenciales inválidas o error de conexión'
+    const msg = err.response?.data?.message || 'Credenciales inválidas o error de conexión'
+    error.value = msg
+    notificationStore.addNotification({
+      title: 'Acceso Denegado',
+      message: msg,
+      type: 'error'
+    })
   } finally {
     loading.value = false
   }

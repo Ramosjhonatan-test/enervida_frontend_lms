@@ -48,7 +48,7 @@
   }
 
   html.dark {
-    --background: #0b1220;
+    --background: #070b14;
     --on-surface: #F3F7FA;
     --on-surface-variant: #9AA8B8;
     --primary: #10291f;
@@ -267,6 +267,47 @@
 
   .card-premium-hover {
     @apply transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl;
+  }
+
+  .hover-neon-lift {
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .hover-neon-lift:hover {
+    transform: translateY(-15px) scale(1.01);
+    box-shadow: 0 30px 70px -15px rgba(46, 204, 113, 0.25);
+    border-color: rgba(46, 204, 113, 0.4) !important;
+  }
+
+  .dark .hover-neon-lift:hover {
+    box-shadow: 0 30px 80px -15px rgba(46, 204, 113, 0.4);
+  }
+
+  .hover-solar-lift {
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .hover-solar-lift:hover {
+    transform: translateY(-15px) scale(1.01);
+    box-shadow: 0 30px 70px -15px rgba(234, 179, 8, 0.25);
+    border-color: rgba(234, 179, 8, 0.4) !important;
+  }
+
+  .dark .hover-solar-lift:hover {
+    box-shadow: 0 30px 80px -15px rgba(234, 179, 8, 0.4);
+  }
+
+  .btn-primary-solar {
+    background-color: var(--accent-solar);
+    color: #000;
+    box-shadow: 0 0 20px rgba(234, 179, 8, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary-solar:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+    box-shadow: 0 0 30px rgba(234, 179, 8, 0.5);
   }
 
   .input-cyber {

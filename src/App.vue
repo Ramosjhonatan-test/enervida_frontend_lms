@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { RouterView } from 'vue-router'
 import LoadingScreen from '@/components/global/LoadingScreen.vue'
+import NotificationToast from '@/components/global/NotificationToast.vue'
 
 const isLoading = ref(true)
 
@@ -27,6 +28,7 @@ onMounted(() => {
 
 <template>
   <LoadingScreen :isLoading="isLoading" />
+  <NotificationToast />
 
   <div :class="{'opacity-0': isLoading}" class="transition-opacity duration-1000 ease-out">
     <RouterView />

@@ -4,7 +4,7 @@
     <div class="absolute -top-40 -right-40 w-[400px] h-[400px] md:w-[800px] md:h-[800px] bg-accent-neon/10 blur-[80px] md:blur-[160px] rounded-full"></div>
     <div class="absolute -bottom-40 -left-40 w-[400px] h-[400px] md:w-[800px] md:h-[800px] bg-accent-solar/5 blur-[80px] md:blur-[160px] rounded-full"></div>
     
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="w-full max-w-[1400px] mx-auto px-6 relative z-10">
       <!-- Título de Sección -->
       <div class="text-center mb-16 md:mb-24 animate-in fade-in slide-in-from-top duration-1000">
         <span class="text-accent-neon font-black tracking-[0.5em] uppercase text-[10px] mb-6 block opacity-60">Por qué elegirnos</span>

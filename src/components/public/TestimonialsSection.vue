@@ -1,13 +1,13 @@
 <template>
   <section id="socios" class="py-20 md:py-40 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="w-full max-w-[1400px] mx-auto px-6 relative z-10">
       <div class="text-center mb-16 md:mb-24 animate-in fade-in slide-in-from-top duration-1000">
         <span class="text-accent-neon font-black tracking-[0.5em] uppercase text-[10px] mb-4 block">Lo que dicen de nosotros</span>
         <h2 class="font-lexend text-4xl md:text-5xl font-black text-on-surface ">Historias de <span class="text-gradient-neon not-italic">Éxito</span></h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
         <div v-for="(testimonial, index) in testimonials" :key="index"
-             :class="['glass-card p-8 md:p-14 relative group/card', testimonial.roundedClass, testimonial.extraClass, testimonial.borderClass, 'animate-in fade-in slide-in-from-bottom duration-700']"
+             :class="['glass-premium p-8 md:p-14 relative group/card transition-all duration-500 hover:-translate-y-2', testimonial.roundedClass, testimonial.extraClass, testimonial.borderClass, 'animate-in fade-in slide-in-from-bottom duration-700 shadow-xl hover:shadow-[0_20px_60px_rgba(0,0,0,0.1)]']"
              :style="{ 'animation-delay': `${index * 150}ms` }">
           
           <!-- Ícono de Cita -->
