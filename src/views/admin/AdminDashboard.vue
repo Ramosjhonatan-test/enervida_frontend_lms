@@ -127,7 +127,7 @@ onMounted(() => {
 const pulseBars = [42, 48, 55, 62, 58, 66, 71, 68, 74, 79, 76, 84]
 
 const metrics = [
-  { title: 'Ingresos totales', get value() { return `${(stats.value.totalVentas || 0).toFixed(2)} Bs` }, icon: 'payments', badge: 'Finanzas', progress: '76%' },
+  { title: 'Ingresos totales', get value() { return `${Number(stats.value.totalVentas || 0).toFixed(2)} Bs` }, icon: 'payments', badge: 'Finanzas', progress: '76%' },
   { title: 'Estudiantes activos', get value() { return stats.value.totalEstudiantes || 0 }, icon: 'groups', badge: 'Comunidad', progress: '62%' },
   { title: 'Cursos disponibles', get value() { return stats.value.totalCursos || 0 }, icon: 'auto_stories', badge: 'Academia', progress: '84%' },
 ]

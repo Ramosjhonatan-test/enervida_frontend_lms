@@ -177,12 +177,16 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import api from '@/services/api'
+import { useNotificationStore } from '@/stores/notificationStore'
+import { useModalStore } from '@/stores/modalStore'
 
 const inscripciones = ref([])
 const usuarios = ref([])
 const cursos = ref([])
 const loading = ref(true)
 const saving = ref(false)
+const notificationStore = useNotificationStore()
+const modalStore = useModalStore()
 const showForm = ref(false)
 const isEditing = ref(false)
 const searchQuery = ref('')
@@ -251,23 +255,49 @@ const saveInscripcion = async () => {
       await api.post('/inscripciones', form.value)
     }
     await fetchData()
+    notificationStore.addNotification({
+      title: 'Inscripción Guardada',
+      message: 'Los cambios se han aplicado correctamente.',
+      type: 'success'
+    })
     showForm.value = false
   } catch (error) {
     console.error('Error saving inscripcion:', error)
-    alert(error.response?.data?.message || 'Error al guardar la inscripción')
+    notificationStore.addNotification({
+      title: 'Error al Guardar',
+      message: error.response?.data?.message || 'No se pudo procesar la inscripción.',
+      type: 'error'
+    })
   } finally {
     saving.value = false
   }
 }
 
 const deleteInscripcion = async (id) => {
-  if (!confirm('¿Estás seguro de eliminar esta inscripción? El estudiante perderá acceso al curso.')) return
-  try {
-    await api.delete(`/inscripciones/${id}`)
-    await fetchData()
-  } catch (error) {
-    console.error('Error deleting:', error)
-  }
+  modalStore.openModal({
+    title: '¿Eliminar Inscripción?',
+    message: 'Esta acción revocará el acceso del estudiante al curso inmediatamente.',
+    confirmText: 'Sí, Eliminar',
+    type: 'danger',
+    onConfirm: async () => {
+      try {
+        await api.delete(`/inscripciones/${id}`)
+        notificationStore.addNotification({
+          title: 'Acceso Revocado',
+          message: 'La inscripción ha sido eliminada.',
+          type: 'success'
+        })
+        await fetchData()
+      } catch (error) {
+        console.error('Error deleting:', error)
+        notificationStore.addNotification({
+          title: 'Error de Eliminación',
+          message: 'No se pudo remover la inscripción.',
+          type: 'error'
+        })
+      }
+    }
+  })
 }
 
 const getStatusClass = (estado) => {

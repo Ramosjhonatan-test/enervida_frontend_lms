@@ -237,6 +237,11 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import api from '@/services/api'
+import { useNotificationStore } from '@/stores/notificationStore'
+import { useModalStore } from '@/stores/modalStore'
+
+const notificationStore = useNotificationStore()
+const modalStore = useModalStore()
 
 const route = useRoute()
 const estudiante = ref(null)
@@ -266,19 +271,33 @@ const getDeviceIcon = (os) => {
 }
 
 const liberateDevices = async () => {
-  if (!confirm('¿Estás seguro de liberar los dispositivos de este estudiante? Esto permitirá que inicie sesión desde cualquier equipo nuevo.')) return
-  
-  try {
-    loading.value = true
-    await api.patch(`/dispositivos-usuario/liberate/${estudiante.value.id}`)
-    alert('Dispositivos liberados exitosamente')
-    await fetchEstudiante()
-  } catch (error) {
-    console.error('Error liberating devices:', error)
-    alert('Error al liberar dispositivos')
-  } finally {
-    loading.value = false
-  }
+  modalStore.openModal({
+    title: '¿Liberar Cuenta?',
+    message: 'Se desvincularán todos los dispositivos actuales. El estudiante podrá registrar uno nuevo al iniciar sesión.',
+    confirmText: 'Liberar Ahora',
+    type: 'warning',
+    onConfirm: async () => {
+      try {
+        loading.value = true
+        await api.patch(`/dispositivos-usuario/liberate/${estudiante.value.id}`)
+        notificationStore.addNotification({
+          title: 'Cuenta Liberada',
+          message: 'Los dispositivos han sido desvinculados exitosamente.',
+          type: 'success'
+        })
+        await fetchEstudiante()
+      } catch (error) {
+        console.error('Error liberating devices:', error)
+        notificationStore.addNotification({
+          title: 'Error de Seguridad',
+          message: 'No se pudo completar la desvinculación.',
+          type: 'error'
+        })
+      } finally {
+        loading.value = false
+      }
+    }
+  })
 }
 
 const logsAgrupados = computed(() => {
@@ -330,15 +349,30 @@ const toggleStatus = async () => {
 }
 
 const approveEnrollment = async (inscripcionId) => {
-  if (!confirm('¿Confirmas que el estudiante ha realizado el pago para activar este curso?')) return
-  try {
-    await api.patch(`/inscripciones/${inscripcionId}`, { estado: 'ACTIVO' })
-    alert('Inscripción aprobada exitosamente')
-    fetchEstudiante()
-  } catch (error) {
-    console.error('Error approving enrollment:', error)
-    alert('Error al aprobar la inscripción')
-  }
+  modalStore.openModal({
+    title: '¿Confirmar Pago?',
+    message: '¿El estudiante ha realizado el pago correctamente para activar este curso?',
+    confirmText: 'Sí, Activar',
+    type: 'success',
+    onConfirm: async () => {
+      try {
+        await api.patch(`/inscripciones/${inscripcionId}`, { estado: 'ACTIVO' })
+        notificationStore.addNotification({
+          title: 'Inscripción Activada',
+          message: 'El estudiante ya tiene acceso total al curso.',
+          type: 'success'
+        })
+        fetchEstudiante()
+      } catch (error) {
+        console.error('Error approving enrollment:', error)
+        notificationStore.addNotification({
+          title: 'Error de Activación',
+          message: 'No se pudo procesar la aprobación del curso.',
+          type: 'error'
+        })
+      }
+    }
+  })
 }
 
 const getImageUrl = (url) => {

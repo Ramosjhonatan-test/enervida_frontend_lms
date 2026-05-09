@@ -175,6 +175,11 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import api from '@/services/api'
+import { useNotificationStore } from '@/stores/notificationStore'
+import { useModalStore } from '@/stores/modalStore'
+
+const notificationStore = useNotificationStore()
+const modalStore = useModalStore()
 
 const route = useRoute()
 const evaluacion = ref(null)
@@ -243,21 +248,48 @@ const savePregunta = async () => {
     }
     showModal.value = false
     await fetchEvaluacion()
+    notificationStore.addNotification({
+      title: isEditing.value ? 'Pregunta Actualizada' : 'Pregunta Creada',
+      message: 'Los cambios se han guardado exitosamente.',
+      type: 'success'
+    })
   } catch (error) {
     console.error('Error saving question:', error)
+    notificationStore.addNotification({
+      title: 'Error de Configuración',
+      message: 'No se pudo guardar la pregunta.',
+      type: 'error'
+    })
   } finally {
     saving.value = false
   }
 }
 
 const deletePregunta = async (id) => {
-  if (!confirm('¿Eliminar esta pregunta?')) return
-  try {
-    await api.delete(`/preguntas/${id}`)
-    await fetchEvaluacion()
-  } catch (error) {
-    console.error('Error deleting question:', error)
-  }
+  modalStore.openModal({
+    title: '¿Eliminar Pregunta?',
+    message: 'Esta acción borrará la pregunta y todas sus opciones de respuesta.',
+    confirmText: 'Sí, Eliminar',
+    type: 'danger',
+    onConfirm: async () => {
+      try {
+        await api.delete(`/preguntas/${id}`)
+        notificationStore.addNotification({
+          title: 'Pregunta Removida',
+          message: 'El examen ha sido actualizado.',
+          type: 'success'
+        })
+        await fetchEvaluacion()
+      } catch (error) {
+        console.error('Error deleting question:', error)
+        notificationStore.addNotification({
+          title: 'Error de Borrado',
+          message: 'No se pudo eliminar la pregunta.',
+          type: 'error'
+        })
+      }
+    }
+  })
 }
 
 const toggleAddRespuesta = (preguntaId) => {
@@ -279,21 +311,48 @@ const saveRespuesta = async () => {
     await api.post('/respuestas', respForm.value)
     activeRespuestaId.value = null
     await fetchEvaluacion()
+    notificationStore.addNotification({
+      title: 'Opción Guardada',
+      message: 'La respuesta se añadió correctamente.',
+      type: 'success'
+    })
   } catch (error) {
     console.error('Error saving answer:', error)
+    notificationStore.addNotification({
+      title: 'Error al Añadir',
+      message: 'No se pudo registrar la opción.',
+      type: 'error'
+    })
   } finally {
     savingResp.value = false
   }
 }
 
 const deleteRespuesta = async (id) => {
-  if (!confirm('¿Eliminar esta opción?')) return
-  try {
-    await api.delete(`/respuestas/${id}`)
-    await fetchEvaluacion()
-  } catch (error) {
-    console.error('Error deleting answer:', error)
-  }
+  modalStore.openModal({
+    title: '¿Eliminar Opción?',
+    message: 'Se removerá esta alternativa de la pregunta.',
+    confirmText: 'Borrar',
+    type: 'danger',
+    onConfirm: async () => {
+      try {
+        await api.delete(`/respuestas/${id}`)
+        notificationStore.addNotification({
+          title: 'Opción Eliminada',
+          message: 'La respuesta ha sido borrada.',
+          type: 'success'
+        })
+        await fetchEvaluacion()
+      } catch (error) {
+        console.error('Error deleting answer:', error)
+        notificationStore.addNotification({
+          title: 'Error de Eliminación',
+          message: 'No se pudo borrar la opción.',
+          type: 'error'
+        })
+      }
+    }
+  })
 }
 
 const toggleCorrect = async (resp) => {

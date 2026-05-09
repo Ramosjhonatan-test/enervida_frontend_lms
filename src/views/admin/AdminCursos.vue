@@ -68,10 +68,14 @@
 import { ref, computed, onMounted } from 'vue';
 import api from '@/services/api';
 import { getFileUrl } from '@/config';
+import { useNotificationStore } from '@/stores/notificationStore';
+import { useModalStore } from '@/stores/modalStore';
 
 const cursos = ref([]);
 const loading = ref(true);
 const searchQuery = ref('');
+const notificationStore = useNotificationStore();
+const modalStore = useModalStore();
 
 const fetchCursos = async () => {
   loading.value = true;
@@ -86,15 +90,30 @@ const fetchCursos = async () => {
 };
 
 const deleteCurso = async (id) => {
-  if (confirm('¿Estás seguro de que deseas eliminar este curso? Esta acción no se puede deshacer.')) {
-    try {
-      await api.delete(`/cursos/${id}`);
-      cursos.value = cursos.value.filter(c => c.id !== id);
-    } catch (error) {
-      console.error('Error deleting course:', error);
-      alert('Error al eliminar el curso. Verifica si tiene módulos o dependencias.');
+  modalStore.openModal({
+    title: '¿Eliminar Curso?',
+    message: 'Esta acción borrará el curso y todos sus contenidos relacionados permanentemente.',
+    confirmText: 'Sí, Eliminar',
+    type: 'danger',
+    onConfirm: async () => {
+      try {
+        await api.delete(`/cursos/${id}`);
+        cursos.value = cursos.value.filter(c => c.id !== id);
+        notificationStore.addNotification({
+          title: 'Curso Eliminado',
+          message: 'El curso ha sido removido exitosamente.',
+          type: 'success'
+        });
+      } catch (error) {
+        console.error('Error deleting course:', error);
+        notificationStore.addNotification({
+          title: 'Error de Eliminación',
+          message: 'Verifica si el curso tiene módulos o estudiantes inscritos.',
+          type: 'error'
+        });
+      }
     }
-  }
+  });
 };
 
 const filteredCursos = computed(() => {

@@ -198,6 +198,11 @@ import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import api from '@/services/api';
 import { getFileUrl } from '@/config';
+import { useNotificationStore } from '@/stores/notificationStore';
+import { useModalStore } from '@/stores/modalStore';
+
+const notificationStore = useNotificationStore();
+const modalStore = useModalStore();
 
 const route = useRoute();
 const curso = ref(null);
@@ -240,24 +245,48 @@ const saveModulo = async () => {
     showAddModulo.value = false;
     moduloForm.value = { titulo: '', orden_modulo: 1 };
     await fetchCurso();
+    notificationStore.addNotification({
+      title: 'Módulo Guardado',
+      message: 'El contenido ha sido sincronizado exitosamente.',
+      type: 'success'
+    })
   } catch (error) {
     console.error('Error saving modulo:', error);
-    alert('Error al guardar el módulo.');
+    notificationStore.addNotification({
+      title: 'Error de Módulo',
+      message: 'No se pudo crear el módulo en este momento.',
+      type: 'error'
+    })
   } finally {
     savingModulo.value = false;
   }
 };
 
 const deleteModulo = async (id) => {
-  if (confirm('¿Eliminar este módulo? Se eliminarán también sus lecciones.')) {
-    try {
-      await api.delete(`/modulos/${id}`);
-      await fetchCurso();
-    } catch (error) {
-      console.error('Error deleting modulo:', error);
-      alert('Error al eliminar. Revisa dependencias.');
+  modalStore.openModal({
+    title: '¿Eliminar Módulo?',
+    message: 'Esta acción borrará todas las lecciones contenidas en el módulo. No se puede deshacer.',
+    confirmText: 'Sí, Eliminar Todo',
+    type: 'danger',
+    onConfirm: async () => {
+      try {
+        await api.delete(`/modulos/${id}`);
+        notificationStore.addNotification({
+          title: 'Módulo Eliminado',
+          message: 'La estructura ha sido actualizada.',
+          type: 'success'
+        })
+        await fetchCurso();
+      } catch (error) {
+        console.error('Error deleting modulo:', error);
+        notificationStore.addNotification({
+          title: 'Acción Bloqueada',
+          message: 'Error al eliminar. Verifique dependencias activas.',
+          type: 'error'
+        })
+      }
     }
-  }
+  })
 };
 
 const openAddLeccion = (moduloId) => {
@@ -275,7 +304,14 @@ const uploadLeccionFile = async () => {
   // Cuando ref se usa dentro de v-for, Vue lo convierte en un array
   const input = Array.isArray(leccionFileInput.value) ? leccionFileInput.value[0] : leccionFileInput.value;
   const file = input?.files?.[0];
-  if (!file) return alert('Selecciona un archivo primero');
+  if (!file) {
+    notificationStore.addNotification({
+      title: 'Sin Archivo',
+      message: 'Por favor seleccione un documento o video primero.',
+      type: 'warning'
+    })
+    return
+  }
 
   const formData = new FormData();
   formData.append('file', file);
@@ -294,9 +330,18 @@ const uploadLeccionFile = async () => {
     uploadProgress.value = 100; // Asegurar 100% al finalizar
     const url = res.data.url;
     leccionUrl.value = getFileUrl(url);
+    notificationStore.addNotification({
+      title: 'Carga Exitosa',
+      message: 'El recurso multimedia ha sido vinculado.',
+      type: 'success'
+    })
   } catch (error) {
     console.error('Error uploading leccion file:', error);
-    alert('Error al subir el archivo');
+    notificationStore.addNotification({
+      title: 'Fallo de Carga',
+      message: 'No se pudo subir el archivo al servidor.',
+      type: 'error'
+    })
     uploadProgress.value = 0;
   } finally {
     uploadingFile.value = false;
@@ -322,24 +367,48 @@ const saveLeccion = async () => {
     await api.post('/lecciones', payload);
     activeModuloForm.value = null;
     await fetchCurso();
+    notificationStore.addNotification({
+      title: 'Lección Guardada',
+      message: 'El contenido académico ha sido actualizado.',
+      type: 'success'
+    })
   } catch (error) {
     console.error('Error saving leccion:', error);
-    alert('Error al guardar la lección.');
+    notificationStore.addNotification({
+      title: 'Error de Lección',
+      message: 'No se pudo registrar la nueva lección.',
+      type: 'error'
+    })
   } finally {
     savingLeccion.value = false;
   }
 };
 
 const deleteLeccion = async (id) => {
-  if (confirm('¿Eliminar esta lección?')) {
-    try {
-      await api.delete(`/lecciones/${id}`);
-      await fetchCurso();
-    } catch (error) {
-      console.error('Error deleting leccion:', error);
-      alert('Error al eliminar lección.');
+  modalStore.openModal({
+    title: '¿Eliminar Lección?',
+    message: 'Esta acción removerá el contenido del curso permanentemente.',
+    confirmText: 'Borrar Lección',
+    type: 'danger',
+    onConfirm: async () => {
+      try {
+        await api.delete(`/lecciones/${id}`);
+        notificationStore.addNotification({
+          title: 'Lección Removida',
+          message: 'El módulo ha sido actualizado.',
+          type: 'success'
+        })
+        await fetchCurso();
+      } catch (error) {
+        console.error('Error deleting leccion:', error);
+        notificationStore.addNotification({
+          title: 'Error al Borrar',
+          message: 'No se pudo eliminar el contenido.',
+          type: 'error'
+        })
+      }
     }
-  }
+  })
 };
 
 onMounted(() => {

@@ -143,6 +143,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import api from '@/services/api'
+import { useNotificationStore } from '@/stores/notificationStore'
+import { useModalStore } from '@/stores/modalStore'
+
+const notificationStore = useNotificationStore()
+const modalStore = useModalStore()
 
 const notifications = ref([])
 const users = ref([])
@@ -196,23 +201,49 @@ const sendNotification = async () => {
       await api.post('/notificaciones', form.value)
     }
     await fetchData()
+    notificationStore.addNotification({
+      title: isGlobal.value ? 'Anuncio Difundido' : 'Mensaje Enviado',
+      message: 'La notificación ha sido procesada correctamente.',
+      type: 'success'
+    })
     showModal.value = false
   } catch (error) {
     console.error('Error sending:', error)
-    alert('Error al enviar notificación')
+    notificationStore.addNotification({
+      title: 'Error de Envío',
+      message: 'No se pudo completar la operación de notificación.',
+      type: 'error'
+    })
   } finally {
     sending.value = false
   }
 }
 
 const deleteNotification = async (id) => {
-  if (!confirm('¿Eliminar del historial?')) return
-  try {
-    await api.delete(`/notificaciones/${id}`)
-    notifications.value = notifications.value.filter(n => n.id !== id)
-  } catch (error) {
-    console.error('Error deleting:', error)
-  }
+  modalStore.openModal({
+    title: '¿Eliminar Notificación?',
+    message: 'Esta entrada se borrará del historial permanentemente.',
+    confirmText: 'Borrar',
+    type: 'danger',
+    onConfirm: async () => {
+      try {
+        await api.delete(`/notificaciones/${id}`)
+        notifications.value = notifications.value.filter(n => n.id !== id)
+        notificationStore.addNotification({
+          title: 'Registro Borrado',
+          message: 'El historial ha sido actualizado.',
+          type: 'success'
+        })
+      } catch (error) {
+        console.error('Error deleting:', error)
+        notificationStore.addNotification({
+          title: 'Error al Borrar',
+          message: 'No se pudo eliminar el registro.',
+          type: 'error'
+        })
+      }
+    }
+  })
 }
 
 const formatDate = (date) => new Date(date).toLocaleString()

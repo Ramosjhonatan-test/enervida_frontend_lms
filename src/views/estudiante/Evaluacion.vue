@@ -202,11 +202,15 @@ import { ref, onMounted, computed, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import api from '@/services/api'
 import { useAuthStore } from '@/stores/auth'
+import { useNotificationStore } from '@/stores/notificationStore'
+import { useModalStore } from '@/stores/modalStore'
 import confetti from 'canvas-confetti'
 
 const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
+const modalStore = useModalStore()
 
 const loading = ref(true)
 const submitting = ref(false)
@@ -262,7 +266,11 @@ const fetchExam = async () => {
     startTimer()
   } catch (error) {
     console.error('Error fetching exam:', error)
-    alert('Error al cargar la evaluacion.')
+    notificationStore.addNotification({
+      title: 'Error de Acceso',
+      message: 'No pudimos cargar la evaluación en este momento.',
+      type: 'error'
+    })
     router.back()
   } finally {
     loading.value = false
@@ -305,7 +313,11 @@ const viewCertificate = async () => {
     setTimeout(() => window.URL.revokeObjectURL(url), 5000)
   } catch (error) {
     console.error('Error al abrir certificado:', error)
-    alert('No se pudo generar el certificado. Verifica que el curso tenga una plantilla configurada.')
+    notificationStore.addNotification({
+      title: 'Certificado Pendiente',
+      message: 'No se pudo generar el documento. Verifica la configuración del curso.',
+      type: 'error'
+    })
     router.push({ name: 'student-certificates' })
   } finally {
     loadingCert.value = false
@@ -379,7 +391,11 @@ const finishExam = async () => {
     console.error('Error saving attempt:', error)
     const msg = error.response?.data?.message
     if (msg) {
-      alert(msg)
+      notificationStore.addNotification({
+        title: 'Error de Envío',
+        message: msg,
+        type: 'error'
+      })
     }
   } finally {
     submitting.value = false
@@ -407,9 +423,15 @@ const formatTime = (seconds) => {
 }
 
 const confirmExit = () => {
-  if (confirm('Estas seguro de que quieres salir? Tu progreso en este intento se perdera.')) {
-    router.back()
-  }
+  modalStore.openModal({
+    title: '¿Abandonar Examen?',
+    message: 'Si sales ahora, perderás tu progreso en este intento.',
+    confirmText: 'Sí, Salir',
+    type: 'warning',
+    onConfirm: () => {
+      router.back()
+    }
+  })
 }
 
 const exitExam = () => {

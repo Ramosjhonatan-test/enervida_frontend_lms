@@ -263,7 +263,11 @@ const fetchCurso = async (id) => {
     }
   } catch (error) {
     console.error('Error fetching course:', error);
-    alert('Error al cargar los datos del curso.');
+    notificationStore.addNotification({
+      title: 'Error de Lectura',
+      message: 'No se pudieron cargar los datos del curso para edición.',
+      type: 'error'
+    })
   }
 };
 
@@ -302,7 +306,11 @@ const handleFileUpload = async (event) => {
     // a menos que queramos confirmar la URL final del servidor
   } catch (error) {
     console.error('Error uploading file:', error);
-    alert('Error al subir la imagen. Intenta de nuevo.');
+    notificationStore.addNotification({
+      title: 'Error de Multimedia',
+      message: 'No se pudo procesar la miniatura. Intenta de nuevo.',
+      type: 'error'
+    })
     previewUrl.value = null; // Limpiar si falló
   } finally {
     uploadingImg.value = false;

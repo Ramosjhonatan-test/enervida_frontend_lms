@@ -113,11 +113,13 @@
 import { ref, onMounted } from 'vue';
 import api from '@/services/api';
 import { useNotificationStore } from '@/stores/notificationStore';
+import { useModalStore } from '@/stores/modalStore';
 
 const categorias = ref([]);
 const loading = ref(true);
 const saving = ref(false);
 const notificationStore = useNotificationStore();
+const modalStore = useModalStore();
 const showForm = ref(false);
 const isEditing = ref(false);
 
@@ -188,23 +190,31 @@ const saveCategoria = async () => {
 };
 
 const deleteCategoria = async (id) => {
-  if (!confirm('¿Estás seguro de eliminar esta categoría? Si tiene cursos asociados, podría haber errores.')) return;
-  try {
-    await api.delete(`/categorias/${id}`);
-    notificationStore.addNotification({
-      title: 'Categoría Eliminada',
-      message: 'El registro ha sido removido del sistema.',
-      type: 'success'
-    });
-    await fetchCategorias();
-  } catch (error) {
-    console.error('Error deleting category:', error);
-    notificationStore.addNotification({
-      title: 'Acción Bloqueada',
-      message: 'No se puede eliminar una categoría con cursos asociados.',
-      type: 'error'
-    });
-  }
+  modalStore.openModal({
+    title: '¿Eliminar Categoría?',
+    message: 'Esta acción no se puede deshacer. Si tiene cursos asociados, la operación podría fallar.',
+    confirmText: 'Sí, Eliminar',
+    cancelText: 'Cancelar',
+    type: 'danger',
+    onConfirm: async () => {
+      try {
+        await api.delete(`/categorias/${id}`);
+        notificationStore.addNotification({
+          title: 'Categoría Eliminada',
+          message: 'El registro ha sido removido del sistema.',
+          type: 'success'
+        });
+        await fetchCategorias();
+      } catch (error) {
+        console.error('Error deleting category:', error);
+        notificationStore.addNotification({
+          title: 'Acción Bloqueada',
+          message: 'No se puede eliminar una categoría con cursos asociados.',
+          type: 'error'
+        });
+      }
+    }
+  });
 };
 
 onMounted(() => {

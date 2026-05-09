@@ -106,11 +106,15 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import api from '@/services/api';
+import { useNotificationStore } from '@/stores/notificationStore';
+import { useModalStore } from '@/stores/modalStore';
 
 const usuarios = ref([]);
 const roles = ref([]);
 const loading = ref(true);
 const filterRole = ref('todos');
+const notificationStore = useNotificationStore();
+const modalStore = useModalStore();
 
 const getRoleClass = (rol) => {
   switch (rol?.toLowerCase()) {
@@ -150,9 +154,18 @@ const changeRole = async (userId, roleId) => {
   try {
     await api.patch(`/usuarios/${userId}`, { rol_id: roleId });
     await fetchUsuarios();
+    notificationStore.addNotification({
+      title: 'Rol Actualizado',
+      message: 'Los permisos del usuario han sido modificados.',
+      type: 'success'
+    })
   } catch (error) {
     console.error('Error changing role:', error);
-    alert('Error al cambiar el rol.');
+    notificationStore.addNotification({
+      title: 'Error de Permisos',
+      message: 'No se pudo actualizar el rol del usuario.',
+      type: 'error'
+    })
   }
 };
 
@@ -161,19 +174,44 @@ const toggleStatus = async (usuario) => {
     const newStatus = usuario.estado === 'ACTIVO' ? 'INACTIVO' : 'ACTIVO';
     await api.patch(`/usuarios/${usuario.id}`, { estado: newStatus });
     usuario.estado = newStatus;
+    notificationStore.addNotification({
+      title: 'Estado Cambiado',
+      message: `Usuario ${newStatus.toLowerCase()} exitosamente.`,
+      type: 'success'
+    })
   } catch (error) {
-    alert('Error al actualizar estado');
+    notificationStore.addNotification({
+      title: 'Error de Estado',
+      message: 'No se pudo actualizar el acceso del usuario.',
+      type: 'error'
+    })
   }
 };
 
 const deleteUsuario = async (id) => {
-  if (!confirm('¿Eliminar definitivamente a este usuario?')) return;
-  try {
-    await api.delete(`/usuarios/${id}`);
-    usuarios.value = usuarios.value.filter(u => u.id !== id);
-  } catch (error) {
-    alert('Error al eliminar');
-  }
+  modalStore.openModal({
+    title: '¿Eliminar Usuario?',
+    message: 'Esta acción es irreversible y el usuario perderá todo acceso.',
+    confirmText: 'Eliminar Permanente',
+    type: 'danger',
+    onConfirm: async () => {
+      try {
+        await api.delete(`/usuarios/${id}`);
+        usuarios.value = usuarios.value.filter(u => u.id !== id);
+        notificationStore.addNotification({
+          title: 'Usuario Removido',
+          message: 'La cuenta ha sido eliminada del sistema.',
+          type: 'success'
+        })
+      } catch (error) {
+        notificationStore.addNotification({
+          title: 'Error al Eliminar',
+          message: 'No se pudo completar la operación de borrado.',
+          type: 'error'
+        })
+      }
+    }
+  })
 };
 
 onMounted(async () => {

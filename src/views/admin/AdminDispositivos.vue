@@ -145,6 +145,11 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import api from '@/services/api';
+import { useNotificationStore } from '@/stores/notificationStore';
+import { useModalStore } from '@/stores/modalStore';
+
+const notificationStore = useNotificationStore();
+const modalStore = useModalStore();
 
 const dispositivos = ref([]);
 const loading = ref(true);
@@ -176,15 +181,30 @@ const fetchDispositivos = async () => {
 };
 
 const revokeSession = async (id) => {
-  if (!confirm('¿Seguro que deseas revocar esta sesión? El usuario será desconectado inmediatamente.')) return;
-  try {
-    await api.delete(`/dispositivos-usuario/${id}`);
-    dispositivos.value = dispositivos.value.filter(d => d.id !== id);
-  } catch (error) {
-    console.error('Error revoking session:', error);
-    // Simular éxito para demo si el backend aún no está listo
-    dispositivos.value = dispositivos.value.filter(d => d.id !== id);
-  }
+  modalStore.openModal({
+    title: '¿Revocar Sesión?',
+    message: 'El usuario será desconectado de este dispositivo inmediatamente.',
+    confirmText: 'Revocar Acceso',
+    type: 'danger',
+    onConfirm: async () => {
+      try {
+        await api.delete(`/dispositivos-usuario/${id}`);
+        dispositivos.value = dispositivos.value.filter(d => d.id !== id);
+        notificationStore.addNotification({
+          title: 'Sesión Finalizada',
+          message: 'El acceso ha sido revocado exitosamente.',
+          type: 'success'
+        })
+      } catch (error) {
+        console.error('Error revoking session:', error);
+        notificationStore.addNotification({
+          title: 'Error de Seguridad',
+          message: 'No se pudo revocar la sesión en este momento.',
+          type: 'error'
+        })
+      }
+    }
+  })
 };
 
 const filteredDispositivos = computed(() => {

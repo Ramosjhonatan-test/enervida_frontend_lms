@@ -181,10 +181,14 @@ import { useAuthStore } from '@/stores/auth'
 import AppLogo from '@/components/global/AppLogo.vue'
 import ThemeToggle from '@/components/global/ThemeToggle.vue'
 import NotificationDropdown from '@/components/global/NotificationDropdown.vue'
+import { useModalStore } from '@/stores/modalStore'
+import { useNotificationStore } from '@/stores/notificationStore'
 
 const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
+const modalStore = useModalStore()
+const notificationStore = useNotificationStore()
 
 const inscripciones = ref([])
 const catalogCursos = ref([])
@@ -347,7 +351,11 @@ async function handleCompleteProfile() {
   } catch (error) {
     console.error('Error updating profile:', error)
     const msg = error.response?.data?.message || 'Error al actualizar el perfil.'
-    alert(msg)
+    notificationStore.addNotification({
+      title: 'Error de Perfil',
+      message: msg,
+      type: 'error'
+    })
   } finally {
     savingProfile.value = false
   }
@@ -374,13 +382,27 @@ async function enrollInCourse(cursoId) {
       usuario_id: authStore.user.id,
       curso_id: cursoId,
     })
-    alert('Solicitud enviada. Tu inscripcion estara activa una vez confirmada por el administrador.')
+    
+    modalStore.openModal({
+      title: '¡Solicitud Enviada!',
+      message: 'Tu inscripción estará activa una vez confirmada por el administrador. Te avisaremos por correo.',
+      confirmText: 'Entendido',
+      type: 'success',
+      onConfirm: () => {
+        router.push('/student/dashboard')
+      }
+    })
+
     selectedCourseId.value = null
     await fetchStudentData()
-    router.push('/student/dashboard')
   } catch (error) {
     console.error('Error enrolling in course:', error)
-    alert(error.response?.data?.message || 'Ya tienes una solicitud pendiente o ya estas inscrito en este curso.')
+    const msg = error.response?.data?.message || 'Ya tienes una solicitud pendiente o ya estas inscrito en este curso.'
+    notificationStore.addNotification({
+      title: 'Inscripción Fallida',
+      message: msg,
+      type: 'error'
+    })
     selectedCourseId.value = null
   }
 }

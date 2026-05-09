@@ -104,8 +104,13 @@
 import { ref, onMounted } from 'vue'
 import api from '@/services/api'
 import { useAuthStore } from '@/stores/auth'
+import { useNotificationStore } from '@/stores/notificationStore'
+import { useModalStore } from '@/stores/modalStore'
 
 const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
+const modalStore = useModalStore()
+
 const clases = ref([])
 const cursos = ref([])
 const loading = ref(true)
@@ -176,27 +181,58 @@ const saveClase = async () => {
     
     if (isEditing.value) {
       await api.patch(`/clases-en-vivo/${form.value.id}`, payload)
+      notificationStore.addNotification({
+        title: 'Sesión Actualizada',
+        message: 'Los cambios se han guardado correctamente.',
+        type: 'success'
+      })
     } else {
       await api.post('/clases-en-vivo', payload)
+      notificationStore.addNotification({
+        title: 'Sesión Programada',
+        message: 'La nueva clase en vivo ha sido registrada.',
+        type: 'success'
+      })
     }
     showModal.value = false
     fetchClases()
   } catch (error) {
     console.error('Error saving clase:', error)
-    alert('Error al guardar la sesión.')
+    notificationStore.addNotification({
+      title: 'Error de Servidor',
+      message: 'No se pudo guardar la sesión de clase.',
+      type: 'error'
+    })
   } finally {
     saving.value = false
   }
 }
 
 const deleteClase = async (id) => {
-  if (!confirm('¿Estás seguro de que quieres eliminar esta sesión?')) return
-  try {
-    await api.delete(`/clases-en-vivo/${id}`)
-    fetchClases()
-  } catch (error) {
-    console.error('Error deleting clase:', error)
-  }
+  modalStore.openModal({
+    title: '¿Eliminar Sesión?',
+    message: 'Esta acción removerá la clase en vivo del calendario.',
+    confirmText: 'Sí, Eliminar',
+    type: 'danger',
+    onConfirm: async () => {
+      try {
+        await api.delete(`/clases-en-vivo/${id}`)
+        notificationStore.addNotification({
+          title: 'Sesión Eliminada',
+          message: 'La clase ha sido removida del catálogo.',
+          type: 'success'
+        })
+        fetchClases()
+      } catch (error) {
+        console.error('Error deleting clase:', error)
+        notificationStore.addNotification({
+          title: 'Error al Borrar',
+          message: 'No se pudo completar la operación.',
+          type: 'error'
+        })
+      }
+    }
+  })
 }
 
 onMounted(() => {

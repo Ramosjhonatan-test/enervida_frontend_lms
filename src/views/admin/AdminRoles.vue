@@ -114,12 +114,16 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import api from '@/services/api';
+import { useNotificationStore } from '@/stores/notificationStore';
+import { useModalStore } from '@/stores/modalStore';
 
 const roles = ref([]);
 const loading = ref(true);
 const saving = ref(false);
 const showForm = ref(false);
 const isEditing = ref(false);
+const notificationStore = useNotificationStore();
+const modalStore = useModalStore();
 
 const form = ref({
   id: null,
@@ -172,23 +176,48 @@ const saveRol = async () => {
     }
     showForm.value = false;
     await fetchRoles();
+    notificationStore.addNotification({
+      title: 'Rol Actualizado',
+      message: 'Los permisos se han sincronizado correctamente.',
+      type: 'success'
+    })
   } catch (error) {
     console.error('Error saving role:', error);
-    alert('Error al guardar el rol. El nombre debe ser único.');
+    notificationStore.addNotification({
+      title: 'Error de Sistema',
+      message: 'No se pudo guardar el rol. El nombre debe ser único.',
+      type: 'error'
+    })
   } finally {
     saving.value = false;
   }
 };
 
 const deleteRol = async (id) => {
-  if (!confirm('¿Estás seguro de eliminar este rol? Los usuarios asignados a él podrían quedar sin acceso.')) return;
-  try {
-    await api.delete(`/roles/${id}`);
-    await fetchRoles();
-  } catch (error) {
-    console.error('Error deleting role:', error);
-    alert('No se pudo eliminar el rol. Verifique si tiene usuarios asignados.');
-  }
+  modalStore.openModal({
+    title: '¿Eliminar Rol?',
+    message: 'Los usuarios asignados a este rol podrían perder acceso al sistema inmediatamente.',
+    confirmText: 'Sí, Eliminar',
+    type: 'danger',
+    onConfirm: async () => {
+      try {
+        await api.delete(`/roles/${id}`);
+        notificationStore.addNotification({
+          title: 'Rol Eliminado',
+          message: 'El registro ha sido removido exitosamente.',
+          type: 'success'
+        })
+        await fetchRoles();
+      } catch (error) {
+        console.error('Error deleting role:', error);
+        notificationStore.addNotification({
+          title: 'Acción Bloqueada',
+          message: 'No se puede eliminar el rol. Verifique si tiene usuarios asignados.',
+          type: 'error'
+        })
+      }
+    }
+  })
 };
 
 onMounted(() => {

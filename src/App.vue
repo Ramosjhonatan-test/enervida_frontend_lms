@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import { RouterView } from 'vue-router'
 import LoadingScreen from '@/components/global/LoadingScreen.vue'
 import NotificationToast from '@/components/global/NotificationToast.vue'
+import ConfirmModal from '@/components/global/ConfirmModal.vue'
 
 const isLoading = ref(true)
 
@@ -35,6 +36,7 @@ onMounted(() => {
 
   <!-- Notificaciones Globales (Fuera de RouterView para persistencia) -->
   <NotificationToast />
+  <ConfirmModal />
 </template>
 
 <style>

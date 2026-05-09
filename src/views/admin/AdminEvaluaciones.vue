@@ -133,6 +133,11 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import api from '@/services/api'
+import { useNotificationStore } from '@/stores/notificationStore'
+import { useModalStore } from '@/stores/modalStore'
+
+const notificationStore = useNotificationStore()
+const modalStore = useModalStore()
 
 const router = useRouter()
 
@@ -192,8 +197,18 @@ const saveEvaluacion = async () => {
     }
     showForm.value = false
     await fetchEvaluaciones()
+    notificationStore.addNotification({
+      title: isEditing.value ? 'Evaluación Actualizada' : 'Evaluación Creada',
+      message: 'Los parámetros del examen se han guardado.',
+      type: 'success'
+    })
   } catch (error) {
     console.error('Error saving evaluation:', error)
+    notificationStore.addNotification({
+      title: 'Error de Guardado',
+      message: 'No se pudo registrar la evaluación.',
+      type: 'error'
+    })
   } finally {
     saving.value = false
   }
@@ -211,13 +226,30 @@ const editEvaluacion = (evaluacion) => {
 }
 
 const deleteEvaluacion = async (id) => {
-  if (!confirm('¿Estás seguro de eliminar esta evaluación?')) return
-  try {
-    await api.delete(`/evaluaciones/${id}`)
-    evaluaciones.value = evaluaciones.value.filter(e => e.id !== id)
-  } catch (error) {
-    console.error('Error deleting evaluation:', error)
-  }
+  modalStore.openModal({
+    title: '¿Eliminar Evaluación?',
+    message: 'Esta acción borrará el examen y todos los registros de intentos de los estudiantes.',
+    confirmText: 'Sí, Eliminar Examen',
+    type: 'danger',
+    onConfirm: async () => {
+      try {
+        await api.delete(`/evaluaciones/${id}`)
+        evaluaciones.value = evaluaciones.value.filter(e => e.id !== id)
+        notificationStore.addNotification({
+          title: 'Examen Eliminado',
+          message: 'La evaluación ha sido removida del sistema.',
+          type: 'success'
+        })
+      } catch (error) {
+        console.error('Error deleting evaluation:', error)
+        notificationStore.addNotification({
+          title: 'Error al Borrar',
+          message: 'No se pudo eliminar el examen.',
+          type: 'error'
+        })
+      }
+    }
+  })
 }
 
 const manageQuestions = (evaluacion) => {

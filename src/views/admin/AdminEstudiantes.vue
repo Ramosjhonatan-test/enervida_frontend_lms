@@ -125,9 +125,13 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import api from '@/services/api'
+import { useNotificationStore } from '@/stores/notificationStore'
+import { useModalStore } from '@/stores/modalStore'
 
 const estudiantes = ref([])
 const loading = ref(true)
+const notificationStore = useNotificationStore()
+const modalStore = useModalStore()
 
 const fetchEstudiantes = async () => {
   loading.value = true
@@ -146,21 +150,46 @@ const toggleStatus = async (estudiante) => {
     const newStatus = estudiante.estado === 'ACTIVO' ? 'INACTIVO' : 'ACTIVO'
     await api.patch(`/usuarios/${estudiante.id}`, { estado: newStatus })
     estudiante.estado = newStatus
+    notificationStore.addNotification({
+      title: 'Estado Actualizado',
+      message: `El estudiante ahora está ${newStatus.toLowerCase()}.`,
+      type: 'success'
+    })
   } catch (error) {
     console.error('Error updating status:', error)
-    alert('Error al actualizar el estado')
+    notificationStore.addNotification({
+      title: 'Error de Actualización',
+      message: 'No se pudo cambiar el estado del estudiante.',
+      type: 'error'
+    })
   }
 }
 
 const deleteEstudiante = async (id) => {
-  if (!confirm('¿Estás seguro de eliminar este estudiante? Esta acción no se puede deshacer.')) return
-  try {
-    await api.delete(`/usuarios/${id}`)
-    estudiantes.value = estudiantes.value.filter(e => e.id !== id)
-  } catch (error) {
-    console.error('Error deleting student:', error)
-    alert('Error al eliminar el estudiante')
-  }
+  modalStore.openModal({
+    title: '¿Eliminar Estudiante?',
+    message: 'Esta acción eliminará permanentemente la cuenta. No se puede deshacer.',
+    confirmText: 'Sí, Eliminar',
+    type: 'danger',
+    onConfirm: async () => {
+      try {
+        await api.delete(`/usuarios/${id}`)
+        estudiantes.value = estudiantes.value.filter(e => e.id !== id)
+        notificationStore.addNotification({
+          title: 'Estudiante Eliminado',
+          message: 'El registro ha sido removido exitosamente.',
+          type: 'success'
+        })
+      } catch (error) {
+        console.error('Error deleting student:', error)
+        notificationStore.addNotification({
+          title: 'Error al Eliminar',
+          message: 'No se pudo completar la operación.',
+          type: 'error'
+        })
+      }
+    }
+  })
 }
 
 onMounted(() => {

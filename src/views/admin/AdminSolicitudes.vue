@@ -141,6 +141,9 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import api from '@/services/api'
+import { useNotificationStore } from '@/stores/notificationStore'
+
+const notificationStore = useNotificationStore()
 
 const solicitudes = ref([])
 const loading = ref(true)
@@ -176,9 +179,18 @@ const updateStatus = async (id, status) => {
     if (sol) {
       sol.estado = status
     }
+    notificationStore.addNotification({
+      title: status === 'ACTIVO' ? 'Solicitud Aprobada' : 'Solicitud Rechazada',
+      message: `La inscripción ha sido marcada como ${status.toLowerCase()}.`,
+      type: status === 'ACTIVO' ? 'success' : 'warning'
+    })
   } catch (error) {
     console.error('Error updating status:', error)
-    alert('Error al actualizar el estado.')
+    notificationStore.addNotification({
+      title: 'Error de Procesamiento',
+      message: 'No se pudo actualizar el estado de la solicitud.',
+      type: 'error'
+    })
   } finally {
     processingId.value = null
   }
