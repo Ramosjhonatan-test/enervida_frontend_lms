@@ -5,7 +5,7 @@
         <!-- Logo prominente -->
         <div class="animate-pulse-slow">
           <img
-            src="/logo-light.png"
+            src="/logo-light.webp"
             alt="Enervida"
             class="splash-logo object-contain"
           />

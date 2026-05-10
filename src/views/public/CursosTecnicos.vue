@@ -131,7 +131,7 @@ const cursosTecnicos = ref([
   {
     title: 'Generación Distribuida (On-Grid)',
     description: 'Aprende a inyectar energía a la red y aprovechar la normativa vigente.',
-    image: '/images/generacion-distribuida.png',
+    image: '/images/generacion-distribuida.webp',
     icon: 'electric_meter',
     badge: 'Grid-Tied',
     cta: 'Empresas eficientes',
@@ -140,7 +140,7 @@ const cursosTecnicos = ref([
   {
     title: 'Diseño en PVSyst',
     description: 'Simula, dimensiona y optimiza sistemas solares profesionales On-Grid y Off-Grid.',
-    image: '/images/pvsyst.png',
+    image: '/images/pvsyst.webp',
     icon: 'desktop_windows',
     badge: 'Software',
     cta: 'Domina PVSyst',
@@ -149,7 +149,7 @@ const cursosTecnicos = ref([
   {
     title: 'Sistemas Fotovoltaicos Aislados',
     description: 'Diseña soluciones aisladas (off-grid) confiables, útiles para toda aplicación.',
-    image: '/images/sistemas-aislados.png',
+    image: '/images/sistemas-aislados.webp',
     icon: 'battery_charging_full',
     badge: 'Off-Grid',
     cta: 'Diseña sin red',
@@ -158,7 +158,7 @@ const cursosTecnicos = ref([
   {
     title: 'Sistemas Fotovoltaicos Híbridos',
     description: 'Combina distintas fuentes energéticas y garantiza energía continua y estable.',
-    image: '/images/sistemas-hibridos.png',
+    image: '/images/sistemas-hibridos.webp',
     icon: 'electric_bolt',
     badge: 'Híbrido',
     cta: 'Garantiza energía total',
@@ -167,7 +167,7 @@ const cursosTecnicos = ref([
   {
     title: 'Sistemas de bombeo solar',
     description: 'Diseña sistemas de provisión para riego, consumo animal y humano para costo "0".',
-    image: '/images/sistemas-bombeo-solar.png',
+    image: '/images/sistemas-bombeo-solar.webp',
     icon: 'water_pump',
     badge: 'Bombeo',
     cta: 'Instala bombeo solar',
@@ -176,7 +176,7 @@ const cursosTecnicos = ref([
   {
     title: 'Sistemas Termosolares',
     description: 'Diseña soluciones de agua caliente y climatización de ambientes confortables.',
-    image: '/images/sistemas-termosolares.png',
+    image: '/images/sistemas-termosolares.webp',
     icon: 'thermostat',
     badge: 'Térmico',
     cta: 'Genera calor gratis',
@@ -185,7 +185,7 @@ const cursosTecnicos = ref([
   {
     title: 'Sistemas de iluminación solar',
     description: 'Diseña e instala iluminación autónoma y eficiente para calles, carreteras, plazas, etc.',
-    image: '/images/luminarias-solares.png',
+    image: '/images/luminarias-solares.webp',
     icon: 'light',
     badge: 'Iluminación',
     cta: 'Ilumina con el sol',

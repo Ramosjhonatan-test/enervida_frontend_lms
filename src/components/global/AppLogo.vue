@@ -39,7 +39,7 @@ onUnmounted(() => {
   observer?.disconnect()
 })
 
-// logo-dark.png = dark text → light backgrounds
-// logo-light.png = light text → dark backgrounds
-const logoSrc = computed(() => isDark.value ? '/logo-light.png' : '/logo-dark.png')
+// logo-dark.webp = dark text → light backgrounds
+// logo-light.webp = light text → dark backgrounds
+const logoSrc = computed(() => isDark.value ? '/logo-light.webp' : '/logo-dark.webp')
 </script>

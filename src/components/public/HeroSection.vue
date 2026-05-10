@@ -8,7 +8,7 @@
 
     <!-- Branding Watermark -->
     <div class="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/4 opacity-[0.15] dark:opacity-[0.1] pointer-events-none z-0">
-      <img src="/logo-dark.png" alt="Watermark" class="w-[800px] lg:w-[1200px] grayscale brightness-0 invert dark:invert-0 blur-[3px]" />
+      <img src="/logo-dark.webp" alt="Watermark" class="w-[800px] lg:w-[1200px] grayscale brightness-0 invert dark:invert-0 blur-[3px]" />
     </div>
 
     <div class="w-full max-w-[1400px] mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10">

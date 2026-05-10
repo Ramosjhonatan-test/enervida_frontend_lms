@@ -127,7 +127,7 @@ const cursosOnline = ref([
   {
     title: 'Energía Solar para TODO',
     description: 'Todo lo que necesitas saber para entender y aprovechar el sol al máximo todos los días.',
-    image: '/images/energia-solar-todo.png',
+    image: '/images/energia-solar-todo.webp',
     icon: 'solar_power',
     badge: 'Integral',
     cta: '¡INSCRÍBETE YA!',
@@ -136,7 +136,7 @@ const cursosOnline = ref([
   {
     title: 'Energía Solar para CALOR',
     description: 'Agua caliente en casas, piscinas, cocina, deshidratador solar. Gratis con tecnología solar.',
-    image: '/images/energia-solar-calor.png',
+    image: '/images/energia-solar-calor.webp',
     icon: 'local_fire_department',
     badge: 'Térmica',
     cta: 'Ahorra usando CALOR gratis',
@@ -145,7 +145,7 @@ const cursosOnline = ref([
   {
     title: 'Energía Solar para ELECTRICIDAD',
     description: 'Genera tu propia energía eléctrica y reduce o elimina tu factura en la ciudad o el campo.',
-    image: '/images/energia-solar-electricidad.png',
+    image: '/images/energia-solar-electricidad.webp',
     icon: 'bolt',
     badge: 'Fotovoltaica',
     cta: 'REDUCE tu factura hoy',
@@ -154,7 +154,7 @@ const cursosOnline = ref([
   {
     title: 'Energía Solar para CONSTRUCCIÓN',
     description: 'Diseña y construye espacios habitables que usen el sol para confort térmico y electricidad.',
-    image: '/images/energia-solar-construccion.png',
+    image: '/images/energia-solar-construccion.webp',
     icon: 'apartment',
     badge: 'Arquitectura',
     cta: '¡CONSTRUYE mejor ya!',
@@ -163,7 +163,7 @@ const cursosOnline = ref([
   {
     title: 'Energía Solar para PROD. AGROPECUARIA',
     description: 'Más producción de alimentos con menos costos y mayor autonomía usando energía solar.',
-    image: '/images/energia-solar-agropecuaria.png',
+    image: '/images/energia-solar-agropecuaria.webp',
     icon: 'agriculture',
     badge: 'Agro-Solar',
     cta: 'Produce MÁS con menos',
@@ -172,7 +172,7 @@ const cursosOnline = ref([
   {
     title: 'Energía Solar para INDUSTRIA',
     description: 'Reduce tus costos operativos al máximo y mejora la competitividad de tu empresa.',
-    image: '/images/energia-solar-industria.png',
+    image: '/images/energia-solar-industria.webp',
     icon: 'factory',
     badge: 'Industrial',
     cta: 'Optimiza tu empresa',
@@ -181,7 +181,7 @@ const cursosOnline = ref([
   {
     title: 'Energía Solar para ILUMINACIÓN PÚBLICA',
     description: 'Ilumina avenidas, plazas y patios sin cables, sin facturas y con alta calidad y autonomía.',
-    image: '/images/energia-solar-iluminacion.png',
+    image: '/images/energia-solar-iluminacion.webp',
     icon: 'lightbulb',
     badge: 'Alumbrado',
     cta: 'Ilumina sin pagar NADA',
