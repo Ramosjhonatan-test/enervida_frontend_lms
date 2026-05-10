@@ -130,7 +130,7 @@ const vivenciales = ref([
   {
     title: 'Domingos de Familia',
     description: 'Disfruta tu domingo conociendo TODAS las aplicaciones reales de la energía solar, en La Casa Solar de ENERVIDA.',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?q=80&w=2070&auto=format&fit=crop',
+    image: '/images/domingos-familia.png',
     icon: 'family_restroom',
     badge: 'Familiar',
     schedule: 'Todos los Domingos',
@@ -141,7 +141,7 @@ const vivenciales = ref([
   {
     title: 'Lun-Vie de Estudiantes',
     description: 'Vive la experiencia solar en compañía de tus compañeros y profesores, y encamina tu futuro profesional en La Casa Solar de ENERVIDA.',
-    image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop',
+    image: '/images/lun-vie-estudiantes.png',
     icon: 'school',
     badge: 'Institucional',
     schedule: 'Lunes a Viernes',
@@ -152,7 +152,7 @@ const vivenciales = ref([
   {
     title: 'Sábados de Técnicos',
     description: 'Sé un profesional convencido del poder de la energía solar con esta capacitación práctica e intensiva para técnicos de combate.',
-    image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop',
+    image: '/images/sabados-tecnicos.png',
     icon: 'construction',
     badge: 'Técnico',
     schedule: 'Todos los Sábados',

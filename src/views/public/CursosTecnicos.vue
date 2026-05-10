@@ -122,7 +122,7 @@ const cursosTecnicos = ref([
   {
     title: 'Diseño en PVSyst',
     description: 'Simula, dimensiona y optimiza sistemas solares profesionales con el software líder de la industria.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
+    image: '/images/pvsyst.png',
     icon: 'desktop_windows',
     badge: 'Software',
     cta: 'Domina PVSyst',
@@ -131,7 +131,7 @@ const cursosTecnicos = ref([
   {
     title: 'Generación Distribuida',
     description: 'Aprende a inyectar energía a la red y aprovechar la normativa vigente para proyectos rentables.',
-    image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop',
+    image: '/images/generacion-distribuida.png',
     icon: 'electric_meter',
     badge: 'Grid-Tied',
     cta: 'Empieza a inyectar energía',
@@ -140,7 +140,7 @@ const cursosTecnicos = ref([
   {
     title: 'Sistemas Aislados',
     description: 'Diseña soluciones off-grid eficientes y confiables para zonas sin acceso a la red eléctrica.',
-    image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=2070&auto=format&fit=crop',
+    image: '/images/sistemas-aislados.png',
     icon: 'battery_charging_full',
     badge: 'Off-Grid',
     cta: 'Diseña sin red',
@@ -149,7 +149,7 @@ const cursosTecnicos = ref([
   {
     title: 'Sistemas Híbridos',
     description: 'Combina fuentes de energía y garantiza suministro continuo con sistemas híbridos inteligentes.',
-    image: 'https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?q=80&w=2070&auto=format&fit=crop',
+    image: '/images/sistemas-hibridos.png',
     icon: 'electric_bolt',
     badge: 'Híbrido',
     cta: 'Garantiza energía total',
@@ -158,7 +158,7 @@ const cursosTecnicos = ref([
   {
     title: 'Sistemas de Bombeo Solar',
     description: 'Diseña sistemas de agua eficientes sin costo energético para agricultura y ganadería.',
-    image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=2070&auto=format&fit=crop',
+    image: '/images/sistemas-bombeo-solar.png',
     icon: 'water_pump',
     badge: 'Bombeo',
     cta: 'Implementa bombeo solar',
@@ -167,7 +167,7 @@ const cursosTecnicos = ref([
   {
     title: 'Sistemas Termosolares',
     description: 'Implementa soluciones de calor con energía solar para aplicaciones residenciales e industriales.',
-    image: 'https://images.unsplash.com/photo-1611348586804-61bf6c080437?q=80&w=2070&auto=format&fit=crop',
+    image: '/images/sistemas-termosolares.png',
     icon: 'thermostat',
     badge: 'Térmico',
     cta: 'Genera calor gratis',
@@ -176,7 +176,7 @@ const cursosTecnicos = ref([
   {
     title: 'Luminarias Solares',
     description: 'Diseña e instala iluminación autónoma y eficiente para espacios públicos y privados.',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?q=80&w=2070&auto=format&fit=crop',
+    image: '/images/luminarias-solares.png',
     icon: 'light',
     badge: 'Iluminación',
     cta: 'Ilumina con el sol',
