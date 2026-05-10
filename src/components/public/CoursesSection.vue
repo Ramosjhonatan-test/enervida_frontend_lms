@@ -32,7 +32,7 @@
               <div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
             </div>
             
-            <div :class="['absolute top-8 left-8 glass-premium rounded-full px-6 py-2.5 text-[10px] md:text-[11px] font-black uppercase tracking-widest border-on-surface/10 shadow-lg z-10', course.accentTextClass]">
+            <div :class="['absolute top-8 right-8 glass-premium rounded-full px-6 py-2.5 text-[10px] md:text-[11px] font-black uppercase tracking-widest border-on-surface/10 shadow-lg z-10', course.accentTextClass]">
               {{ course.duration }}
             </div>
 
@@ -87,7 +87,7 @@ const courses = ref([
     accentBgClass: 'bg-accent-neon',
     accentHoverClass: 'hover-neon-lift',
     btnClass: 'btn-primary-neon',
-    extraClass: '',
+    extraClass: '', 
     link: '/cursos/vivenciales'
   },
   {

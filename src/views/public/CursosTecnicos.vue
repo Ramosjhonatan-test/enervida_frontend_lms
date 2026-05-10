@@ -266,12 +266,13 @@ const cursosTecnicos = ref([
 }
 
 .img-gradient-overlay {
-  background: linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0));
+  background: linear-gradient(135deg, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0.08) 45%, rgba(255,255,255,0) 100%);
+  mix-blend-mode: overlay;
 }
 
 @media (prefers-color-scheme: dark) {
   .img-gradient-overlay {
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.34), rgba(15, 23, 42, 0));
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.22) 45%, rgba(15, 23, 42, 0) 100%);
   }
 }
 
