@@ -3,8 +3,8 @@
     <Navbar />
     <main class="pt-28 sm:pt-32 md:pt-40 pb-20 relative">
       <!-- Background decorations -->
-      <div class="absolute top-0 right-1/4 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[150px] pointer-events-none"></div>
-      <div class="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-accent-neon/5 rounded-full blur-[120px] pointer-events-none"></div>
+      <div class="absolute top-0 left-1/4 w-[600px] h-[600px] bg-accent-solar/5 rounded-full blur-[150px] pointer-events-none"></div>
+      <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-accent-neon/5 rounded-full blur-[120px] pointer-events-none"></div>
 
       <div class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 relative z-10">
 
@@ -34,75 +34,83 @@
         <!-- Page Header (centered) -->
         <div class="text-center mb-12 md:mb-16 animate-in fade-in slide-in-from-top duration-700">
           <div class="flex items-center justify-center gap-3 mb-4">
-            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20">
-              <span class="material-symbols-outlined text-blue-400 text-base">engineering</span>
-              <span class="text-[10px] font-black tracking-[0.3em] uppercase text-blue-400">Avanzado</span>
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent-solar/10 border border-accent-solar/20">
+              <span class="material-symbols-outlined text-accent-solar text-base">engineering</span>
+              <span class="text-[10px] font-black tracking-[0.3em] uppercase text-accent-solar">Avanzado</span>
             </span>
           </div>
           <h1 class="font-lexend text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-on-surface leading-[1.1] tracking-tight mb-4">
-            Cursos <span class="text-gradient-neon">Para Técnicos</span>
+            Cursos <span class="text-gradient-solar">Para Técnicos</span>
           </h1>
           <p class="text-on-surface-variant text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
             Especialización avanzada en diseño, dimensionamiento e implementación de sistemas solares profesionales.
           </p>
         </div>
 
-        <!-- Course Cards Grid - 2 columns on desktop -->
-        <div class="grid sm:grid-cols-2 gap-6 md:gap-8">
+        <!-- Course Cards -->
+        <div class="grid gap-6 md:gap-8">
           <div 
             v-for="(course, index) in cursosTecnicos" 
             :key="index"
             class="group animate-in fade-in slide-in-from-bottom duration-700"
             :style="{ 'animation-delay': `${index * 100}ms` }"
           >
-            <div class="glass-card rounded-2xl sm:rounded-[1.5rem] overflow-hidden border border-on-surface/5 hover:border-blue-400/20 transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.15)] h-full flex flex-col">
-              <!-- Image -->
-              <div class="relative overflow-hidden">
-                <div class="aspect-[16/9]">
-                  <img 
-                    :src="course.image" 
-                    :alt="course.title"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                  <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
-                </div>
-                <div class="absolute top-3 left-3 sm:top-4 sm:left-4 glass-premium rounded-full px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.2em] text-blue-400 border border-blue-400/20 shadow-lg">
-                  {{ course.badge }}
-                </div>
-              </div>
-
-              <!-- Content -->
-              <div class="flex-1 p-5 sm:p-6 md:p-7 flex flex-col">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="material-symbols-outlined text-blue-400 text-lg">{{ course.icon }}</span>
-                  <span class="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] text-blue-400">Especialización</span>
+            <div class="glass-card rounded-2xl sm:rounded-[2rem] overflow-hidden border border-on-surface/5 hover:border-accent-solar/20 transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.15)]">
+              <div class="flex flex-col md:flex-row">
+                <!-- Image -->
+                <div class="md:w-[45%] lg:w-[40%] relative overflow-hidden">
+                  <div class="aspect-[16/9] md:aspect-auto md:h-full min-h-[200px] md:min-h-[320px]">
+                    <img 
+                      :src="course.image" 
+                      :alt="course.title"
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-background/90 hidden md:block"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent md:hidden"></div>
+                  </div>
+                  <div class="absolute top-3 left-3 sm:top-4 sm:left-4 glass-premium rounded-full px-3 py-1.5 sm:px-4 sm:py-2 text-[9px] font-black uppercase tracking-[0.2em] text-accent-solar border border-accent-solar/20 shadow-lg">
+                    {{ course.badge }}
+                  </div>
                 </div>
 
-                <h2 class="font-lexend text-lg sm:text-xl md:text-2xl font-black text-on-surface mb-3 leading-tight tracking-tight">
-                  {{ course.title }}
-                </h2>
+                <!-- Content -->
+                <div class="flex-1 p-5 sm:p-6 md:p-8 lg:p-10 xl:p-12 flex flex-col justify-center">
+                  <div class="flex items-center gap-2 mb-2 sm:mb-3">
+                    <span class="material-symbols-outlined text-accent-solar text-lg sm:text-xl">{{ course.icon }}</span>
+                    <span class="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-accent-solar">Especialización</span>
+                  </div>
 
-                <p class="text-on-surface-variant text-xs sm:text-sm leading-relaxed mb-5 flex-1">
-                  {{ course.description }}
-                </p>
+                  <h2 class="font-lexend text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-on-surface mb-3 sm:mb-4 leading-tight tracking-tight">
+                    {{ course.title }}
+                  </h2>
 
-                <div class="flex flex-wrap gap-1.5 mb-5" v-if="course.features">
-                  <span 
-                    v-for="(feat, fi) in course.features" 
-                    :key="fi"
-                    class="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-blue-500/5 border border-blue-500/10 text-[9px] sm:text-[10px] font-semibold text-on-surface"
-                  >
-                    <span class="material-symbols-outlined text-blue-400 text-xs">check_circle</span>
-                    {{ feat }}
-                  </span>
+                  <p class="text-on-surface-variant text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed mb-4 sm:mb-6 max-w-2xl">
+                    {{ course.description }}
+                  </p>
+
+                  <div class="flex flex-wrap gap-1.5 sm:gap-2 mb-6 sm:mb-8" v-if="course.features">
+                    <span 
+                      v-for="(feat, fi) in course.features" 
+                      :key="fi"
+                      class="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full bg-accent-solar/5 border border-accent-solar/10 text-[10px] sm:text-[11px] font-semibold text-on-surface"
+                    >
+                      <span class="material-symbols-outlined text-accent-solar text-xs sm:text-sm">check_circle</span>
+                      {{ feat }}
+                    </span>
+                  </div>
+
+                  <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+                    <button class="btn-premium btn-primary-solar !px-6 sm:!px-8 !py-3 sm:!py-3.5 !text-[10px] sm:!text-[11px] shadow-lg group/btn w-full sm:w-auto text-center">
+                      <span>{{ course.cta }}</span>
+                      <span class="material-symbols-outlined text-sm ml-2 group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+                    </button>
+                    <span class="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] text-accent-solar mt-1 sm:mt-0">
+                      [INSCRÍBETE YA!]
+                    </span>
+                  </div>
+
+                  <div class="w-16 h-1 rounded-full bg-accent-solar mt-6 sm:mt-8 group-hover:w-full transition-all duration-700 ease-out opacity-40"></div>
                 </div>
-
-                <button class="btn-premium btn-primary-tech !px-6 !py-3 !text-[10px] sm:!text-[11px] shadow-lg group/btn w-full text-center mt-auto">
-                  <span>{{ course.cta }}</span>
-                  <span class="material-symbols-outlined text-sm ml-2 group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
-                </button>
-
-                <div class="w-12 h-1 rounded-full bg-blue-400 mt-5 group-hover:w-full transition-all duration-700 ease-out opacity-40"></div>
               </div>
             </div>
           </div>
@@ -120,8 +128,17 @@ import Footer from '@/components/public/Footer.vue'
 
 const cursosTecnicos = ref([
   {
+    title: 'Generación Distribuida (On-Grid)',
+    description: 'Aprende a inyectar energía a la red y aprovechar la normativa vigente.',
+    image: '/images/generacion-distribuida.png',
+    icon: 'electric_meter',
+    badge: 'Grid-Tied',
+    cta: 'Empresas eficientes',
+    features: ['Net metering', 'Normativa', 'Diseño on-grid']
+  },
+  {
     title: 'Diseño en PVSyst',
-    description: 'Simula, dimensiona y optimiza sistemas solares profesionales con el software líder de la industria.',
+    description: 'Simula, dimensiona y optimiza sistemas solares profesionales On-Grid y Off-Grid.',
     image: '/images/pvsyst.png',
     icon: 'desktop_windows',
     badge: 'Software',
@@ -129,17 +146,8 @@ const cursosTecnicos = ref([
     features: ['Simulación avanzada', 'Optimización', 'Reportes profesionales']
   },
   {
-    title: 'Generación Distribuida',
-    description: 'Aprende a inyectar energía a la red y aprovechar la normativa vigente para proyectos rentables.',
-    image: '/images/generacion-distribuida.png',
-    icon: 'electric_meter',
-    badge: 'Grid-Tied',
-    cta: 'Empieza a inyectar energía',
-    features: ['Net metering', 'Normativa', 'Diseño on-grid']
-  },
-  {
-    title: 'Sistemas Aislados',
-    description: 'Diseña soluciones off-grid eficientes y confiables para zonas sin acceso a la red eléctrica.',
+    title: 'Sistemas Fotovoltaicos Aislados',
+    description: 'Diseña soluciones aisladas (off-grid) confiables, útiles para toda aplicación.',
     image: '/images/sistemas-aislados.png',
     icon: 'battery_charging_full',
     badge: 'Off-Grid',
@@ -147,8 +155,8 @@ const cursosTecnicos = ref([
     features: ['Baterías', 'Controladores', 'Autonomía energética']
   },
   {
-    title: 'Sistemas Híbridos',
-    description: 'Combina fuentes de energía y garantiza suministro continuo con sistemas híbridos inteligentes.',
+    title: 'Sistemas Fotovoltaicos Híbridos',
+    description: 'Combina distintas fuentes energéticas y garantiza energía continua y estable.',
     image: '/images/sistemas-hibridos.png',
     icon: 'electric_bolt',
     badge: 'Híbrido',
@@ -156,17 +164,17 @@ const cursosTecnicos = ref([
     features: ['Multi-fuente', 'Respaldo', 'Gestión inteligente']
   },
   {
-    title: 'Sistemas de Bombeo Solar',
-    description: 'Diseña sistemas de agua eficientes sin costo energético para agricultura y ganadería.',
+    title: 'Sistemas de bombeo solar',
+    description: 'Diseña sistemas de provisión para riego, consumo animal y humano para costo "0".',
     image: '/images/sistemas-bombeo-solar.png',
     icon: 'water_pump',
     badge: 'Bombeo',
-    cta: 'Implementa bombeo solar',
+    cta: 'Instala bombeo solar',
     features: ['Bombas sumergibles', 'Riego solar', 'Dimensionamiento']
   },
   {
     title: 'Sistemas Termosolares',
-    description: 'Implementa soluciones de calor con energía solar para aplicaciones residenciales e industriales.',
+    description: 'Diseña soluciones de agua caliente y climatización de ambientes confortables.',
     image: '/images/sistemas-termosolares.png',
     icon: 'thermostat',
     badge: 'Térmico',
@@ -174,8 +182,8 @@ const cursosTecnicos = ref([
     features: ['Colectores solares', 'Calor industrial', 'ACS solar']
   },
   {
-    title: 'Luminarias Solares',
-    description: 'Diseña e instala iluminación autónoma y eficiente para espacios públicos y privados.',
+    title: 'Sistemas de iluminación solar',
+    description: 'Diseña e instala iluminación autónoma y eficiente para calles, carreteras, plazas, etc.',
     image: '/images/luminarias-solares.png',
     icon: 'light',
     badge: 'Iluminación',
@@ -208,13 +216,13 @@ const cursosTecnicos = ref([
 }
 
 .nav-pill:hover {
-  background: rgba(96, 165, 250, 0.08);
+  background: rgba(251, 191, 36, 0.08);
   color: var(--on-surface);
 }
 
 .nav-pill-active {
-  background: rgba(96, 165, 250, 0.15) !important;
-  color: #60a5fa !important;
+  background: rgba(251, 191, 36, 0.15) !important;
+  color: #fbbf24 !important;
   font-weight: 800;
 }
 
@@ -238,22 +246,22 @@ const cursosTecnicos = ref([
   box-shadow: var(--shadow-premium);
 }
 
-.text-gradient-tech {
-  background: linear-gradient(135deg, #60a5fa 0%, #818cf8 100%);
+.text-gradient-solar {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
 }
 
-.btn-primary-tech {
-  background: linear-gradient(135deg, #60a5fa 0%, #818cf8 100%) !important;
+.btn-primary-solar {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%) !important;
   color: #fff !important;
   border: none !important;
 }
 
-.btn-primary-tech:hover {
+.btn-primary-solar:hover {
   filter: brightness(1.1);
-  box-shadow: 0 8px 30px rgba(96, 165, 250, 0.3) !important;
+  box-shadow: 0 8px 30px rgba(251, 191, 36, 0.3) !important;
 }
 
 @keyframes fade-in {

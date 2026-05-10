@@ -128,6 +128,7 @@ const cursosOnline = ref([
     title: 'Energía Solar para TODO',
     description: 'Todo lo que necesitas saber para entender y aprovechar el sol al máximo todos los días.',
     image: '/images/energia-solar-todo.png',
+    icon: 'solar_power',
     badge: 'Integral',
     cta: '¡INSCRÍBETE YA!',
     features: ['Curso completo', 'Sin requisitos', 'Certificado digital', 'Acceso ilimitado']
