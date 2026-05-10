@@ -67,6 +67,7 @@
                     />
                     <div class="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-background/90 hidden md:block"></div>
                     <div class="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent md:hidden"></div>
+                    <div class="absolute inset-0 img-gradient-overlay pointer-events-none"></div>
                   </div>
                   <div class="absolute top-3 left-3 sm:top-4 sm:left-4 glass-premium rounded-full px-3 py-1.5 sm:px-4 sm:py-2 text-[9px] font-black uppercase tracking-[0.2em] text-accent-solar border border-accent-solar/20 shadow-lg">
                     {{ course.badge }}
@@ -262,6 +263,16 @@ const cursosTecnicos = ref([
 .btn-primary-solar:hover {
   filter: brightness(1.1);
   box-shadow: 0 8px 30px rgba(251, 191, 36, 0.3) !important;
+}
+
+.img-gradient-overlay {
+  background: linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0));
+}
+
+@media (prefers-color-scheme: dark) {
+  .img-gradient-overlay {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.34), rgba(15, 23, 42, 0));
+  }
 }
 
 @keyframes fade-in {
