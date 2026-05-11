@@ -8,7 +8,7 @@
 
     <!-- Branding Watermark -->
     <div class="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/4 opacity-[0.15] dark:opacity-[0.1] pointer-events-none z-0">
-      <img src="/logo-dark.webp" alt="Watermark" class="w-[800px] lg:w-[1200px] grayscale brightness-0 invert dark:invert-0 blur-[3px]" />
+      <img src="/logo-dark.webp" alt="Watermark" class="w-[800px] lg:w-[1200px] grayscale brightness-0 invert dark:invert-0 blur-[3px]" loading="lazy" fetchpriority="low" decoding="async" />
     </div>
 
     <div class="w-full max-w-[1400px] mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10">
@@ -40,7 +40,7 @@
         <div class="flex items-center gap-6 pt-8 border-t border-on-surface/5">
           <div class="flex -space-x-3">
             <div v-for="i in 4" :key="i" class="w-10 h-10 rounded-full border-2 border-background bg-surface-container flex items-center justify-center text-[10px] font-bold overflow-hidden">
-              <img :src="`https://i.pravatar.cc/100?img=${i+10}`" alt="User" />
+              <img :src="`https://i.pravatar.cc/100?img=${i+10}`" alt="User" loading="lazy" decoding="async" />
             </div>
           </div>
           <p class="text-sm text-on-surface-variant font-semibold">
@@ -56,6 +56,9 @@
             alt="Sustainable Energy Tech" 
             class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 group-hover:rotate-1" 
             src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop"
+            fetchpriority="high"
+            loading="eager"
+            decoding="sync"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60"></div>
           

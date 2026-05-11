@@ -63,6 +63,8 @@
                     <img 
                       :src="course.image" 
                       :alt="course.title"
+                      loading="lazy"
+                      decoding="async"
                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     />
                     <div class="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-background/90 hidden md:block"></div>
