@@ -100,10 +100,11 @@
                   </div>
 
                   <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
-                    <button class="btn-premium btn-primary-solar !px-6 sm:!px-8 !py-3 sm:!py-3.5 !text-[10px] sm:!text-[11px] shadow-lg group/btn w-full sm:w-auto text-center">
+                    <!--al hacer click en el boton se deve redirigir al login-->
+                    <router-link :to="course.link" class="btn-premium btn-primary-solar !px-6 sm:!px-8 !py-3 sm:!py-3.5 !text-[10px] sm:!text-[11px] shadow-lg group/btn w-full sm:w-auto text-center">
                       <span>{{ course.cta }}</span>
                       <span class="material-symbols-outlined text-sm ml-2 group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
-                    </button>
+                    </router-link>
                   </div>
 
                   <div class="w-16 h-1 rounded-full bg-accent-solar mt-6 sm:mt-8 group-hover:w-full transition-all duration-700 ease-out opacity-40"></div>
@@ -131,7 +132,8 @@ const cursosOnline = ref([
     icon: 'solar_power',
     badge: 'Integral',
     cta: '¡INSCRÍBETE YA!',
-    features: ['Curso completo', 'Sin requisitos', 'Certificado digital', 'Acceso ilimitado']
+    features: ['Curso completo', 'Sin requisitos', 'Certificado digital', 'Acceso ilimitado'],
+    link: '/login'
   },
   {
     title: 'Energía Solar para CALOR',
@@ -140,7 +142,8 @@ const cursosOnline = ref([
     icon: 'local_fire_department',
     badge: 'Térmica',
     cta: 'Ahorra usando CALOR gratis',
-    features: ['Agua caliente solar', 'Cocina solar', 'Deshidratación', 'Piscinas temperadas']
+    features: ['Agua caliente solar', 'Cocina solar', 'Deshidratación', 'Piscinas temperadas'],
+    link: '/login'
   },
   {
     title: 'Energía Solar para ELECTRICIDAD',
@@ -149,7 +152,8 @@ const cursosOnline = ref([
     icon: 'bolt',
     badge: 'Fotovoltaica',
     cta: 'REDUCE tu factura hoy',
-    features: ['Paneles solares', 'Inversores', 'Baterías', 'Net metering']
+    features: ['Paneles solares', 'Inversores', 'Baterías', 'Net metering'],
+    link: '/login'
   },
   {
     title: 'Energía Solar para CONSTRUCCIÓN',
@@ -158,7 +162,8 @@ const cursosOnline = ref([
     icon: 'apartment',
     badge: 'Arquitectura',
     cta: '¡CONSTRUYE mejor ya!',
-    features: ['Diseño bioclimático', 'Confort térmico', 'BIPV', 'Eficiencia energética']
+    features: ['Diseño bioclimático', 'Confort térmico', 'BIPV', 'Eficiencia energética'],
+    link: '/login'
   },
   {
     title: 'Energía Solar para PROD. AGROPECUARIA',
@@ -167,7 +172,8 @@ const cursosOnline = ref([
     icon: 'agriculture',
     badge: 'Agro-Solar',
     cta: 'Produce MÁS con menos',
-    features: ['Bombeo solar', 'Riego autónomo', 'Agrovoltaica', 'Secado solar']
+    features: ['Bombeo solar', 'Riego autónomo', 'Agrovoltaica', 'Secado solar'],
+    link: '/login'
   },
   {
     title: 'Energía Solar para INDUSTRIA',
@@ -176,7 +182,8 @@ const cursosOnline = ref([
     icon: 'factory',
     badge: 'Industrial',
     cta: 'Optimiza tu empresa',
-    features: ['Gran escala', 'ROI rápido', 'Calor de proceso', 'Autoconsumo']
+    features: ['Gran escala', 'ROI rápido', 'Calor de proceso', 'Autoconsumo'],
+    link: '/login'
   },
   {
     title: 'Energía Solar para ILUMINACIÓN PÚBLICA',
@@ -185,7 +192,8 @@ const cursosOnline = ref([
     icon: 'lightbulb',
     badge: 'Alumbrado',
     cta: 'Ilumina sin pagar NADA',
-    features: ['Luminarias LED', 'Sin cableado', 'Autónomas', 'Alta eficiencia']
+    features: ['Luminarias LED', 'Sin cableado', 'Autónomas', 'Alta eficiencia'],
+    link: '/login'
   }
 ])
 </script>

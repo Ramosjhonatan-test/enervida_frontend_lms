@@ -100,10 +100,11 @@
                   </div>
 
                   <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
-                    <button class="btn-premium btn-primary-neon !px-6 sm:!px-8 !py-3 sm:!py-3.5 !text-[10px] sm:!text-[11px] shadow-neon-sm group/btn w-full sm:w-auto text-center">
+                    <!--al hacer click en el boton se deve redirigir al login-->
+                    <router-link :to="course.link" class="btn-premium btn-primary-neon !px-6 sm:!px-8 !py-3 sm:!py-3.5 !text-[10px] sm:!text-[11px] shadow-neon-sm group/btn w-full sm:w-auto text-center">
                       <span>{{ course.cta }}</span>
                       <span class="material-symbols-outlined text-sm ml-2 group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
-                    </button>
+                    </router-link>
                     <span class="text-[11px] text-on-surface-variant font-medium hidden sm:block">
                       {{ course.ctaHint }}
                     </span>
@@ -136,7 +137,8 @@ const vivenciales = ref([
     schedule: 'Todos los Domingos',
     cta: 'Reserva tu espacio',
     ctaHint: 'Chatea con NOSOTROS',
-    features: ['Experiencia práctica', 'Toda la familia', 'Casa Solar ENERVIDA', 'Sin requisitos previos']
+    features: ['Experiencia práctica', 'Toda la familia', 'Casa Solar ENERVIDA', 'Sin requisitos previos'],
+    link: '/login'
   },
   {
     title: 'Lun-Vie de Estudiantes',
@@ -147,7 +149,8 @@ const vivenciales = ref([
     schedule: 'Lunes a Viernes',
     cta: 'Inscribe tu Institución',
     ctaHint: 'Inscripción institucional',
-    features: ['Visita grupal', 'Guía especializada', 'Certificado de asistencia', 'Material didáctico']
+    features: ['Visita grupal', 'Guía especializada', 'Certificado de asistencia', 'Material didáctico'],
+    link: '/login'
   },
   {
     title: 'Sábados de Técnicos',
@@ -158,7 +161,8 @@ const vivenciales = ref([
     schedule: 'Todos los Sábados',
     cta: 'Asegura tu espacio ¡AHORA!',
     ctaHint: 'Cupos limitados',
-    features: ['Capacitación intensiva', 'Práctica en campo', 'Herramientas reales', 'Certificación técnica']
+    features: ['Capacitación intensiva', 'Práctica en campo', 'Herramientas reales', 'Certificación técnica'],
+    link: '/login'
   }
 ])
 </script>

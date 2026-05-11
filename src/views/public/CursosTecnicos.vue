@@ -101,10 +101,11 @@
                   </div>
 
                   <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
-                    <button class="btn-premium btn-primary-solar !px-6 sm:!px-8 !py-3 sm:!py-3.5 !text-[10px] sm:!text-[11px] shadow-lg group/btn w-full sm:w-auto text-center">
+                    <!--al hacer click en el boton se deve redirigir al login-->
+                    <router-link :to="course.link" class="btn-premium btn-primary-solar !px-6 sm:!px-8 !py-3 sm:!py-3.5 !text-[10px] sm:!text-[11px] shadow-lg group/btn w-full sm:w-auto text-center">
                       <span>{{ course.cta }}</span>
                       <span class="material-symbols-outlined text-sm ml-2 group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
-                    </button>
+                    </router-link>
                     <span class="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] text-accent-solar mt-1 sm:mt-0">
                       [INSCRÍBETE YA!]
                     </span>
@@ -135,7 +136,8 @@ const cursosTecnicos = ref([
     icon: 'electric_meter',
     badge: 'Grid-Tied',
     cta: 'Empresas eficientes',
-    features: ['Net metering', 'Normativa', 'Diseño on-grid']
+    features: ['Net metering', 'Normativa', 'Diseño on-grid'],
+    link: '/login'
   },
   {
     title: 'Diseño en PVSyst',
@@ -144,7 +146,8 @@ const cursosTecnicos = ref([
     icon: 'desktop_windows',
     badge: 'Software',
     cta: 'Domina PVSyst',
-    features: ['Simulación avanzada', 'Optimización', 'Reportes profesionales']
+    features: ['Simulación avanzada', 'Optimización', 'Reportes profesionales'],
+    link: '/login'
   },
   {
     title: 'Sistemas Fotovoltaicos Aislados',
@@ -153,7 +156,8 @@ const cursosTecnicos = ref([
     icon: 'battery_charging_full',
     badge: 'Off-Grid',
     cta: 'Diseña sin red',
-    features: ['Baterías', 'Controladores', 'Autonomía energética']
+    features: ['Baterías', 'Controladores', 'Autonomía energética'],
+    link: '/login'
   },
   {
     title: 'Sistemas Fotovoltaicos Híbridos',
@@ -162,7 +166,8 @@ const cursosTecnicos = ref([
     icon: 'electric_bolt',
     badge: 'Híbrido',
     cta: 'Garantiza energía total',
-    features: ['Multi-fuente', 'Respaldo', 'Gestión inteligente']
+    features: ['Multi-fuente', 'Respaldo', 'Gestión inteligente'],
+    link: '/login'
   },
   {
     title: 'Sistemas de bombeo solar',
@@ -171,7 +176,8 @@ const cursosTecnicos = ref([
     icon: 'water_pump',
     badge: 'Bombeo',
     cta: 'Instala bombeo solar',
-    features: ['Bombas sumergibles', 'Riego solar', 'Dimensionamiento']
+    features: ['Bombas sumergibles', 'Riego solar', 'Dimensionamiento'],
+    link: '/login'
   },
   {
     title: 'Sistemas Termosolares',
@@ -180,7 +186,8 @@ const cursosTecnicos = ref([
     icon: 'thermostat',
     badge: 'Térmico',
     cta: 'Genera calor gratis',
-    features: ['Colectores solares', 'Calor industrial', 'ACS solar']
+    features: ['Colectores solares', 'Calor industrial', 'ACS solar'],
+    link: '/login'
   },
   {
     title: 'Sistemas de iluminación solar',
@@ -189,7 +196,8 @@ const cursosTecnicos = ref([
     icon: 'light',
     badge: 'Iluminación',
     cta: 'Ilumina con el sol',
-    features: ['LED solar', 'Autonomía total', 'Diseño fotométrico']
+    features: ['LED solar', 'Autonomía total', 'Diseño fotométrico'],
+    link: '/login'
   }
 ])
 </script>
