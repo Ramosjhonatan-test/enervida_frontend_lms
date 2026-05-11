@@ -59,7 +59,7 @@
                 @click="selectLeccion(leccion)"
                 :class="[
                   'w-full rounded-2xl px-3 py-3 text-left transition-all',
-                  activeLeccion?.id === leccion.id ? 'bg-accent-neon/10 border border-accent-neon/20 shadow-lg' : 'hover:bg-on-surface/5'
+                  activeLeccion?.id === leccion.id ? 'bg-accent-neon/10 border border-accent-neon/20 shadow-[0_4px_15px_rgba(16,185,129,0.1)]' : 'hover:bg-on-surface/5 border border-transparent hover:border-on-surface/10'
                 ]"
               >
                 <div class="flex items-start gap-3">
@@ -84,13 +84,6 @@
             </div>
           </div>
 
-          <div v-if="curso?.evaluaciones?.length > 0 && progresoGeneral >= 100" class="mt-6 rounded-[28px] border border-accent-neon/20 bg-accent-neon/5 p-4">
-            <p class="mb-4 text-center text-[9px] font-black uppercase tracking-widest text-accent-neon">Contenido completado</p>
-            <router-link :to="'/student/exam/' + curso.evaluaciones[0].id" class="btn-premium btn-primary-neon !w-full !py-4 gap-2">
-              <span class="material-symbols-outlined text-sm">assignment</span>
-              Tomar evaluacion
-            </router-link>
-          </div>
         </div>
       </aside>
 
@@ -124,59 +117,93 @@
           </div>
         </header>
 
-        <div class="custom-scrollbar flex-1 overflow-y-auto bg-black/20">
+        <div class="custom-scrollbar flex-1 overflow-y-auto bg-background/50">
           <div v-if="loading" class="flex h-full min-h-[60vh] flex-col items-center justify-center gap-6 p-6">
             <div class="h-16 w-16 animate-spin rounded-full border-t-2 border-accent-neon shadow-[0_0_20px_var(--accent-neon)]"></div>
             <p class="text-[10px] font-black uppercase tracking-[0.4em] text-accent-neon">Cargando contenido...</p>
           </div>
 
-          <div v-else-if="activeLeccion" class="mx-auto flex w-full max-w-6xl flex-col gap-8 p-4 md:p-6 lg:p-10">
-            <div v-if="activeLeccion.tipo_contenido === 'VIDEO'" class="aspect-video w-full overflow-hidden rounded-[28px] border border-on-surface/5 bg-black shadow-2xl">
-              <iframe
-                v-if="isYoutube(activeLeccion.video_url)"
-                :src="getYoutubeEmbed(activeLeccion.video_url)"
-                class="h-full w-full"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-              <video v-else-if="activeLeccion.video_url" :src="getFileUrl(activeLeccion.video_url)" controls class="h-full w-full"></video>
-              <div v-else class="flex h-full items-center justify-center text-on-surface/20">
-                <p class="text-xs font-black uppercase tracking-widest">Video no disponible</p>
+          <div v-else-if="activeLeccion" class="mx-auto flex w-full max-w-6xl flex-col gap-6 p-4 md:p-6 lg:p-8">
+            <div class="flex flex-col lg:flex-row gap-6">
+              
+              <!-- Content Area (Video/PDF) -->
+              <div class="flex-1 w-full flex flex-col gap-6">
+                <div v-if="activeLeccion.tipo_contenido === 'VIDEO'" class="aspect-video w-full overflow-hidden rounded-[28px] border border-on-surface/10 bg-black shadow-2xl relative group">
+                  <iframe
+                    v-if="isYoutube(activeLeccion.video_url)"
+                    :src="getYoutubeEmbed(activeLeccion.video_url)"
+                    class="h-full w-full absolute inset-0"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                  <video v-else-if="activeLeccion.video_url" :src="getFileUrl(activeLeccion.video_url)" controls class="h-full w-full object-cover absolute inset-0"></video>
+                  <div v-else class="flex h-full items-center justify-center text-on-surface/20">
+                    <p class="text-xs font-black uppercase tracking-widest">Video no disponible</p>
+                  </div>
+                </div>
+
+                <div v-else-if="activeLeccion.tipo_contenido === 'PDF'" class="h-[68vh] min-h-[460px] w-full overflow-hidden rounded-[28px] border border-on-surface/10 bg-on-surface/[0.03] shadow-lg">
+                  <iframe :src="getFileUrl(activeLeccion.pdf_url)" class="h-full w-full" frameborder="0"></iframe>
+                </div>
               </div>
             </div>
 
-            <div v-else-if="activeLeccion.tipo_contenido === 'PDF'" class="h-[68vh] min-h-[460px] w-full overflow-hidden rounded-[28px] border border-on-surface/5 bg-on-surface/[0.03]">
-              <iframe :src="getFileUrl(activeLeccion.pdf_url)" class="h-full w-full" frameborder="0"></iframe>
-            </div>
-
-            <div v-else class="glass-card-premium min-h-[320px] rounded-[36px] border-on-surface/5 p-6 md:p-10 lg:p-14">
-              <div class="prose max-w-none prose-headings:text-on-surface prose-p:text-on-surface/70" v-html="activeLeccion.descripcion || 'No hay descripcion adicional para esta leccion.'"></div>
-            </div>
-
-            <section class="student-panel p-6 md:p-8">
-              <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                <div>
-                  <p class="text-[10px] font-black uppercase tracking-[0.24em] text-accent-neon">Leccion activa</p>
-                  <h2 class="mt-2 font-lexend text-2xl font-black tracking-tight">{{ activeLeccion.titulo }}</h2>
-                  <p class="mt-3 text-sm leading-7 text-on-surface/50">
-                    Instructor: {{ curso?.instructor?.nombres }} {{ curso?.instructor?.apellidos }}
-                  </p>
+            <!-- Lesson Info & Actions -->
+            <div class="glass-card-premium rounded-[32px] p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm border border-on-surface/5">
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] rounded-full bg-accent-neon/10 text-accent-neon border border-accent-neon/20">{{ activeLeccion.tipo_contenido }}</span>
+                  <p class="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface/40">Leccion activa</p>
                 </div>
+                <h2 class="font-lexend text-2xl font-black tracking-tight text-on-surface line-clamp-2">{{ activeLeccion.titulo }}</h2>
+                <p class="mt-2 text-sm font-medium text-on-surface/60 flex items-center gap-2">
+                  <span class="material-symbols-outlined text-sm">person</span>
+                  Instructor: <span class="text-on-surface/80">{{ curso?.instructor?.nombres }} {{ curso?.instructor?.apellidos }}</span>
+                </p>
+              </div>
 
+              <div class="shrink-0 w-full md:w-auto flex flex-col sm:flex-row gap-3">
                 <button
                   @click="toggleComplete"
                   :disabled="marking"
                   :class="[
-                    'btn-premium !w-full md:!w-auto !justify-center !py-4 !px-8 gap-3',
-                    leccionCompletada(activeLeccion.id) ? 'btn-secondary-glass border-accent-neon text-accent-neon' : 'btn-primary-neon'
+                    'btn-premium !w-full md:!w-auto !justify-center !px-6 !py-3.5 gap-2.5 transition-all duration-300',
+                    leccionCompletada(activeLeccion.id) ? 'bg-accent-neon/10 border border-accent-neon/30 text-accent-neon shadow-[0_0_15px_rgba(16,185,129,0.15)]' : 'btn-primary-neon shadow-lg'
                   ]"
                 >
-                  <span class="material-symbols-outlined text-sm font-black">{{ leccionCompletada(activeLeccion.id) ? 'check_circle' : 'task_alt' }}</span>
-                  {{ leccionCompletada(activeLeccion.id) ? 'Completado' : 'Marcar como completado' }}
+                  <span class="material-symbols-outlined text-[18px] font-black">{{ leccionCompletada(activeLeccion.id) ? 'check_circle' : 'task_alt' }}</span>
+                  {{ leccionCompletada(activeLeccion.id) ? 'Completado' : 'Marcar completado' }}
                 </button>
               </div>
-            </section>
+            </div>
+
+            <!-- Additional Description -->
+            <div v-if="activeLeccion.descripcion && activeLeccion.tipo_contenido !== 'PDF'" class="glass-card rounded-[32px] p-6 md:p-8 lg:p-10 border border-on-surface/5 bg-surface-container">
+              <h3 class="text-sm font-black uppercase tracking-widest text-on-surface/80 mb-6 flex items-center gap-2">
+                <span class="material-symbols-outlined text-accent-neon">info</span>
+                Acerca de esta lección
+              </h3>
+              <div class="prose max-w-none prose-headings:text-on-surface prose-p:text-on-surface/70 prose-a:text-accent-neon prose-strong:text-on-surface" v-html="activeLeccion.descripcion"></div>
+            </div>
+
+            <!-- Exam CTA (Visible when 100% completed) -->
+            <div v-if="curso?.evaluaciones?.length > 0 && Math.round(progresoGeneral) === 100" class="mt-4 glass-card-premium relative overflow-hidden rounded-[32px] p-8 md:p-12 text-center border-accent-neon/30 shadow-[0_10px_40px_-10px_rgba(16,185,129,0.2)]">
+              <div class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,_var(--accent-neon)_0%,_transparent_70%)] opacity-5"></div>
+              <div class="relative z-10 flex flex-col items-center">
+                <div class="mb-6 flex h-20 w-20 items-center justify-center rounded-[24px] bg-accent-neon/10 text-accent-neon border border-accent-neon/20">
+                  <span class="material-symbols-outlined text-4xl font-black">workspace_premium</span>
+                </div>
+                <h3 class="font-lexend text-2xl md:text-3xl font-black tracking-tight text-on-surface mb-3">¡Has completado el contenido!</h3>
+                <p class="text-sm text-on-surface/60 max-w-lg mx-auto mb-8">
+                  Estás listo para tomar la evaluación final de este curso. Asegúrate de tener buena conexión a internet y tiempo disponible.
+                </p>
+                <router-link :to="'/student/exam/' + curso.evaluaciones[0].id" class="btn-premium btn-primary-neon !px-10 !py-4 gap-3 text-sm">
+                  <span class="material-symbols-outlined text-lg">assignment</span>
+                  Iniciar Evaluación Final
+                </router-link>
+              </div>
+            </div>
           </div>
         </div>
       </main>

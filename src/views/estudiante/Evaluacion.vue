@@ -141,9 +141,9 @@
         <!-- RESULTADOS -->
         <div v-else-if="finished" class="mx-auto w-full max-w-3xl animate-in fade-in">
           <div :class="['glass-card-premium relative overflow-hidden rounded-[32px] border p-8 text-center shadow-2xl md:rounded-[48px] md:p-12', passed ? 'border-accent-neon/20 shadow-accent-neon/10' : 'border-red-500/20 shadow-red-500/10']">
-            <div v-if="passed" class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--accent-neon)_0%,_transparent_70%)] opacity-10"></div>
+            <div v-if="passed" class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,_var(--accent-neon)_0%,_transparent_70%)] opacity-10"></div>
 
-            <div :class="['mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-[32px] border shadow-inner', passed ? 'border-accent-neon/20 bg-accent-neon/10 text-accent-neon' : 'border-red-500/20 bg-red-500/10 text-red-500']">
+            <div :class="['relative z-10 mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-[32px] border shadow-inner', passed ? 'border-accent-neon/20 bg-accent-neon/10 text-accent-neon' : 'border-red-500/20 bg-red-500/10 text-red-500']">
               <span class="material-symbols-outlined text-5xl font-black">{{ passed ? 'workspace_premium' : 'error' }}</span>
             </div>
 
@@ -169,7 +169,7 @@
               </div>
             </div>
 
-            <div class="flex flex-col gap-4 sm:flex-row">
+            <div class="relative z-10 flex flex-col gap-4 sm:flex-row">
               <button @click="exitExam" class="btn-premium btn-secondary-glass !w-full !justify-center !px-8 !py-4 gap-3">
                 <span class="material-symbols-outlined text-lg">arrow_back</span>
                 Volver al curso
@@ -457,12 +457,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.glass-card-premium {
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
 .fade-slide-enter-active, .fade-slide-leave-active { transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
 .fade-slide-enter-from { transform: translateX(20px); opacity: 0; }
 .fade-slide-leave-to { transform: translateX(-20px); opacity: 0; }
