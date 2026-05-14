@@ -55,7 +55,7 @@
           <img 
             alt="Sustainable Energy Tech" 
             class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 group-hover:rotate-1" 
-            src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop"
+            src="https://www.solartechmexico.com/wp-content/uploads/2024/02/cuanto_cuesta_poner_paneles_solares_en_mexico.webp"
             fetchpriority="high"
             loading="eager"
             decoding="sync"
@@ -74,10 +74,10 @@
                 <p class="text-[11px] text-on-surface-variant font-medium">Instructor: Ing. Carlos Méndez</p>
               </div>
               <div class="flex flex-col items-center gap-2">
-                <div class="bg-accent-neon text-primary p-3 rounded-2xl shadow-neon-sm cursor-pointer hover:scale-110 transition-transform">
-                  <span class="material-symbols-outlined text-2xl">play_arrow</span>
-                </div>
-                <span class="text-[8px] font-black uppercase tracking-widest text-on-surface-variant">Unirse</span>
+                <!--redirige a solo ala pantall de login-->
+                <button @click="$router.push('/login')" class="btn-premium btn-primary-neon !px-10 !py-4 shadow-neon-sm">
+                  Unirse
+                </button>
               </div>
             </div>
           </div>
