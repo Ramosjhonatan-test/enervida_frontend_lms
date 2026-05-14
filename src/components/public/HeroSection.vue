@@ -106,7 +106,7 @@
 
 .text-gradient-neon {
   background: linear-gradient(135deg, var(--accent-neon) 0%, var(--accent-solar) 100%);
-  -webkit-background-clip: text;
+  -webkit-background-clip : text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
 }

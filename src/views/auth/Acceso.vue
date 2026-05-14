@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="login-wrapper font-inter overflow-hidden relative min-h-screen flex items-center justify-center bg-background">
     <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
       <div class="absolute -top-[10%] -right-[5%] w-[820px] h-[820px] bg-accent-neon/10 rounded-full blur-[160px] animate-pulse-slow"></div>
@@ -18,7 +18,7 @@
               <p class="text-on-surface-variant text-lg leading-relaxed">Monitorea cursos, reportes y herramientas en un solo panel para avanzar mas rapido.</p>
             </div>
             <div class="mt-auto pt-8">
-              <img src="https://thumbs.dreamstime.com/b/c%C3%A9lulas-solares-y-turbinas-de-viento-en-energ%C3%ADa-renovable-alternativa-de-la-central-el%C3%A9ctrica-de-la-naturaleza-97284345.jpg" alt="Paneles solares" class="h-[310px] w-full rounded-[2rem] object-cover border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.35)]" />
+              <img src="https://thumbs.dreamstime.com/b/sunset-sostenible-e%C3%B3lica-solar-y-energ%C3%ADa-limpia-una-puesta-de-sol-impresionante-ilumina-planta-moderna-con-variedad-paneles-391580783.jpg" alt="Paneles solares" class="h-[310px] w-full rounded-[2rem] object-cover border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.35)]" />
             </div>
           </div>
         </section>
@@ -37,7 +37,7 @@
               <div class="space-y-2">
                 <label class="block text-[10px] font-black text-accent-neon uppercase tracking-[0.2em] ml-1">Correo corporativo</label>
                 <div class="relative group">
-                  <div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/40 group-focus-within:text-accent-neon transition-all">
+                  <div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-accent-neon transition-all">
                     <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
                   </div>
                   <input v-model="email" class="input-glass pl-14" placeholder="usuario@enervida.com" type="email" required />
@@ -47,7 +47,7 @@
               <div class="space-y-2">
                 <label class="block text-[10px] font-black text-accent-neon uppercase tracking-[0.2em] ml-1">Contrasena</label>
                 <div class="relative group">
-                  <div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/40 group-focus-within:text-accent-neon transition-all">
+                  <div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-accent-neon transition-all">
                     <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V8a5 5 0 0 1 10 0v3"/></svg>
                   </div>
                   <input v-model="password" class="input-glass pl-14" placeholder="********" type="password" required />
@@ -69,10 +69,7 @@
               </button>
             </form>
 
-            <div class="relative my-8">
-              <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-on-surface/10"></div></div>
-              <div class="relative flex justify-center text-[10px] font-bold text-on-surface-variant/70"><span class="bg-surface-card px-4 rounded-full">Tambien puedes entrar con Google</span></div>
-            </div>
+            <p class="social-hint my-7 text-center text-[13px] font-semibold text-on-surface-variant">Tambien puedes entrar con Google</p>
 
             <button type="button" @click="customGoogleLogin" :disabled="loading" class="secondary-auth-btn w-full rounded-2xl py-4 px-6 flex items-center justify-center gap-3 active:scale-95">
               <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="Google" />
@@ -81,7 +78,7 @@
 
             <div class="mt-8 flex items-center justify-between gap-4">
               <p class="text-sm text-on-surface-variant">Soy nuevo</p>
-              <router-link to="/register" class="inline-flex items-center gap-2 rounded-xl border border-accent-neon/50 text-accent-neon px-5 py-2.5 font-bold hover:bg-accent-neon/10 transition-colors">
+              <router-link to="/register" class="auth-switch-btn">
                 Crear cuenta
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
               </router-link>
@@ -124,40 +121,28 @@ const { login: customGoogleLogin } = useTokenClient({
   onSuccess: async (tokenResponse) => {
     loading.value = true
     try {
-      const user = await authStore.googleLogin({ 
-        access_token: tokenResponse.access_token 
-      })
-      
+      const user = await authStore.googleLogin({ access_token: tokenResponse.access_token })
       triggerConfetti()
       notificationStore.addNotification({
-        title: '¡Acceso Exitoso!',
+        title: 'Acceso exitoso',
         message: `Bienvenido de nuevo, ${user.nombre || 'estudiante'}.`,
         type: 'success'
       })
-
-      if (user.rol?.nombre === 'admin') {
-        router.push('/admin')
-      } else {
-        router.push('/student')
-      }
+      router.push(user.rol?.nombre === 'admin' ? '/admin' : '/student')
     } catch (err) {
       console.error('Error google login:', err)
       const msg = err.response?.data?.message || 'Error al validar cuenta de Google'
       error.value = msg
-      notificationStore.addNotification({
-        title: 'Error de Autenticación',
-        message: msg,
-        type: 'error'
-      })
+      notificationStore.addNotification({ title: 'Error de autenticacion', message: msg, type: 'error' })
     } finally {
       loading.value = false
     }
   },
   onError: () => {
-    error.value = 'Error al iniciar sesión con Google'
+    error.value = 'Error al iniciar sesion con Google'
     notificationStore.addNotification({
       title: 'Google Login',
-      message: 'Se canceló o falló el inicio de sesión con Google.',
+      message: 'Se cancelo o fallo el inicio de sesion con Google.',
       type: 'error'
     })
   }
@@ -166,34 +151,23 @@ const { login: customGoogleLogin } = useTokenClient({
 const handleLogin = async () => {
   error.value = ''
   loading.value = true
-  
   try {
     const user = await authStore.login({
       correo: email.value,
       contrasena: password.value
     })
-    
     triggerConfetti()
     notificationStore.addNotification({
-      title: '¡Bienvenido!',
-      message: 'Has iniciado sesión correctamente.',
+      title: 'Bienvenido',
+      message: 'Has iniciado sesion correctamente.',
       type: 'success'
     })
-
-    if (user.rol?.nombre === 'admin') {
-      router.push('/admin')
-    } else {
-      router.push('/student')
-    }
+    router.push(user.rol?.nombre === 'admin' ? '/admin' : '/student')
   } catch (err) {
     console.error('Error en login:', err)
-    const msg = err.response?.data?.message || 'Credenciales inválidas o error de conexión'
+    const msg = err.response?.data?.message || 'Credenciales invalidas o error de conexion'
     error.value = msg
-    notificationStore.addNotification({
-      title: 'Acceso Denegado',
-      message: msg,
-      type: 'error'
-    })
+    notificationStore.addNotification({ title: 'Acceso denegado', message: msg, type: 'error' })
   } finally {
     loading.value = false
   }
@@ -202,53 +176,42 @@ const handleLogin = async () => {
 
 <style scoped>
 .input-glass {
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 1.25rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    color: var(--on-surface);
-    font-size: 0.875rem;
-    transition: all 0.25s ease;
-    outline: none;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  width: 100%;
+  background-color: var(--input-bg);
+  border: 1px solid color-mix(in srgb, var(--on-surface) 24%, transparent);
+  border-radius: 1.25rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  color: var(--on-surface);
+  font-size: 0.875rem;
+  transition: all 0.25s ease;
+  outline: none;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 70%, transparent);
+  caret-color: var(--accent-neon);
 }
 
 .input-glass:focus {
-    background-color: rgba(255, 255, 255, 0.07);
-    border-color: var(--accent-neon);
-    box-shadow: 0 0 20px rgba(16, 255, 157, 0.15);
+  background-color: var(--input-bg-focus);
+  border-color: var(--accent-neon);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-neon) 22%, transparent);
 }
 
-@keyframes pulse-slow {
-  0%, 100% { opacity: 0.1; transform: scale(1); }
-  50% { opacity: 0.15; transform: scale(1.05); }
+.input-glass::placeholder {
+  color: var(--on-surface-variant);
+  opacity: 1;
 }
 
-.animate-pulse-slow {
-  animation: pulse-slow 8s ease-in-out infinite;
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  75% { transform: translateX(4px); }
-}
-
-.animate-shake {
-  animation: shake 0.4s ease-in-out;
-}
 .auth-feature-card {
   position: relative;
   overflow: hidden;
   border-radius: 2.75rem;
   border: 1px solid color-mix(in srgb, var(--on-surface) 12%, transparent);
-  background: linear-gradient(135deg,
+  background: linear-gradient(
+    135deg,
     color-mix(in srgb, var(--surface-card) 92%, #16345f 8%),
     color-mix(in srgb, var(--surface-card) 86%, #102744 14%)
   );
-  box-shadow: 0 28px 80px rgba(0,0,0,.32);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.32);
 }
 
 .auth-feature-card::before {
@@ -257,7 +220,7 @@ const handleLogin = async () => {
   inset: -20% auto auto -10%;
   width: 280px;
   height: 280px;
-  background: rgba(16,255,157,.14);
+  background: rgba(16, 255, 157, 0.14);
   filter: blur(72px);
   border-radius: 999px;
 }
@@ -268,108 +231,81 @@ const handleLogin = async () => {
   inset: auto -10% -16% auto;
   width: 280px;
   height: 280px;
-  background: rgba(234,179,8,.12);
+  background: rgba(234, 179, 8, 0.12);
   filter: blur(72px);
   border-radius: 999px;
 }
 
 .auth-form-card {
   border-radius: 3rem;
-  border: 1px solid color-mix(in srgb, var(--accent-neon) 55%, transparent);
-  background: color-mix(in srgb, var(--surface-card) 95%, #0b1a30 5%);
-  box-shadow: 0 22px 60px rgba(0,0,0,.28);
-}
-.auth-switch {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: .75rem;
-  padding: .9rem 1rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(255,255,255,.08);
-  background: rgba(255,255,255,.02);
+  border: 1px solid color-mix(in srgb, var(--on-surface) 14%, transparent);
+  background: color-mix(in srgb, var(--surface-card) 98%, var(--background) 2%);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.16);
 }
 
 .auth-switch-btn {
   display: inline-flex;
   align-items: center;
-  gap: .45rem;
-  padding: .58rem .95rem;
-  border-radius: .8rem;
-  border: 1px solid rgba(16,255,157,.38);
+  gap: 0.45rem;
+  padding: 0.58rem 0.95rem;
+  border-radius: 0.8rem;
+  border: 1.5px solid color-mix(in srgb, var(--accent-neon) 55%, var(--on-surface) 45%);
   color: var(--accent-neon);
   font-weight: 700;
   background: transparent;
-  transition: all .2s ease;
+  transition: all 0.2s ease;
 }
 
 .auth-switch-btn:hover {
-  background: rgba(16,255,157,.09);
+  background: color-mix(in srgb, var(--accent-neon) 14%, transparent);
 }
+
 .secondary-auth-btn {
-  border: 1px solid rgba(255,255,255,.16);
-  background: rgba(255,255,255,.05);
-  transition: all .2s ease;
+  border: 1px solid color-mix(in srgb, var(--on-surface) 22%, transparent);
+  background: color-mix(in srgb, var(--surface-card) 96%, var(--on-surface) 4%);
+  transition: all 0.2s ease;
 }
 
 .secondary-auth-btn:hover {
-  background: rgba(255,255,255,.1);
+  background: color-mix(in srgb, var(--surface-card) 90%, var(--on-surface) 10%);
 }
 
-.input-glass::placeholder {
-  color: color-mix(in srgb, var(--on-surface) 58%, transparent);
+.social-hint {
+  letter-spacing: 0.01em;
 }
 
-@media (prefers-color-scheme: light) {
-  .auth-form-card {
-    border-color: color-mix(in srgb, var(--accent-neon) 38%, #0f172a 22%);
-    background: color-mix(in srgb, white 92%, #eaf4f6 8%);
-    box-shadow: 0 16px 44px rgba(15, 23, 42, .12);
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 0.1;
+    transform: scale(1);
   }
+  50% {
+    opacity: 0.15;
+    transform: scale(1.05);
+  }
+}
 
-  .input-glass {
-    background-color: rgba(15, 23, 42, 0.07);
-    border-color: rgba(15, 23, 42, 0.28);
-    color: #0f172a;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.65);
-  }
+.animate-pulse-slow {
+  animation: pulse-slow 8s ease-in-out infinite;
+}
 
-  .input-glass:focus {
-    background-color: rgba(15, 23, 42, 0.07);
-    border-color: color-mix(in srgb, var(--accent-neon) 62%, #0f172a 24%);
-    box-shadow: 0 0 0 3px rgba(16, 255, 157, 0.12);
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
   }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
 
-  .secondary-auth-btn {
-    border-color: rgba(15, 23, 42, 0.2);
-    background: rgba(15, 23, 42, 0.045);
-  }
-
-  .secondary-auth-btn:hover {
-    background: rgba(15, 23, 42, 0.08);
-  }
-
-  .auth-switch {
-    border-color: rgba(15, 23, 42, 0.14);
-    background: rgba(15, 23, 42, 0.03);
-  }
-
-  .auth-switch-btn {
-    border-color: color-mix(in srgb, var(--accent-neon) 40%, #0f172a 24%);
-  }
+.animate-shake {
+  animation: shake 0.4s ease-in-out;
 }
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
