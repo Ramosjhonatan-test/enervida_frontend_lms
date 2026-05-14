@@ -74,7 +74,7 @@
               <div class="relative flex justify-center text-[10px] font-bold text-on-surface-variant/70"><span class="bg-surface-card px-4 rounded-full">Tambien puedes entrar con Google</span></div>
             </div>
 
-            <button type="button" @click="customGoogleLogin" :disabled="loading" class="w-full bg-white/5 border border-white/15 rounded-2xl py-4 px-6 flex items-center justify-center gap-3 transition-all hover:bg-white/10 active:scale-95">
+            <button type="button" @click="customGoogleLogin" :disabled="loading" class="secondary-auth-btn w-full rounded-2xl py-4 px-6 flex items-center justify-center gap-3 active:scale-95">
               <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="Google" />
               <span class="text-on-surface font-bold text-xs uppercase tracking-widest">Continuar con Google</span>
             </button>
@@ -203,15 +203,16 @@ const handleLogin = async () => {
 <style scoped>
 .input-glass {
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 1.25rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
     color: var(--on-surface);
     font-size: 0.875rem;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s ease;
     outline: none;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
 }
 
 .input-glass:focus {
@@ -304,7 +305,63 @@ const handleLogin = async () => {
 
 .auth-switch-btn:hover {
   background: rgba(16,255,157,.09);
-}</style>
+}
+.secondary-auth-btn {
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.05);
+  transition: all .2s ease;
+}
+
+.secondary-auth-btn:hover {
+  background: rgba(255,255,255,.1);
+}
+
+.input-glass::placeholder {
+  color: color-mix(in srgb, var(--on-surface) 58%, transparent);
+}
+
+@media (prefers-color-scheme: light) {
+  .auth-form-card {
+    border-color: color-mix(in srgb, var(--accent-neon) 38%, #0f172a 22%);
+    background: color-mix(in srgb, white 92%, #eaf4f6 8%);
+    box-shadow: 0 16px 44px rgba(15, 23, 42, .12);
+  }
+
+  .input-glass {
+    background-color: rgba(15, 23, 42, 0.07);
+    border-color: rgba(15, 23, 42, 0.28);
+    color: #0f172a;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.65);
+  }
+
+  .input-glass:focus {
+    background-color: rgba(15, 23, 42, 0.07);
+    border-color: color-mix(in srgb, var(--accent-neon) 62%, #0f172a 24%);
+    box-shadow: 0 0 0 3px rgba(16, 255, 157, 0.12);
+  }
+
+  .secondary-auth-btn {
+    border-color: rgba(15, 23, 42, 0.2);
+    background: rgba(15, 23, 42, 0.045);
+  }
+
+  .secondary-auth-btn:hover {
+    background: rgba(15, 23, 42, 0.08);
+  }
+
+  .auth-switch {
+    border-color: rgba(15, 23, 42, 0.14);
+    background: rgba(15, 23, 42, 0.03);
+  }
+
+  .auth-switch-btn {
+    border-color: color-mix(in srgb, var(--accent-neon) 40%, #0f172a 24%);
+  }
+}
+</style>
+
+
+
 
 
 
