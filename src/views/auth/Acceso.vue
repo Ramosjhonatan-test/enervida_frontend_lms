@@ -1,114 +1,96 @@
 <template>
   <div class="login-wrapper font-inter overflow-hidden relative min-h-screen flex items-center justify-center bg-background">
-    <!-- Premium Mesh Background -->
     <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
       <div class="absolute -top-[10%] -right-[5%] w-[800px] h-[800px] bg-accent-neon/10 rounded-full blur-[160px] animate-pulse-slow"></div>
       <div class="absolute -bottom-[10%] -left-[5%] w-[600px] h-[600px] bg-accent-solar/5 rounded-full blur-[140px] animate-pulse-slow delay-1000"></div>
     </div>
 
-    <main class="relative z-10 w-full max-w-[480px] px-6 py-12 flex flex-col items-center">
-      <!-- Header -->
-      <div class="text-center mb-8 animate-in fade-in slide-in-from-top duration-1000">
-        <div class="inline-block cursor-pointer mb-6 transition-transform hover:scale-105 active:scale-95" @click="$router.push('/')">
-          <AppLogo :img-style="{ height: '4rem' }" img-class="w-auto object-contain mx-auto" />
-        </div>
-        <h2 class="text-3xl font-black text-on-surface font-lexend tracking-tight uppercase">Bienvenido</h2>
-        <p class="text-on-surface-variant text-sm mt-2 font-medium tracking-wide">Accede a tu panel de control</p>
-      </div>
- 
-      <!-- Glass Card -->
-      <div class="w-full glass-card p-10 rounded-[3rem] shadow-2xl relative animate-in fade-in slide-in-from-bottom duration-1000 delay-200 overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-        
-        <form class="space-y-6 relative z-10" @submit.prevent="handleLogin">
-          <div class="space-y-2">
-            <label class="block text-[10px] font-black text-accent-neon uppercase tracking-[0.2em] ml-1">Email Corporativo</label>
-            <div class="relative group">
-              <div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/30 group-focus-within:text-accent-neon transition-all duration-300">
-                <span class="material-symbols-outlined text-xl">alternate_email</span>
+    <main class="relative z-10 w-full max-w-[1180px] px-6 py-10">
+      <div class="grid items-stretch gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <section class="hidden lg:flex relative overflow-hidden rounded-[2.75rem] border border-slate-900/10 dark:border-white/10 bg-gradient-to-br from-sky-50 via-cyan-50 to-emerald-50 dark:from-[#0f1d34] dark:via-[#10223d] dark:to-[#0a1830] p-10 shadow-2xl animate-in fade-in slide-in-from-left duration-1000">
+          <div class="absolute -top-28 -left-24 h-72 w-72 rounded-full bg-accent-neon/20 blur-3xl"></div>
+          <div class="absolute -bottom-20 -right-20 h-72 w-72 rounded-full bg-accent-solar/20 blur-3xl"></div>
+          <div class="relative z-10 flex h-full w-full flex-col">
+            <button type="button" class="self-center transition-transform hover:scale-105 active:scale-95" @click="$router.push('/')">
+              <AppLogo :img-style="{ height: '7.25rem' }" img-class="w-auto object-contain mx-auto" />
+            </button>
+            <div class="mt-8 space-y-4 max-w-[40ch]">
+              <p class="text-accent-neon text-xs uppercase tracking-[0.3em] font-black">Energia que da vida</p>
+              <h1 class="text-4xl xl:text-5xl leading-tight font-black text-slate-900 dark:text-on-surface font-lexend">
+                Potencia tu operacion solar con control total.
+              </h1>
+              <p class="text-slate-600 dark:text-on-surface-variant text-base leading-relaxed">
+                Monitorea cursos, reportes y herramientas en un solo panel para avanzar mas rapido.
+              </p>
+            </div>
+            <div class="mt-auto pt-8 space-y-5">
+              <img src="/images/energia-solar-electricidad.webp" alt="Paneles solares" class="h-[290px] w-full rounded-[2rem] object-cover border border-slate-900/10 dark:border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.25)] dark:shadow-[0_30px_80px_rgba(0,0,0,0.35)]" />
+            </div>
+          </div>
+        </section>
+
+        <section class="flex flex-col items-center justify-center">
+          <div class="text-center mb-8 animate-in fade-in slide-in-from-top duration-1000">
+            <div class="inline-block cursor-pointer mb-6 transition-transform hover:scale-105 active:scale-95 lg:hidden" @click="$router.push('/')">
+              <AppLogo :img-style="{ height: '4rem' }" img-class="w-auto object-contain mx-auto" />
+            </div>
+            <h2 class="text-3xl font-black text-on-surface font-lexend tracking-tight uppercase">Bienvenido</h2>
+            <p class="text-on-surface-variant text-sm mt-2 font-medium tracking-wide">Accede a tu panel de control</p>
+          </div>
+
+          <div class="w-full max-w-[520px] glass-card p-8 md:p-10 rounded-[3rem] shadow-2xl relative animate-in fade-in slide-in-from-bottom duration-1000 delay-200 overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+
+            <form class="space-y-6 relative z-10" @submit.prevent="handleLogin">
+              <div class="space-y-2">
+                <label class="block text-[10px] font-black text-accent-neon uppercase tracking-[0.2em] ml-1">Email Corporativo</label>
+                <div class="relative group">
+                  <div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/30 group-focus-within:text-accent-neon transition-all duration-300">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                  </div>
+                  <input v-model="email" class="input-glass pl-14" placeholder="usuario@enervida.com" type="email" required />
+                </div>
               </div>
-              <input 
-                v-model="email" 
-                class="input-glass pl-14" 
-                placeholder="usuario@enervida.com" 
-                type="email" 
-                required
-              />
-            </div>
-          </div>
-          
-          <div class="space-y-2">
-            <div class="flex justify-between items-center px-1">
-              <label class="block text-[10px] font-black text-accent-neon uppercase tracking-[0.2em]">Contraseña</label>
-              <router-link to="/forgot-password" class="text-[9px] text-on-surface-variant hover:text-accent-solar transition-colors font-black tracking-widest uppercase">¿Olvidaste tu clave?</router-link>
-            </div>
-            <div class="relative group">
-              <div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/30 group-focus-within:text-accent-neon transition-all duration-300">
-                <span class="material-symbols-outlined text-xl">lock_open</span>
+
+              <div class="space-y-2">
+                <div class="flex justify-between items-center px-1">
+                  <label class="block text-[10px] font-black text-accent-neon uppercase tracking-[0.2em]">Contrasena</label>
+                  <router-link to="/forgot-password" class="text-[9px] text-on-surface-variant hover:text-accent-solar transition-colors font-black tracking-widest uppercase">Olvidaste tu clave?</router-link>
+                </div>
+                <div class="relative group">
+                  <div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/30 group-focus-within:text-accent-neon transition-all duration-300">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V8a5 5 0 0 1 10 0v3"/></svg>
+                  </div>
+                  <input v-model="password" class="input-glass pl-14" placeholder="********" type="password" required />
+                </div>
               </div>
-              <input 
-                v-model="password" 
-                class="input-glass pl-14" 
-                placeholder="••••••••" 
-                type="password" 
-                required
-              />
+
+              <div v-if="error" class="bg-red-500/5 border border-red-500/20 p-4 rounded-2xl text-red-400 text-[11px] font-bold text-center animate-shake">{{ error }}</div>
+
+              <button :disabled="loading" class="btn-premium btn-primary-neon w-full !py-4.5 !rounded-2xl group overflow-hidden relative" type="submit">
+                <div v-if="loading" class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
+                <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                <span v-if="!loading" class="flex items-center gap-2 relative z-10">Iniciar sesion</span>
+                <span v-else class="flex items-center gap-3 relative z-10 font-black">Verificando...</span>
+              </button>
+            </form>
+
+            <div class="relative my-10">
+              <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-on-surface/5"></div></div>
+              <div class="relative flex justify-center text-[9px] uppercase tracking-[0.3em] font-black text-on-surface-variant/40"><span class="bg-surface-card px-4">Entrada Social</span></div>
+            </div>
+
+            <button type="button" @click="customGoogleLogin" :disabled="loading" class="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 flex items-center justify-center gap-3 transition-all hover:bg-white/10 active:scale-95 group relative overflow-hidden">
+              <div v-if="loading" class="absolute inset-0 bg-white/5 animate-pulse"></div>
+              <img v-if="!loading" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5 grayscale group-hover:grayscale-0 transition-all" alt="Google" />
+              <span class="text-on-surface font-bold text-xs uppercase tracking-widest relative z-10">{{ loading ? 'Conectando...' : 'Continuar con Google' }}</span>
+            </button>
+
+            <div class="text-center mt-10 pt-6 border-t border-on-surface/5">
+              <p class="text-on-surface-variant text-[11px] font-medium tracking-wide">Si eres nuevo <router-link to="/register" class="text-accent-neon font-black hover:text-accent-solar transition-colors uppercase ml-1">unete aqui</router-link></p>
             </div>
           </div>
-
-          <div v-if="error" class="bg-red-500/5 border border-red-500/20 p-4 rounded-2xl text-red-400 text-[11px] font-bold text-center animate-shake">
-            {{ error }}
-          </div>
-
-          <button 
-            :disabled="loading" 
-            class="btn-premium btn-primary-neon w-full !py-4.5 !rounded-2xl group overflow-hidden relative" 
-            type="submit"
-          >
-            <!-- Loading Shimmer -->
-            <div v-if="loading" class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
-            
-            <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-            <span v-if="!loading" class="flex items-center gap-2 relative z-10">
-              Iniciar Sesión
-              <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
-            </span>
-            <span v-else class="flex items-center gap-3 relative z-10 font-black">
-              <svg class="animate-spin h-5 w-5 text-primary" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-              Verificando Credenciales...
-            </span>
-          </button>
-        </form>
-
-        <div class="relative my-10">
-          <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-on-surface/5"></div></div>
-          <div class="relative flex justify-center text-[9px] uppercase tracking-[0.3em] font-black text-on-surface-variant/40">
-            <span class="bg-surface-card px-4">Entrada Social</span>
-          </div>
-        </div>
-
-        <button 
-          type="button"
-          @click="customGoogleLogin"
-          :disabled="loading"
-          class="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 flex items-center justify-center gap-3 transition-all hover:bg-white/10 active:scale-95 group relative overflow-hidden"
-        >
-          <div v-if="loading" class="absolute inset-0 bg-white/5 animate-pulse"></div>
-          <img v-if="!loading" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5 grayscale group-hover:grayscale-0 transition-all" alt="Google" />
-          <span class="text-on-surface font-bold text-xs uppercase tracking-widest relative z-10">
-            {{ loading ? 'Conectando...' : 'Continuar con Google' }}
-          </span>
-        </button>
-
-        <div class="text-center mt-10 pt-6 border-t border-on-surface/5">
-          <p class="text-on-surface-variant text-[11px] font-medium tracking-wide">
-            ¿Aún no tienes acceso? 
-            <router-link to="/register" class="text-accent-neon font-black hover:text-accent-solar transition-colors uppercase ml-1">Crea una cuenta</router-link>
-          </p>
-        </div>
+        </section>
       </div>
     </main>
   </div>
@@ -260,3 +242,7 @@ const handleLogin = async () => {
   animation: shake 0.4s ease-in-out;
 }
 </style>
+
+
+
+
