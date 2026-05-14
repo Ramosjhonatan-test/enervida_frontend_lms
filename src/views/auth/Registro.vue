@@ -1,98 +1,84 @@
 <template>
   <div class="login-wrapper font-inter overflow-hidden relative min-h-screen flex items-center justify-center bg-background">
     <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-      <div class="absolute -top-[10%] -right-[5%] w-[800px] h-[800px] bg-accent-neon/10 rounded-full blur-[160px] animate-pulse-slow"></div>
-      <div class="absolute -bottom-[10%] -left-[5%] w-[600px] h-[600px] bg-accent-solar/5 rounded-full blur-[140px] animate-pulse-slow delay-1000"></div>
+      <div class="absolute -top-[10%] -right-[5%] w-[820px] h-[820px] bg-accent-neon/10 rounded-full blur-[160px] animate-pulse-slow"></div>
+      <div class="absolute -bottom-[10%] -left-[5%] w-[620px] h-[620px] bg-accent-solar/5 rounded-full blur-[140px] animate-pulse-slow delay-1000"></div>
     </div>
 
-    <main class="relative z-10 w-full max-w-[1180px] px-6 py-10">
-      <div class="grid items-stretch gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+    <main class="relative z-10 w-full max-w-[1320px] px-6 py-8">
+      <div class="grid items-stretch gap-8 lg:grid-cols-[0.88fr_1.12fr]">
         <section class="flex flex-col items-center justify-center order-2 lg:order-1">
-          <div class="text-center mb-8 animate-in fade-in slide-in-from-top duration-1000">
-            <div class="inline-block cursor-pointer mb-6 transition-transform hover:scale-105 active:scale-95 lg:hidden" @click="$router.push('/')">
+          <div class="text-center mb-8">
+            <div class="inline-block cursor-pointer mb-6 transition-transform hover:scale-105 lg:hidden" @click="$router.push('/')">
               <AppLogo :img-style="{ height: '4rem' }" img-class="w-auto object-contain mx-auto" />
             </div>
             <h2 class="text-3xl font-black text-on-surface font-lexend tracking-tight uppercase">Unete a Enervida</h2>
-            <p class="text-on-surface-variant text-sm mt-2 font-medium tracking-wide">Comienza tu camino en energia sostenible</p>
+            <p class="text-on-surface-variant text-sm mt-2 font-medium tracking-wide">Crea tu cuenta y comienza hoy</p>
           </div>
 
-          <div class="w-full max-w-[560px] glass-card p-8 md:p-10 rounded-[3rem] shadow-2xl relative animate-in fade-in slide-in-from-bottom duration-1000 delay-200 overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-
-            <form class="space-y-6 relative z-10" @submit.prevent="handleRegister">
+          <div class="w-full max-w-[560px] auth-form-card p-8 md:p-10">
+            <form class="space-y-6" @submit.prevent="handleRegister">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="space-y-2">
                   <label class="block text-[10px] font-black text-accent-neon uppercase tracking-[0.2em] ml-1">Nombre</label>
-                  <div class="relative group">
-                    <div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/30 group-focus-within:text-accent-neon transition-all duration-300"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg></div>
-                    <input v-model="form.nombres" class="input-glass pl-14" placeholder="Juan" type="text" required />
-                  </div>
+                  <div class="relative group"><div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/40 group-focus-within:text-accent-neon"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg></div><input v-model="form.nombres" class="input-glass pl-14" placeholder="Juan" type="text" required /></div>
                 </div>
                 <div class="space-y-2">
                   <label class="block text-[10px] font-black text-accent-neon uppercase tracking-[0.2em] ml-1">Apellido</label>
-                  <div class="relative group">
-                    <div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/30 group-focus-within:text-accent-neon transition-all duration-300"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg></div>
-                    <input v-model="form.apellidos" class="input-glass pl-14" placeholder="Perez" type="text" required />
-                  </div>
+                  <div class="relative group"><div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/40 group-focus-within:text-accent-neon"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg></div><input v-model="form.apellidos" class="input-glass pl-14" placeholder="Perez" type="text" required /></div>
                 </div>
               </div>
 
               <div class="space-y-2">
-                <label class="block text-[10px] font-black text-accent-neon uppercase tracking-[0.2em] ml-1">Email Corporativo</label>
-                <div class="relative group">
-                  <div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/30 group-focus-within:text-accent-neon transition-all duration-300"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
-                  <input v-model="form.correo" class="input-glass pl-14" placeholder="usuario@enervida.com" type="email" required />
-                </div>
+                <label class="block text-[10px] font-black text-accent-neon uppercase tracking-[0.2em] ml-1">Correo corporativo</label>
+                <div class="relative group"><div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/40 group-focus-within:text-accent-neon"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div><input v-model="form.correo" class="input-glass pl-14" placeholder="usuario@enervida.com" type="email" required /></div>
               </div>
 
               <div class="space-y-2">
                 <label class="block text-[10px] font-black text-accent-neon uppercase tracking-[0.2em] ml-1">Contrasena</label>
-                <div class="relative group">
-                  <div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/30 group-focus-within:text-accent-neon transition-all duration-300"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V8a5 5 0 0 1 10 0v3"/></svg></div>
-                  <input v-model="form.contrasena_hash" class="input-glass pl-14" placeholder="********" type="password" required />
-                </div>
+                <div class="relative group"><div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/40 group-focus-within:text-accent-neon"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V8a5 5 0 0 1 10 0v3"/></svg></div><input v-model="form.contrasena_hash" class="input-glass pl-14" placeholder="********" type="password" required /></div>
               </div>
 
               <div v-if="error" class="bg-red-500/5 border border-red-500/20 p-4 rounded-2xl text-red-400 text-[11px] font-bold text-center animate-shake">{{ error }}</div>
 
-              <button :disabled="loading" class="btn-premium btn-primary-neon w-full !py-4.5 !rounded-2xl group overflow-hidden relative" type="submit">
-                <div v-if="loading" class="shimmer-effect"></div>
-                <span v-if="!loading" class="flex items-center gap-2 relative z-10">Crear cuenta</span>
-                <span v-else class="flex items-center gap-2 relative z-10 font-black tracking-widest uppercase text-[11px]">Procesando...</span>
+              <button :disabled="loading" class="btn-premium btn-primary-neon w-full !py-4.5 !rounded-2xl" type="submit">
+                <span v-if="!loading" class="flex items-center justify-center gap-2">Crear cuenta</span>
+                <span v-else class="flex items-center justify-center gap-2 font-black">Procesando...</span>
               </button>
             </form>
 
-            <div class="relative my-10">
-              <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-on-surface/5"></div></div>
-              <div class="relative flex justify-center text-[9px] uppercase tracking-[0.3em] font-black text-on-surface-variant/40"><span class="bg-surface-card px-4">Registro Social</span></div>
+            <div class="relative my-8">
+              <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-on-surface/10"></div></div>
+              <div class="relative flex justify-center text-[10px] font-bold text-on-surface-variant/70"><span class="bg-surface-card px-4 rounded-full">Tambien puedes registrarte con Google</span></div>
             </div>
 
-            <button type="button" @click="customGoogleLogin" class="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 flex items-center justify-center gap-3 transition-all hover:bg-white/10 active:scale-95 group">
-              <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5 grayscale group-hover:grayscale-0 transition-all" alt="Google" />
+            <button type="button" @click="customGoogleLogin" class="w-full bg-white/5 border border-white/15 rounded-2xl py-4 px-6 flex items-center justify-center gap-3 transition-all hover:bg-white/10 active:scale-95">
+              <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="Google" />
               <span class="text-on-surface font-bold text-xs uppercase tracking-widest">Registrarse con Google</span>
             </button>
 
-            <div class="text-center mt-10 pt-6 border-t border-on-surface/5">
-              <p class="text-on-surface-variant text-[11px] font-medium tracking-wide">Ya tienes cuenta? <router-link to="/login" class="text-accent-neon font-black hover:text-accent-solar transition-colors uppercase ml-1">inicia sesion</router-link></p>
+            <div class="mt-8 flex items-center justify-between gap-4">
+              <p class="text-sm text-on-surface-variant">Ya tengo cuenta</p>
+              <router-link to="/login" class="inline-flex items-center gap-2 rounded-xl border border-accent-neon/50 text-accent-neon px-5 py-2.5 font-bold hover:bg-accent-neon/10 transition-colors">
+                Iniciar sesion
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+              </router-link>
             </div>
           </div>
         </section>
 
-        <section class="hidden lg:flex relative overflow-hidden rounded-[2.75rem] border border-slate-900/10 dark:border-white/10 bg-gradient-to-br from-sky-50 via-cyan-50 to-emerald-50 dark:from-[#0f1d34] dark:via-[#10223d] dark:to-[#0a1830] p-10 shadow-2xl animate-in fade-in slide-in-from-right duration-1000 order-1 lg:order-2">
-          <div class="absolute -top-28 -right-24 h-72 w-72 rounded-full bg-accent-neon/20 blur-3xl"></div>
-          <div class="absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-accent-solar/20 blur-3xl"></div>
+        <section class="hidden lg:flex auth-feature-card p-10 order-1 lg:order-2">
           <div class="relative z-10 flex h-full w-full flex-col">
-            <button type="button" class="self-center transition-transform hover:scale-105 active:scale-95" @click="$router.push('/')">
-              <AppLogo :img-style="{ height: '7.25rem' }" img-class="w-auto object-contain mx-auto" />
+            <button type="button" class="self-center transition-transform hover:scale-105" @click="$router.push('/')">
+              <AppLogo :img-style="{ height: '7.3rem' }" img-class="w-auto object-contain mx-auto" />
             </button>
-            <div class="mt-8 space-y-4 max-w-[40ch]">
+            <div class="mt-8 space-y-4 max-w-[44ch]">
               <p class="text-accent-neon text-xs uppercase tracking-[0.3em] font-black">Comunidad solar</p>
-              <h1 class="text-4xl xl:text-5xl leading-tight font-black text-slate-900 dark:text-on-surface font-lexend">Aprende, certifica y crece con Enervida.</h1>
-              <p class="text-slate-600 dark:text-on-surface-variant text-base leading-relaxed">Accede a rutas de aprendizaje, clases en vivo y herramientas tecnicas desde un solo lugar.</p>
+              <h1 class="text-5xl leading-[0.95] font-black text-on-surface font-lexend">Aprende, certifica y crece con Enervida.</h1>
+              <p class="text-on-surface-variant text-lg leading-relaxed">Accede a rutas de aprendizaje, clases en vivo y herramientas tecnicas desde un solo lugar.</p>
             </div>
-            <div class="mt-auto pt-8 space-y-5">
-              <img src="https://st.depositphotos.com/1307373/3744/i/950/depositphotos_37441281-stock-photo-solar-energy-panels-with-wind.jpg" alt="Energia solar" class="h-[290px] w-full rounded-[2rem] object-cover border border-slate-900/10 dark:border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.25)] dark:shadow-[0_30px_80px_rgba(0,0,0,0.35)]" />
-              <p class="text-center text-sm text-slate-700 dark:text-on-surface-variant">Si ya tienes cuenta, <router-link to="/login" class="font-black text-accent-neon hover:text-accent-solar transition-colors">inicia sesion aqui</router-link></p>
+            <div class="mt-auto pt-8">
+              <img src="https://st.depositphotos.com/1307373/3744/i/450/depositphotos_37441281-stock-photo-solar-energy-panels-with-wind.jpg" alt="Energia solar" class="h-[310px] w-full rounded-[2rem] object-cover border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.35)]" />
             </div>
           </div>
         </section>
@@ -218,5 +204,77 @@ const handleRegister = async () => {
 .animate-shake {
   animation: shake 0.4s ease-in-out;
 }
-</style>
+.auth-feature-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2.75rem;
+  border: 1px solid color-mix(in srgb, var(--on-surface) 12%, transparent);
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--surface-card) 92%, #16345f 8%),
+    color-mix(in srgb, var(--surface-card) 86%, #102744 14%)
+  );
+  box-shadow: 0 28px 80px rgba(0,0,0,.32);
+}
+
+.auth-feature-card::before {
+  content: '';
+  position: absolute;
+  inset: -20% auto auto -10%;
+  width: 280px;
+  height: 280px;
+  background: rgba(16,255,157,.14);
+  filter: blur(72px);
+  border-radius: 999px;
+}
+
+.auth-feature-card::after {
+  content: '';
+  position: absolute;
+  inset: auto -10% -16% auto;
+  width: 280px;
+  height: 280px;
+  background: rgba(234,179,8,.12);
+  filter: blur(72px);
+  border-radius: 999px;
+}
+
+.auth-form-card {
+  border-radius: 3rem;
+  border: 1px solid color-mix(in srgb, var(--accent-neon) 55%, transparent);
+  background: color-mix(in srgb, var(--surface-card) 95%, #0b1a30 5%);
+  box-shadow: 0 22px 60px rgba(0,0,0,.28);
+}
+.auth-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  padding: .9rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.02);
+}
+
+.auth-switch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .58rem .95rem;
+  border-radius: .8rem;
+  border: 1px solid rgba(16,255,157,.38);
+  color: var(--accent-neon);
+  font-weight: 700;
+  background: transparent;
+  transition: all .2s ease;
+}
+
+.auth-switch-btn:hover {
+  background: rgba(16,255,157,.09);
+}</style>
+
+
+
+
+
+
 
