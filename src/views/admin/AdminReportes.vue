@@ -18,7 +18,7 @@
 
     <!-- Main Stats Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div v-for="stat in mainStats" :key="stat.label" class="glass-card-premium p-8 rounded-[32px] border-accent-neon/10 group transition-all relative overflow-hidden">
+      <div v-for="stat in mainStats" :key="stat.label" class="glass-card-premium p-8 rounded-[32px] group transition-all relative overflow-hidden">
         <div class="relative z-10">
           <div class="flex items-center gap-4 mb-4">
             <div class="w-12 h-12 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon group-hover:scale-110 transition-transform">
@@ -37,7 +37,7 @@
     <!-- Charts Row -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <!-- Enrollments by Course Chart -->
-      <div class="glass-card-premium p-10 rounded-[40px] border-accent-neon/10">
+      <div class="glass-card-premium p-10 rounded-[40px]">
         <h3 class="text-xl font-black mb-10 font-lexend tracking-tighter italic">Top 5 Cursos <span class="text-accent-neon">Más Populares</span></h3>
         <div class="space-y-8">
           <div v-for="item in enrollmentsByCourse" :key="item.titulo" class="space-y-3">
@@ -60,7 +60,7 @@
       </div>
 
       <!-- Growth Summary / Placeholder Chart -->
-      <div class="glass-card-premium p-10 rounded-[40px] border-accent-neon/10 flex flex-col justify-center items-center text-center">
+      <div class="glass-card-premium p-10 rounded-[40px] flex flex-col justify-center items-center text-center">
         <div class="w-20 h-20 rounded-full bg-accent-neon/10 flex items-center justify-center text-accent-neon mb-6">
           <span class="material-symbols-outlined text-4xl">trending_up</span>
         </div>

@@ -16,7 +16,7 @@
 
     <!-- Inline Form Panel -->
     <transition name="slide-fade">
-      <div v-if="showForm" class="glass-card p-6 sm:p-8 rounded-[32px] border-accent-neon/10">
+      <div v-if="showForm" class="glass-card p-6 sm:p-8 rounded-[32px]">
         <div class="flex items-center gap-3 mb-6">
           <div class="w-10 h-10 rounded-xl bg-accent-neon/10 flex items-center justify-center text-accent-neon">
             <span class="material-symbols-outlined text-sm">{{ isEditing ? 'edit' : 'security' }}</span>
@@ -42,7 +42,7 @@
           </div>
 
           <div class="flex items-end gap-3 shrink-0">
-            <button type="button" @click="showForm = false" class="btn-premium glass-shell justify-center !py-3.5 !px-6">Cancelar</button>
+            <button type="button" @click="showForm = false" class="btn-premium glass-card justify-center !py-3.5 !px-6">Cancelar</button>
             <button type="submit" :disabled="saving" class="btn-premium btn-primary-neon justify-center !py-3.5 !px-8">
               <span v-if="saving" class="animate-spin rounded-full h-4 w-4 border-t-2 border-primary"></span>
               <span v-else>{{ isEditing ? 'Guardar' : 'Crear' }}</span>
@@ -53,7 +53,7 @@
     </transition>
 
     <!-- Roles Table -->
-    <div class="glass-card-premium rounded-[40px] overflow-hidden border-accent-neon/10">
+    <div class="glass-card-premium rounded-[40px] overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full min-w-[800px] text-left border-separate border-spacing-0">
           <thead>

@@ -7,7 +7,7 @@
     <div v-else-if="curso" class="space-y-8">
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
         <div class="flex items-center gap-4">
-          <router-link to="/admin/cursos" class="w-10 h-10 rounded-xl glass-shell flex items-center justify-center text-on-surface/60 hover:text-accent-neon hover:bg-accent-neon/10 transition-all shrink-0">
+          <router-link to="/admin/cursos" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-on-surface/60 hover:text-accent-neon hover:bg-accent-neon/10 transition-all shrink-0">
             <span class="material-symbols-outlined text-sm">arrow_back</span>
           </router-link>
           <div class="min-w-0">
@@ -32,7 +32,7 @@
       </div>
 
       <!-- Add Modulo Inline Form -->
-      <div v-if="showAddModulo" class="glass-card-premium p-6 rounded-3xl border-accent-neon/20">
+      <div v-if="showAddModulo" class="glass-card-premium p-6 rounded-3xl">
         <form @submit.prevent="saveModulo" class="flex flex-col md:flex-row gap-4 items-end">
           <div class="w-full md:w-2/3 space-y-2">
             <label class="text-sm font-bold text-on-surface/60">Título del Módulo</label>
@@ -43,7 +43,7 @@
             <input type="number" v-model="moduloForm.orden_modulo" required min="1" class="input-cyber w-full" />
           </div>
           <div class="flex gap-2 w-full md:w-auto">
-            <button type="button" @click="showAddModulo = false" class="btn-premium glass-shell hover:bg-on-surface/10 !px-4">Cancelar</button>
+            <button type="button" @click="showAddModulo = false" class="btn-premium glass-card hover:bg-on-surface/10 !px-4">Cancelar</button>
             <button type="submit" :disabled="savingModulo" class="btn-premium btn-primary-neon !px-6 flex items-center gap-2">
               <span v-if="savingModulo" class="animate-spin rounded-full h-4 w-4 border-t-2 border-primary"></span>
               <span v-else class="material-symbols-outlined text-sm">save</span>
@@ -122,7 +122,7 @@
                   <div v-else class="space-y-2">
                     <div class="flex gap-2">
                       <input type="file" ref="leccionFileInput" :accept="leccionForm.tipo_contenido === 'VIDEO' ? 'video/*' : 'application/pdf'" class="block w-full text-sm text-on-surface/60 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-accent-neon/10 file:text-accent-neon hover:file:bg-accent-neon/20 transition-all"/>
-                      <button type="button" @click="uploadLeccionFile" :disabled="uploadingFile" class="btn-premium glass-shell hover:bg-accent-neon/10 text-xs !px-4">
+                      <button type="button" @click="uploadLeccionFile" :disabled="uploadingFile" class="btn-premium glass-card hover:bg-accent-neon/10 text-xs !px-4">
                         <span v-if="uploadingFile" class="animate-spin rounded-full h-3 w-3 border-t-2 border-accent-neon inline-block mr-2"></span>
                         <span>{{ uploadingFile ? 'Subiendo...' : 'Subir' }}</span>
                       </button>
@@ -156,7 +156,7 @@
                 </div>
 
                 <div class="flex justify-end gap-2 pt-2">
-                  <button type="button" @click="activeModuloForm = null" class="btn-premium glass-shell hover:bg-on-surface/10 !px-4">Cancelar</button>
+                  <button type="button" @click="activeModuloForm = null" class="btn-premium glass-card hover:bg-on-surface/10 !px-4">Cancelar</button>
                   <button type="submit" :disabled="savingLeccion" class="btn-premium btn-primary-neon !px-6">Guardar Lección</button>
                 </div>
              </form>

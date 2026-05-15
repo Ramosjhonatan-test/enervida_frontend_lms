@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <div class="glass-card p-4 sm:p-8 rounded-[32px] md:rounded-[40px] border-accent-neon/5">
+    <div class="glass-card p-4 sm:p-8 rounded-[32px] md:rounded-[40px]">
        <div class="flex items-center justify-between mb-8">
           <div class="relative w-full md:w-96">
             <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/40">search</span>
@@ -29,7 +29,7 @@
        </div>
        
        <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-         <div v-for="curso in filteredCursos" :key="curso.id" class="group glass-shell hover:bg-on-surface/[0.03] rounded-3xl overflow-hidden transition-all duration-300">
+         <div v-for="curso in filteredCursos" :key="curso.id" class="group glass-card hover:bg-on-surface/[0.03] rounded-3xl overflow-hidden transition-all duration-300">
            <div class="h-40 bg-on-surface/5 relative overflow-hidden flex items-center justify-center">
              <div v-if="curso.plantilla_certificado" class="w-full h-full relative">
                  <img :src="getImageUrl(curso.plantilla_certificado.background_url)" class="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" />
@@ -74,7 +74,7 @@
      <transition name="fade">
         <div v-if="previewingUrl" class="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-black/90 backdrop-blur-sm">
             <div class="w-full max-w-5xl h-full flex flex-col gap-4 animate-in zoom-in duration-300">
-                <div class="flex justify-between items-center bg-white/5 p-4 rounded-2xl border border-white/10">
+                <div class="flex justify-between items-center bg-white/5 p-4 rounded-2xl border-white/10">
                     <h3 class="text-white font-bold uppercase tracking-widest text-xs">Vista Previa del Certificado</h3>
                     <button @click="previewingUrl = null" class="p-2 hover:bg-white/10 rounded-xl text-white transition-colors">
                         <span class="material-symbols-outlined">close</span>

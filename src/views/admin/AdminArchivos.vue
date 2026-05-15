@@ -8,7 +8,7 @@
           <p class="text-on-surface/40 mt-1 text-xs font-bold uppercase tracking-widest">Administra los recursos multimedia (PDFs, Videos, Imágenes) del sistema</p>
         </div>
         <div class="flex gap-3">
-          <button @click="fetchFiles" class="btn-premium glass-shell gap-2 !py-4">
+          <button @click="fetchFiles" class="btn-premium glass-card gap-2 !py-4">
             <span class="material-symbols-outlined text-sm">refresh</span>
             Actualizar
           </button>
@@ -18,26 +18,26 @@
 
     <!-- Stats Summary -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="glass-card p-6 border-accent-neon/10">
+      <div class="glass-card p-6">
         <p class="text-[10px] font-bold text-on-surface/40 uppercase tracking-widest">Total Archivos</p>
         <p class="text-2xl font-black text-on-surface font-lexend mt-1">{{ files.length }}</p>
       </div>
-      <div class="glass-card p-6 border-accent-neon/10 text-green-500">
+      <div class="glass-card p-6 text-green-500">
         <p class="text-[10px] font-bold text-on-surface/40 uppercase tracking-widest">En Uso</p>
         <p class="text-2xl font-black font-lexend mt-1">{{ files.filter(f => f.isUsed).length }}</p>
       </div>
-      <div class="glass-card p-6 border-accent-neon/10 text-red-500">
+      <div class="glass-card p-6 text-red-500">
         <p class="text-[10px] font-bold text-on-surface/40 uppercase tracking-widest">Sin Uso</p>
         <p class="text-2xl font-black font-lexend mt-1">{{ files.filter(f => !f.isUsed).length }}</p>
       </div>
-      <div class="glass-card p-6 border-accent-neon/10">
+      <div class="glass-card p-6">
         <p class="text-[10px] font-bold text-on-surface/40 uppercase tracking-widest">Espacio Total</p>
         <p class="text-2xl font-black text-on-surface font-lexend mt-1">{{ formatSize(totalSize) }}</p>
       </div>
     </div>
 
     <!-- Files Table -->
-    <div class="glass-card-premium rounded-[40px] overflow-hidden border-accent-neon/10">
+    <div class="glass-card-premium rounded-[40px] overflow-hidden">
       <!-- Search and Filter -->
       <div class="p-6 flex flex-col sm:flex-row gap-4 justify-between bg-on-surface/[0.02]">
         <div class="relative flex-1 max-w-md">
@@ -53,7 +53,7 @@
           <button 
             v-if="unusedFilesCount > 0"
             @click="deleteUnused" 
-            class="btn-premium bg-red-500/10 text-red-500 border-red-500/20 hover:bg-red-500 hover:text-white !py-2 text-xs"
+            class="btn-premium bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white !py-2 text-xs"
           >
             <span class="material-symbols-outlined text-sm">cleaning_services</span>
             Limpiar sin uso ({{ unusedFilesCount }})
@@ -84,7 +84,7 @@
                     type="checkbox" 
                     :checked="isAllSelected" 
                     @change="toggleSelectAll"
-                    class="w-4 h-4 rounded border-on-surface/20 bg-on-surface/5 checked:bg-accent-neon accent-accent-neon cursor-pointer"
+                    class="w-4 h-4 rounded bg-on-surface/5 checked:bg-accent-neon accent-accent-neon cursor-pointer"
                   />
                 </div>
               </th>
@@ -104,7 +104,7 @@
                   :checked="isSelected(file)" 
                   @change="toggleSelect(file)"
                   :disabled="file.isUsed"
-                  class="w-4 h-4 rounded border-on-surface/20 bg-on-surface/5 checked:bg-accent-neon accent-accent-neon cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed"
+                  class="w-4 h-4 rounded bg-on-surface/5 checked:bg-accent-neon accent-accent-neon cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed"
                 />
               </td>
               <td class="p-6">
@@ -193,7 +193,7 @@
       <div v-if="previewFile" class="fixed inset-0 z-[300] flex items-center justify-center p-4 sm:p-10">
         <div class="absolute inset-0 bg-background/90 backdrop-blur-2xl" @click="previewFile = null"></div>
         
-        <div class="relative w-full max-w-6xl h-full flex flex-col glass-card-premium rounded-[40px] overflow-hidden border-accent-neon/20 shadow-[0_0_100px_rgba(0,255,242,0.1)] animate-scale-in">
+        <div class="relative w-full max-w-6xl h-full flex flex-col glass-card-premium rounded-[40px] overflow-hidden shadow-[0_0_100px_rgba(0,255,242,0.1)] animate-scale-in">
           <!-- Preview Header -->
           <div class="p-6 flex items-center justify-between bg-on-surface/[0.02]">
             <div class="flex items-center gap-4">

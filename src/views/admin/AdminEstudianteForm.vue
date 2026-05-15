@@ -15,29 +15,29 @@
       </div>
     </div>
 
-    <form @submit.prevent="saveEstudiante" class="glass-card p-10 rounded-[40px] border-accent-neon/5 space-y-8 relative overflow-hidden">
+    <form @submit.prevent="saveEstudiante" class="glass-card p-10 rounded-[40px] space-y-8 relative overflow-hidden">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- Personal Info -->
         <div class="space-y-6">
           <div class="space-y-2">
             <label class="text-[10px] font-black text-on-surface/40 uppercase tracking-[0.2em] ml-4">Nombres</label>
             <input v-model="form.nombres" type="text" required placeholder="Ej. Juan Pablo"
-              class="w-full bg-on-surface/5 border border-on-surface/10 rounded-2xl px-6 py-4 text-sm font-bold focus:border-accent-neon focus:ring-0 transition-all outline-none" />
+              class="w-full bg-on-surface/5 rounded-2xl px-6 py-4 text-sm font-bold focus:border-accent-neon focus:ring-0 transition-all outline-none" />
           </div>
           <div class="space-y-2">
             <label class="text-[10px] font-black text-on-surface/40 uppercase tracking-[0.2em] ml-4">Apellidos</label>
             <input v-model="form.apellidos" type="text" required placeholder="Ej. Pérez"
-              class="w-full bg-on-surface/5 border border-on-surface/10 rounded-2xl px-6 py-4 text-sm font-bold focus:border-accent-neon focus:ring-0 transition-all outline-none" />
+              class="w-full bg-on-surface/5 rounded-2xl px-6 py-4 text-sm font-bold focus:border-accent-neon focus:ring-0 transition-all outline-none" />
           </div>
           <div class="space-y-2">
             <label class="text-[10px] font-black text-on-surface/40 uppercase tracking-[0.2em] ml-4">Carnet de Identidad (CI)</label>
             <input v-model="form.ci" type="text" placeholder="Ej. 1234567 LP"
-              class="w-full bg-on-surface/5 border border-on-surface/10 rounded-2xl px-6 py-4 text-sm font-bold focus:border-accent-neon focus:ring-0 transition-all outline-none" />
+              class="w-full bg-on-surface/5 rounded-2xl px-6 py-4 text-sm font-bold focus:border-accent-neon focus:ring-0 transition-all outline-none" />
           </div>
           <div class="space-y-2">
             <label class="text-[10px] font-black text-on-surface/40 uppercase tracking-[0.2em] ml-4">Correo Electrónico</label>
             <input v-model="form.correo" type="email" required placeholder="correo@ejemplo.com"
-              class="w-full bg-on-surface/5 border border-on-surface/10 rounded-2xl px-6 py-4 text-sm font-bold focus:border-accent-neon focus:ring-0 transition-all outline-none" />
+              class="w-full bg-on-surface/5 rounded-2xl px-6 py-4 text-sm font-bold focus:border-accent-neon focus:ring-0 transition-all outline-none" />
           </div>
         </div>
 
@@ -46,16 +46,16 @@
           <div class="space-y-2">
             <label class="text-[10px] font-black text-on-surface/40 uppercase tracking-[0.2em] ml-4">Teléfono</label>
             <input v-model="form.telefono" type="text" placeholder="+591 ..."
-              class="w-full bg-on-surface/5 border border-on-surface/10 rounded-2xl px-6 py-4 text-sm font-bold focus:border-accent-neon focus:ring-0 transition-all outline-none" />
+              class="w-full bg-on-surface/5 rounded-2xl px-6 py-4 text-sm font-bold focus:border-accent-neon focus:ring-0 transition-all outline-none" />
           </div>
           <div class="space-y-2">
             <label class="text-[10px] font-black text-on-surface/40 uppercase tracking-[0.2em] ml-4">Contraseña {{ isEdit ? '(Opcional)' : '' }}</label>
             <input v-model="form.contrasena" :required="!isEdit" type="password" placeholder="••••••••"
-              class="w-full bg-on-surface/5 border border-on-surface/10 rounded-2xl px-6 py-4 text-sm font-bold focus:border-accent-neon focus:ring-0 transition-all outline-none" />
+              class="w-full bg-on-surface/5 rounded-2xl px-6 py-4 text-sm font-bold focus:border-accent-neon focus:ring-0 transition-all outline-none" />
           </div>
           <div class="space-y-2">
             <label class="text-[10px] font-black text-on-surface/40 uppercase tracking-[0.2em] ml-4">Estado</label>
-            <select v-model="form.estado" class="w-full bg-on-surface/5 border border-on-surface/10 rounded-2xl px-6 py-4 text-sm font-bold focus:border-accent-neon focus:ring-0 transition-all outline-none appearance-none">
+            <select v-model="form.estado" class="w-full bg-on-surface/5 rounded-2xl px-6 py-4 text-sm font-bold focus:border-accent-neon focus:ring-0 transition-all outline-none appearance-none">
               <option value="ACTIVO">ACTIVO</option>
               <option value="INACTIVO">INACTIVO</option>
             </select>
@@ -63,10 +63,10 @@
           <div class="space-y-2">
             <label class="text-[10px] font-black text-on-surface/40 uppercase tracking-[0.2em] ml-4">URL Imagen de Perfil</label>
             <input v-model="form.imagen_perfil" type="text" placeholder="https://..."
-              class="w-full bg-on-surface/5 border border-on-surface/10 rounded-2xl px-6 py-4 text-sm font-bold focus:border-accent-neon focus:ring-0 transition-all outline-none" />
+              class="w-full bg-on-surface/5 rounded-2xl px-6 py-4 text-sm font-bold focus:border-accent-neon focus:ring-0 transition-all outline-none" />
           </div>
           <div class="pt-4 flex items-center gap-4 ml-4">
-             <input v-model="form.correo_verificado" type="checkbox" id="verificado" class="w-5 h-5 rounded border-on-surface/10 bg-on-surface/5 text-accent-neon focus:ring-accent-neon" />
+             <input v-model="form.correo_verificado" type="checkbox" id="verificado" class="w-5 h-5 rounded bg-on-surface/5 text-accent-neon focus:ring-accent-neon" />
              <label for="verificado" class="text-[10px] font-black text-on-surface/40 uppercase tracking-[0.2em]">Correo Verificado</label>
           </div>
         </div>

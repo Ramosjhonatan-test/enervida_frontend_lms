@@ -46,7 +46,7 @@
       <!-- Left Sidebar: Tools & Layers -->
       <div class="w-full lg:w-96 flex flex-col gap-6 shrink-0 h-full overflow-y-auto custom-scrollbar pr-2">
         <!-- Page Settings -->
-        <div class="glass-card p-6 rounded-[32px] border-accent-neon/10">
+        <div class="glass-card p-6 rounded-[32px]">
           <h3 class="text-sm font-black text-on-surface mb-4 flex items-center gap-2 uppercase tracking-widest">
             <span class="material-symbols-outlined text-accent-neon">settings_overscan</span>
             Ajustes de Página
@@ -58,8 +58,8 @@
                 <div class="flex flex-wrap gap-2">
                     <button v-for="(fmt, key) in pageFormats" :key="key"
                             @click="applyFormat(key)"
-                            :class="selectedFormat === key ? 'bg-accent-neon text-primary' : 'bg-on-surface/5 text-on-surface/40 border-on-surface/5'"
-                            class="flex-1 py-2 px-3 rounded-xl text-[10px] font-black uppercase transition-all border">
+                            :class="selectedFormat === key ? 'bg-accent-neon text-primary' : 'bg-on-surface/5 text-on-surface/40'"
+                            class="flex-1 py-2 px-3 rounded-xl text-[10px] font-black uppercase transition-all">
                         {{ fmt.name }}
                     </button>
                 </div>
@@ -82,7 +82,7 @@
 
           <div class="pt-4">
             <p class="text-[10px] font-bold text-on-surface/40 uppercase mb-3">Imagen de Fondo</p>
-            <div v-if="!backgroundUrl" class="border-2 border-dashed border-on-surface/10 rounded-2xl p-6 text-center hover:border-accent-neon/30 transition-all cursor-pointer relative overflow-hidden group bg-on-surface/[0.02]">
+            <div v-if="!backgroundUrl" class="border-2 border-dashed rounded-2xl p-6 text-center hover:border-accent-neon/30 transition-all cursor-pointer relative overflow-hidden group bg-on-surface/[0.02]">
                 <input type="file" @change="handleFileUpload" class="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" />
                 <span class="material-symbols-outlined text-3xl text-on-surface/10 group-hover:text-accent-neon/40 transition-colors">add_photo_alternate</span>
                 <p class="text-[9px] text-on-surface/40 font-black uppercase mt-2 tracking-widest">Subir Fondo</p>
@@ -90,11 +90,11 @@
             <div v-else class="relative rounded-xl overflow-hidden group aspect-video shadow-lg">
                 <img :src="getFullUrl(backgroundUrl)" class="w-full h-full object-cover" />
                 <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center gap-2 backdrop-blur-sm">
-                    <label class="p-2 bg-white/10 hover:bg-accent-neon/20 rounded-xl cursor-pointer transition-colors border border-white/5">
+                    <label class="p-2 bg-white/10 hover:bg-accent-neon/20 rounded-xl cursor-pointer transition-colors border-white/5">
                         <input type="file" @change="handleFileUpload" class="hidden" accept="image/*" />
                         <span class="material-symbols-outlined text-white text-sm">sync</span>
                     </label>
-                    <button @click="backgroundUrl = ''" class="p-2 bg-red-500/10 hover:bg-red-500/30 rounded-xl text-red-400 transition-colors border border-red-500/10">
+                    <button @click="backgroundUrl = ''" class="p-2 bg-red-500/10 hover:bg-red-500/30 rounded-xl text-red-400 transition-colors">
                         <span class="material-symbols-outlined text-sm">delete</span>
                     </button>
                 </div>
@@ -103,7 +103,7 @@
         </div>
 
         <!-- Toolset -->
-        <div class="glass-card p-4 rounded-[32px] border-accent-neon/10 flex flex-wrap gap-2">
+        <div class="glass-card p-4 rounded-[32px] flex flex-wrap gap-2">
             <button @click="addElement('text')" class="flex-1 min-w-[80px] p-4 bg-on-surface/5 hover:bg-accent-neon/10 rounded-2xl transition-all group">
                 <span class="material-symbols-outlined text-on-surface/40 group-hover:text-accent-neon block mb-1">text_fields</span>
                 <span class="text-[9px] font-black uppercase tracking-tighter text-on-surface/60">Texto</span>
@@ -120,7 +120,7 @@
         </div>
 
         <!-- Layers List -->
-        <div class="glass-card p-6 rounded-[32px] border-accent-neon/10 flex-grow overflow-hidden flex flex-col min-h-[300px]">
+        <div class="glass-card p-6 rounded-[32px] flex-grow overflow-hidden flex flex-col min-h-[300px]">
           <h3 class="text-sm font-black text-on-surface mb-6 flex items-center gap-2 uppercase tracking-widest">
             <span class="material-symbols-outlined text-accent-neon">layers</span>
             Capas del Diseño
@@ -128,7 +128,7 @@
           
           <div class="space-y-3 overflow-y-auto pr-2 custom-scrollbar flex-grow">
             <div v-for="(el, index) in elements" :key="el.id" 
-                 class="group p-4 rounded-2xl border transition-all duration-300 cursor-pointer"
+                 class="group p-4 rounded-2xl transition-all duration-300 cursor-pointer"
                  :class="[
                      selectedId === el.id ? 'border-accent-neon bg-accent-neon/5 shadow-neon-sm' : 'border-on-surface/5 bg-on-surface/[0.03] hover:border-on-surface/10',
                      el.hidden ? 'opacity-40' : ''
@@ -168,7 +168,7 @@
 
       <!-- Main Canvas Area -->
       <div class="flex-grow flex flex-col gap-6 min-w-0 h-full">
-        <div ref="mainCanvasWrapper" class="glass-card rounded-[48px] border-accent-neon/5 relative overflow-hidden bg-black/40 flex items-center justify-center p-4 md:p-8 flex-grow shadow-2xl min-h-[400px]">
+        <div ref="mainCanvasWrapper" class="glass-card rounded-[48px] relative overflow-hidden bg-black/40 flex items-center justify-center p-4 md:p-8 flex-grow shadow-2xl min-h-[400px]">
             <!-- Scaling Container -->
             <div :style="canvasScaleStyle" class="relative shadow-[0_40px_100px_rgba(0,0,0,0.5)] bg-white origin-center transition-all duration-300 group"
                  ref="editorContainer">
@@ -251,7 +251,7 @@
 
         <!-- Properties Panel (Floating at bottom if selection exists) -->
         <transition name="slide-up">
-            <div v-if="selectedElement" class="glass-card rounded-[32px] border-accent-neon/20 p-6 flex flex-wrap items-center gap-8 shadow-2xl relative z-50">
+            <div v-if="selectedElement" class="glass-card rounded-[32px] p-6 flex flex-wrap items-center gap-8 shadow-2xl relative z-50">
                 <div class="flex items-center gap-3 pr-8">
                     <div class="w-10 h-10 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon">
                         <span class="material-symbols-outlined">{{ selectedElement.type === 'text' ? 'text_fields' : selectedElement.type === 'image' ? 'image' : 'qr_code' }}</span>

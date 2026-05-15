@@ -6,7 +6,7 @@
 
     <aside
       :class="[
-        'fixed left-0 top-0 z-[80] flex h-full flex-col border-r admin-line glass-shell transition-all duration-300',
+        'fixed left-0 top-0 z-[80] flex h-full flex-col glass-card transition-all duration-300',
         isSidebarCollapsed ? 'lg:w-24' : 'lg:w-72',
         isMenuOpen ? 'translate-x-0 w-80' : '-translate-x-full lg:translate-x-0 w-80'
       ]"
@@ -57,7 +57,7 @@
         </div>
       </nav>
 
-      <div class="border-t admin-line p-3">
+      <div class="p-3">
         <button
           type="button"
           :class="[
@@ -74,7 +74,7 @@
 
     <header
       :class="[
-        'fixed right-0 top-0 z-50 flex h-20 items-center justify-between border-b admin-line bg-surface-glass px-4 backdrop-blur-xl transition-all duration-300 md:px-8',
+        'fixed right-0 top-0 z-50 flex h-20 items-center justify-between bg-surface-glass px-4 backdrop-blur-xl transition-all duration-300 md:px-8',
         isSidebarCollapsed ? 'lg:left-24' : 'lg:left-72',
         'left-0'
       ]"
@@ -109,11 +109,11 @@
           <input 
             type="text" 
             placeholder="Búsqueda global..." 
-            class="w-full bg-on-surface/[0.03] border admin-line-strong rounded-2xl py-2.5 pl-11 pr-4 text-xs font-bold focus:outline-none focus:border-accent-neon/40 focus:bg-accent-neon/5 transition-all"
+            class="w-full bg-on-surface/[0.03] rounded-2xl py-2.5 pl-11 pr-4 text-xs font-bold focus:outline-none focus:border-accent-neon/40 focus:bg-accent-neon/5 transition-all"
           />
           <div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 opacity-20 group-focus-within:opacity-0 transition-opacity">
-            <span class="text-[10px] font-black border rounded px-1.5 py-0.5">⌘</span>
-            <span class="text-[10px] font-black border rounded px-1.5 py-0.5">K</span>
+            <span class="text-[10px] font-black rounded px-1.5 py-0.5">⌘</span>
+            <span class="text-[10px] font-black rounded px-1.5 py-0.5">K</span>
           </div>
         </div>
 
@@ -121,14 +121,14 @@
           <span class="material-symbols-outlined">search</span>
         </button>
 
-        <div class="admin-soft-bg hidden items-center gap-2 rounded-2xl border admin-line px-3 py-2 lg:flex shrink-0">
+        <div class="admin-soft-bg hidden items-center gap-2 rounded-2xl px-3 py-2 lg:flex shrink-0">
           <span class="material-symbols-outlined text-[18px] text-accent-neon">bolt</span>
           <span class="text-[10px] font-black uppercase tracking-wider text-on-surface-variant">Campus activo</span>
         </div>
         
         <ThemeToggle />
         
-        <div class="flex items-center gap-3 pl-2 border-l admin-line">
+        <div class="flex items-center gap-3 pl-2">
           <div class="hidden sm:block text-right">
             <p class="text-[10px] font-black uppercase tracking-wider text-on-surface-variant">Administrador</p>
             <p class="text-xs font-bold truncate max-w-[100px]">Admin Enervida</p>

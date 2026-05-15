@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-[1200px] mx-auto py-20 text-center">
-    <div class="glass-card p-12 rounded-[40px] border-accent-neon/10 inline-block">
+    <div class="glass-card p-12 rounded-[40px] inline-block">
       <span class="material-symbols-outlined text-6xl text-accent-neon mb-6 block animate-pulse">construction</span>
       <h2 class="text-4xl font-black text-on-surface font-lexend tracking-tighter mb-4">
         Sección en <span class="text-accent-neon italic">Desarrollo</span>

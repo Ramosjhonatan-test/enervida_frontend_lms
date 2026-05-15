@@ -14,7 +14,7 @@
 
     <!-- Inline Form Panel -->
     <transition name="slide-fade">
-      <div v-if="showForm" class="glass-card p-6 sm:p-8 rounded-[32px] border-accent-neon/10">
+      <div v-if="showForm" class="glass-card p-6 sm:p-8 rounded-[32px]">
         <div class="flex items-center gap-3 mb-6">
           <div class="w-10 h-10 rounded-xl bg-accent-neon/10 flex items-center justify-center text-accent-neon">
             <span class="material-symbols-outlined text-sm">{{ isEditing ? 'edit' : 'quiz' }}</span>
@@ -64,7 +64,7 @@
           </div>
 
           <div class="flex justify-end gap-3 pt-2">
-            <button type="button" @click="showForm = false" class="btn-premium glass-shell justify-center !py-3.5 !px-6">Cancelar</button>
+            <button type="button" @click="showForm = false" class="btn-premium glass-card justify-center !py-3.5 !px-6">Cancelar</button>
             <button type="submit" :disabled="saving" class="btn-premium btn-primary-neon justify-center !py-3.5 !px-8">
               <span v-if="saving" class="animate-spin rounded-full h-4 w-4 border-t-2 border-primary"></span>
               <span v-else>{{ isEditing ? 'Actualizar' : 'Crear Evaluación' }}</span>
@@ -76,7 +76,7 @@
 
     <!-- Evaluations List -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div v-for="evaluacion in evaluaciones" :key="evaluacion.id" class="glass-card p-8 rounded-[40px] border-accent-neon/5 group transition-all flex flex-col">
+      <div v-for="evaluacion in evaluaciones" :key="evaluacion.id" class="glass-card p-8 rounded-[40px] group transition-all flex flex-col">
         <div class="flex justify-between items-start mb-6">
           <div class="w-14 h-14 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon group-hover:scale-110 transition-transform">
             <span class="material-symbols-outlined text-3xl">quiz</span>

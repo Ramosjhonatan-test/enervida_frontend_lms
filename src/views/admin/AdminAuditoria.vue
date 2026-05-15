@@ -39,7 +39,7 @@
           </div>
 
           <div class="flex gap-3">
-            <button @click="fetchLogs" class="btn-premium glass-shell gap-2 !py-4 px-8 group/btn relative overflow-hidden">
+            <button @click="fetchLogs" class="btn-premium glass-card gap-2 !py-4 px-8 group/btn relative overflow-hidden">
               <div class="absolute inset-0 bg-accent-neon/5 translate-y-full group-hover/btn:translate-y-0 transition-transform"></div>
               <span class="material-symbols-outlined text-lg transition-transform group-hover/btn:rotate-180 duration-500 relative" :class="{ 'animate-spin': loading }">refresh</span>
               <span class="relative">Sincronizar</span>
@@ -277,7 +277,7 @@
     <div class="bg-on-surface/[0.02] rounded-[40px] overflow-hidden shadow-2xl relative shadow-black/5 !border-none">
       <div v-if="loading" class="absolute inset-0 bg-background/40 backdrop-blur-[2px] z-10 flex items-center justify-center">
         <div class="flex flex-col items-center gap-4">
-          <div class="w-12 h-12 border-4 border-accent-neon/20 border-t-accent-neon rounded-full animate-spin"></div>
+          <div class="w-12 h-12 border-4 border-t-accent-neon rounded-full animate-spin"></div>
           <p class="text-[10px] font-black text-accent-neon uppercase tracking-widest">Sincronizando...</p>
         </div>
       </div>
@@ -387,7 +387,7 @@
                     <h4 class="text-xl font-black text-on-surface font-lexend">Silencio en la red</h4>
                     <p class="text-sm font-bold text-on-surface/30 uppercase tracking-[0.2em] mt-2">No hay registros que coincidan con tus parámetros</p>
                   </div>
-                  <button @click="resetFilters" class="btn-premium glass-shell px-8">Restablecer Filtros</button>
+                  <button @click="resetFilters" class="btn-premium glass-card px-8">Restablecer Filtros</button>
                 </div>
               </td>
             </tr>
@@ -1014,11 +1014,11 @@ const confirmClearAll = () => {
 // UI Helpers
 const getActionClass = (accion) => {
   const a = accion.toLowerCase()
-  if (a.includes('post') || a.includes('crear') || a.includes('create')) return 'bg-green-500/10 text-green-500 border-green-500/20'
-  if (a.includes('delete') || a.includes('eliminar') || a.includes('remove')) return 'bg-red-500/10 text-red-500 border-red-500/20'
+  if (a.includes('post') || a.includes('crear') || a.includes('create')) return 'bg-green-500/10 text-green-500'
+  if (a.includes('delete') || a.includes('eliminar') || a.includes('remove')) return 'bg-red-500/10 text-red-500'
   if (a.includes('put') || a.includes('patch') || a.includes('actualizar') || a.includes('update')) return 'bg-blue-500/10 text-blue-500 border-blue-500/20'
-  if (a.includes('login')) return 'bg-accent-neon/10 text-accent-neon border-accent-neon/20'
-  return 'bg-on-surface/5 text-on-surface/40 border-on-surface/10'
+  if (a.includes('login')) return 'bg-accent-neon/10 text-accent-neon'
+  return 'bg-on-surface/5 text-on-surface/40'
 }
 
 const getActionBgClass = (accion) => {

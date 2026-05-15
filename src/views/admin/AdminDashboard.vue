@@ -7,7 +7,7 @@
       <div class="grid gap-10 xl:grid-cols-[1.25fr_0.75fr] xl:items-center relative z-10">
         <div>
           <div class="mb-6 flex flex-wrap items-center gap-4">
-            <span class="px-4 py-1.5 rounded-full bg-accent-neon/20 text-accent-neon text-[10px] font-black uppercase tracking-[0.3em] border border-accent-neon/30 animate-pulse-slow">
+            <span class="px-4 py-1.5 rounded-full bg-accent-neon/20 text-accent-neon text-[10px] font-black uppercase tracking-[0.3em] animate-pulse-slow">
               SISTEMA ACTIVO
             </span>
             <span class="text-xs font-bold text-on-surface/40 flex items-center gap-2 italic">
@@ -31,7 +31,7 @@
               <p class="text-[10px] font-black uppercase tracking-[0.3em] text-on-surface/40">Avance Promedio</p>
               <p class="mt-2 text-4xl font-black text-accent-neon font-lexend tracking-tighter italic">74.8%</p>
             </div>
-            <div class="w-14 h-14 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon border border-accent-neon/20">
+            <div class="w-14 h-14 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon">
               <span class="material-symbols-outlined text-3xl">school</span>
             </div>
           </div>
@@ -46,7 +46,7 @@
 
     <!-- Metrics Grid -->
     <section class="grid grid-cols-1 gap-6 md:grid-cols-3">
-      <article v-for="stat in metrics" :key="stat.title" class="glass-card rounded-[2.5rem] p-8 transition-all duration-500 hover:-translate-y-2 group hover:border-accent-neon/30 shadow-xl">
+      <article v-for="stat in metrics" :key="stat.title" class="glass-card rounded-[2.5rem] p-8 transition-all duration-500 hover:-translate-y-2 group shadow-xl">
         <div class="mb-10 flex items-start justify-between gap-4">
           <div class="grid h-16 w-16 place-items-center rounded-2xl bg-on-surface/5 text-on-surface/40 group-hover:bg-accent-neon/10 group-hover:text-accent-neon transition-all duration-500 group-hover:shadow-neon-sm">
             <span class="material-symbols-outlined text-3xl">{{ stat.icon }}</span>

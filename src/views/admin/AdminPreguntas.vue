@@ -23,7 +23,7 @@
 
     <!-- Inline Pregunta Form Panel -->
     <transition name="slide-fade">
-      <div v-if="showModal" class="glass-card p-6 sm:p-8 rounded-[32px] border-accent-neon/10">
+      <div v-if="showModal" class="glass-card p-6 sm:p-8 rounded-[32px]">
         <div class="flex items-center gap-3 mb-6">
           <div class="w-10 h-10 rounded-xl bg-accent-neon/10 flex items-center justify-center text-accent-neon">
             <span class="material-symbols-outlined text-sm">{{ isEditing ? 'edit' : 'help_outline' }}</span>
@@ -57,7 +57,7 @@
           </div>
 
           <div class="flex justify-end gap-3 pt-2">
-            <button type="button" @click="showModal = false" class="btn-premium glass-shell justify-center !py-3.5 !px-6">Cancelar</button>
+            <button type="button" @click="showModal = false" class="btn-premium glass-card justify-center !py-3.5 !px-6">Cancelar</button>
             <button type="submit" :disabled="saving" class="btn-premium btn-primary-neon justify-center !py-3.5 !px-8 gap-2">
               <span v-if="saving" class="animate-spin material-symbols-outlined text-sm">refresh</span>
               {{ isEditing ? 'Actualizar Pregunta' : 'Crear Pregunta' }}

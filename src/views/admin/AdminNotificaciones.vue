@@ -23,7 +23,7 @@
 
     <div class="grid grid-cols-1 xl:grid-cols-[1fr_350px] gap-8">
       <!-- History Table -->
-      <div class="glass-card-premium rounded-[40px] overflow-hidden border-accent-neon/10 shadow-2xl relative min-h-[500px]">
+      <div class="glass-card-premium rounded-[40px] overflow-hidden shadow-2xl relative min-h-[500px]">
         <div v-if="loading" class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-background/50 backdrop-blur-sm">
           <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-accent-neon shadow-[0_0_20px_var(--accent-neon)] mb-4"></div>
           <p class="text-[10px] font-black text-accent-neon uppercase tracking-widest animate-pulse">Cargando historial...</p>
@@ -58,7 +58,7 @@
                   <p class="text-[10px] font-bold text-on-surface/40 uppercase">{{ formatDate(note.fecha_creacion) }}</p>
                 </td>
                 <td class="p-6 text-center">
-                  <span :class="['px-2 py-0.5 text-[8px] font-black rounded-full border uppercase tracking-tighter', note.leido ? 'bg-green-500/10 text-green-500 border-green-500/20' : 'bg-orange-500/10 text-orange-500 border-orange-500/20']">
+                  <span :class="['px-2 py-0.5 text-[8px] font-black rounded-full uppercase tracking-tighter', note.leido ? 'bg-green-500/10 text-green-500' : 'bg-orange-500/10 text-orange-500']">
                     {{ note.leido ? 'Leído' : 'Pendiente' }}
                   </span>
                 </td>
@@ -75,7 +75,7 @@
 
       <!-- Quick Stats / Actions -->
       <div class="space-y-6">
-        <div class="glass-card-premium p-6 rounded-[32px] border-accent-neon/10">
+        <div class="glass-card-premium p-6 rounded-[32px]">
           <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface/40 mb-4">Resumen</h4>
           <div class="space-y-4">
             <div class="flex items-center justify-between">
@@ -93,7 +93,7 @@
           </div>
         </div>
 
-        <div class="glass-card-premium p-6 rounded-[32px] border-accent-neon/10 bg-accent-neon/5">
+        <div class="glass-card-premium p-6 rounded-[32px] bg-accent-neon/5">
           <span class="material-symbols-outlined text-accent-neon mb-3">campaign</span>
           <h4 class="text-sm font-black text-on-surface mb-2">Anuncio Global</h4>
           <p class="text-[10px] text-on-surface/60 mb-4 leading-relaxed">Envía una notificación a todos los usuarios registrados en la plataforma simultáneamente.</p>
@@ -105,7 +105,7 @@
     <!-- Modal Form -->
     <div v-if="showModal" class="fixed inset-0 z-[150] flex items-center justify-center p-4">
       <div class="absolute inset-0 bg-background/80 backdrop-blur-xl" @click="showModal = false"></div>
-      <div class="relative w-full max-w-lg bg-surface border admin-line-strong rounded-[40px] p-8 shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="relative w-full max-w-lg bg-surface rounded-[40px] p-8 shadow-2xl animate-in zoom-in-95 duration-200">
         <h3 class="text-2xl font-black font-lexend mb-6">Enviar <span class="text-accent-neon italic">{{ isGlobal ? 'Anuncio Global' : 'Notificación' }}</span></h3>
         
         <form @submit.prevent="sendNotification" class="space-y-6">

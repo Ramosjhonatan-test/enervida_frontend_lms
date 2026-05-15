@@ -55,11 +55,11 @@
               <td class="p-6">
                 <div class="flex justify-center">
                   <div class="relative group/rol">
-                    <span :class="['px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest border transition-all', getRoleClass(usuario.rol?.nombre)]">
+                    <span :class="['px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all', getRoleClass(usuario.rol?.nombre)]">
                       {{ usuario.rol?.nombre || 'Sin Rol' }}
                     </span>
                     <!-- Role change fast-action -->
-                    <div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 opacity-0 invisible group-hover/rol:opacity-100 group-hover/rol:visible transition-all z-20 flex flex-col bg-surface-container border border-on-surface/10 rounded-xl shadow-2xl overflow-hidden p-1 min-w-[120px]">
+                    <div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 opacity-0 invisible group-hover/rol:opacity-100 group-hover/rol:visible transition-all z-20 flex flex-col bg-surface-container rounded-xl shadow-2xl overflow-hidden p-1 min-w-[120px]">
                       <button v-for="r in roles" :key="r.id" @click="changeRole(usuario.id, r.id)" class="px-3 py-2 text-[10px] font-bold text-left hover:bg-accent-neon/10 hover:text-accent-neon rounded-lg transition-colors capitalize">
                         {{ r.nombre }}
                       </button>
@@ -118,10 +118,10 @@ const modalStore = useModalStore();
 
 const getRoleClass = (rol) => {
   switch (rol?.toLowerCase()) {
-    case 'admin': return 'bg-red-500/10 text-red-500 border-red-500/20';
-    case 'instructor': return 'bg-accent-solar/10 text-accent-solar border-accent-solar/20';
-    case 'estudiante': return 'bg-accent-neon/10 text-accent-neon border-accent-neon/20';
-    default: return 'bg-on-surface/5 text-on-surface/40 border-on-surface/10';
+    case 'admin': return 'bg-red-500/10 text-red-500';
+    case 'instructor': return 'bg-accent-solar/10 text-accent-solar';
+    case 'estudiante': return 'bg-accent-neon/10 text-accent-neon';
+    default: return 'bg-on-surface/5 text-on-surface/40';
   }
 };
 

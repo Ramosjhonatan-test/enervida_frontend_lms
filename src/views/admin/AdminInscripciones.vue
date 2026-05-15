@@ -23,7 +23,7 @@
 
     <!-- Inline Form Panel -->
     <transition name="slide-fade">
-      <div v-if="showForm" class="glass-card p-6 sm:p-8 rounded-[32px] border-accent-neon/10">
+      <div v-if="showForm" class="glass-card p-6 sm:p-8 rounded-[32px]">
         <div class="flex items-center gap-3 mb-6">
           <div class="w-10 h-10 rounded-xl bg-accent-neon/10 flex items-center justify-center text-accent-neon">
             <span class="material-symbols-outlined text-sm">{{ isEditing ? 'edit' : 'person_add' }}</span>
@@ -66,7 +66,7 @@
           </div>
 
           <div class="flex justify-end gap-3 pt-2">
-            <button type="button" @click="showForm = false" class="btn-premium glass-shell justify-center !py-3.5 !px-6">Cancelar</button>
+            <button type="button" @click="showForm = false" class="btn-premium glass-card justify-center !py-3.5 !px-6">Cancelar</button>
             <button type="submit" :disabled="saving" class="btn-premium btn-primary-neon justify-center !py-3.5 !px-8 gap-2">
               <span v-if="saving" class="animate-spin material-symbols-outlined text-sm">refresh</span>
               {{ isEditing ? 'Actualizar' : 'Inscribir Estudiante' }}
@@ -144,7 +144,7 @@
                 </div>
               </td>
               <td class="p-6 text-center">
-                <span :class="['px-3 py-1 text-[9px] font-black rounded-full border uppercase tracking-widest', getStatusClass(item.estado)]">
+                <span :class="['px-3 py-1 text-[9px] font-black rounded-full uppercase tracking-widest', getStatusClass(item.estado)]">
                   {{ item.estado }}
                 </span>
               </td>
@@ -302,11 +302,11 @@ const deleteInscripcion = async (id) => {
 
 const getStatusClass = (estado) => {
   switch (estado) {
-    case 'ACTIVO': return 'bg-green-500/10 text-green-500 border-green-500/20'
-    case 'PENDIENTE': return 'bg-orange-500/10 text-orange-500 border-orange-500/20'
-    case 'INACTIVO': return 'bg-red-500/10 text-red-500 border-red-500/20'
-    case 'COMPLETADO': return 'bg-blue-500/10 text-blue-500 border-blue-500/20'
-    default: return 'bg-on-surface/5 text-on-surface/40 border-on-surface/10'
+    case 'ACTIVO': return 'bg-green-500/10 text-green-500'
+    case 'PENDIENTE': return 'bg-orange-500/10 text-orange-500'
+    case 'INACTIVO': return 'bg-red-500/10 text-red-500'
+    case 'COMPLETADO': return 'bg-blue-500/10 text-blue-500'
+    default: return 'bg-on-surface/5 text-on-surface/40'
   }
 }
 

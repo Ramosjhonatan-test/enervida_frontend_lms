@@ -17,7 +17,7 @@
 
     <!-- Stats Row -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-      <div class="glass-card-premium p-8 rounded-[32px] border-accent-neon/10 group/stat hover:-translate-y-1 transition-all shadow-xl">
+      <div class="glass-card-premium p-8 rounded-[32px] group/stat hover:-translate-y-1 transition-all shadow-xl">
         <div class="flex items-center gap-4 mb-6">
           <div class="w-12 h-12 rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-500 group-hover/stat:scale-110 transition-transform">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -26,7 +26,7 @@
         </div>
         <p class="text-5xl font-black text-on-surface">{{ pendingCount }}</p>
       </div>
-      <div class="glass-card-premium p-8 rounded-[32px] border-accent-neon/10 group/stat hover:-translate-y-1 transition-all shadow-xl">
+      <div class="glass-card-premium p-8 rounded-[32px] group/stat hover:-translate-y-1 transition-all shadow-xl">
         <div class="flex items-center gap-4 mb-6">
           <div class="w-12 h-12 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon group-hover/stat:scale-110 transition-transform">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
@@ -35,7 +35,7 @@
         </div>
         <p class="text-5xl font-black text-on-surface">{{ approvedCount }}</p>
       </div>
-      <div class="glass-card-premium p-8 rounded-[32px] border-accent-neon/10 group/stat hover:-translate-y-1 transition-all shadow-xl">
+      <div class="glass-card-premium p-8 rounded-[32px] group/stat hover:-translate-y-1 transition-all shadow-xl">
         <div class="flex items-center gap-4 mb-6">
           <div class="w-12 h-12 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 group-hover/stat:scale-110 transition-transform">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>

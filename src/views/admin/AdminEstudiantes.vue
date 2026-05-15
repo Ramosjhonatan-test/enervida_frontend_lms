@@ -8,7 +8,7 @@
       <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-10">
         <div class="flex-1">
           <div class="flex items-center gap-4 mb-3">
-            <div class="w-16 h-16 rounded-2xl bg-accent-neon/20 flex items-center justify-center text-accent-neon shadow-neon-sm animate-pulse-slow border border-accent-neon/30">
+            <div class="w-16 h-16 rounded-2xl bg-accent-neon/20 flex items-center justify-center text-accent-neon shadow-neon-sm animate-pulse-slow">
               <span class="material-symbols-outlined text-4xl">group</span>
             </div>
             <div>
@@ -47,8 +47,8 @@
 
     <!-- Stats Row -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-      <div class="glass-card rounded-[2.5rem] p-8 border-accent-neon/10 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
-        <div class="w-16 h-16 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon group-hover:shadow-neon-sm transition-all border border-accent-neon/5">
+      <div class="glass-card rounded-[2.5rem] p-8 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
+        <div class="w-16 h-16 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon group-hover:shadow-neon-sm transition-all">
           <span class="material-symbols-outlined text-3xl">groups</span>
         </div>
         <div>
@@ -56,8 +56,8 @@
           <p class="text-4xl font-black text-on-surface font-lexend tracking-tight">{{ estudiantes.length }}</p>
         </div>
       </div>
-      <div class="glass-card rounded-[2.5rem] p-8 border-accent-solar/10 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
-        <div class="w-16 h-16 rounded-2xl bg-accent-solar/10 flex items-center justify-center text-accent-solar group-hover:shadow-solar-sm transition-all border border-accent-solar/5">
+      <div class="glass-card rounded-[2.5rem] p-8 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
+        <div class="w-16 h-16 rounded-2xl bg-accent-solar/10 flex items-center justify-center text-accent-solar group-hover:shadow-solar-sm transition-all">
           <span class="material-symbols-outlined text-3xl">how_to_reg</span>
         </div>
         <div>
@@ -65,8 +65,8 @@
           <p class="text-4xl font-black text-on-surface font-lexend tracking-tight">{{ estudiantes.filter(e => e.estado === 'ACTIVO').length }}</p>
         </div>
       </div>
-      <div class="glass-card rounded-[2.5rem] p-8 border-blue-500/10 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
-        <div class="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:shadow-blue-500/20 transition-all border border-blue-500/5">
+      <div class="glass-card rounded-[2.5rem] p-8 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
+        <div class="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:shadow-blue-500/20 transition-all">
           <span class="material-symbols-outlined text-3xl">verified</span>
         </div>
         <div>
@@ -74,8 +74,8 @@
           <p class="text-4xl font-black text-on-surface font-lexend tracking-tight">{{ estudiantes.filter(e => e.correo_verificado).length }}</p>
         </div>
       </div>
-      <div class="glass-card rounded-[2.5rem] p-8 border-red-500/10 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
-        <div class="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 group-hover:shadow-red-500/20 transition-all border border-red-500/5">
+      <div class="glass-card rounded-[2.5rem] p-8 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
+        <div class="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 group-hover:shadow-red-500/20 transition-all">
           <span class="material-symbols-outlined text-3xl">block</span>
         </div>
         <div>

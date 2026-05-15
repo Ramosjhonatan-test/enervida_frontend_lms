@@ -8,7 +8,7 @@
       <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-10">
         <div class="flex-1">
           <div class="flex items-center gap-4 mb-3">
-            <div class="w-16 h-16 rounded-2xl bg-accent-neon/20 flex items-center justify-center text-accent-neon shadow-neon-sm animate-pulse-slow border border-accent-neon/30">
+            <div class="w-16 h-16 rounded-2xl bg-accent-neon/20 flex items-center justify-center text-accent-neon shadow-neon-sm animate-pulse-slow">
               <span class="material-symbols-outlined text-4xl">auto_stories</span>
             </div>
             <div>
@@ -47,8 +47,8 @@
 
     <!-- Stats Row -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="glass-card rounded-[2.5rem] p-8 border-accent-neon/10 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
-        <div class="w-16 h-16 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon group-hover:shadow-neon-sm transition-all border border-accent-neon/5">
+      <div class="glass-card rounded-[2.5rem] p-8 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
+        <div class="w-16 h-16 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon group-hover:shadow-neon-sm transition-all">
           <span class="material-symbols-outlined text-3xl">library_books</span>
         </div>
         <div>
@@ -56,8 +56,8 @@
           <p class="text-4xl font-black text-on-surface font-lexend tracking-tight">{{ cursos.length }}</p>
         </div>
       </div>
-      <div class="glass-card rounded-[2.5rem] p-8 border-accent-solar/10 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
-        <div class="w-16 h-16 rounded-2xl bg-accent-solar/10 flex items-center justify-center text-accent-solar group-hover:shadow-solar-sm transition-all border border-accent-solar/5">
+      <div class="glass-card rounded-[2.5rem] p-8 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
+        <div class="w-16 h-16 rounded-2xl bg-accent-solar/10 flex items-center justify-center text-accent-solar group-hover:shadow-solar-sm transition-all">
           <span class="material-symbols-outlined text-3xl">visibility</span>
         </div>
         <div>
@@ -65,7 +65,7 @@
           <p class="text-4xl font-black text-on-surface font-lexend tracking-tight">{{ cursos.filter(c => c.publicado).length }}</p>
         </div>
       </div>
-      <div class="glass-card rounded-[2.5rem] p-8 border-on-surface/10 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
+      <div class="glass-card rounded-[2.5rem] p-8 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
         <div class="w-16 h-16 rounded-2xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 group-hover:bg-on-surface/10 transition-all">
           <span class="material-symbols-outlined text-3xl">edit_note</span>
         </div>
@@ -82,14 +82,14 @@
       <p class="text-[10px] font-black text-accent-neon uppercase tracking-[0.4em]">Sincronizando Catálogo...</p>
     </div>
 
-    <div v-else-if="filteredCursos.length === 0" class="glass-card rounded-[40px] p-20 text-center border-on-surface/5">
+    <div v-else-if="filteredCursos.length === 0" class="glass-card rounded-[40px] p-20 text-center">
       <span class="material-symbols-outlined text-7xl text-on-surface/10 mb-6 block">menu_book</span>
       <h3 class="text-2xl font-black text-on-surface tracking-tighter mb-2">No se encontraron cursos</h3>
       <p class="text-sm text-on-surface/40 max-w-xs mx-auto">Prueba ajustando tu búsqueda o agrega un nuevo curso al catálogo.</p>
     </div>
 
     <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div v-for="curso in filteredCursos" :key="curso.id" class="group glass-shell hover:border-accent-neon/30 rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 flex flex-col h-full bg-on-surface/[0.02]">
+      <div v-for="curso in filteredCursos" :key="curso.id" class="group glass-card rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 flex flex-col h-full hover:shadow-neon-sm">
         <div class="h-56 bg-on-surface/5 relative overflow-hidden">
           <img 
             v-if="curso.miniatura_url" 
@@ -105,8 +105,8 @@
           <div class="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           
           <div class="absolute top-5 right-5 flex flex-col gap-2">
-            <div :class="['px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border backdrop-blur-md transition-all shadow-xl', 
-              curso.publicado ? 'bg-accent-neon/20 border-accent-neon/40 text-accent-neon' : 'bg-on-surface/10 border-on-surface/20 text-on-surface/60']">
+            <div :class="['px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest backdrop-blur-md transition-all shadow-xl', 
+              curso.publicado ? 'bg-accent-neon/20 text-accent-neon' : 'bg-on-surface/10 text-on-surface/60']">
               {{ curso.publicado ? 'Publicado' : 'Borrador' }}
             </div>
           </div>
@@ -131,14 +131,14 @@
             <div class="flex gap-2">
               <router-link 
                 :to="'/admin/cursos/' + curso.id" 
-                class="w-11 h-11 rounded-2xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-accent-neon/10 hover:text-accent-neon transition-all hover:shadow-neon-sm border border-transparent hover:border-accent-neon/20"
+                class="w-11 h-11 rounded-2xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-accent-neon/10 hover:text-accent-neon transition-all hover:shadow-neon-sm"
                 title="Editar Curso"
               >
                 <span class="material-symbols-outlined text-lg">edit</span>
               </router-link>
               <button 
                 @click="deleteCurso(curso.id)" 
-                class="w-11 h-11 rounded-2xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-red-500/10 hover:text-red-500 transition-all hover:shadow-[0_0_15px_rgba(239,68,68,0.2)] border border-transparent hover:border-red-500/20"
+                class="w-11 h-11 rounded-2xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-red-500/10 hover:text-red-500 transition-all hover:shadow-[0_0_15px_rgba(239,68,68,0.2)]"
                 title="Eliminar"
               >
                 <span class="material-symbols-outlined text-lg">delete</span>

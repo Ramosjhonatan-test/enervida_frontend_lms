@@ -22,9 +22,9 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <!-- Left Column: Profile Card -->
       <div class="lg:col-span-1 space-y-8">
-        <div class="glass-card p-10 rounded-[40px] border-accent-neon/5 text-center relative overflow-hidden">
+        <div class="glass-card p-10 rounded-[40px] text-center relative overflow-hidden">
           <div class="relative z-10">
-            <div class="w-32 h-32 rounded-[40px] border-4 border-accent-neon/20 p-1 mx-auto mb-6 shadow-2xl overflow-hidden group">
+            <div class="w-32 h-32 rounded-[40px] bg-on-surface/5 p-1 mx-auto mb-6 shadow-2xl overflow-hidden group">
               <img :src="estudiante.imagen_perfil || 'https://i.pravatar.cc/150?u=' + estudiante.id" class="w-full h-full object-cover rounded-[32px] group-hover:scale-110 transition-transform duration-700" />
             </div>
             <h3 class="text-2xl font-black text-on-surface font-lexend leading-tight">{{ estudiante.nombres }} {{ estudiante.apellidos }}</h3>
@@ -55,7 +55,7 @@
         </div>
 
         <!-- Registered Device Info -->
-        <div class="glass-card p-10 rounded-[40px] border-accent-neon/5">
+        <div class="glass-card p-10 rounded-[40px]">
           <div class="flex justify-between items-center mb-6">
             <h4 class="text-sm font-black text-on-surface uppercase tracking-widest">Seguridad / Dispositivo</h4>
             <span v-if="estudiante.dispositivos?.length" class="flex h-2 w-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
@@ -89,7 +89,7 @@
               </div>
             </div>
 
-            <button @click="liberateDevices" class="w-full py-4 rounded-2xl bg-red-500/10 text-red-500 text-[10px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all flex items-center justify-center gap-2 border border-red-500/20">
+            <button @click="liberateDevices" class="w-full py-4 rounded-2xl bg-red-500/10 text-red-500 text-[10px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all flex items-center justify-center gap-2">
               <span class="material-symbols-outlined text-sm">lock_open</span>
               Liberar Cuenta (Desvincular)
             </button>
@@ -105,7 +105,7 @@
         </div>
 
         <!-- Recent Activity Logs -->
-        <div class="glass-card p-10 rounded-[40px] border-accent-neon/5">
+        <div class="glass-card p-10 rounded-[40px]">
           <div class="flex justify-between items-center mb-8">
             <h4 class="text-sm font-black text-on-surface uppercase tracking-widest">Actividad Reciente</h4>
             <button @click="toggleAllLogs" class="text-[9px] font-black text-accent-neon uppercase tracking-widest hover:underline">
@@ -143,10 +143,10 @@
       <!-- Right Column: Courses and Grades -->
       <div class="lg:col-span-2 space-y-8">
         <!-- Enrolled Courses -->
-        <div class="glass-card p-10 rounded-[40px] border-accent-neon/5">
+        <div class="glass-card p-10 rounded-[40px]">
           <div class="flex justify-between items-center mb-10">
             <h4 class="text-xl font-black font-lexend tracking-tighter italic">Cursos <span class="text-accent-neon">Inscritos</span></h4>
-            <span class="px-3 py-1 bg-accent-neon/10 text-accent-neon text-[10px] font-black rounded-full border border-accent-neon/20">
+            <span class="px-3 py-1 bg-accent-neon/10 text-accent-neon text-[10px] font-black rounded-full">
               {{ estudiante.inscripciones?.length || 0 }} Total
             </span>
           </div>
@@ -175,7 +175,7 @@
                 <div class="h-full bg-accent-neon rounded-full shadow-[0_0_10px_var(--accent-neon)] transition-all duration-1000" :style="{ width: ins.porcentaje_progreso + '%' }"></div>
               </div>
             </div>
-            <div v-if="!estudiante.inscripciones?.length" class="col-span-full py-20 text-center text-on-surface/20 border-2 border-dashed border-on-surface/5 rounded-[32px]">
+            <div v-if="!estudiante.inscripciones?.length" class="col-span-full py-20 text-center text-on-surface/20 bg-on-surface/[0.03] rounded-[32px]">
                <span class="material-symbols-outlined text-4xl mb-2">auto_stories</span>
                <p class="text-[10px] font-black uppercase tracking-widest">No está inscrito en ningún curso</p>
             </div>
@@ -183,7 +183,7 @@
         </div>
 
         <!-- Evaluation Attempts -->
-        <div class="glass-card p-10 rounded-[40px] border-accent-neon/5">
+        <div class="glass-card p-10 rounded-[40px]">
           <h4 class="text-xl font-black font-lexend tracking-tighter italic mb-10">Historial de <span class="text-accent-neon">Evaluaciones</span></h4>
           
           <div class="overflow-x-auto">

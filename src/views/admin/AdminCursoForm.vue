@@ -1,7 +1,7 @@
 <template>
   <div class="w-full max-w-[1400px] mx-auto pb-20">
     <div class="flex items-center gap-4 mb-8">
-      <router-link to="/admin/cursos" class="w-10 h-10 rounded-xl glass-shell bg-on-surface/5 flex items-center justify-center text-on-surface/60 hover:text-accent-neon hover:bg-accent-neon/10 transition-all shrink-0">
+      <router-link to="/admin/cursos" class="w-10 h-10 rounded-xl glass-card bg-on-surface/5 flex items-center justify-center text-on-surface/60 hover:text-accent-neon hover:bg-accent-neon/10 transition-all shrink-0">
         <span class="material-symbols-outlined text-sm">arrow_back</span>
       </router-link>
       <div class="min-w-0">
@@ -15,7 +15,7 @@
     <form @submit.prevent="saveCurso" class="flex flex-col xl:flex-row gap-8 items-start">
       <!-- Left Column: Main Information -->
       <div class="w-full xl:flex-1 min-w-0 space-y-6 order-2 xl:order-1">
-        <div class="glass-card p-5 sm:p-8 rounded-[24px] sm:rounded-[32px] border-accent-neon/5">
+        <div class="glass-card p-5 sm:p-8 rounded-[24px] sm:rounded-[32px]">
           <h3 class="text-lg font-bold text-on-surface mb-6 flex items-center gap-2">
             <span class="material-symbols-outlined text-accent-neon">info</span>
             Información Principal
@@ -59,7 +59,7 @@
       <div class="w-full xl:w-[380px] flex flex-col gap-6 order-1 xl:order-2">
         
         <!-- Thumbnail Upload -->
-        <div class="glass-card p-6 rounded-[24px] sm:rounded-[32px] border-accent-neon/5">
+        <div class="glass-card p-6 rounded-[24px] sm:rounded-[32px]">
           <h3 class="text-sm font-bold text-on-surface mb-4 flex items-center justify-between">
             <span>Miniatura</span>
             <div class="flex bg-on-surface/5 p-1 rounded-lg gap-1">
@@ -68,7 +68,7 @@
             </div>
           </h3>
           
-          <div v-if="uploadMode === 'file'" @click="$refs.fileInput.click()" class="group relative aspect-video rounded-2xl bg-on-surface/5 border-2 border-dashed border-on-surface/10 hover:border-accent-neon/50 transition-all cursor-pointer overflow-hidden flex flex-col items-center justify-center gap-4">
+          <div v-if="uploadMode === 'file'" @click="$refs.fileInput.click()" class="group relative aspect-video rounded-2xl bg-on-surface/5 border-2 border-dashed hover:border-accent-neon/50 transition-all cursor-pointer overflow-hidden flex flex-col items-center justify-center gap-4">
             <img v-if="previewUrl" :src="previewUrl" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             <div v-else class="text-center p-6">
               <span class="material-symbols-outlined text-4xl text-accent-neon mb-2">cloud_upload</span>
@@ -105,7 +105,7 @@
         </div>
 
         <!-- Settings -->
-        <div class="glass-card p-6 rounded-[24px] sm:rounded-[32px] border-accent-neon/5 space-y-6">
+        <div class="glass-card p-6 rounded-[24px] sm:rounded-[32px] space-y-6">
           <h3 class="text-sm font-bold text-on-surface">Configuración</h3>
           
           <div class="grid grid-cols-2 gap-4">
