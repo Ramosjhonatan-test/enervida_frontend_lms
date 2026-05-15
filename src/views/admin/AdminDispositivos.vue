@@ -8,12 +8,12 @@
       <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-10">
         <div class="flex-1">
           <div class="flex items-center gap-4 mb-3">
-            <div class="w-16 h-16 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon shadow-neon-sm animate-pulse-slow">
+            <div class="w-16 h-16 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon shadow-neon-sm animate-pulse-slow group-hover:bg-yellow-500 group-hover:text-white transition-all duration-500">
               <span class="material-symbols-outlined text-4xl">devices</span>
             </div>
             <div>
               <h2 class="text-xl md:text-2xl font-black text-on-surface font-lexend tracking-tighter leading-none">
-                Control de <span class="text-accent-neon italic">Dispositivos</span>
+                Control de <span class="text-accent-neon">Dispositivos</span>
               </h2>
               <p class="text-on-surface/50 text-[10px] font-bold uppercase tracking-[0.3em] mt-3 flex items-center gap-2">
                 <span class="flex h-1.5 w-1.5 relative">
@@ -49,7 +49,7 @@
       <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
         <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-accent-neon/5 rounded-full blur-3xl group-hover:bg-accent-neon/10 transition-colors"></div>
         <div class="flex items-center gap-6 relative z-10">
-          <div class="w-16 h-16 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon group-hover:bg-accent-neon group-hover:text-white transition-all duration-500 border-none">
+          <div class="w-16 h-16 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon group-hover:bg-accent-neon group-hover:text-on-surface transition-all duration-500 border-none">
             <span class="material-symbols-outlined text-3xl">devices</span>
           </div>
           <div>

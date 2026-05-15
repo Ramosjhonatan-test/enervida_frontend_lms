@@ -29,10 +29,8 @@
         </button>
       </div>
 
-
-
       <nav class="flex-1 space-y-6 px-3 py-4 overflow-y-auto custom-scrollbar">
-        <div v-for="category in categorizedLinks" :key="category.title" class="space-y-2">
+        <div v-for="category in filteredLinks" :key="category.title" class="space-y-2">
           <p v-if="!isSidebarCollapsed || isMenuOpen" class="px-4 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/50">
             {{ category.title }}
           </p>
@@ -130,11 +128,13 @@
         
         <div class="flex items-center gap-3 pl-2">
           <div class="hidden sm:block text-right">
-            <p class="text-[10px] font-black uppercase tracking-wider text-on-surface-variant">Administrador</p>
-            <p class="text-xs font-bold truncate max-w-[100px]">Admin Enervida</p>
+            <p class="text-[10px] font-black uppercase tracking-wider text-on-surface-variant">{{ authStore.userRole }}</p>
+            <p class="text-xs font-bold truncate max-w-[100px]">{{ authStore.user?.nombres }}</p>
           </div>
           <div class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-accent-neon to-accent-solar p-[2px]">
-            <div class="grid h-full w-full place-items-center rounded-[10px] bg-background text-xs font-black shadow-inner">AD</div>
+            <div class="grid h-full w-full place-items-center rounded-[10px] bg-background text-xs font-black shadow-inner">
+              {{ authStore.user?.nombres?.charAt(0) }}{{ authStore.user?.apellidos?.charAt(0) }}
+            </div>
           </div>
         </div>
       </div>
@@ -147,7 +147,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch, onUnmounted } from 'vue'
+import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import ThemeToggle from '@/components/global/ThemeToggle.vue'
@@ -164,40 +164,47 @@ const categorizedLinks = [
   {
     title: 'Principal',
     links: [
-      { text: 'Dashboard', icon: 'dashboard', path: '/admin' },
-      { text: 'Reportes', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>', path: '/admin/reportes' },
-      { text: 'Auditoria', icon: 'shield_lock', path: '/admin/auditoria' },
+      { text: 'Dashboard', icon: 'dashboard', path: '/admin', moduleId: 'DASHBOARD' },
+      { text: 'Reportes', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>', path: '/admin/reportes', moduleId: 'REPORTES' },
+      { text: 'Auditoria', icon: 'shield_lock', path: '/admin/auditoria', moduleId: 'AUDITORIA' },
     ]
   },
   {
     title: 'Académico',
     links: [
-      { text: 'Cursos', icon: 'school', path: '/admin/cursos' },
-      { text: 'Categorías', icon: 'category', path: '/admin/categorias' },
-      { text: 'Inscripciones', icon: 'history_edu', path: '/admin/inscripciones' },
-      { text: 'Evaluaciones', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>', path: '/admin/evaluaciones' },
-      { text: 'Clases En Vivo', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l5-5v14l-5-5H5V10h10z"/></svg>', path: '/admin/clases-en-vivo' },
-      { text: 'Certificados', icon: 'workspace_premium', path: '/admin/certificados' },
-      { text: 'Solicitudes', icon: 'assignment', path: '/admin/solicitudes' },
+      { text: 'Cursos', icon: 'school', path: '/admin/cursos', moduleId: 'CURSOS' },
+      { text: 'Categorías', icon: 'category', path: '/admin/categorias', moduleId: 'CATEGORIAS' },
+      { text: 'Inscripciones', icon: 'history_edu', path: '/admin/inscripciones', moduleId: 'INSCRIPCIONES' },
+      { text: 'Evaluaciones', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>', path: '/admin/evaluaciones', moduleId: 'EVALUACIONES' },
+      { text: 'Clases En Vivo', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l5-5v14l-5-5H5V10h10z"/></svg>', path: '/admin/clases-en-vivo', moduleId: 'CLASES_VIVO' },
+      { text: 'Certificados', icon: 'workspace_premium', path: '/admin/certificados', moduleId: 'CERTIFICADOS' },
+      { text: 'Solicitudes', icon: 'assignment', path: '/admin/solicitudes', moduleId: 'SOLICITUDES' },
     ]
   },
   {
     title: 'Gestión',
     links: [
-      { text: 'Estudiantes', icon: 'groups', path: '/admin/estudiantes' },
-      { text: 'Usuarios', icon: 'person_search', path: '/admin/usuarios' },
-      { text: 'Roles', icon: 'lock_person', path: '/admin/roles' },
-      { text: 'Dispositivos', icon: 'devices', path: '/admin/dispositivos' },
+      { text: 'Estudiantes', icon: 'groups', path: '/admin/estudiantes', moduleId: 'ESTUDIANTES' },
+      { text: 'Usuarios', icon: 'person_search', path: '/admin/usuarios', moduleId: 'USUARIOS' },
+      { text: 'Roles', icon: 'lock_person', path: '/admin/roles', moduleId: 'ROLES' },
+      { text: 'Dispositivos', icon: 'devices', path: '/admin/dispositivos', moduleId: 'DISPOSITIVOS' },
     ]
   },
   {
     title: 'Sistema',
     links: [
-      { text: 'Notificaciones', icon: 'notifications_active', path: '/admin/notificaciones' },
-      { text: 'Archivos', icon: 'folder_open', path: '/admin/archivos' },
+      { text: 'Notificaciones', icon: 'notifications_active', path: '/admin/notificaciones', moduleId: 'NOTIFICACIONES' },
+      { text: 'Archivos', icon: 'folder_open', path: '/admin/archivos', moduleId: 'ARCHIVOS' },
     ]
   }
 ]
+
+const filteredLinks = computed(() => {
+  return categorizedLinks.map(category => ({
+    ...category,
+    links: category.links.filter(link => authStore.canAccess(link.moduleId))
+  })).filter(category => category.links.length > 0);
+});
 
 const isActive = (path) => {
   if (path === '/admin') return route.path === '/admin'
@@ -205,7 +212,7 @@ const isActive = (path) => {
 }
 
 const currentSection = computed(() => {
-  for (const category of categorizedLinks) {
+  for (const category of filteredLinks.value) {
     const active = category.links.find((link) => isActive(link.path))
     if (active) return active.text
   }
@@ -220,6 +227,17 @@ const handleLogout = async () => {
 watch(isMenuOpen, (open) => {
   document.body.style.overflow = open ? 'hidden' : ''
 })
+
+onMounted(() => {
+  // Si entramos a /admin pero no tenemos acceso al dashboard,
+  // redirigimos automáticamente al primer módulo permitido.
+  if (route.path === '/admin' && !authStore.canAccess('DASHBOARD')) {
+    const firstAvailable = filteredLinks.value[0]?.links[0];
+    if (firstAvailable) {
+      router.replace(firstAvailable.path);
+    }
+  }
+});
 
 onUnmounted(() => {
   document.body.style.overflow = ''

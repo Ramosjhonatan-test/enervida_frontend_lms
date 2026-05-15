@@ -44,133 +44,157 @@ const router = createRouter({
     {
       path: '/admin',
       component: AdminLayout,
-      meta: { requiresAuth: true, role: 'admin' }, // Admin
+      meta: { requiresAuth: true, requiresAdmin: true }, // Acceso base administrativo
       children: [
         {
           path: '',
           name: 'admin-dashboard',
-          component: () => import('../views/admin/AdminDashboard.vue')
+          component: () => import('../views/admin/AdminDashboard.vue'),
+          meta: { moduleId: 'DASHBOARD' }
         },
         {
           path: 'solicitudes',
           name: 'admin-solicitudes',
-          component: () => import('../views/admin/AdminSolicitudes.vue')
+          component: () => import('../views/admin/AdminSolicitudes.vue'),
+          meta: { moduleId: 'SOLICITUDES' }
         },
         {
           path: 'cursos',
           name: 'admin-cursos',
-          component: () => import('../views/admin/AdminCursos.vue')
+          component: () => import('../views/admin/AdminCursos.vue'),
+          meta: { moduleId: 'CURSOS' }
         },
         {
           path: 'cursos/nuevo',
           name: 'admin-curso-nuevo',
-          component: () => import('../views/admin/AdminCursoForm.vue')
+          component: () => import('../views/admin/AdminCursoForm.vue'),
+          meta: { moduleId: 'CURSOS' }
         },
         {
           path: 'cursos/editar/:id',
           name: 'admin-curso-editar',
           component: () => import('../views/admin/AdminCursoForm.vue'),
-          props: true
+          props: true,
+          meta: { moduleId: 'CURSOS' }
         },
         {
           path: 'cursos/:id',
           name: 'admin-curso-detalle',
           component: () => import('../views/admin/AdminCursoDetalle.vue'),
-          props: true
+          props: true,
+          meta: { moduleId: 'CURSOS' }
         },
         {
           path: 'estudiantes',
           name: 'admin-estudiantes',
-          component: () => import('../views/admin/AdminEstudiantes.vue')
+          component: () => import('../views/admin/AdminEstudiantes.vue'),
+          meta: { moduleId: 'ESTUDIANTES' }
         },
         {
           path: 'estudiantes/nuevo',
           name: 'admin-estudiante-nuevo',
-          component: () => import('../views/admin/AdminEstudianteForm.vue')
+          component: () => import('../views/admin/AdminEstudianteForm.vue'),
+          meta: { moduleId: 'ESTUDIANTES' }
         },
         {
           path: 'estudiantes/editar/:id',
           name: 'admin-estudiante-editar',
           component: () => import('../views/admin/AdminEstudianteForm.vue'),
-          props: true
+          props: true,
+          meta: { moduleId: 'ESTUDIANTES' }
         },
         {
           path: 'estudiantes/:id',
           name: 'admin-estudiante-detalle',
           component: () => import('../views/admin/AdminEstudianteDetalle.vue'),
-          props: true
+          props: true,
+          meta: { moduleId: 'ESTUDIANTES' }
         },
         {
           path: 'evaluaciones',
           name: 'admin-evaluaciones',
-          component: () => import('../views/admin/AdminEvaluaciones.vue')
+          component: () => import('../views/admin/AdminEvaluaciones.vue'),
+          meta: { moduleId: 'EVALUACIONES' }
         },
         {
           path: 'evaluaciones/:id/preguntas',
           name: 'admin-preguntas',
           component: () => import('../views/admin/AdminPreguntas.vue'),
-          props: true
+          props: true,
+          meta: { moduleId: 'EVALUACIONES' }
         },
         {
           path: 'reportes',
           name: 'admin-reportes',
-          component: () => import('../views/admin/AdminReportes.vue')
+          component: () => import('../views/admin/AdminReportes.vue'),
+          meta: { moduleId: 'REPORTES' }
         },
         {
           path: 'auditoria',
           name: 'admin-auditoria',
-          component: () => import('../views/admin/AdminAuditoria.vue')
+          component: () => import('../views/admin/AdminAuditoria.vue'),
+          meta: { moduleId: 'AUDITORIA' }
         },
         {
           path: 'clases-en-vivo',
           name: 'admin-clases-en-vivo',
-          component: () => import('../views/admin/AdminClasesVivo.vue')
+          component: () => import('../views/admin/AdminClasesVivo.vue'),
+          meta: { moduleId: 'CLASES_VIVO' }
         },
         {
           path: 'usuarios',
           name: 'admin-usuarios',
-          component: () => import('../views/admin/AdminUsuarios.vue')
+          component: () => import('../views/admin/AdminUsuarios.vue'),
+          meta: { moduleId: 'USUARIOS' }
         },
         {
           path: 'categorias',
           name: 'admin-categorias',
-          component: () => import('../views/admin/AdminCategorias.vue')
+          component: () => import('../views/admin/AdminCategorias.vue'),
+          meta: { moduleId: 'CATEGORIAS' }
         },
         {
           path: 'roles',
           name: 'admin-roles',
-          component: () => import('../views/admin/AdminRoles.vue')
+          component: () => import('../views/admin/AdminRoles.vue'),
+          meta: { moduleId: 'ROLES' }
         },
         {
           path: 'inscripciones',
           name: 'admin-inscripciones',
-          component: () => import('../views/admin/AdminInscripciones.vue')
+          component: () => import('../views/admin/AdminInscripciones.vue'),
+          meta: { moduleId: 'INSCRIPCIONES' }
         },
         {
           path: 'notificaciones',
           name: 'admin-notificaciones',
-          component: () => import('../views/admin/AdminNotificaciones.vue')
+          component: () => import('../views/admin/AdminNotificaciones.vue'),
+          meta: { moduleId: 'NOTIFICACIONES' }
         },
         {
           path: 'dispositivos',
           name: 'admin-dispositivos',
-          component: () => import('../views/admin/AdminDispositivos.vue')
+          component: () => import('../views/admin/AdminDispositivos.vue'),
+          meta: { moduleId: 'DISPOSITIVOS' }
         },
         {
           path: 'certificados',
           name: 'admin-certificados',
-          component: () => import('../views/admin/AdminCertificados.vue')
+          component: () => import('../views/admin/AdminCertificados.vue'),
+          meta: { moduleId: 'CERTIFICADOS' }
         },
         {
           path: 'certificados/diseno/:cursoId',
           name: 'admin-certificado-editor',
           component: () => import('../views/admin/AdminCertificadoEditor.vue'),
-          props: true
+          props: true,
+          meta: { moduleId: 'CERTIFICADOS' }
         },
         {
           path: 'archivos',
           name: 'admin-archivos',
-          component: () => import('../views/admin/AdminArchivos.vue')
+          component: () => import('../views/admin/AdminArchivos.vue'),
+          meta: { moduleId: 'ARCHIVOS' }
         }
       ]
     },
@@ -264,19 +288,53 @@ router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
   const isAuthenticated = authStore.isAuthenticated
   const user = authStore.user
+  const userRole = user?.rol?.nombre?.toLowerCase()
 
+  // 1. Manejo de rutas que requieren autenticación
   if (to.meta.requiresAuth) {
     if (!isAuthenticated) {
       return next('/login');
     }
 
-    if (to.meta.role && user.rol?.nombre !== to.meta.role) {
-      return next(user.rol?.nombre === 'admin' ? '/admin' : '/student');
+    // Si requiere rol específico (ej: estudiante)
+    if (to.meta.role && userRole !== to.meta.role.toLowerCase()) {
+      // Si el usuario no tiene el rol requerido, lo mandamos a su área correspondiente
+      const target = userRole === 'estudiante' ? '/student' : '/admin';
+      return next(target);
+    }
+
+    // 2. Control de acceso granular para rutas administrativas
+    const isUnderAdmin = to.matched.some(record => record.path.startsWith('/admin'));
+    if (isUnderAdmin) {
+      if (userRole !== 'admin') {
+        // Obtenemos el moduleId de la ruta actual o de sus padres
+        const moduleId = to.meta.moduleId || to.matched.find(r => r.meta.moduleId)?.meta.moduleId;
+        
+        if (moduleId && !authStore.canAccess(moduleId)) {
+          console.warn(`Acceso denegado al módulo: ${moduleId}`);
+          
+          // EVITAR BUCLE: Si ya estamos en la app y no tenemos permiso, no navegar.
+          // Si venimos de login o fuera, permitimos entrar al layout de admin
+          // y que el AdminLayout decida a donde mandarlo.
+          if (from.path && from.path !== '/' && from.path !== '/login') {
+            return next(false);
+          } else {
+            if (to.path !== '/admin') {
+              return next('/admin');
+            } else {
+              return next();
+            }
+          }
+        }
+      }
     }
   }
 
+  // 3. Redirección de usuarios autenticados que intentan entrar a login/register (guest routes)
   if (to.meta.guest && isAuthenticated) {
-    return next(user.rol?.nombre === 'admin' ? '/admin' : '/student');
+    // Si es estudiante va a /student, cualquier otro rol (admin, profesor, etc.) va a /admin
+    const target = userRole === 'estudiante' ? '/student' : '/admin';
+    return next(target);
   }
 
   next();

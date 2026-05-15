@@ -12,6 +12,25 @@ export const useAuthStore = defineStore('auth', {
   getters: {
     isAuthenticated: (state) => !!state.accessToken,
     userRole: (state) => state.user?.rol?.nombre || null,
+    canAccess: (state) => (moduloId) => {
+      if (!state.user || !state.user.rol) return false;
+      const roleName = state.user.rol.nombre.toLowerCase();
+      
+      // Superadmin tiene acceso a todo
+      if (roleName === 'admin') return true;
+      
+      // Intentar parsear los permisos del campo descripcion
+      try {
+        const desc = state.user.rol.descripcion;
+        if (desc && desc.startsWith('{')) {
+          const data = JSON.parse(desc);
+          return data.permisos?.includes(moduloId);
+        }
+      } catch (e) {
+        console.warn('Error parsing permissions for role:', roleName);
+      }
+      return false;
+    }
   },
 
   actions: {

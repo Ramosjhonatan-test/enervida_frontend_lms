@@ -6,7 +6,7 @@
         <p class="text-on-surface/40 mt-4 text-lg font-light">Gestiona las sesiones síncronas de Jitsi Meet.</p>
       </div>
       <button @click="openModal()" class="btn-premium btn-primary-neon !px-10 !py-5 gap-3 shadow-2xl">
-        <span class="material-symbols-outlined font-black">add</span>
+        <span class="material-symbols-outlined font-black ">add</span>
         Nueva Sesión
       </button>
     </div>

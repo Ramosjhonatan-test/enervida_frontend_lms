@@ -4,6 +4,7 @@ import { API_BASE_URL } from '@/config';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
+  timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -21,8 +22,11 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    const authUrls = ['/auth/login', '/auth/register', '/auth/refresh', '/auth/google'];
+    const isAuthRequest = authUrls.some(url => originalRequest.url.includes(url));
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    // Si es 401 y no es una petición de autenticación, intentamos refrescar el token
+    if (error.response?.status === 401 && !originalRequest._retry && !isAuthRequest) {
       originalRequest._retry = true;
       const authStore = useAuthStore();
 
@@ -34,7 +38,10 @@ api.interceptors.response.use(
         }
       } catch (refreshError) {
         authStore.clearAuth();
-        window.location.href = '/login';
+        // Solo redirigir si no estamos ya en login
+        if (window.location.pathname !== '/login') {
+          window.location.href = '/login';
+        }
         return Promise.reject(refreshError);
       }
     }
