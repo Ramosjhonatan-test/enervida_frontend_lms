@@ -79,28 +79,35 @@
               </div>
             </div>
             
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
               <div v-for="modulo in listaModulos" :key="modulo.id" 
                 @click="toggleModulo(modulo.id)"
                 :class="[
-                  'cursor-pointer p-5 rounded-3xl transition-all duration-300 flex items-center gap-4 group/mod relative overflow-hidden',
+                  'cursor-pointer p-4 rounded-3xl transition-all duration-500 flex items-center gap-4 group/mod relative overflow-hidden',
+                  'bg-on-surface/[0.04] shadow-sm',
                   permisosSeleccionados.includes(modulo.id) 
-                    ? 'bg-accent-neon/10 shadow-neon-sm' 
-                    : 'bg-on-surface/[0.04] hover:bg-on-surface/[0.08] hover:-translate-y-1'
+                    ? 'bg-accent-neon text-black shadow-neon-sm !-translate-y-1' 
+                    : 'hover:bg-accent-neon hover:text-black hover:-translate-y-1 hover:shadow-neon-sm'
                 ]"
               >
+                <!-- Indicador de selección lateral -->
+                <div v-if="permisosSeleccionados.includes(modulo.id)" class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-black/20 rounded-r-full"></div>
+
                 <div :class="[
-                  'w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500',
-                  permisosSeleccionados.includes(modulo.id) ? 'bg-accent-neon text-black scale-110 shadow-neon-sm' : 'bg-on-surface/5 text-on-surface/40 group-hover/mod:text-accent-neon group-hover/mod:bg-accent-neon/10'
+                  'w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-500 shrink-0',
+                  permisosSeleccionados.includes(modulo.id) ? 'bg-black/10 text-black scale-110' : 'bg-on-surface/5 text-on-surface/30 group-hover/mod:text-black group-hover/mod:bg-black/10 group-hover/mod:scale-110'
                 ]">
-                  <span class="material-symbols-outlined text-lg">{{ modulo.icon }}</span>
+                  <span class="material-symbols-outlined text-xl">{{ modulo.icon }}</span>
                 </div>
-                <div class="flex flex-col gap-0.5">
+                <div class="flex flex-col min-w-0">
                   <span :class="[
-                    'text-[11px] font-black uppercase tracking-tight transition-colors',
-                    permisosSeleccionados.includes(modulo.id) ? 'text-accent-neon' : 'text-on-surface/60 group-hover/mod:text-on-surface'
+                    'text-[11px] font-black uppercase tracking-tight transition-colors truncate',
+                    permisosSeleccionados.includes(modulo.id) ? 'text-black' : 'text-on-surface/60 group-hover/mod:text-black'
                   ]">{{ modulo.label }}</span>
-                  <span class="text-[8px] font-black text-on-surface/20 uppercase font-mono tracking-tighter">{{ modulo.id }}</span>
+                  <span :class="[
+                    'text-[8px] font-black uppercase font-mono tracking-tighter transition-colors',
+                    permisosSeleccionados.includes(modulo.id) ? 'text-black/40' : 'text-on-surface/20 group-hover/mod:text-black/40'
+                  ]">{{ modulo.id }}</span>
                 </div>
               </div>
             </div>
@@ -130,11 +137,10 @@
           </thead>
           <tbody>
             <tr v-for="rol in roles" :key="rol.id" class="group hover:bg-accent-neon/[0.02] transition-all duration-500 relative">
-              <td class="p-8 relative">
-                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-12 bg-accent-neon scale-y-0 group-hover:scale-y-100 transition-transform rounded-r-full"></div>
+              <td class="p-8">
                 <div class="flex items-center gap-5">
                   <div class="w-12 h-12 rounded-[18px] bg-on-surface/5 flex items-center justify-center text-on-surface/30 group-hover:bg-accent-neon/10 group-hover:text-accent-neon group-hover:shadow-neon-sm transition-all duration-500">
-                    <span class="material-symbols-outlined text-xl">shield_person</span>
+                    <span class="material-symbols-outlined text-xl">verified_user</span>
                   </div>
                   <div class="flex flex-col">
                     <span class="text-sm font-black text-on-surface uppercase tracking-tight group-hover:text-accent-neon transition-colors">{{ rol.nombre }}</span>
@@ -162,10 +168,10 @@
               </td>
               <td class="p-8 text-right">
                 <div class="flex justify-end gap-3">
-                  <button @click="openEdit(rol)" class="w-12 h-12 rounded-2xl bg-on-surface/5 flex items-center justify-center text-on-surface/20 hover:bg-blue-500/10 hover:text-blue-500 hover:-translate-y-1 transition-all duration-300 shadow-sm" title="Editar Configuración">
+                  <button @click="openEdit(rol)" class="w-12 h-12 rounded-2xl bg-on-surface/[0.04] flex items-center justify-center text-on-surface/20 hover:bg-blue-600 hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-sm" title="Editar Configuración">
                     <span class="material-symbols-outlined text-lg">edit_note</span>
                   </button>
-                  <button v-if="!isSystemRole(rol.nombre)" @click="deleteRol(rol.id)" class="w-12 h-12 rounded-2xl bg-on-surface/5 flex items-center justify-center text-on-surface/20 hover:bg-red-500/10 hover:text-red-500 hover:-translate-y-1 transition-all duration-300 shadow-sm" title="Eliminar Rol">
+                  <button v-if="!isSystemRole(rol.nombre)" @click="deleteRol(rol.id)" class="w-12 h-12 rounded-2xl bg-on-surface/[0.04] flex items-center justify-center text-on-surface/20 hover:bg-red-600 hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-sm" title="Eliminar Rol">
                     <span class="material-symbols-outlined text-lg">delete_sweep</span>
                   </button>
                 </div>
@@ -233,7 +239,7 @@ const listaModulos = [
   { id: 'EVALUACIONES', label: 'Exámenes', icon: 'quiz' },
   { id: 'SOLICITUDES', label: 'Solicitudes', icon: 'assignment' },
   { id: 'AUDITORIA', label: 'Logs de Auditoría', icon: 'policy' },
-  { id: 'ROLES', label: 'Roles y Permisos', icon: 'shield_person' },
+  { id: 'ROLES', label: 'Roles y Permisos', icon: 'settings_accessibility' },
   { id: 'DISPOSITIVOS', label: 'Seguridad / Sesiones', icon: 'devices' },
   { id: 'USUARIOS', label: 'Personal (Staff)', icon: 'manage_accounts' },
   { id: 'NOTIFICACIONES', label: 'Notificaciones', icon: 'notifications' },

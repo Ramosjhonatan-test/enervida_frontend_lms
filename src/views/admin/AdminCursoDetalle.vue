@@ -7,7 +7,7 @@
     <div v-else-if="curso" class="space-y-8">
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
         <div class="flex items-center gap-4">
-          <router-link to="/admin/cursos" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-on-surface/60 hover:text-accent-neon hover:bg-accent-neon/10 transition-all shrink-0">
+          <router-link to="/admin/cursos" class="w-10 h-10 rounded-xl bg-on-surface/[0.04] flex items-center justify-center text-on-surface/60 hover:text-white hover:bg-accent-neon transition-all shrink-0 shadow-sm">
             <span class="material-symbols-outlined text-sm">arrow_back</span>
           </router-link>
           <div class="min-w-0">
@@ -20,7 +20,7 @@
         </div>
         
         <div class="flex gap-3 w-full sm:w-auto">
-          <router-link :to="'/admin/cursos/editar/' + curso.id" class="btn-premium btn-secondary-glass !px-4 sm:!px-6 flex-1 sm:flex-none justify-center">
+          <router-link :to="'/admin/cursos/editar/' + curso.id" class="btn-premium bg-on-surface/[0.04] hover:bg-blue-600 hover:text-white !px-4 sm:!px-6 flex-1 sm:flex-none justify-center transition-all duration-300">
             <span class="material-symbols-outlined text-sm">edit</span>
             Editar
           </router-link>
@@ -73,7 +73,7 @@
               <button @click="openAddLeccion(modulo.id)" class="p-2 bg-accent-neon/10 text-accent-neon hover:bg-accent-neon hover:text-primary rounded-xl transition-colors text-xs sm:text-sm flex items-center gap-1 font-bold flex-1 sm:flex-none justify-center">
                 <span class="material-symbols-outlined text-sm">add</span> Lección
               </button>
-              <button @click="deleteModulo(modulo.id)" class="p-2 bg-on-surface/5 text-on-surface/60 hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-colors shrink-0">
+              <button @click="deleteModulo(modulo.id)" class="w-9 h-9 bg-on-surface/5 text-on-surface/40 hover:text-white hover:bg-red-600 rounded-xl transition-all flex items-center justify-center shrink-0">
                 <span class="material-symbols-outlined text-sm">delete</span>
               </button>
             </div>
@@ -180,7 +180,7 @@
                 </div>
                 <div class="flex gap-2">
                   <!-- Solo boton de eliminar para MVP, edición requeriria modal -->
-                  <button @click="deleteLeccion(leccion.id)" class="p-2 text-on-surface/40 hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-colors">
+                  <button @click="deleteLeccion(leccion.id)" class="w-8 h-8 flex items-center justify-center text-on-surface/20 hover:text-white hover:bg-red-600 rounded-lg transition-all">
                     <span class="material-symbols-outlined text-sm">delete</span>
                   </button>
                 </div>
