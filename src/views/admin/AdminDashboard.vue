@@ -597,6 +597,36 @@ const barChartData = computed(() => {
   }
 })
 
+const tooltipCallbacks = {
+  title: function(context) {
+    const item = context[0]
+    if (item.dataset.fullLabels) {
+      const text = item.dataset.fullLabels[item.dataIndex]
+      // Dividir el texto en múltiples líneas si es muy largo para mejor legibilidad
+      if (text && text.length > 40) {
+         return text.match(/.{1,40}(\s|$)/g) || text
+      }
+      return text
+    }
+    return item.label
+  },
+  label: function(context) {
+    let label = context.dataset.label || ''
+    if (label) label += ': '
+    label += context.formattedValue
+
+    // Cálculo y visualización de porcentajes detallados para gráficos circulares
+    if (context.chart.config.type === 'doughnut' || context.chart.config.type === 'pie') {
+      const dataArr = context.chart.data.datasets[0].data
+      const sum = dataArr.reduce((a, b) => a + b, 0)
+      const val = context.raw
+      const percentage = sum > 0 ? ((val * 100) / sum).toFixed(1) + '%' : '0%'
+      return `${label} (${percentage} del total)`
+    }
+    return label
+  }
+}
+
 const barChartOptions = {
   responsive: true,
   maintainAspectRatio: false,
@@ -610,9 +640,12 @@ const barChartOptions = {
       borderWidth: 1,
       cornerRadius: 12,
       padding: 14,
-      titleFont: { size: 13, weight: 'bold' },
-      bodyFont: { size: 12 },
-      displayColors: false
+      titleFont: { size: 14, weight: 'bold', family: "'Inter', sans-serif" },
+      bodyFont: { size: 13, family: "'Inter', sans-serif" },
+      displayColors: true,
+      boxPadding: 6,
+      usePointStyle: true,
+      callbacks: tooltipCallbacks
     }
   },
   scales: {
@@ -645,9 +678,12 @@ const barChartExpandedOptions = {
       borderWidth: 1,
       cornerRadius: 12,
       padding: 16,
-      titleFont: { size: 16, weight: 'bold' },
-      bodyFont: { size: 14 },
-      displayColors: true
+      titleFont: { size: 16, weight: 'bold', family: "'Inter', sans-serif" },
+      bodyFont: { size: 15, family: "'Inter', sans-serif" },
+      displayColors: true,
+      boxPadding: 8,
+      usePointStyle: true,
+      callbacks: tooltipCallbacks
     }
   },
   scales: {
@@ -671,6 +707,8 @@ const doughnutChartData = computed(() => {
   return {
     labels: topCourses.value.map(c => c.titulo.length > 18 ? c.titulo.slice(0, 18) + '…' : c.titulo),
     datasets: [{
+      label: 'Inscripciones',
+      fullLabels: topCourses.value.map(c => c.titulo),
       data: topCourses.value.map(c => c._count.inscripciones),
       backgroundColor: chartColors,
       borderColor: 'rgba(15,23,42,0.8)',
@@ -686,6 +724,7 @@ const doughnutChartDataExpanded = computed(() => {
     labels: topCourses.value.map(c => c.titulo),
     datasets: [{
       label: 'Inscripciones',
+      fullLabels: topCourses.value.map(c => c.titulo),
       data: topCourses.value.map(c => c._count.inscripciones),
       backgroundColor: chartColors,
       borderColor: 'rgba(15,23,42,0.8)',
@@ -711,7 +750,13 @@ const doughnutOptions = {
       borderColor: 'rgba(167,139,250,0.3)',
       borderWidth: 1,
       cornerRadius: 12,
-      padding: 14
+      padding: 16,
+      titleFont: { size: 14, weight: 'bold', family: "'Inter', sans-serif" },
+      bodyFont: { size: 13, family: "'Inter', sans-serif" },
+      displayColors: true,
+      boxPadding: 6,
+      usePointStyle: true,
+      callbacks: tooltipCallbacks
     }
   }
 }
@@ -778,6 +823,7 @@ const categoryChartData = computed(() => {
     labels: coursesByCategory.value.map(c => c.nombre.length > 12 ? c.nombre.slice(0, 12) + '…' : c.nombre),
     datasets: [{
       label: 'Cursos',
+      fullLabels: coursesByCategory.value.map(c => c.nombre),
       data: coursesByCategory.value.map(c => c._count.cursos),
       backgroundColor: '#fbbf24',
       borderRadius: 4,
@@ -792,6 +838,7 @@ const categoryChartDataExpanded = computed(() => {
     labels: coursesByCategory.value.map(c => c.nombre), // Texto completo
     datasets: [{
       label: 'Cursos',
+      fullLabels: coursesByCategory.value.map(c => c.nombre),
       data: coursesByCategory.value.map(c => c._count.cursos),
       backgroundColor: '#fbbf24',
       borderRadius: 6,
