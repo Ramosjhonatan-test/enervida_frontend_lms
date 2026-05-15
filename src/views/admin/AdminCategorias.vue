@@ -1,22 +1,30 @@
 <template>
   <div class="space-y-10 animate-fade-in">
     <!-- Header -->
-    <div class="panel-hero p-6 sm:p-8">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+    <div class="panel-hero p-8 relative overflow-hidden group rounded-[40px] bg-on-surface/[0.03] !border-none shadow-2xl">
+      <div class="absolute -right-20 -top-20 w-80 h-80 bg-accent-neon/10 rounded-full blur-[100px] group-hover:bg-accent-neon/20 transition-all duration-1000"></div>
+      
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-8 relative z-10">
         <div>
-          <h2 class="text-3xl font-black text-on-surface font-lexend tracking-tighter">Gestión de <span class="text-accent-neon ">Categorías</span></h2>
-          <p class="text-on-surface/40 mt-1 text-xs font-bold uppercase tracking-widest">Organiza tus cursos por temáticas y áreas de conocimiento</p>
+          <h2 class="text-3xl font-black text-on-surface font-lexend tracking-tighter">Gestión de <span class="text-accent-neon">Categorías</span></h2>
+          <p class="text-on-surface/40 mt-3 text-[10px] font-bold uppercase tracking-[0.3em] flex items-center gap-2">
+            <span class="flex h-1.5 w-1.5 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-neon opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-accent-neon"></span>
+            </span>
+            ORGANIZACIÓN ESTRUCTURAL DE CURSOS
+          </p>
         </div>
-        <button @click="toggleForm()" class="btn-premium btn-primary-neon !py-4 gap-2">
-          <span class="material-symbols-outlined text-sm">{{ showForm ? 'close' : 'add_category' }}</span>
-          {{ showForm ? 'Cancelar' : 'Nueva Categoría' }}
+        <button @click="toggleForm()" class="btn-premium btn-primary-neon !py-4 px-8 gap-3 group/btn shadow-neon-sm">
+          <span class="material-symbols-outlined text-lg transition-transform" :class="{ 'rotate-45': showForm }">{{ showForm ? 'add' : 'add_category' }}</span>
+          <span class="font-black uppercase text-xs tracking-widest">{{ showForm ? 'Cancelar' : 'Nueva Categoría' }}</span>
         </button>
       </div>
     </div>
 
     <!-- Inline Form Panel -->
     <transition name="slide-fade">
-      <div v-if="showForm" class="glass-card p-6 sm:p-8 rounded-[32px]">
+      <div v-if="showForm" class="glass-card p-6 sm:p-8 rounded-[32px] !border-none shadow-2xl">
         <div class="flex items-center gap-3 mb-6">
           <div class="w-10 h-10 rounded-xl bg-accent-neon/10 flex items-center justify-center text-accent-neon">
             <span class="material-symbols-outlined text-sm">{{ isEditing ? 'edit' : 'add_category' }}</span>
@@ -32,16 +40,16 @@
         <form @submit.prevent="saveCategoria" class="flex flex-col lg:flex-row gap-6">
           <div class="flex-1 space-y-2">
             <label class="text-[11px] font-black text-on-surface/40 uppercase tracking-widest ml-1">Nombre</label>
-            <input type="text" v-model="form.nombre" required placeholder="Ej. Energías Renovables" class="input-cyber w-full" />
+            <input type="text" v-model="form.nombre" required placeholder="Ej. Energías Renovables" class="input-cyber w-full !bg-on-surface/[0.04] !border-none" />
           </div>
 
           <div class="flex-[2] space-y-2">
             <label class="text-[11px] font-black text-on-surface/40 uppercase tracking-widest ml-1">Descripción</label>
-            <input type="text" v-model="form.descripcion" placeholder="Breve descripción de la categoría..." class="input-cyber w-full" />
+            <input type="text" v-model="form.descripcion" placeholder="Breve descripción de la categoría..." class="input-cyber w-full !bg-on-surface/[0.04] !border-none" />
           </div>
 
           <div class="flex items-end gap-3 shrink-0">
-            <button type="button" @click="showForm = false" class="btn-premium glass-card justify-center !py-3.5 !px-6">Cancelar</button>
+            <button type="button" @click="showForm = false" class="btn-premium glass-card justify-center !py-3.5 !px-6 !border-none shadow-xl">Cancelar</button>
             <button type="submit" :disabled="saving" class="btn-premium btn-primary-neon justify-center !py-3.5 !px-8 relative overflow-hidden">
               <div v-if="saving" class="shimmer-effect"></div>
               <span v-if="!saving">{{ isEditing ? 'Guardar' : 'Crear' }}</span>
@@ -53,18 +61,18 @@
     </transition>
 
     <!-- Categorias Table -->
-    <div class="glass-card-premium rounded-[40px] overflow-hidden">
+    <div class="glass-card-premium rounded-[40px] overflow-hidden !border-none shadow-2xl">
       <div class="overflow-x-auto">
         <table class="w-full min-w-[800px] text-left border-separate border-spacing-0">
           <thead>
             <tr class="bg-on-surface/[0.03]">
-              <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Nombre de Categoría</th>
-              <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Descripción</th>
-              <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest text-right">Acciones</th>
+              <th class="p-6 text-[10px] font-black text-on-surface/30 uppercase tracking-widest">Nombre de Categoría</th>
+              <th class="p-6 text-[10px] font-black text-on-surface/30 uppercase tracking-widest">Descripción</th>
+              <th class="p-6 text-[10px] font-black text-on-surface/30 uppercase tracking-widest text-right">Acciones Directas</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="cat in categorias" :key="cat.id" class="group hover:bg-on-surface/[0.03] transition-colors">
+            <tr v-for="cat in categorias" :key="cat.id" class="group hover:bg-accent-neon/[0.02] transition-all duration-500 relative">
               <td class="p-6">
                 <div class="flex items-center gap-4">
                   <div class="w-10 h-10 rounded-xl bg-accent-neon/10 flex items-center justify-center text-accent-neon shadow-neon-sm">
@@ -77,11 +85,11 @@
                 <p class="text-xs text-on-surface/60 line-clamp-1 max-w-md">{{ cat.descripcion || 'Sin descripción' }}</p>
               </td>
               <td class="p-6 text-right">
-                <div class="flex justify-end gap-2">
-                  <button @click="openEdit(cat)" class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 hover:bg-blue-600 hover:text-white transition-all" title="Editar">
+                <div class="flex justify-end gap-3">
+                  <button @click="openEdit(cat)" class="w-11 h-11 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-500 hover:bg-blue-500 hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-blue-500/40" title="Editar">
                     <span class="material-symbols-outlined text-xl">edit</span>
                   </button>
-                  <button @click="deleteCategoria(cat.id)" class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-600 hover:text-white transition-all" title="Eliminar">
+                  <button @click="deleteCategoria(cat.id)" class="w-11 h-11 rounded-xl bg-red-500/20 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-red-500/40" title="Eliminar">
                     <span class="material-symbols-outlined text-xl">delete</span>
                   </button>
                 </div>

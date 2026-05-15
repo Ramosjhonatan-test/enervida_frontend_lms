@@ -103,12 +103,12 @@
               </td>
               <td class="p-6 md:p-8 text-right">
                 <div v-if="solicitud.estado === 'PENDIENTE'" class="flex justify-end gap-3">
-                  <button @click="updateStatus(solicitud.id, 'ACTIVO')" :disabled="processingId === solicitud.id" class="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon hover:bg-accent-neon hover:text-primary transition-all shadow-lg hover:shadow-accent-neon/30" title="Aprobar Inscripción">
-                    <svg v-if="processingId !== solicitud.id" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                    <svg v-else class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                  <button @click="updateStatus(solicitud.id, 'ACTIVO')" :disabled="processingId === solicitud.id" class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 hover:bg-emerald-600 hover:text-white transition-all duration-300 shadow-lg" title="Aprobar Inscripción">
+                    <span v-if="processingId !== solicitud.id" class="material-symbols-outlined text-xl">check</span>
+                    <span v-else class="animate-spin material-symbols-outlined text-xl">refresh</span>
                   </button>
-                  <button @click="updateStatus(solicitud.id, 'INACTIVO')" :disabled="processingId === solicitud.id" class="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-all shadow-lg hover:shadow-red-500/30" title="Rechazar Inscripción">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                  <button @click="updateStatus(solicitud.id, 'INACTIVO')" :disabled="processingId === solicitud.id" class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-600 hover:text-white transition-all duration-300 shadow-lg" title="Rechazar Inscripción">
+                    <span class="material-symbols-outlined text-xl">close</span>
                   </button>
                 </div>
                 <div v-else>

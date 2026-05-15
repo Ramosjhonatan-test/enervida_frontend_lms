@@ -44,7 +44,7 @@
               <span class="material-symbols-outlined text-lg transition-transform group-hover/btn:rotate-180 duration-500 relative" :class="{ 'animate-spin': loading }">refresh</span>
               <span class="relative">Sincronizar</span>
             </button>
-            <button @click="confirmClearAll" class="btn-premium bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white shadow-none hover:shadow-[0_0_30px_rgba(239,68,68,0.3)] transition-all !py-4 gap-2 px-6 border-none">
+            <button @click="confirmClearAll" class="btn-premium bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white shadow-sm hover:shadow-red-500/20 transition-all !py-4 gap-2 px-6 !border-none">
               <span class="material-symbols-outlined text-lg">delete_sweep</span>
               Limpiar Bitácora
             </button>
@@ -55,7 +55,7 @@
 
     <!-- Quick Stats -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
-      <div class="glass-card rounded-[40px] p-8 relative overflow-hidden group hover:-translate-y-1 transition-all duration-500">
+      <div class="glass-card rounded-[40px] p-8 relative overflow-hidden group hover:-translate-y-1 transition-all duration-500 !border-none bg-on-surface/[0.03]">
         <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
           <span class="material-symbols-outlined text-7xl">database</span>
         </div>
@@ -75,7 +75,7 @@
       </div>
 
       <!-- Creations -->
-      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500">
+      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500 !border-none bg-on-surface/[0.03]">
         <div class="flex items-center justify-between mb-6">
           <p class="text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Creaciones</p>
           <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center text-green-500 group-hover:shadow-[0_0_15px_rgba(34,197,94,0.2)] transition-all">
@@ -90,7 +90,7 @@
       </div>
 
       <!-- Ediciones -->
-      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500">
+      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500 !border-none bg-on-surface/[0.03]">
         <div class="flex items-center justify-between mb-6">
           <p class="text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Ediciones</p>
           <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.2)] transition-all">
@@ -107,7 +107,7 @@
       </div>
 
       <!-- Deletions -->
-      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500 relative overflow-hidden">
+      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500 relative overflow-hidden !border-none bg-on-surface/[0.03]">
         <div class="flex items-center justify-between mb-6">
           <p class="text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Eliminaciones</p>
           <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 group-hover:shadow-[0_0_15px_rgba(239,68,68,0.2)] transition-all">
@@ -122,7 +122,7 @@
       </div>
 
       <!-- Top Actor -->
-      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500 relative overflow-hidden">
+      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500 relative overflow-hidden !border-none bg-on-surface/[0.03]">
         <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
           <span class="material-symbols-outlined text-7xl text-purple-500">person</span>
         </div>
@@ -137,7 +137,7 @@
       </div>
 
       <!-- Top Entity -->
-      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500 relative overflow-hidden">
+      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500 relative overflow-hidden !border-none bg-on-surface/[0.03]">
         <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
           <span class="material-symbols-outlined text-7xl text-orange-500">inventory_2</span>
         </div>
@@ -369,7 +369,7 @@
                 <td class="p-6 text-right">
                   <button 
                     @click="openDetails(log)" 
-                    class="btn-icon-premium hover:bg-accent-neon hover:text-black transition-all ml-auto"
+                    class="w-10 h-10 rounded-xl bg-accent-neon/10 flex items-center justify-center text-accent-neon hover:bg-accent-neon hover:text-black transition-all duration-300 shadow-sm hover:shadow-neon-sm ml-auto"
                   >
                     <span class="material-symbols-outlined text-lg">open_in_new</span>
                   </button>

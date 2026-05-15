@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-10 animate-fade-in text-on-surface pb-20">
     <!-- Header & Hero -->
-    <div class="panel-hero p-10 relative overflow-hidden group rounded-[40px] bg-on-surface/[0.03] !border-none">
+    <div class="panel-hero p-10 relative overflow-hidden group rounded-[40px] bg-on-surface/[0.03] !border-none shadow-2xl">
       <div class="absolute -right-20 -top-20 w-80 h-80 bg-accent-neon/10 rounded-full blur-[100px] group-hover:bg-accent-neon/20 transition-all duration-1000"></div>
       <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-primary/5 rounded-full blur-[80px]"></div>
 
@@ -139,7 +139,7 @@
             <tr v-for="rol in roles" :key="rol.id" class="group hover:bg-accent-neon/[0.02] transition-all duration-500 relative">
               <td class="p-8">
                 <div class="flex items-center gap-5">
-                  <div class="w-12 h-12 rounded-[18px] bg-on-surface/5 flex items-center justify-center text-on-surface/30 group-hover:bg-accent-neon/10 group-hover:text-accent-neon group-hover:shadow-neon-sm transition-all duration-500">
+                  <div class="w-12 h-12 rounded-[18px] bg-on-surface/5 flex items-center justify-center text-on-surface/30 group-hover:text-accent-neon transition-all duration-500">
                     <span class="material-symbols-outlined text-xl">verified_user</span>
                   </div>
                   <div class="flex flex-col">
@@ -168,10 +168,10 @@
               </td>
               <td class="p-8 text-right">
                 <div class="flex justify-end gap-3">
-                  <button @click="openEdit(rol)" class="w-11 h-11 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 hover:bg-blue-600 hover:text-white hover:-translate-y-1 transition-all duration-300" title="Editar Configuración">
+                  <button @click="openEdit(rol)" class="w-11 h-11 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-500 hover:bg-blue-500 hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-blue-500/40" title="Editar Configuración">
                     <span class="material-symbols-outlined text-xl">edit_note</span>
                   </button>
-                  <button v-if="!isSystemRole(rol.nombre)" @click="deleteRol(rol.id)" class="w-11 h-11 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-600 hover:text-white hover:-translate-y-1 transition-all duration-300" title="Eliminar Rol">
+                  <button v-if="!isSystemRole(rol.nombre)" @click="deleteRol(rol.id)" class="w-11 h-11 rounded-xl bg-red-500/20 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-red-500/40" title="Eliminar Rol">
                     <span class="material-symbols-outlined text-xl">delete_sweep</span>
                   </button>
                 </div>

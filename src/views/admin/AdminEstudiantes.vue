@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-10 animate-fade-in text-on-surface">
     <!-- Header & Hero -->
-    <div class="panel-hero p-10 relative overflow-hidden group rounded-[40px] bg-gradient-to-br from-on-surface/[0.03] to-transparent">
+    <div class="panel-hero p-10 relative overflow-hidden group rounded-[40px] bg-on-surface/[0.03] !border-none shadow-2xl">
       <div class="absolute -right-20 -top-20 w-80 h-80 bg-accent-neon/10 rounded-full blur-[100px] group-hover:bg-accent-neon/20 transition-all duration-1000"></div>
       <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-primary/5 rounded-full blur-[80px]"></div>
 
@@ -33,7 +33,7 @@
               v-model="searchQuery" 
               type="text" 
               placeholder="Buscar estudiante..." 
-              class="input-cyber !pl-14 !py-4 !text-sm w-full md:w-80 transition-all"
+              class="input-cyber !pl-14 !py-4 !text-sm w-full md:w-80 transition-all !bg-on-surface/[0.04] !border-none"
             />
           </div>
           <router-link to="/admin/estudiantes/nuevo" class="btn-premium btn-primary-neon !py-4 px-8 group/btn relative overflow-hidden">
@@ -47,7 +47,7 @@
 
     <!-- Stats Row -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-      <div class="glass-card rounded-[2.5rem] p-8 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
+      <div class="glass-card rounded-[2.5rem] p-8 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500 !border-none shadow-2xl">
         <div class="w-16 h-16 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon group-hover:shadow-neon-sm transition-all">
           <span class="material-symbols-outlined text-3xl">groups</span>
         </div>
@@ -56,7 +56,7 @@
           <p class="text-4xl font-black text-on-surface font-lexend tracking-tight">{{ estudiantes.length }}</p>
         </div>
       </div>
-      <div class="glass-card rounded-[2.5rem] p-8 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
+      <div class="glass-card rounded-[2.5rem] p-8 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500 !border-none shadow-2xl">
         <div class="w-16 h-16 rounded-2xl bg-accent-solar/10 flex items-center justify-center text-accent-solar group-hover:shadow-solar-sm transition-all">
           <span class="material-symbols-outlined text-3xl">how_to_reg</span>
         </div>
@@ -65,7 +65,7 @@
           <p class="text-4xl font-black text-on-surface font-lexend tracking-tight">{{ estudiantes.filter(e => e.estado === 'ACTIVO').length }}</p>
         </div>
       </div>
-      <div class="glass-card rounded-[2.5rem] p-8 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
+      <div class="glass-card rounded-[2.5rem] p-8 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500 !border-none shadow-2xl">
         <div class="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:shadow-blue-500/20 transition-all">
           <span class="material-symbols-outlined text-3xl">verified</span>
         </div>
@@ -74,7 +74,7 @@
           <p class="text-4xl font-black text-on-surface font-lexend tracking-tight">{{ estudiantes.filter(e => e.correo_verificado).length }}</p>
         </div>
       </div>
-      <div class="glass-card rounded-[2.5rem] p-8 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
+      <div class="glass-card rounded-[2.5rem] p-8 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500 !border-none shadow-2xl">
         <div class="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 group-hover:shadow-red-500/20 transition-all">
           <span class="material-symbols-outlined text-3xl">block</span>
         </div>
@@ -86,20 +86,20 @@
     </div>
 
     <!-- Students Table -->
-    <div class="glass-card-premium rounded-[40px] overflow-hidden">
+    <div class="glass-card-premium rounded-[40px] overflow-hidden !border-none shadow-2xl">
       <div class="overflow-x-auto">
         <table class="w-full min-w-[1000px] text-left border-separate border-spacing-0">
           <thead>
-            <tr>
-              <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Estudiante</th>
-              <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">CI / Identidad</th>
-              <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Contacto</th>
-              <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Estado</th>
-              <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest text-right">Acciones</th>
+            <tr class="bg-on-surface/[0.03]">
+              <th class="p-6 text-[10px] font-black text-on-surface/30 uppercase tracking-widest">Estudiante</th>
+              <th class="p-6 text-[10px] font-black text-on-surface/30 uppercase tracking-widest">CI / Identidad</th>
+              <th class="p-6 text-[10px] font-black text-on-surface/30 uppercase tracking-widest">Contacto</th>
+              <th class="p-6 text-[10px] font-black text-on-surface/30 uppercase tracking-widest">Estado</th>
+              <th class="p-6 text-[10px] font-black text-on-surface/30 uppercase tracking-widest text-right">Acciones Directas</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="estudiante in filteredEstudiantes" :key="estudiante.id" class="group hover:bg-on-surface/[0.03] transition-colors">
+            <tr v-for="estudiante in filteredEstudiantes" :key="estudiante.id" class="group hover:bg-accent-neon/[0.02] transition-all duration-500 relative">
               <td class="p-6">
                 <div class="flex items-center gap-4 group/user">
                   <div class="relative shrink-0">
@@ -141,19 +141,19 @@
                 </div>
               </td>
               <td class="p-6 text-right">
-                <div class="flex justify-end gap-2">
-                  <router-link :to="{ name: 'admin-estudiante-detalle', params: { id: estudiante.id } }" class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500 hover:bg-cyan-600 hover:text-white transition-all" title="Ver Detalle">
+                <div class="flex justify-end gap-3">
+                  <router-link :to="{ name: 'admin-estudiante-detalle', params: { id: estudiante.id } }" class="w-11 h-11 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500 hover:bg-cyan-500 hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-cyan-500/20" title="Ver Detalle">
                     <span class="material-symbols-outlined text-xl">visibility</span>
                   </router-link>
-                  <router-link :to="'/admin/estudiantes/editar/' + estudiante.id" class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 hover:bg-blue-600 hover:text-white transition-all" title="Editar">
+                  <router-link :to="'/admin/estudiantes/editar/' + estudiante.id" class="w-11 h-11 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 hover:bg-blue-500 hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-blue-500/20" title="Editar">
                     <span class="material-symbols-outlined text-xl">edit</span>
                   </router-link>
-                  <button @click="toggleStatus(estudiante)" class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 hover:bg-emerald-600 hover:text-white transition-all" title="Alternar Estado">
+                  <button @click="toggleStatus(estudiante)" class="w-11 h-11 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 hover:bg-emerald-500 hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-emerald-500/20" title="Alternar Estado">
                     <span class="material-symbols-outlined text-xl">{{ estudiante.estado === 'ACTIVO' ? 'block' : 'check_circle' }}</span>
                   </button>
-                  <button @click="deleteEstudiante(estudiante.id)" class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-600 hover:text-white transition-all" title="Eliminar">
+                  <button @click="deleteEstudiante(estudiante.id)" class="w-11 h-11 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-red-500/20" title="Eliminar">
                     <span class="material-symbols-outlined text-xl">delete</span>
-                  </button>on>
+                  </button>
                 </div>
               </td>
             </tr>

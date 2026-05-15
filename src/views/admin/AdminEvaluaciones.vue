@@ -82,11 +82,11 @@
             <span class="material-symbols-outlined text-3xl">quiz</span>
           </div>
           <div class="flex gap-2">
-            <button @click="editEvaluacion(evaluacion)" class="w-8 h-8 rounded-lg bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-accent-neon/10 hover:text-accent-neon transition-all">
-              <span class="material-symbols-outlined text-xs">edit</span>
+            <button @click="editEvaluacion(evaluacion)" class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 hover:bg-blue-600 hover:text-white transition-all duration-300" title="Editar">
+              <span class="material-symbols-outlined text-xl">edit</span>
             </button>
-            <button @click="deleteEvaluacion(evaluacion.id)" class="w-8 h-8 rounded-lg bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-red-500/10 hover:text-red-500 transition-all">
-              <span class="material-symbols-outlined text-xs">delete</span>
+            <button @click="deleteEvaluacion(evaluacion.id)" class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-600 hover:text-white transition-all duration-300" title="Eliminar">
+              <span class="material-symbols-outlined text-xl">delete</span>
             </button>
           </div>
         </div>

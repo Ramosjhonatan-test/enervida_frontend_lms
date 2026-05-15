@@ -1,8 +1,8 @@
 <template>
   <div class="space-y-10 animate-fade-in text-on-surface">
     <!-- Header -->
-    <div class="panel-hero p-6 sm:p-8 relative overflow-hidden group">
-      <div class="absolute inset-0 bg-gradient-to-r from-accent-neon/5 to-transparent opacity-50"></div>
+    <div class="panel-hero p-6 sm:p-8 relative overflow-hidden group rounded-[40px] bg-on-surface/[0.03] !border-none">
+      <div class="absolute inset-0 bg-accent-neon/5 opacity-50 group-hover:opacity-100 transition-opacity"></div>
       <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <div class="flex items-center gap-3 mb-2">
@@ -23,7 +23,7 @@
 
     <!-- Inline Form Panel -->
     <transition name="slide-fade">
-      <div v-if="showForm" class="glass-card p-6 sm:p-8 rounded-[32px]">
+      <div v-if="showForm" class="glass-card p-6 sm:p-8 rounded-[32px] !border-none shadow-2xl relative overflow-hidden">
         <div class="flex items-center gap-3 mb-6">
           <div class="w-10 h-10 rounded-xl bg-accent-neon/10 flex items-center justify-center text-accent-neon">
             <span class="material-symbols-outlined text-sm">{{ isEditing ? 'edit' : 'person_add' }}</span>
@@ -40,7 +40,7 @@
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div v-if="!isEditing" class="space-y-2">
               <label class="text-[11px] font-black uppercase tracking-widest text-on-surface/40 ml-1">Seleccionar Estudiante</label>
-              <select v-model="form.usuario_id" required class="input-cyber w-full appearance-none cursor-pointer !text-on-surface">
+              <select v-model="form.usuario_id" required class="input-cyber w-full appearance-none cursor-pointer !text-on-surface !bg-on-surface/[0.04] !border-none">
                 <option value="" disabled class="bg-surface-container text-on-surface/50">Seleccione un estudiante</option>
                 <option v-for="u in usuarios" :key="u.id" :value="u.id" class="bg-surface-container text-on-surface">{{ u.nombres }} {{ u.apellidos }} ({{ u.correo }})</option>
               </select>
@@ -48,7 +48,7 @@
 
             <div v-if="!isEditing" class="space-y-2">
               <label class="text-[11px] font-black uppercase tracking-widest text-on-surface/40 ml-1">Seleccionar Curso</label>
-              <select v-model="form.curso_id" required class="input-cyber w-full appearance-none cursor-pointer !text-on-surface">
+              <select v-model="form.curso_id" required class="input-cyber w-full appearance-none cursor-pointer !text-on-surface !bg-on-surface/[0.04] !border-none">
                 <option value="" disabled class="bg-surface-container text-on-surface/50">Seleccione un curso</option>
                 <option v-for="c in cursos" :key="c.id" :value="c.id" class="bg-surface-container text-on-surface">{{ c.titulo }}</option>
               </select>
@@ -56,7 +56,7 @@
 
             <div class="space-y-2">
               <label class="text-[11px] font-black uppercase tracking-widest text-on-surface/40 ml-1">Estado de Inscripción</label>
-              <select v-model="form.estado" class="input-cyber w-full appearance-none cursor-pointer !text-on-surface">
+              <select v-model="form.estado" class="input-cyber w-full appearance-none cursor-pointer !text-on-surface !bg-on-surface/[0.04] !border-none">
                 <option value="ACTIVO" class="bg-surface-container text-on-surface">Activo</option>
                 <option value="PENDIENTE" class="bg-surface-container text-on-surface">Pendiente</option>
                 <option value="INACTIVO" class="bg-surface-container text-on-surface">Inactivo</option>
@@ -84,10 +84,10 @@
           v-model="searchQuery" 
           type="text" 
           placeholder="Buscar por estudiante o curso..." 
-          class="w-full bg-on-surface/[0.03] rounded-2xl py-4 pl-12 pr-4 text-sm font-bold focus:outline-none focus:border-accent-neon/40 transition-all"
+          class="w-full bg-on-surface/[0.03] rounded-2xl py-4 pl-12 pr-4 text-sm font-bold focus:outline-none focus:border-accent-neon/40 transition-all !border-none"
         />
       </div>
-      <select v-model="filterStatus" class="bg-on-surface/[0.03] rounded-2xl py-4 px-6 text-sm font-bold focus:outline-none focus:border-accent-neon/40 transition-all">
+      <select v-model="filterStatus" class="bg-on-surface/[0.03] rounded-2xl py-4 px-6 text-sm font-bold focus:outline-none focus:border-accent-neon/40 transition-all !border-none">
         <option value="ALL">Todos los estados</option>
         <option value="ACTIVO">Activos</option>
         <option value="PENDIENTE">Pendientes</option>
@@ -101,7 +101,7 @@
     </div>
 
     <!-- Table -->
-    <div class="glass-card-premium rounded-[40px] overflow-hidden shadow-2xl relative min-h-[400px]">
+    <div class="glass-card-premium rounded-[40px] overflow-hidden shadow-2xl relative min-h-[400px] !border-none">
       <div v-if="loading" class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-background/50 backdrop-blur-sm">
         <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-accent-neon shadow-[0_0_20px_var(--accent-neon)] mb-4"></div>
         <p class="text-[10px] font-black text-accent-neon uppercase tracking-widest animate-pulse">Cargando inscripciones...</p>
@@ -110,7 +110,7 @@
       <div class="overflow-x-auto">
         <table class="w-full min-w-[900px] text-left border-separate border-spacing-0">
           <thead>
-            <tr>
+            <tr class="bg-on-surface/[0.03]">
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Estudiante</th>
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Curso</th>
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Progreso</th>
@@ -119,7 +119,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in filteredInscripciones" :key="item.id" class="group hover:bg-on-surface/[0.03] transition-colors">
+            <tr v-for="item in filteredInscripciones" :key="item.id" class="group hover:bg-accent-neon/[0.02] transition-all duration-500 relative">
               <td class="p-6">
                 <div class="flex items-center gap-4">
                   <div class="w-10 h-10 rounded-xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 font-black">
@@ -150,11 +150,11 @@
               </td>
               <td class="p-6 text-right">
                 <div class="flex justify-end gap-2">
-                  <button @click="editInscripcion(item)" class="w-9 h-9 rounded-xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-accent-neon/10 hover:text-accent-neon transition-all">
-                    <span class="material-symbols-outlined text-sm">edit</span>
+                  <button @click="editInscripcion(item)" class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 hover:bg-blue-600 hover:text-white hover:-translate-y-1 transition-all duration-300" title="Editar">
+                    <span class="material-symbols-outlined text-xl">edit</span>
                   </button>
-                  <button @click="deleteInscripcion(item.id)" class="w-9 h-9 rounded-xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-red-500/10 hover:text-red-500 transition-all">
-                    <span class="material-symbols-outlined text-sm">delete</span>
+                  <button @click="deleteInscripcion(item.id)" class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-600 hover:text-white hover:-translate-y-1 transition-all duration-300" title="Eliminar">
+                    <span class="material-symbols-outlined text-xl">delete</span>
                   </button>
                 </div>
               </td>

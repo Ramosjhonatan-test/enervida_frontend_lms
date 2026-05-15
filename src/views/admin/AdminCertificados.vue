@@ -60,7 +60,7 @@
                 
                 <button v-if="curso.plantilla_certificado" 
                         @click="previewPdf(curso.plantilla_certificado.id)" 
-                        class="w-full py-3 rounded-2xl bg-on-surface/5 hover:bg-on-surface/10 text-on-surface/60 font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2">
+                        class="w-full py-3 rounded-2xl bg-cyan-500/10 hover:bg-cyan-600 text-cyan-500 hover:text-white font-bold text-xs uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2">
                    <span class="material-symbols-outlined text-sm">visibility</span>
                    Ver Certificado
                 </button>

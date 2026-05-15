@@ -3,8 +3,8 @@
     <!-- Header -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
       <div class="flex items-center gap-4">
-        <router-link to="/admin/evaluaciones" class="w-10 h-10 rounded-xl bg-on-surface/5 flex items-center justify-center text-on-surface/60 hover:text-accent-neon hover:bg-accent-neon/10 transition-all">
-          <span class="material-symbols-outlined text-sm">arrow_back</span>
+        <router-link to="/admin/evaluaciones" class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 hover:bg-blue-600 hover:text-white transition-all duration-300" title="Volver">
+          <span class="material-symbols-outlined text-xl">arrow_back</span>
         </router-link>
         <div>
           <h2 class="text-3xl font-black text-on-surface font-lexend tracking-tighter">
@@ -99,11 +99,11 @@
             </div>
           </div>
           <div class="flex gap-2">
-            <button @click="editPregunta(pregunta)" class="w-8 h-8 rounded-lg bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-accent-neon/10 hover:text-accent-neon transition-all">
-              <span class="material-symbols-outlined text-xs">edit</span>
+            <button @click="editPregunta(pregunta)" class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 hover:bg-blue-600 hover:text-white transition-all duration-300" title="Editar">
+              <span class="material-symbols-outlined text-xl">edit</span>
             </button>
-            <button @click="deletePregunta(pregunta.id)" class="w-8 h-8 rounded-lg bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-red-500/10 hover:text-red-500 transition-all">
-              <span class="material-symbols-outlined text-xs">delete</span>
+            <button @click="deletePregunta(pregunta.id)" class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-600 hover:text-white transition-all duration-300" title="Eliminar">
+              <span class="material-symbols-outlined text-xl">delete</span>
             </button>
           </div>
         </div>

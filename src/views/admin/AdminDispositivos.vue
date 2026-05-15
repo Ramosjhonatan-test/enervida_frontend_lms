@@ -1,24 +1,24 @@
 <template>
   <div class="space-y-10 animate-fade-in text-on-surface">
     <!-- Header & Hero -->
-    <div class="panel-hero p-10 relative overflow-hidden group rounded-[40px] bg-on-surface/[0.03] !border-none">
+    <div class="panel-hero p-10 relative overflow-hidden group rounded-[40px] bg-on-surface/[0.03] !border-none shadow-2xl">
       <div class="absolute -right-20 -top-20 w-80 h-80 bg-accent-neon/10 rounded-full blur-[100px] group-hover:bg-accent-neon/20 transition-all duration-1000"></div>
       <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-primary/5 rounded-full blur-[80px]"></div>
 
       <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-10">
         <div class="flex-1">
           <div class="flex items-center gap-4 mb-3">
-            <div class="w-16 h-16 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon shadow-neon-sm animate-pulse-slow group-hover:bg-yellow-500 group-hover:text-white transition-all duration-500">
+            <div class="w-16 h-16 rounded-2xl bg-accent-neon/20 flex items-center justify-center text-accent-neon shadow-neon-sm animate-pulse-slow">
               <span class="material-symbols-outlined text-4xl">devices</span>
             </div>
             <div>
-              <h2 class="text-xl md:text-2xl font-black text-on-surface font-lexend tracking-tighter leading-none">
-                Control de <span class="text-accent-neon">Dispositivos</span>
+              <h2 class="text-3xl md:text-5xl font-black text-on-surface font-lexend tracking-tighter leading-none">
+                Control de <span class="text-accent-neon italic">Dispositivos</span>
               </h2>
-              <p class="text-on-surface/50 text-[10px] font-bold uppercase tracking-[0.3em] mt-3 flex items-center gap-2">
-                <span class="flex h-1.5 w-1.5 relative">
+              <p class="text-on-surface/50 text-xs font-bold uppercase tracking-[0.4em] mt-3 flex items-center gap-2">
+                <span class="flex h-2 w-2 relative">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-neon opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-accent-neon"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-neon"></span>
                 </span>
                 GESTIÓN DE SEGURIDAD Y ACCESOS
               </p>
@@ -32,11 +32,11 @@
             <input 
               v-model="searchQuery" 
               type="text" 
-              placeholder="Buscar usuario o IP..." 
-              class="input-cyber !pl-14 !py-4 !text-sm w-full md:w-80 transition-all border-none bg-on-surface/[0.04]"
+              placeholder="Buscar IP o usuario..." 
+              class="input-cyber !pl-14 !py-4 !text-sm w-full md:w-80 transition-all !border-none !bg-on-surface/[0.04] !shadow-none"
             />
           </div>
-          <button @click="fetchDispositivos" class="btn-premium !bg-on-surface/[0.06] hover:!bg-accent-neon !text-on-surface hover:!text-white !py-4 px-8 group/btn relative overflow-hidden shadow-none border-none">
+          <button @click="fetchDispositivos" class="btn-premium btn-secondary-glass !py-4 px-8 group/btn relative overflow-hidden !border-none shadow-xl hover:shadow-accent-neon/20 transition-all duration-500">
              <span class="material-symbols-outlined text-lg transition-transform group-hover/btn:rotate-180 duration-500 relative" :class="{ 'animate-spin': loading }">refresh</span>
              <span class="relative font-bold">Actualizar</span>
           </button>
@@ -46,7 +46,7 @@
 
     <!-- Stats Row -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden !border-none shadow-2xl">
         <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-accent-neon/5 rounded-full blur-3xl group-hover:bg-accent-neon/10 transition-colors"></div>
         <div class="flex items-center gap-6 relative z-10">
           <div class="w-16 h-16 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon group-hover:bg-accent-neon group-hover:text-on-surface transition-all duration-500 border-none">
@@ -65,7 +65,7 @@
         </div>
       </div>
 
-      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden !border-none shadow-2xl">
         <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-accent-solar/5 rounded-full blur-3xl group-hover:bg-accent-solar/10 transition-colors"></div>
         <div class="flex items-center gap-6 relative z-10">
           <div class="w-16 h-16 rounded-2xl bg-accent-solar/10 flex items-center justify-center text-accent-solar group-hover:bg-accent-solar group-hover:text-white transition-all duration-500 border-none">
@@ -78,10 +78,10 @@
         </div>
       </div>
 
-      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden !border-none shadow-2xl">
         <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-red-500/5 rounded-full blur-3xl group-hover:bg-red-500/10 transition-colors"></div>
         <div class="flex items-center gap-6 relative z-10">
-          <div class="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all duration-500">
+          <div class="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all duration-500 border-none">
             <span class="material-symbols-outlined text-3xl">security</span>
           </div>
           <div>
@@ -96,7 +96,7 @@
     </div>
 
     <!-- Devices Table -->
-    <div class="bg-on-surface/[0.02] rounded-[40px] overflow-hidden mb-20 shadow-xl shadow-black/5 border-none">
+    <div class="glass-card-premium rounded-[40px] overflow-hidden mb-20 shadow-2xl !border-none">
       <div class="overflow-x-auto">
         <table class="w-full min-w-[1100px] text-left border-separate border-spacing-0">
           <thead>
@@ -161,13 +161,15 @@
                 </div>
               </td>
               <td class="p-8 text-right">
-                <button 
-                  @click="revokeSession(dispositivo.id)" 
-                  class="btn-premium group/revoke hover:!bg-red-500/10 !text-on-surface/20 hover:!text-red-500 !px-5 !py-3 gap-2 text-[10px] shadow-none border-none bg-transparent"
-                >
-                  <span class="material-symbols-outlined text-lg">no_accounts</span>
-                  <span class="font-black uppercase tracking-widest">Revocar</span>
-                </button>
+                <div class="flex justify-end">
+                  <button 
+                    @click="revokeSession(dispositivo.id)" 
+                    class="w-11 h-11 rounded-xl bg-red-500/20 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-red-500/40"
+                    title="Revocar Sesión"
+                  >
+                    <span class="material-symbols-outlined text-xl">no_accounts</span>
+                  </button>
+                </div>
               </td>
             </tr>
             <tr v-if="filteredDispositivos.length === 0">
