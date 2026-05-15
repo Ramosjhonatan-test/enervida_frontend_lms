@@ -30,9 +30,9 @@
         </div>
 
         <div class="overflow-x-auto">
-          <table class="w-full min-w-[700px] text-left border-collapse">
+          <table class="w-full min-w-[700px] text-left border-separate border-spacing-0">
             <thead>
-              <tr class="bg-on-surface/[0.03] border-b border-on-surface/5">
+              <tr class="bg-on-surface/[0.03]">
                 <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Usuario</th>
                 <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Mensaje</th>
                 <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Fecha</th>
@@ -40,7 +40,7 @@
                 <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest text-right">Acciones</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-on-surface/[0.06]">
+            <tbody>
               <tr v-for="note in notifications" :key="note.id" class="group hover:bg-on-surface/[0.03] transition-colors">
                 <td class="p-6">
                   <div class="flex items-center gap-3">
@@ -111,7 +111,7 @@
         <form @submit.prevent="sendNotification" class="space-y-6">
           <div v-if="!isGlobal" class="space-y-2">
             <label class="text-[10px] font-black uppercase tracking-widest text-on-surface/40">Destinatario</label>
-            <select v-model="form.usuario_id" required class="w-full bg-on-surface/[0.03] border border-on-surface/5 rounded-2xl py-4 px-6 text-sm font-bold focus:outline-none focus:border-accent-neon/40 transition-all">
+            <select v-model="form.usuario_id" required class="w-full bg-on-surface/[0.03] rounded-2xl py-4 px-6 text-sm font-bold focus:outline-none focus:border-accent-neon/40 transition-all">
               <option value="" disabled>Seleccione un usuario</option>
               <option v-for="u in users" :key="u.id" :value="u.id">{{ u.nombres }} {{ u.apellidos }} ({{ u.correo }})</option>
             </select>
@@ -119,12 +119,12 @@
 
           <div class="space-y-2">
             <label class="text-[10px] font-black uppercase tracking-widest text-on-surface/40">Título del Mensaje</label>
-            <input v-model="form.titulo" type="text" placeholder="Ej: Actualización de sistema" required class="w-full bg-on-surface/[0.03] border border-on-surface/5 rounded-2xl py-4 px-6 text-sm font-bold focus:outline-none focus:border-accent-neon/40 transition-all" />
+            <input v-model="form.titulo" type="text" placeholder="Ej: Actualización de sistema" required class="w-full bg-on-surface/[0.03] rounded-2xl py-4 px-6 text-sm font-bold focus:outline-none focus:border-accent-neon/40 transition-all" />
           </div>
 
           <div class="space-y-2">
             <label class="text-[10px] font-black uppercase tracking-widest text-on-surface/40">Contenido</label>
-            <textarea v-model="form.mensaje" rows="4" placeholder="Escribe el mensaje aquí..." required class="w-full bg-on-surface/[0.03] border border-on-surface/5 rounded-2xl py-4 px-6 text-sm font-bold focus:outline-none focus:border-accent-neon/40 transition-all resize-none"></textarea>
+            <textarea v-model="form.mensaje" rows="4" placeholder="Escribe el mensaje aquí..." required class="w-full bg-on-surface/[0.03] rounded-2xl py-4 px-6 text-sm font-bold focus:outline-none focus:border-accent-neon/40 transition-all resize-none"></textarea>
           </div>
 
           <div class="pt-4 flex gap-3">

@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="flex gap-4">
-        <button @click="toggleStatus" :class="['btn-premium !py-4 gap-2 border border-on-surface/10', estudiante.estado === 'ACTIVO' ? 'btn-secondary-glass hover:!text-red-500' : 'btn-primary-neon']">
+        <button @click="toggleStatus" :class="['btn-premium !py-4 gap-2', estudiante.estado === 'ACTIVO' ? 'btn-secondary-glass hover:!text-red-500' : 'btn-primary-neon']">
           <span class="material-symbols-outlined text-sm">{{ estudiante.estado === 'ACTIVO' ? 'block' : 'check_circle' }}</span>
           {{ estudiante.estado === 'ACTIVO' ? 'Desactivar Cuenta' : 'Activar Cuenta' }}
         </button>
@@ -31,18 +31,18 @@
             <p class="text-accent-neon font-black text-[10px] uppercase tracking-[0.3em] mt-2">{{ estudiante.rol?.nombre }}</p>
             
             <div class="mt-10 space-y-4 text-left">
-              <div class="flex items-center gap-4 p-4 rounded-2xl bg-on-surface/5 border border-on-surface/5">
+              <div class="flex items-center gap-4 p-4 rounded-2xl bg-on-surface/5">
                 <span class="material-symbols-outlined text-on-surface/40">mail</span>
                 <span class="text-xs font-bold text-on-surface/60">{{ estudiante.correo }}</span>
               </div>
-              <div class="flex items-center gap-4 p-4 rounded-2xl bg-on-surface/5 border border-on-surface/5">
+              <div class="flex items-center gap-4 p-4 rounded-2xl bg-on-surface/5">
                 <span class="material-symbols-outlined text-on-surface/40">calendar_today</span>
                 <div class="flex flex-col">
                   <span class="text-[9px] font-black text-on-surface/30 uppercase tracking-widest">Miembro desde</span>
                   <span class="text-xs font-bold text-on-surface/60">{{ new Date(estudiante.fecha_creacion).toLocaleDateString() }}</span>
                 </div>
               </div>
-              <div class="flex items-center gap-4 p-4 rounded-2xl bg-on-surface/5 border border-on-surface/5">
+              <div class="flex items-center gap-4 p-4 rounded-2xl bg-on-surface/5">
                 <span class="material-symbols-outlined text-on-surface/40">login</span>
                 <div class="flex flex-col">
                   <span class="text-[9px] font-black text-on-surface/30 uppercase tracking-widest">Último acceso</span>
@@ -62,7 +62,7 @@
           </div>
 
           <div v-if="estudiante.dispositivos?.length" class="space-y-6">
-            <div v-for="dev in estudiante.dispositivos" :key="dev.id" class="p-4 rounded-2xl bg-on-surface/5 border border-on-surface/5">
+            <div v-for="dev in estudiante.dispositivos" :key="dev.id" class="p-4 rounded-2xl bg-on-surface/5">
               <div class="flex items-center gap-3 mb-3">
                 <span class="material-symbols-outlined text-accent-neon text-lg">
                   {{ getDeviceIcon(dev.sistema_operativo) }}
@@ -152,7 +152,7 @@
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div v-for="ins in estudiante.inscripciones" :key="ins.id" class="p-6 rounded-[32px] bg-on-surface/5 border border-on-surface/5 group hover:border-accent-neon/30 transition-all">
+            <div v-for="ins in estudiante.inscripciones" :key="ins.id" class="p-6 rounded-[32px] bg-on-surface/5 group hover:bg-on-surface/[0.08] transition-all">
               <div class="flex justify-between items-start mb-4">
                 <div class="w-12 h-12 rounded-xl bg-on-surface/10 overflow-hidden shrink-0">
                   <img :src="getImageUrl(ins.curso.miniatura_url)" class="w-full h-full object-cover" />
@@ -189,14 +189,14 @@
           <div class="overflow-x-auto">
             <table class="w-full text-left">
               <thead>
-                <tr class="border-b border-on-surface/5">
+                <tr class="bg-on-surface/[0.03]">
                   <th class="pb-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Evaluación</th>
                   <th class="pb-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Nota</th>
                   <th class="pb-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Estado</th>
                   <th class="pb-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest text-right">Fecha</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-on-surface/5">
+              <tbody>
                 <tr v-for="intento in estudiante.intentos_evaluacion" :key="intento.id" class="group hover:bg-on-surface/5 transition-colors">
                   <td class="py-6">
                     <p class="text-xs font-black text-on-surface group-hover:text-accent-neon transition-colors">{{ intento.evaluacion.titulo }}</p>

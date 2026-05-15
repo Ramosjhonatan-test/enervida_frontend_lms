@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
     <!-- Header -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 panel-hero p-8 rounded-[40px] border border-accent-neon/10 shadow-2xl relative overflow-hidden group">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 panel-hero p-8 rounded-[40px] shadow-2xl relative overflow-hidden group">
       <div class="absolute inset-0 bg-gradient-to-r from-accent-neon/5 to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
       <div class="relative z-10">
         <div class="flex items-center gap-3 mb-4">
@@ -47,34 +47,34 @@
     </div>
 
     <!-- Filter Tabs -->
-    <div class="flex gap-4 border-b border-on-surface/5 pb-4 overflow-x-auto custom-scrollbar">
+    <div class="flex gap-4 pb-4 overflow-x-auto custom-scrollbar">
       <button @click="currentFilter = 'PENDIENTE'" :class="['px-6 py-3 rounded-full text-xs font-black uppercase tracking-widest transition-all whitespace-nowrap', currentFilter === 'PENDIENTE' ? 'bg-orange-500/20 text-orange-500 shadow-lg' : 'text-on-surface/40 hover:bg-on-surface/5']">Pendientes</button>
       <button @click="currentFilter = 'ACTIVO'" :class="['px-6 py-3 rounded-full text-xs font-black uppercase tracking-widest transition-all whitespace-nowrap', currentFilter === 'ACTIVO' ? 'bg-accent-neon/20 text-accent-neon shadow-lg' : 'text-on-surface/40 hover:bg-on-surface/5']">Aprobadas</button>
       <button @click="currentFilter = 'INACTIVO'" :class="['px-6 py-3 rounded-full text-xs font-black uppercase tracking-widest transition-all whitespace-nowrap', currentFilter === 'INACTIVO' ? 'bg-red-500/20 text-red-500 shadow-lg' : 'text-on-surface/40 hover:bg-on-surface/5']">Rechazadas</button>
     </div>
 
     <!-- Table -->
-    <div class="glass-card-premium rounded-[48px] overflow-hidden border-accent-neon/10 shadow-2xl relative min-h-[400px]">
+    <div class="glass-card-premium rounded-[48px] overflow-hidden shadow-2xl relative min-h-[400px]">
       <div v-if="loading" class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-background/50 backdrop-blur-sm">
          <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-accent-neon shadow-[0_0_20px_var(--accent-neon)] mb-4"></div>
          <p class="text-[10px] font-black text-accent-neon uppercase tracking-widest animate-pulse">Cargando datos...</p>
       </div>
       
       <div class="overflow-x-auto relative z-0">
-        <table class="w-full text-left border-collapse min-w-[860px]">
+        <table class="w-full text-left border-separate border-spacing-0 min-w-[860px]">
           <thead>
-            <tr class="bg-on-surface/[0.03] border-b border-on-surface/5">
+            <tr>
               <th class="p-6 md:p-8 text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em]">Estudiante & Curso</th>
               <th class="p-6 md:p-8 text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em] hidden md:table-cell">Contacto</th>
               <th class="p-6 md:p-8 text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em] hidden sm:table-cell">Fecha Solicitud</th>
               <th class="p-6 md:p-8 text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em] text-right">Acciones</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-on-surface/[0.06]">
+          <tbody>
             <tr v-for="solicitud in filteredSolicitudes" :key="solicitud.id" class="group hover:bg-on-surface/[0.03] transition-colors">
               <td class="p-6 md:p-8">
                 <div class="flex items-center gap-5">
-                  <div class="w-12 h-12 rounded-2xl bg-on-surface/5 overflow-hidden border border-on-surface/5 shrink-0">
+                  <div class="w-12 h-12 rounded-2xl bg-on-surface/5 overflow-hidden shrink-0">
                     <img v-if="solicitud.usuario?.imagen_perfil" :src="solicitud.usuario.imagen_perfil" class="w-full h-full object-cover" />
                     <div v-else class="w-full h-full flex items-center justify-center text-on-surface/40 font-black">{{ solicitud.usuario?.nombres?.[0] || '?' }}</div>
                   </div>

@@ -55,8 +55,7 @@
 
     <!-- Quick Stats -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
-      <!-- Total Logs -->
-      <div class="bg-on-surface/[0.04] rounded-[40px] p-8 relative overflow-hidden group hover:-translate-y-1 transition-all duration-500 shadow-xl shadow-black/5 !border-none">
+      <div class="glass-card rounded-[40px] p-8 relative overflow-hidden group hover:-translate-y-1 transition-all duration-500">
         <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
           <span class="material-symbols-outlined text-7xl">database</span>
         </div>
@@ -76,7 +75,7 @@
       </div>
 
       <!-- Creations -->
-      <div class="bg-on-surface/[0.04] rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500 shadow-xl shadow-black/5 !border-none">
+      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500">
         <div class="flex items-center justify-between mb-6">
           <p class="text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Creaciones</p>
           <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center text-green-500 group-hover:shadow-[0_0_15px_rgba(34,197,94,0.2)] transition-all">
@@ -91,7 +90,7 @@
       </div>
 
       <!-- Ediciones -->
-      <div class="bg-on-surface/[0.04] rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500 shadow-xl shadow-black/5 !border-none">
+      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500">
         <div class="flex items-center justify-between mb-6">
           <p class="text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Ediciones</p>
           <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.2)] transition-all">
@@ -108,7 +107,7 @@
       </div>
 
       <!-- Deletions -->
-      <div class="bg-on-surface/[0.04] rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500 shadow-xl shadow-black/5 relative overflow-hidden !border-none">
+      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500 relative overflow-hidden">
         <div class="flex items-center justify-between mb-6">
           <p class="text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Eliminaciones</p>
           <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 group-hover:shadow-[0_0_15px_rgba(239,68,68,0.2)] transition-all">
@@ -123,7 +122,7 @@
       </div>
 
       <!-- Top Actor -->
-      <div class="bg-on-surface/[0.04] rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500 shadow-xl shadow-black/5 relative overflow-hidden !border-none">
+      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500 relative overflow-hidden">
         <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
           <span class="material-symbols-outlined text-7xl text-purple-500">person</span>
         </div>
@@ -138,7 +137,7 @@
       </div>
 
       <!-- Top Entity -->
-      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500 relative overflow-hidden !border-none shadow-xl shadow-black/5">
+      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-1 transition-all duration-500 relative overflow-hidden">
         <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
           <span class="material-symbols-outlined text-7xl text-orange-500">inventory_2</span>
         </div>
@@ -154,7 +153,7 @@
     </div>
 
     <!-- Filters Bar -->
-    <div class="bg-on-surface/[0.02] rounded-[40px] p-8 flex flex-col xl:flex-row gap-8 items-center justify-between shadow-2xl relative overflow-hidden shadow-black/5 !border-none">
+    <div class="glass-card rounded-[40px] p-8 flex flex-col xl:flex-row gap-8 items-center justify-between relative overflow-hidden">
       <div class="absolute left-0 top-0 bottom-0 w-1 bg-accent-neon/30"></div>
       
       <div class="flex flex-col md:flex-row gap-5 w-full xl:max-w-4xl">
@@ -284,9 +283,9 @@
       </div>
 
       <div class="overflow-x-auto custom-scrollbar">
-        <table class="w-full min-w-[1100px] text-left border-collapse">
+        <table class="w-full min-w-[1100px] text-left border-separate border-spacing-0">
           <thead>
-            <tr class="bg-on-surface/[0.03]">
+            <tr>
               <th class="p-6 text-[10px] font-black text-on-surface/30 uppercase tracking-widest">Fecha y Hora</th>
               <th class="p-6 text-[10px] font-black text-on-surface/30 uppercase tracking-widest">Actor</th>
               <th class="p-6 text-[10px] font-black text-on-surface/30 uppercase tracking-widest">Acción</th>

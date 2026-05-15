@@ -16,7 +16,7 @@
         </div>
         <div class="flex items-center gap-4">
           <!-- Canvas Controls -->
-          <div class="flex items-center gap-2 bg-on-surface/5 rounded-2xl p-1 border border-on-surface/10">
+          <div class="flex items-center gap-2 bg-on-surface/5 rounded-2xl p-1">
             <div class="w-px h-4 bg-on-surface/10 mx-1"></div>
             <div class="w-px h-4 bg-on-surface/10 mx-1"></div>
             <button @click="canvasScale = Math.max(0.1, canvasScale - 0.1)" class="p-2 hover:bg-on-surface/10 rounded-xl text-on-surface/60 transition-colors">
@@ -29,7 +29,7 @@
           </div>
 
           <div class="flex gap-3">
-            <button v-if="plantillaId" @click="previewPdf" :disabled="saving" class="btn-premium bg-on-surface/5 hover:bg-on-surface/10 !text-on-surface !px-6 border border-on-surface/10 flex items-center gap-2 group">
+            <button v-if="plantillaId" @click="previewPdf" :disabled="saving" class="btn-premium bg-on-surface/5 hover:bg-on-surface/10 !text-on-surface !px-6 flex items-center gap-2 group">
               <span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform">picture_as_pdf</span>
               Vista Previa Real
             </button>
@@ -73,14 +73,14 @@
             </div>
             <div>
                 <p class="text-[10px] font-bold text-on-surface/40 uppercase mb-2">Resolución</p>
-                <div class="flex items-center gap-2 bg-on-surface/5 p-2 rounded-xl border border-on-surface/5">
+                <div class="flex items-center gap-2 bg-on-surface/5 p-2 rounded-xl">
                     <span class="text-[9px] font-black text-on-surface/40">300 DPI</span>
                     <span class="material-symbols-outlined text-sm text-green-500">check_circle</span>
                 </div>
             </div>
           </div>
 
-          <div class="pt-4 border-t border-on-surface/5">
+          <div class="pt-4">
             <p class="text-[10px] font-bold text-on-surface/40 uppercase mb-3">Imagen de Fondo</p>
             <div v-if="!backgroundUrl" class="border-2 border-dashed border-on-surface/10 rounded-2xl p-6 text-center hover:border-accent-neon/30 transition-all cursor-pointer relative overflow-hidden group bg-on-surface/[0.02]">
                 <input type="file" @change="handleFileUpload" class="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" />
@@ -104,16 +104,16 @@
 
         <!-- Toolset -->
         <div class="glass-card p-4 rounded-[32px] border-accent-neon/10 flex flex-wrap gap-2">
-            <button @click="addElement('text')" class="flex-1 min-w-[80px] p-4 bg-on-surface/5 hover:bg-accent-neon/10 rounded-2xl transition-all border border-on-surface/5 hover:border-accent-neon/20 group">
+            <button @click="addElement('text')" class="flex-1 min-w-[80px] p-4 bg-on-surface/5 hover:bg-accent-neon/10 rounded-2xl transition-all group">
                 <span class="material-symbols-outlined text-on-surface/40 group-hover:text-accent-neon block mb-1">text_fields</span>
                 <span class="text-[9px] font-black uppercase tracking-tighter text-on-surface/60">Texto</span>
             </button>
-            <button @click="triggerImageUpload" class="flex-1 min-w-[80px] p-4 bg-on-surface/5 hover:bg-accent-neon/10 rounded-2xl transition-all border border-on-surface/5 hover:border-accent-neon/20 group">
+            <button @click="triggerImageUpload" class="flex-1 min-w-[80px] p-4 bg-on-surface/5 hover:bg-accent-neon/10 rounded-2xl transition-all group">
                 <span class="material-symbols-outlined text-on-surface/40 group-hover:text-accent-neon block mb-1">signature</span>
                 <span class="text-[9px] font-black uppercase tracking-tighter text-on-surface/60">Firma/Logo</span>
                 <input type="file" ref="imageElementInput" class="hidden" @change="handleAddImageElement" accept="image/*" />
             </button>
-            <button @click="addElement('qr')" class="flex-1 min-w-[80px] p-4 bg-on-surface/5 hover:bg-accent-neon/10 rounded-2xl transition-all border border-on-surface/5 hover:border-accent-neon/20 group">
+            <button @click="addElement('qr')" class="flex-1 min-w-[80px] p-4 bg-on-surface/5 hover:bg-accent-neon/10 rounded-2xl transition-all group">
                 <span class="material-symbols-outlined text-on-surface/40 group-hover:text-accent-neon block mb-1">qr_code_2</span>
                 <span class="text-[9px] font-black uppercase tracking-tighter text-on-surface/60">Código QR</span>
             </button>
@@ -218,7 +218,7 @@
                     </template>
 
                     <template v-else-if="el.type === 'qr'">
-                        <div class="w-full h-full bg-black/5 flex items-center justify-center border border-on-surface/10">
+                        <div class="w-full h-full bg-black/5 flex items-center justify-center">
                             <span class="material-symbols-outlined text-4xl text-on-surface/20">qr_code_2</span>
                         </div>
                     </template>
@@ -252,7 +252,7 @@
         <!-- Properties Panel (Floating at bottom if selection exists) -->
         <transition name="slide-up">
             <div v-if="selectedElement" class="glass-card rounded-[32px] border-accent-neon/20 p-6 flex flex-wrap items-center gap-8 shadow-2xl relative z-50">
-                <div class="flex items-center gap-3 pr-8 border-r border-on-surface/5">
+                <div class="flex items-center gap-3 pr-8">
                     <div class="w-10 h-10 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon">
                         <span class="material-symbols-outlined">{{ selectedElement.type === 'text' ? 'text_fields' : selectedElement.type === 'image' ? 'image' : 'qr_code' }}</span>
                     </div>
@@ -271,7 +271,7 @@
                             <div class="flex flex-wrap gap-1">
                                 <button v-for="tag in ['{{estudiante}}', '{{curso}}', '{{categoria}}', '{{nivel}}', '{{tipo_curso}}', '{{fecha}}', '{{codigo}}', '{{instructor}}', '{{ci}}', '{{telefono}}']" :key="tag" 
                                         @click="selectedElement.content += tag"
-                                        class="px-2 py-1 bg-accent-neon/10 hover:bg-accent-neon/20 rounded-lg text-[10px] font-black text-accent-neon transition-colors border border-accent-neon/10">
+                                        class="px-2 py-1 bg-accent-neon/10 hover:bg-accent-neon/20 rounded-lg text-[10px] font-black text-accent-neon transition-colors ">
                                     {{ tag.slice(2, -2) }}
                                 </button>
                             </div>
@@ -365,7 +365,7 @@
                 </div>
 
                 <!-- Alignment Controls -->
-                <div class="flex gap-2 pl-8 border-l border-on-surface/5 ml-auto">
+                <div class="flex gap-2 pl-8 ml-auto">
                     <button @click="alignCenter('h')" title="Centrar Horizontal" class="w-10 h-10 rounded-xl bg-on-surface/5 hover:bg-accent-neon/10 text-on-surface/40 hover:text-accent-neon transition-all">
                         <span class="material-symbols-outlined">format_align_center</span>
                     </button>

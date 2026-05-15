@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-10 animate-fade-in text-on-surface">
     <!-- Header & Hero -->
-    <div class="panel-hero p-10 relative overflow-hidden group rounded-[40px] border border-on-surface/5 bg-gradient-to-br from-on-surface/[0.03] to-transparent">
+    <div class="panel-hero p-10 relative overflow-hidden group rounded-[40px] bg-gradient-to-br from-on-surface/[0.03] to-transparent">
       <div class="absolute -right-20 -top-20 w-80 h-80 bg-accent-neon/10 rounded-full blur-[100px] group-hover:bg-accent-neon/20 transition-all duration-1000"></div>
       <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-primary/5 rounded-full blur-[80px]"></div>
 
@@ -66,7 +66,7 @@
         </div>
       </div>
       <div class="glass-card rounded-[2.5rem] p-8 border-on-surface/10 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
-        <div class="w-16 h-16 rounded-2xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 group-hover:bg-on-surface/10 transition-all border border-on-surface/5">
+        <div class="w-16 h-16 rounded-2xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 group-hover:bg-on-surface/10 transition-all">
           <span class="material-symbols-outlined text-3xl">edit_note</span>
         </div>
         <div>
@@ -89,7 +89,7 @@
     </div>
 
     <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div v-for="curso in filteredCursos" :key="curso.id" class="group glass-shell border border-on-surface/5 hover:border-accent-neon/30 rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 flex flex-col h-full bg-on-surface/[0.02]">
+      <div v-for="curso in filteredCursos" :key="curso.id" class="group glass-shell hover:border-accent-neon/30 rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 flex flex-col h-full bg-on-surface/[0.02]">
         <div class="h-56 bg-on-surface/5 relative overflow-hidden">
           <img 
             v-if="curso.miniatura_url" 
@@ -120,7 +120,7 @@
             {{ curso.descripcion_corta || 'Este curso aún no tiene una descripción corta definida.' }}
           </p>
           
-          <div class="mt-auto pt-6 border-t border-on-surface/5 flex items-center justify-between">
+          <div class="mt-auto pt-6 flex items-center justify-between">
             <div class="flex flex-col">
               <span class="text-[9px] font-black text-on-surface/40 uppercase tracking-[0.2em] mb-1">Inversión</span>
               <span class="text-2xl font-black text-accent-neon font-lexend tracking-tight">

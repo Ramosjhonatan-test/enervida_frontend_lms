@@ -7,7 +7,7 @@
     <div v-else-if="curso" class="space-y-8">
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
         <div class="flex items-center gap-4">
-          <router-link to="/admin/cursos" class="w-10 h-10 rounded-xl glass-shell border border-on-surface/10 flex items-center justify-center text-on-surface/60 hover:text-accent-neon hover:border-accent-neon/30 transition-all shrink-0">
+          <router-link to="/admin/cursos" class="w-10 h-10 rounded-xl glass-shell flex items-center justify-center text-on-surface/60 hover:text-accent-neon hover:bg-accent-neon/10 transition-all shrink-0">
             <span class="material-symbols-outlined text-sm">arrow_back</span>
           </router-link>
           <div class="min-w-0">
@@ -54,15 +54,15 @@
       </div>
 
       <!-- Modulos List -->
-      <div v-if="curso.modulos?.length === 0" class="glass-card p-12 rounded-[40px] border-on-surface/5 text-center">
+      <div v-if="curso.modulos?.length === 0" class="glass-card p-12 rounded-[40px] text-center">
         <span class="material-symbols-outlined text-6xl text-on-surface/20 mb-4 block">view_module</span>
         <h3 class="text-xl font-black text-on-surface tracking-tighter mb-2">No hay módulos</h3>
         <p class="text-sm text-on-surface/40">Comienza agregando el primer módulo de tu curso.</p>
       </div>
 
       <div v-else class="space-y-6">
-        <div v-for="(modulo, index) in curso.modulos" :key="modulo.id" class="glass-card rounded-[32px] border-on-surface/5 overflow-hidden">
-          <div class="p-4 sm:p-6 bg-on-surface/5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-on-surface/5">
+        <div v-for="(modulo, index) in curso.modulos" :key="modulo.id" class="glass-card rounded-[32px] overflow-hidden">
+          <div class="p-4 sm:p-6 bg-on-surface/5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div class="flex items-center gap-4 min-w-0">
               <div class="w-8 h-8 rounded-full bg-accent-neon/10 text-accent-neon flex items-center justify-center font-bold text-sm shrink-0">
                 {{ modulo.orden_modulo }}
@@ -80,7 +80,7 @@
           </div>
           
           <!-- Add Leccion Form Inline -->
-          <div v-if="activeModuloForm === modulo.id" class="p-6 bg-on-surface/5 border-b border-on-surface/5">
+          <div v-if="activeModuloForm === modulo.id" class="p-6 bg-on-surface/5">
              <form @submit.prevent="saveLeccion" class="space-y-4">
                 <h4 class="font-bold text-accent-neon text-sm mb-4">Nueva Lección en Módulo {{ modulo.orden_modulo }}</h4>
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
@@ -102,7 +102,7 @@
                   </div>
                 </div>
 
-                <div v-if="leccionForm.tipo_contenido === 'VIDEO' || leccionForm.tipo_contenido === 'PDF'" class="p-4 border border-on-surface/10 rounded-2xl bg-on-surface/5">
+                <div v-if="leccionForm.tipo_contenido === 'VIDEO' || leccionForm.tipo_contenido === 'PDF'" class="p-4 rounded-2xl bg-on-surface/5">
                   <div class="flex gap-4 mb-4">
                     <label class="flex items-center gap-2 cursor-pointer">
                       <input type="radio" v-model="uploadMode" value="url" class="text-accent-neon" />
@@ -122,7 +122,7 @@
                   <div v-else class="space-y-2">
                     <div class="flex gap-2">
                       <input type="file" ref="leccionFileInput" :accept="leccionForm.tipo_contenido === 'VIDEO' ? 'video/*' : 'application/pdf'" class="block w-full text-sm text-on-surface/60 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-accent-neon/10 file:text-accent-neon hover:file:bg-accent-neon/20 transition-all"/>
-                      <button type="button" @click="uploadLeccionFile" :disabled="uploadingFile" class="btn-premium glass-shell border border-on-surface/10 hover:border-accent-neon text-xs !px-4">
+                      <button type="button" @click="uploadLeccionFile" :disabled="uploadingFile" class="btn-premium glass-shell hover:bg-accent-neon/10 text-xs !px-4">
                         <span v-if="uploadingFile" class="animate-spin rounded-full h-3 w-3 border-t-2 border-accent-neon inline-block mr-2"></span>
                         <span>{{ uploadingFile ? 'Subiendo...' : 'Subir' }}</span>
                       </button>
@@ -134,7 +134,7 @@
                         <span>{{ uploadProgress === 100 ? 'Carga Completada' : 'Progreso de carga' }}</span>
                         <span>{{ uploadProgress }}%</span>
                       </div>
-                      <div class="h-1.5 w-full bg-on-surface/5 rounded-full overflow-hidden border border-on-surface/10">
+                      <div class="h-1.5 w-full bg-on-surface/5 rounded-full overflow-hidden">
                         <div 
                           class="h-full bg-gradient-to-r from-accent-neon to-accent-neon/40 transition-all duration-300 ease-out shadow-[0_0_10px_rgba(0,255,157,0.3)]"
                           :class="{ '!from-green-400 !to-green-500': uploadProgress === 100 }"
@@ -168,7 +168,7 @@
               <p class="text-sm text-on-surface/40">No hay lecciones en este módulo.</p>
             </div>
             <div v-else class="space-y-3">
-              <div v-for="leccion in modulo.lecciones" :key="leccion.id" class="flex items-center justify-between p-4 bg-on-surface/5 border border-on-surface/10 rounded-2xl hover:border-accent-neon/30 transition-colors">
+              <div v-for="leccion in modulo.lecciones" :key="leccion.id" class="flex items-center justify-between p-4 bg-on-surface/5 rounded-2xl hover:bg-on-surface/[0.08] transition-colors">
                 <div class="flex items-center gap-4">
                   <span class="material-symbols-outlined text-on-surface/40">
                     {{ leccion.tipo_contenido === 'VIDEO' ? 'play_circle' : (leccion.tipo_contenido === 'PDF' ? 'picture_as_pdf' : 'article') }}

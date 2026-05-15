@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto max-w-[1400px] space-y-10 animate-fade-in text-on-surface">
     <!-- Hero Section -->
-    <section class="panel-hero overflow-hidden rounded-[40px] p-10 relative group border border-on-surface/5">
+    <section class="panel-hero overflow-hidden rounded-[40px] p-10 relative group">
       <div class="absolute -right-20 -top-20 w-96 h-96 bg-accent-neon/10 rounded-full blur-[120px] group-hover:bg-accent-neon/20 transition-all duration-1000"></div>
       
       <div class="grid gap-10 xl:grid-cols-[1.25fr_0.75fr] xl:items-center relative z-10">
@@ -24,7 +24,7 @@
           </p>
         </div>
 
-        <div class="glass-card-premium rounded-[32px] border border-on-surface/10 p-8 shadow-2xl relative overflow-hidden group/card">
+        <div class="glass-card-premium rounded-[32px] p-8 shadow-2xl relative overflow-hidden group/card">
           <div class="absolute inset-0 bg-gradient-to-br from-accent-neon/5 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-700"></div>
           <div class="mb-6 flex items-center justify-between relative z-10">
             <div>
@@ -46,9 +46,9 @@
 
     <!-- Metrics Grid -->
     <section class="grid grid-cols-1 gap-6 md:grid-cols-3">
-      <article v-for="stat in metrics" :key="stat.title" class="glass-card rounded-[2.5rem] p-8 transition-all duration-500 hover:-translate-y-2 group border-on-surface/5 hover:border-accent-neon/30 shadow-xl">
+      <article v-for="stat in metrics" :key="stat.title" class="glass-card rounded-[2.5rem] p-8 transition-all duration-500 hover:-translate-y-2 group hover:border-accent-neon/30 shadow-xl">
         <div class="mb-10 flex items-start justify-between gap-4">
-          <div class="grid h-16 w-16 place-items-center rounded-2xl bg-on-surface/5 text-on-surface/40 group-hover:bg-accent-neon/10 group-hover:text-accent-neon transition-all duration-500 border border-on-surface/5 group-hover:border-accent-neon/20 group-hover:shadow-neon-sm">
+          <div class="grid h-16 w-16 place-items-center rounded-2xl bg-on-surface/5 text-on-surface/40 group-hover:bg-accent-neon/10 group-hover:text-accent-neon transition-all duration-500 group-hover:shadow-neon-sm">
             <span class="material-symbols-outlined text-3xl">{{ stat.icon }}</span>
           </div>
           <span class="px-4 py-1.5 rounded-full bg-on-surface/5 text-[9px] font-black uppercase tracking-[0.2em] text-on-surface/40 group-hover:bg-accent-neon/5 group-hover:text-accent-neon transition-all">
@@ -66,26 +66,26 @@
     <!-- Detailed Insights -->
     <section class="grid gap-8 xl:grid-cols-[0.9fr_1.1fr]">
       <!-- Priorities -->
-      <article class="glass-card-premium rounded-[40px] p-8 border-on-surface/5 flex flex-col h-full">
+      <article class="glass-card-premium rounded-[40px] p-8 flex flex-col h-full">
         <div class="mb-8 flex items-center justify-between gap-4">
           <div>
             <p class="text-[10px] font-black uppercase tracking-[0.3em] text-accent-neon">Prioridades</p>
             <h3 class="mt-2 font-lexend text-3xl font-black tracking-tight">Acciones Hoy</h3>
           </div>
-          <div class="w-12 h-12 rounded-xl bg-on-surface/5 flex items-center justify-center text-on-surface/30 border border-on-surface/5">
+          <div class="w-12 h-12 rounded-xl bg-on-surface/5 flex items-center justify-center text-on-surface/30">
             <span class="material-symbols-outlined">rule</span>
           </div>
         </div>
 
         <div class="space-y-4 flex-1">
-          <div v-for="item in priorities" :key="item.title" class="group/item relative overflow-hidden rounded-[24px] border border-on-surface/5 bg-on-surface/[0.02] p-6 hover:bg-on-surface/[0.04] transition-all duration-300">
+          <div v-for="item in priorities" :key="item.title" class="group/item relative overflow-hidden rounded-[24px] bg-on-surface/[0.02] p-6 hover:bg-on-surface/[0.04] transition-all duration-300">
             <div class="absolute left-0 top-0 bottom-0 w-1 bg-accent-neon/20 group-hover/item:bg-accent-neon transition-all"></div>
             <div class="flex items-start justify-between gap-6 relative z-10">
               <div>
                 <p class="font-black text-on-surface tracking-tight leading-none mb-2">{{ item.title }}</p>
                 <p class="text-sm text-on-surface/40 font-medium italic">{{ item.detail }}</p>
               </div>
-              <span :class="['px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border', item.tone]">
+              <span :class="['px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest', item.tone]">
                 {{ item.status }}
               </span>
             </div>
@@ -94,21 +94,21 @@
       </article>
 
       <!-- Activity -->
-      <article class="glass-card-premium rounded-[40px] p-8 border-on-surface/5">
+      <article class="glass-card-premium rounded-[40px] p-8">
         <div class="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
           <div>
             <p class="text-[10px] font-black uppercase tracking-[0.3em] text-accent-neon italic">Feed de Actividad</p>
             <h3 class="mt-2 font-lexend text-3xl font-black tracking-tight leading-none">Movimiento de la Academia</h3>
           </div>
-          <button class="btn-premium !py-3 !px-6 border border-on-surface/10 hover:border-accent-neon/30 text-[10px] font-black uppercase tracking-widest text-on-surface/60 hover:text-accent-neon transition-all bg-on-surface/5 hover:bg-accent-neon/5">
+          <button class="btn-premium !py-3 !px-6 text-[10px] font-black uppercase tracking-widest text-on-surface/60 hover:text-accent-neon transition-all bg-on-surface/5 hover:bg-accent-neon/5">
             Ver Registro Completo
           </button>
         </div>
 
-        <div class="overflow-hidden rounded-[2.5rem] border border-on-surface/5 bg-on-surface/[0.01]">
-          <div v-for="activity in activities" :key="activity.title" class="group/act grid gap-4 border-b border-on-surface/5 p-6 last:border-b-0 sm:grid-cols-[1fr_auto] sm:items-center hover:bg-on-surface/[0.03] transition-all duration-300">
+        <div class="overflow-hidden rounded-[2.5rem] bg-on-surface/[0.01]">
+          <div v-for="activity in activities" :key="activity.title" class="group/act grid gap-4 p-6 sm:grid-cols-[1fr_auto] sm:items-center hover:bg-on-surface/[0.03] transition-all duration-300">
             <div class="flex items-center gap-5">
-              <div class="shrink-0 grid h-12 w-12 place-items-center rounded-[18px] bg-on-surface/5 text-on-surface/30 group-hover/act:bg-accent-neon/10 group-hover/act:text-accent-neon transition-all duration-500 border border-on-surface/5 group-hover/act:border-accent-neon/20">
+              <div class="shrink-0 grid h-12 w-12 place-items-center rounded-[18px] bg-on-surface/5 text-on-surface/30 group-hover/act:bg-accent-neon/10 group-hover/act:text-accent-neon transition-all duration-500">
                 <span class="material-symbols-outlined text-xl">{{ activity.icon }}</span>
               </div>
               <div>

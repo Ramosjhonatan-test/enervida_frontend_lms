@@ -29,7 +29,7 @@
        </div>
        
        <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-         <div v-for="curso in filteredCursos" :key="curso.id" class="group glass-shell border border-on-surface/10 hover:border-accent-neon/30 rounded-3xl overflow-hidden transition-all duration-300">
+         <div v-for="curso in filteredCursos" :key="curso.id" class="group glass-shell hover:bg-on-surface/[0.03] rounded-3xl overflow-hidden transition-all duration-300">
            <div class="h-40 bg-on-surface/5 relative overflow-hidden flex items-center justify-center">
              <div v-if="curso.plantilla_certificado" class="w-full h-full relative">
                  <img :src="getImageUrl(curso.plantilla_certificado.background_url)" class="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" />
@@ -60,7 +60,7 @@
                 
                 <button v-if="curso.plantilla_certificado" 
                         @click="previewPdf(curso.plantilla_certificado.id)" 
-                        class="w-full py-3 rounded-2xl bg-on-surface/5 hover:bg-on-surface/10 text-on-surface/60 font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2 border border-on-surface/5">
+                        class="w-full py-3 rounded-2xl bg-on-surface/5 hover:bg-on-surface/10 text-on-surface/60 font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2">
                    <span class="material-symbols-outlined text-sm">visibility</span>
                    Ver Certificado
                 </button>

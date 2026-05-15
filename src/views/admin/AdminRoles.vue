@@ -55,7 +55,7 @@
     <!-- Roles Table -->
     <div class="glass-card-premium rounded-[40px] overflow-hidden border-accent-neon/10">
       <div class="overflow-x-auto">
-        <table class="w-full min-w-[800px] text-left border-collapse">
+        <table class="w-full min-w-[800px] text-left border-separate border-spacing-0">
           <thead>
             <tr class="bg-on-surface/[0.03]">
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Identificador del Rol</th>
@@ -63,7 +63,7 @@
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest text-right">Acciones</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-on-surface/[0.06]">
+          <tbody>
             <tr v-for="rol in roles" :key="rol.id" class="group hover:bg-on-surface/[0.03] transition-colors">
               <td class="p-6">
                 <div class="flex items-center gap-4">

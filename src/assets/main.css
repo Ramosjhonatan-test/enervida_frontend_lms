@@ -30,9 +30,16 @@
     --admin-border-strong: rgba(5, 150, 105, 0.22);
     --admin-soft: rgba(255, 255, 255, 0.9);
     --admin-soft-hover: rgba(15, 23, 42, 0.03);
+
+    /* Admin Surface Scale */
+    --admin-divider: rgba(0, 0, 0, 0.04);
+    --admin-table-header-bg: rgba(0, 0, 0, 0.025);
+    --admin-row-hover: rgba(0, 0, 0, 0.02);
+    --admin-table-bg: transparent;
     
     /* Sombra suave y difuminada para despegar del fondo gris */
-    --shadow-premium: 0 10px 40px -10px rgba(0, 0, 0, 0.06);
+    --shadow-premium: 0 10px 40px -10px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    --admin-row-even: rgba(0, 0, 0, 0.015);
     
     --primary-container: #ecfdf5;
     --secondary-container: #fefce8;
@@ -66,7 +73,14 @@
     --admin-border-strong: rgba(52, 211, 153, 0.26);
     --admin-soft: rgba(148, 163, 184, 0.075);
     --admin-soft-hover: rgba(148, 163, 184, 0.12);
-    --shadow-premium: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+
+    /* Admin Surface Scale – Dark */
+    --admin-divider: rgba(148, 163, 184, 0.06);
+    --admin-table-header-bg: rgba(255, 255, 255, 0.03);
+    --admin-row-hover: rgba(255, 255, 255, 0.04);
+    --admin-row-even: rgba(255, 255, 255, 0.015);
+    --admin-table-bg: transparent;
+    --shadow-premium: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.03);
     --primary-container: #064e3b;
     --secondary-container: #3f6212;
     --tertiary-container: #0c4a6e;
@@ -230,7 +244,7 @@
   }
 
   .glass-card {
-    background: var(--surface-card);
+    background: linear-gradient(145deg, var(--surface-card) 0%, color-mix(in srgb, var(--surface-card) 80%, transparent) 100%);
     backdrop-filter: blur(24px);
     border: none;
     box-shadow: var(--shadow-premium);
@@ -344,8 +358,7 @@
     border: none;
     box-shadow:
       10px 10px 24px -6px var(--clay-shadow-dark),
-      -10px -10px 24px -8px var(--clay-shadow-light),
-      inset 1px 1px 2px rgba(255, 255, 255, 0.28);
+      -10px -10px 24px -8px var(--clay-shadow-light);
     transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
   }
 
@@ -473,6 +486,67 @@
       14px 14px 30px -16px var(--clay-shadow-dark),
       -10px -10px 24px -16px var(--clay-shadow-light);
   }
+}
+
+/* ═══════════════════════════════════════════════════
+   ADMIN TABLE & CARD NORMALIZATION
+   Eliminates hairlines, white-line artifacts, and
+   rendering quirks across all admin modules.
+   ═══════════════════════════════════════════════════ */
+
+/* Force all admin tables to border-separate with zero spacing
+   to avoid sub-pixel hairlines from border-collapse */
+.admin-surface table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* Strip any accidental borders from cells globally */
+.admin-surface table th,
+.admin-surface table td {
+  border: none;
+}
+
+/* Consistent table header background */
+.admin-surface table thead tr {
+  background: var(--admin-table-header-bg);
+}
+
+/* Kill divide-y / divide-on-surface hairlines on tbody
+   (Tailwind's divide-y sets border-top on all but first child) */
+.admin-surface table tbody tr {
+  border: none;
+}
+
+.admin-surface table tbody tr + tr {
+  border: none;
+}
+
+/* Consistent row hover and alternating backgrounds */
+.admin-surface table tbody tr:nth-child(even) {
+  background: var(--admin-row-even);
+}
+
+.admin-surface table tbody tr:hover {
+  background: var(--admin-row-hover);
+}
+
+/* Remove any border-bottom on thead rows */
+.admin-surface table thead tr {
+  border-bottom: none !important;
+}
+
+/* Admin card border cleanup — kill any Tailwind border overrides
+   on glass-card, glass-card-premium, admin-card inside admin-surface */
+.admin-surface .glass-card,
+.admin-surface .glass-card-premium,
+.admin-surface .admin-card {
+  border: none !important;
+}
+
+/* Ensure panel-hero never has visible border seams */
+.admin-surface .panel-hero {
+  border: none !important;
 }
 
 .text-gradient-neon {

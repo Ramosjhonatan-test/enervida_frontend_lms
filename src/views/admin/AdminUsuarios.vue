@@ -21,11 +21,11 @@
     </div>
 
     <!-- Users Table -->
-    <div class="glass-card-premium rounded-[40px] overflow-hidden border-accent-neon/10">
+    <div class="glass-card-premium rounded-[40px] overflow-hidden">
       <div class="overflow-x-auto">
-        <table class="w-full min-w-[1000px] text-left border-collapse">
+        <table class="w-full min-w-[1000px] text-left border-separate border-spacing-0">
           <thead>
-            <tr class="bg-on-surface/[0.03]">
+            <tr>
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Identidad</th>
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Correo / Contacto</th>
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest text-center">Rol Actual</th>
@@ -33,11 +33,11 @@
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest text-right">Acciones</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-on-surface/[0.06]">
+          <tbody>
             <tr v-for="usuario in usuarios" :key="usuario.id" class="group hover:bg-on-surface/[0.03] transition-colors">
               <td class="p-6">
                 <div class="flex items-center gap-4">
-                  <div class="w-10 h-10 rounded-xl bg-on-surface/5 overflow-hidden border border-on-surface/5">
+                  <div class="w-10 h-10 rounded-xl bg-on-surface/5 overflow-hidden">
                     <img :src="usuario.imagen_perfil || 'https://i.pravatar.cc/150?u=' + usuario.id" class="w-full h-full object-cover" />
                   </div>
                   <div>

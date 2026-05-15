@@ -72,7 +72,7 @@
         </div>
       </div>
 
-      <div class="pt-6 border-t border-on-surface/5 flex justify-end gap-4">
+      <div class="pt-6 flex justify-end gap-4">
         <button type="button" @click="$router.back()" class="px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest text-on-surface/40 hover:text-on-surface transition-all">
           Cancelar
         </button>

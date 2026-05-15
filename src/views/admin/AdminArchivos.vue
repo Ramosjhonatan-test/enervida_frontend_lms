@@ -39,7 +39,7 @@
     <!-- Files Table -->
     <div class="glass-card-premium rounded-[40px] overflow-hidden border-accent-neon/10">
       <!-- Search and Filter -->
-      <div class="p-6 border-b border-on-surface/[0.06] flex flex-col sm:flex-row gap-4 justify-between bg-on-surface/[0.02]">
+      <div class="p-6 flex flex-col sm:flex-row gap-4 justify-between bg-on-surface/[0.02]">
         <div class="relative flex-1 max-w-md">
           <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/40">search</span>
           <input 
@@ -75,7 +75,7 @@
       </div>
 
       <div class="overflow-x-auto">
-        <table class="w-full min-w-[900px] text-left border-collapse">
+        <table class="w-full min-w-[900px] text-left border-separate border-spacing-0">
           <thead>
             <tr class="bg-on-surface/[0.03]">
               <th class="p-6 w-10">
@@ -96,7 +96,7 @@
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest text-right">Acciones</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-on-surface/[0.06]">
+          <tbody>
             <tr v-for="file in filteredFiles" :key="file.filename" class="group hover:bg-on-surface/[0.03] transition-colors" :class="{ 'bg-accent-neon/5': isSelected(file) }">
               <td class="p-6">
                 <input 
@@ -110,7 +110,7 @@
               <td class="p-6">
                 <div class="flex items-center gap-4">
                   <div 
-                    class="w-12 h-12 rounded-xl bg-on-surface/5 flex items-center justify-center overflow-hidden border border-on-surface/10 cursor-pointer"
+                    class="w-12 h-12 rounded-xl bg-on-surface/5 flex items-center justify-center overflow-hidden cursor-pointer"
                     v-if="isImage(file.filename)"
                     @click="openPreview(file)"
                   >
@@ -195,7 +195,7 @@
         
         <div class="relative w-full max-w-6xl h-full flex flex-col glass-card-premium rounded-[40px] overflow-hidden border-accent-neon/20 shadow-[0_0_100px_rgba(0,255,242,0.1)] animate-scale-in">
           <!-- Preview Header -->
-          <div class="p-6 border-b border-on-surface/[0.06] flex items-center justify-between bg-on-surface/[0.02]">
+          <div class="p-6 flex items-center justify-between bg-on-surface/[0.02]">
             <div class="flex items-center gap-4">
               <div class="w-10 h-10 rounded-xl bg-accent-neon/10 flex items-center justify-center text-accent-neon">
                 <span class="material-symbols-outlined">{{ getFileIcon(previewFile.filename) }}</span>

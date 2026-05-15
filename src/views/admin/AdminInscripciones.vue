@@ -84,10 +84,10 @@
           v-model="searchQuery" 
           type="text" 
           placeholder="Buscar por estudiante o curso..." 
-          class="w-full bg-on-surface/[0.03] border border-on-surface/5 rounded-2xl py-4 pl-12 pr-4 text-sm font-bold focus:outline-none focus:border-accent-neon/40 transition-all"
+          class="w-full bg-on-surface/[0.03] rounded-2xl py-4 pl-12 pr-4 text-sm font-bold focus:outline-none focus:border-accent-neon/40 transition-all"
         />
       </div>
-      <select v-model="filterStatus" class="bg-on-surface/[0.03] border border-on-surface/5 rounded-2xl py-4 px-6 text-sm font-bold focus:outline-none focus:border-accent-neon/40 transition-all">
+      <select v-model="filterStatus" class="bg-on-surface/[0.03] rounded-2xl py-4 px-6 text-sm font-bold focus:outline-none focus:border-accent-neon/40 transition-all">
         <option value="ALL">Todos los estados</option>
         <option value="ACTIVO">Activos</option>
         <option value="PENDIENTE">Pendientes</option>
@@ -101,16 +101,16 @@
     </div>
 
     <!-- Table -->
-    <div class="glass-card-premium rounded-[40px] overflow-hidden border-accent-neon/10 shadow-2xl relative min-h-[400px]">
+    <div class="glass-card-premium rounded-[40px] overflow-hidden shadow-2xl relative min-h-[400px]">
       <div v-if="loading" class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-background/50 backdrop-blur-sm">
         <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-accent-neon shadow-[0_0_20px_var(--accent-neon)] mb-4"></div>
         <p class="text-[10px] font-black text-accent-neon uppercase tracking-widest animate-pulse">Cargando inscripciones...</p>
       </div>
 
       <div class="overflow-x-auto">
-        <table class="w-full min-w-[900px] text-left border-collapse">
+        <table class="w-full min-w-[900px] text-left border-separate border-spacing-0">
           <thead>
-            <tr class="bg-on-surface/[0.03] border-b border-on-surface/5">
+            <tr>
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Estudiante</th>
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Curso</th>
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Progreso</th>
@@ -118,7 +118,7 @@
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest text-right">Acciones</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-on-surface/[0.06]">
+          <tbody>
             <tr v-for="item in filteredInscripciones" :key="item.id" class="group hover:bg-on-surface/[0.03] transition-colors">
               <td class="p-6">
                 <div class="flex items-center gap-4">

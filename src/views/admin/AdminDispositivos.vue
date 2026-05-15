@@ -46,7 +46,7 @@
 
     <!-- Stats Row -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-on-surface/[0.04] rounded-[40px] p-8 group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden shadow-xl shadow-black/5 !border-none">
+      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
         <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-accent-neon/5 rounded-full blur-3xl group-hover:bg-accent-neon/10 transition-colors"></div>
         <div class="flex items-center gap-6 relative z-10">
           <div class="w-16 h-16 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon group-hover:bg-accent-neon group-hover:text-white transition-all duration-500 border-none">
@@ -65,7 +65,7 @@
         </div>
       </div>
 
-      <div class="bg-on-surface/[0.04] rounded-[40px] p-8 group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden shadow-xl shadow-black/5 !border-none">
+      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
         <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-accent-solar/5 rounded-full blur-3xl group-hover:bg-accent-solar/10 transition-colors"></div>
         <div class="flex items-center gap-6 relative z-10">
           <div class="w-16 h-16 rounded-2xl bg-accent-solar/10 flex items-center justify-center text-accent-solar group-hover:bg-accent-solar group-hover:text-white transition-all duration-500 border-none">
@@ -78,7 +78,7 @@
         </div>
       </div>
 
-      <div class="bg-on-surface/[0.04] rounded-[40px] p-8 group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden shadow-xl shadow-black/5 !border-none">
+      <div class="glass-card rounded-[40px] p-8 group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
         <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-red-500/5 rounded-full blur-3xl group-hover:bg-red-500/10 transition-colors"></div>
         <div class="flex items-center gap-6 relative z-10">
           <div class="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all duration-500">

@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-10 animate-fade-in text-on-surface">
     <!-- Header & Hero -->
-    <div class="panel-hero p-10 relative overflow-hidden group rounded-[40px] border border-on-surface/5 bg-gradient-to-br from-on-surface/[0.03] to-transparent">
+    <div class="panel-hero p-10 relative overflow-hidden group rounded-[40px] bg-gradient-to-br from-on-surface/[0.03] to-transparent">
       <div class="absolute -right-20 -top-20 w-80 h-80 bg-accent-neon/10 rounded-full blur-[100px] group-hover:bg-accent-neon/20 transition-all duration-1000"></div>
       <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-primary/5 rounded-full blur-[80px]"></div>
 
@@ -86,11 +86,11 @@
     </div>
 
     <!-- Students Table -->
-    <div class="glass-card-premium rounded-[40px] overflow-hidden border-accent-neon/10">
+    <div class="glass-card-premium rounded-[40px] overflow-hidden">
       <div class="overflow-x-auto">
-        <table class="w-full min-w-[1000px] text-left border-collapse">
+        <table class="w-full min-w-[1000px] text-left border-separate border-spacing-0">
           <thead>
-            <tr class="bg-on-surface/[0.03]">
+            <tr>
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Estudiante</th>
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">CI / Identidad</th>
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Contacto</th>
@@ -98,13 +98,13 @@
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest text-right">Acciones</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-on-surface/[0.06]">
+          <tbody>
             <tr v-for="estudiante in filteredEstudiantes" :key="estudiante.id" class="group hover:bg-on-surface/[0.03] transition-colors">
               <td class="p-6">
                 <div class="flex items-center gap-4 group/user">
                   <div class="relative shrink-0">
                     <router-link :to="{ name: 'admin-estudiante-detalle', params: { id: estudiante.id } }" class="relative block">
-                      <div class="w-14 h-14 rounded-[20px] bg-on-surface/5 overflow-hidden border border-on-surface/10 group-hover/user:border-accent-neon/40 transition-all duration-500 shadow-xl">
+                      <div class="w-14 h-14 rounded-[20px] bg-on-surface/5 overflow-hidden group-hover/user:shadow-[0_0_0_2px_rgba(0,255,204,0.4)] transition-all duration-500 shadow-xl">
                         <img :src="estudiante.imagen_perfil || 'https://i.pravatar.cc/150?u=' + estudiante.id" class="w-full h-full object-cover group-hover/user:scale-110 transition-transform duration-700" />
                         <div class="absolute inset-0 bg-accent-neon/20 opacity-0 group-hover/user:opacity-100 flex items-center justify-center transition-all duration-500 backdrop-blur-[2px]">
                           <span class="material-symbols-outlined text-white text-xl">visibility</span>

@@ -76,7 +76,7 @@
 
     <!-- Evaluations List -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div v-for="evaluacion in evaluaciones" :key="evaluacion.id" class="glass-card p-8 rounded-[40px] border-accent-neon/5 group hover:border-accent-neon/20 transition-all flex flex-col">
+      <div v-for="evaluacion in evaluaciones" :key="evaluacion.id" class="glass-card p-8 rounded-[40px] border-accent-neon/5 group transition-all flex flex-col">
         <div class="flex justify-between items-start mb-6">
           <div class="w-14 h-14 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon group-hover:scale-110 transition-transform">
             <span class="material-symbols-outlined text-3xl">quiz</span>
@@ -94,7 +94,7 @@
         <h3 class="text-xl font-black mb-2 line-clamp-1 group-hover:text-accent-neon transition-colors">{{ evaluacion.titulo }}</h3>
         <p class="text-[10px] font-black text-on-surface/40 uppercase tracking-widest mb-6">Curso: {{ evaluacion.curso?.titulo || 'Sin curso' }}</p>
         
-        <div class="mt-auto space-y-4 pt-6 border-t border-on-surface/5">
+        <div class="mt-auto space-y-4 pt-6">
           <div class="flex justify-between text-[10px] font-black uppercase tracking-tighter">
             <span class="text-on-surface/40">Preguntas</span>
             <span class="text-on-surface">{{ evaluacion._count?.preguntas || 0 }} ítems</span>

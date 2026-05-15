@@ -73,15 +73,15 @@
       <p class="text-[10px] font-black uppercase tracking-widest text-accent-neon">Cargando preguntas...</p>
     </div>
 
-    <div v-else-if="evaluacion?.preguntas?.length === 0" class="glass-card p-20 rounded-[40px] text-center border-on-surface/5">
+    <div v-else-if="evaluacion?.preguntas?.length === 0" class="glass-card p-20 rounded-[40px] text-center">
       <span class="material-symbols-outlined text-6xl text-on-surface/10 mb-4 block">quiz</span>
       <h3 class="text-xl font-black text-on-surface/40">No hay preguntas aún</h3>
       <p class="text-xs font-bold text-on-surface/20 uppercase tracking-widest mt-2">Comienza agregando la primera pregunta del examen</p>
     </div>
 
     <div v-else class="space-y-8">
-      <div v-for="(pregunta, index) in evaluacion.preguntas" :key="pregunta.id" class="glass-card rounded-[32px] border-on-surface/5 overflow-hidden group">
-        <div class="p-6 sm:p-8 bg-on-surface/5 flex justify-between items-start border-b border-on-surface/5">
+      <div v-for="(pregunta, index) in evaluacion.preguntas" :key="pregunta.id" class="glass-card rounded-[32px] overflow-hidden group">
+        <div class="p-6 sm:p-8 bg-on-surface/5 flex justify-between items-start">
           <div class="flex gap-4">
             <div class="w-10 h-10 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon font-black shrink-0">
               {{ index + 1 }}
@@ -120,7 +120,7 @@
 
           <!-- Inline Respuesta Form -->
           <transition name="slide-fade">
-            <form v-if="activeRespuestaId === pregunta.id" @submit.prevent="saveRespuesta" class="mb-6 p-6 rounded-2xl bg-on-surface/[0.02] border border-on-surface/5 space-y-4">
+            <form v-if="activeRespuestaId === pregunta.id" @submit.prevent="saveRespuesta" class="mb-6 p-6 rounded-2xl bg-on-surface/[0.02] space-y-4">
               <div class="space-y-2">
                 <label class="text-[10px] font-black uppercase tracking-widest text-on-surface/40 ml-1">Texto de la respuesta</label>
                 <input v-model="respForm.respuesta" required class="input-cyber w-full !py-3" placeholder="Ej. París" />
@@ -141,14 +141,14 @@
             </form>
           </transition>
           
-          <div v-if="pregunta.respuestas?.length === 0" class="py-6 text-center border border-dashed border-on-surface/10 rounded-2xl">
+          <div v-if="pregunta.respuestas?.length === 0" class="py-6 text-center bg-on-surface/[0.02] rounded-2xl">
             <p class="text-[10px] font-black uppercase tracking-widest text-on-surface/20">Sin opciones registradas</p>
           </div>
 
           <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div v-for="resp in pregunta.respuestas" :key="resp.id" 
-                 :class="['p-4 rounded-2xl border flex items-center justify-between transition-all group/item', 
-                          resp.es_correcta ? 'bg-accent-neon/5 border-accent-neon/30' : 'bg-on-surface/5 border-on-surface/5 hover:border-on-surface/10']">
+                 :class="['p-4 rounded-2xl flex items-center justify-between transition-all group/item', 
+                          resp.es_correcta ? 'bg-accent-neon/5' : 'bg-on-surface/5 hover:bg-on-surface/[0.08]']">
               <div class="flex items-center gap-3">
                 <span :class="['material-symbols-outlined text-sm', resp.es_correcta ? 'text-accent-neon' : 'text-on-surface/20']">
                   {{ resp.es_correcta ? 'check_circle' : 'radio_button_unchecked' }}

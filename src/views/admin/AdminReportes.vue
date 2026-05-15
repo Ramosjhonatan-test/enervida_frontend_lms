@@ -18,7 +18,7 @@
 
     <!-- Main Stats Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div v-for="stat in mainStats" :key="stat.label" class="glass-card-premium p-8 rounded-[32px] border-accent-neon/10 group hover:border-accent-neon/20 transition-all relative overflow-hidden">
+      <div v-for="stat in mainStats" :key="stat.label" class="glass-card-premium p-8 rounded-[32px] border-accent-neon/10 group transition-all relative overflow-hidden">
         <div class="relative z-10">
           <div class="flex items-center gap-4 mb-4">
             <div class="w-12 h-12 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon group-hover:scale-110 transition-transform">
@@ -69,11 +69,11 @@
           El sistema está recopilando datos suficientes para generar proyecciones mensuales automáticas.
         </p>
         <div class="grid grid-cols-2 gap-4 w-full">
-           <div class="bg-on-surface/[0.03] p-6 rounded-3xl border border-on-surface/5">
+           <div class="bg-on-surface/[0.03] p-6 rounded-3xl">
               <p class="text-[9px] font-black text-on-surface/40 uppercase tracking-widest mb-1">Tasa de Conversión</p>
               <p class="text-2xl font-black text-on-surface">12.4%</p>
            </div>
-           <div class="bg-on-surface/[0.03] p-6 rounded-3xl border border-on-surface/5">
+           <div class="bg-on-surface/[0.03] p-6 rounded-3xl">
               <p class="text-[9px] font-black text-on-surface/40 uppercase tracking-widest mb-1">Retención Mensual</p>
               <p class="text-2xl font-black text-on-surface">94.2%</p>
            </div>

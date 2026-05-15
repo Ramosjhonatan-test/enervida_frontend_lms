@@ -1,7 +1,7 @@
 <template>
   <div class="w-full max-w-[1400px] mx-auto pb-20">
     <div class="flex items-center gap-4 mb-8">
-      <router-link to="/admin/cursos" class="w-10 h-10 rounded-xl glass-shell border border-on-surface/10 flex items-center justify-center text-on-surface/60 hover:text-accent-neon hover:border-accent-neon/30 transition-all shrink-0">
+      <router-link to="/admin/cursos" class="w-10 h-10 rounded-xl glass-shell bg-on-surface/5 flex items-center justify-center text-on-surface/60 hover:text-accent-neon hover:bg-accent-neon/10 transition-all shrink-0">
         <span class="material-symbols-outlined text-sm">arrow_back</span>
       </router-link>
       <div class="min-w-0">
@@ -81,7 +81,7 @@
                   <span>Subiendo</span>
                   <span>{{ uploadProgress }}%</span>
                 </div>
-                <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden border border-white/10">
+                <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
                   <div 
                     class="h-full bg-accent-neon transition-all duration-300"
                     :style="{ width: `${uploadProgress}%` }"
@@ -92,7 +92,7 @@
           </div>
 
           <div v-else class="space-y-4">
-            <div class="aspect-video rounded-2xl bg-on-surface/5 border border-on-surface/10 overflow-hidden relative group">
+            <div class="aspect-video rounded-2xl bg-on-surface/5 overflow-hidden relative group">
               <img v-if="form.miniatura_url" :src="form.miniatura_url" class="w-full h-full object-cover" @error="form.miniatura_url = ''" />
               <div v-else class="w-full h-full flex items-center justify-center">
                 <span class="material-symbols-outlined text-4xl text-on-surface/10">link</span>
@@ -137,7 +137,7 @@
             </select>
           </div>
 
-          <div class="space-y-4 pt-4 border-t border-on-surface/5">
+          <div class="space-y-4 pt-4">
             <label class="flex items-center justify-between cursor-pointer group p-3 rounded-xl hover:bg-on-surface/5 transition-colors">
               <span class="text-sm font-bold text-on-surface/80 group-hover:text-on-surface transition-colors flex items-center gap-2">
                 <span class="material-symbols-outlined text-lg text-accent-solar">workspace_premium</span>
