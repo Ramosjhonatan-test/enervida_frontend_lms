@@ -1,67 +1,56 @@
 <template>
   <div class="mx-auto max-w-[1400px] space-y-8 text-on-surface pb-20">
-    <!-- Hero Section - Compact -->
+    <!-- Hero Section - Ultra Compact -->
     <section 
-      class="panel-hero overflow-hidden rounded-[40px] px-10 py-8 relative group"
+      class="panel-hero overflow-hidden rounded-[24px] px-6 py-5 relative group flex items-center justify-between"
       :class="{ 'animate-slide-up': mounted }"
     >
-      <div class="absolute -right-20 -top-20 w-72 h-72 bg-accent-neon/10 rounded-full blur-[120px] group-hover:bg-accent-neon/20 transition-all duration-1000"></div>
-      <div class="absolute -left-32 -bottom-32 w-60 h-60 bg-violet-500/8 rounded-full blur-[100px]"></div>
-
-      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 relative z-10">
-        <!-- Left: Title -->
-        <div class="flex-1">
-          <div class="mb-3 flex flex-wrap items-center gap-3">
-            <span class="px-3 py-1 rounded-full bg-accent-neon/20 text-accent-neon text-[9px] font-black uppercase tracking-[0.3em] animate-pulse-slow">
-              SISTEMA ACTIVO
-            </span>
-          </div>
-          <h2 class="font-lexend text-3xl md:text-5xl font-black tracking-tighter text-on-surface leading-none">
+      <div class="absolute -right-20 -top-20 w-72 h-72 bg-accent-neon/10 rounded-full blur-[120px]"></div>
+      
+      <!-- Left: Title -->
+      <div class="relative z-10 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-full bg-accent-neon/20 flex items-center justify-center">
+          <span class="material-symbols-outlined text-accent-neon text-2xl">dashboard</span>
+        </div>
+        <div>
+          <h2 class="font-lexend text-2xl md:text-3xl font-black tracking-tighter text-on-surface leading-none">
             Panel de <span class="text-accent-neon">Control</span>
           </h2>
-          <p class="mt-3 max-w-xl text-sm md:text-base leading-relaxed text-on-surface/50 font-medium italic">
-            Monitorea inscripciones, cursos y rendimiento académico en tiempo real.
-          </p>
+          <p class="text-xs text-on-surface/50 font-medium mt-1">Visión general del sistema</p>
         </div>
+      </div>
 
-        <!-- Right: Date/Time Card -->
-        <div class="flex items-center gap-4">
-          <div class="glass-card rounded-[24px] px-6 py-4 !border-none relative overflow-hidden group/time">
-            <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-violet-500/5 to-emerald-500/5 group-hover/time:from-cyan-500/10 group-hover/time:via-violet-500/10 group-hover/time:to-emerald-500/10 transition-all duration-700"></div>
-            <div class="relative z-10 flex items-center gap-4">
-              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-violet-500/20 flex items-center justify-center">
-                <span class="material-symbols-outlined text-2xl text-cyan-400">calendar_month</span>
-              </div>
-              <div>
-                <p class="text-[9px] font-black uppercase tracking-[0.3em] text-on-surface/30">Hoy</p>
-                <p class="text-sm font-bold text-on-surface capitalize">{{ currentDate }}</p>
-                <p class="text-xl font-black font-lexend tracking-tighter text-cyan-400">{{ currentHour }}</p>
-              </div>
-            </div>
-          </div>
+      <!-- Right: Date/Time (Redesigned) -->
+      <div class="relative z-10 flex items-center gap-4 bg-surface/40 backdrop-blur-md border border-white/5 rounded-[20px] px-5 py-3">
+        <div class="text-right">
+          <p class="text-[9px] font-black uppercase tracking-[0.2em] text-cyan-400 mb-0.5">{{ currentDate }}</p>
+          <p class="text-xl font-black font-lexend tracking-tighter text-on-surface leading-none">{{ currentHour }}</p>
+        </div>
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500/20 to-violet-500/20 flex items-center justify-center">
+          <span class="material-symbols-outlined text-cyan-400 text-lg">schedule</span>
         </div>
       </div>
     </section>
 
-    <!-- Metrics Grid - 5 cards including revenue -->
-    <section class="grid grid-cols-2 gap-5 sm:grid-cols-3 xl:grid-cols-5">
+    <!-- Metrics Grid - 4 cards -->
+    <section class="grid grid-cols-2 gap-5 xl:grid-cols-4">
       <article 
         v-for="(stat, i) in metricCards" :key="stat.title" 
-        class="glass-card rounded-[2rem] p-6 transition-all duration-500 hover:-translate-y-2 group shadow-xl !border-none relative overflow-hidden"
+        class="glass-card rounded-[24px] p-5 transition-all duration-500 hover:-translate-y-1 group shadow-lg !border-none relative overflow-hidden"
         :class="{ 'animate-slide-up': mounted }"
         :style="{ animationDelay: `${(i + 1) * 100}ms` }"
       >
         <div class="absolute -right-8 -bottom-8 w-24 h-24 rounded-full blur-3xl transition-colors" :class="stat.glow"></div>
-        <div class="flex items-center justify-between mb-5 relative z-10">
-          <div class="grid h-11 w-11 place-items-center rounded-xl transition-all duration-500" :class="stat.iconBg">
-            <span class="material-symbols-outlined text-xl">{{ stat.icon }}</span>
+        <div class="flex items-center justify-between mb-4 relative z-10">
+          <div class="grid h-10 w-10 place-items-center rounded-xl transition-all duration-500" :class="stat.iconBg">
+            <span class="material-symbols-outlined text-lg">{{ stat.icon }}</span>
           </div>
-          <span class="px-2.5 py-1 rounded-full text-[8px] font-black uppercase tracking-[0.15em]" :class="stat.badgeBg">
+          <span class="px-2 py-1 rounded-full text-[8px] font-black uppercase tracking-[0.15em]" :class="stat.badgeBg">
             {{ stat.badge }}
           </span>
         </div>
         <p class="text-[9px] font-black uppercase tracking-[0.25em] text-on-surface/35 mb-1 relative z-10">{{ stat.title }}</p>
-        <h3 class="font-lexend font-black tracking-tighter transition-colors relative z-10" :class="[stat.valueColor, stat.isSmall ? 'text-lg' : 'text-2xl']">
+        <h3 class="font-lexend font-black tracking-tighter transition-colors relative z-10 text-2xl" :class="stat.valueColor">
           {{ loading ? '...' : stat.value }}
         </h3>
       </article>
@@ -109,6 +98,64 @@
             <span class="material-symbols-outlined text-5xl">donut_large</span>
             <p class="text-xs font-medium italic">Sin datos de cursos</p>
           </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Additional Charts Row -->
+    <section 
+      class="grid gap-6 xl:grid-cols-3"
+      :class="{ 'animate-slide-up': mounted }"
+      :style="{ animationDelay: '600ms' }"
+    >
+      <!-- Users by Month -->
+      <article class="glass-card-premium rounded-[32px] p-6 !border-none shadow-lg">
+        <div class="mb-6 flex items-center justify-between">
+          <div>
+            <p class="text-[9px] font-black uppercase tracking-[0.3em] text-emerald-400 italic">Crecimiento</p>
+            <h3 class="mt-1 font-lexend text-lg font-black tracking-tight">Nuevos Usuarios</h3>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+            <span class="material-symbols-outlined text-lg">group_add</span>
+          </div>
+        </div>
+        <div class="h-[200px]">
+          <Line v-if="usersChartData" :data="usersChartData" :options="lineOptions" />
+          <div v-else class="h-full flex items-center justify-center"><span class="material-symbols-outlined animate-spin text-on-surface/20">sync</span></div>
+        </div>
+      </article>
+
+      <!-- Courses by Category -->
+      <article class="glass-card-premium rounded-[32px] p-6 !border-none shadow-lg">
+        <div class="mb-6 flex items-center justify-between">
+          <div>
+            <p class="text-[9px] font-black uppercase tracking-[0.3em] text-amber-400 italic">Distribución</p>
+            <h3 class="mt-1 font-lexend text-lg font-black tracking-tight">Cursos por Categoría</h3>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400">
+            <span class="material-symbols-outlined text-lg">category</span>
+          </div>
+        </div>
+        <div class="h-[200px]">
+          <Bar v-if="categoryChartData" :data="categoryChartData" :options="horizontalBarOptions" />
+          <div v-else class="h-full flex items-center justify-center"><span class="material-symbols-outlined animate-spin text-on-surface/20">sync</span></div>
+        </div>
+      </article>
+
+      <!-- Eval Results -->
+      <article class="glass-card-premium rounded-[32px] p-6 !border-none shadow-lg">
+        <div class="mb-6 flex items-center justify-between">
+          <div>
+            <p class="text-[9px] font-black uppercase tracking-[0.3em] text-rose-400 italic">Rendimiento</p>
+            <h3 class="mt-1 font-lexend text-lg font-black tracking-tight">Evaluaciones</h3>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center text-rose-400">
+            <span class="material-symbols-outlined text-lg">quiz</span>
+          </div>
+        </div>
+        <div class="h-[200px] flex justify-center">
+          <Doughnut v-if="evalChartData" :data="evalChartData" :options="evalDoughnutOptions" />
+          <div v-else class="h-full flex items-center justify-center"><span class="material-symbols-outlined animate-spin text-on-surface/20">sync</span></div>
         </div>
       </article>
     </section>
@@ -196,14 +243,18 @@
 
 <script setup>
 import { ref, onMounted, computed, onUnmounted } from 'vue'
-import { Bar, Doughnut } from 'vue-chartjs'
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Filler, Tooltip, Legend } from 'chart.js'
+import { Bar, Doughnut, Line } from 'vue-chartjs'
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement, Filler, Tooltip, Legend } from 'chart.js'
 import api from '@/services/api'
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Filler, Tooltip, Legend)
+ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement, Filler, Tooltip, Legend)
 
 const stats = ref({})
 const topCourses = ref([])
+const usersByMonth = ref([])
+const coursesByCategory = ref([])
+const evaluationResults = ref(null)
+
 const loading = ref(true)
 const mounted = ref(false)
 const currentDate = ref('')
@@ -221,12 +272,18 @@ const formatMoney = (val) => `${Number(val || 0).toLocaleString('es-BO', { minim
 const fetchData = async () => {
   loading.value = true
   try {
-    const [dashRes, coursesRes] = await Promise.all([
+    const [dashRes, coursesRes, usersRes, catRes, evalRes] = await Promise.all([
       api.get('/reportes/dashboard'),
-      api.get('/reportes/inscripciones-por-curso')
+      api.get('/reportes/inscripciones-por-curso'),
+      api.get('/reportes/usuarios-por-mes'),
+      api.get('/reportes/cursos-por-categoria'),
+      api.get('/reportes/evaluaciones-resultados')
     ])
     stats.value = dashRes.data
     topCourses.value = coursesRes.data
+    usersByMonth.value = usersRes.data
+    coursesByCategory.value = catRes.data
+    evaluationResults.value = evalRes.data
   } catch (e) {
     console.error('Dashboard error:', e)
   } finally {
@@ -243,13 +300,8 @@ onMounted(() => {
 
 onUnmounted(() => { if (timeInterval) clearInterval(timeInterval) })
 
-// Metric Cards - 5 compact cards
+// Metric Cards - 4 compact cards (removed Ingresos)
 const metricCards = computed(() => [
-  {
-    title: 'Ingresos', value: formatMoney(stats.value.totalVentas), icon: 'payments', badge: 'Finanzas', isSmall: true,
-    iconBg: 'bg-accent-neon/10 text-accent-neon', badgeBg: 'bg-accent-neon/10 text-accent-neon',
-    glow: 'bg-accent-neon/5 group-hover:bg-accent-neon/10', valueColor: 'group-hover:text-accent-neon'
-  },
   {
     title: 'Estudiantes', value: stats.value.totalEstudiantes || 0, icon: 'groups', badge: 'Comunidad',
     iconBg: 'bg-cyan-500/10 text-cyan-400', badgeBg: 'bg-cyan-500/10 text-cyan-400',
@@ -272,9 +324,7 @@ const metricCards = computed(() => [
   }
 ])
 
-// Bar Chart
-const barChartColors = ['#22d3ee', '#06b6d4', '#0891b2', '#0e7490', '#155e75', '#164e63']
-
+// Main Bar Chart
 const barChartData = computed(() => {
   if (!stats.value.trend) return null
   return {
@@ -364,6 +414,84 @@ const doughnutOptions = {
       cornerRadius: 12,
       padding: 14
     }
+  }
+}
+
+// Users Line Chart
+const usersChartData = computed(() => {
+  if (!usersByMonth.value.length) return null
+  return {
+    labels: usersByMonth.value.map(u => u.month),
+    datasets: [{
+      label: 'Nuevos Usuarios',
+      data: usersByMonth.value.map(u => u.count),
+      borderColor: '#34d399',
+      backgroundColor: 'rgba(52, 211, 153, 0.1)',
+      borderWidth: 3,
+      fill: true,
+      tension: 0.4,
+      pointBackgroundColor: '#0f172a',
+      pointBorderColor: '#34d399',
+      pointBorderWidth: 2,
+      pointRadius: 4
+    }]
+  }
+})
+
+const lineOptions = {
+  responsive: true, maintainAspectRatio: false,
+  plugins: { legend: { display: false }, tooltip: barChartOptions.plugins.tooltip },
+  scales: {
+    x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.3)', font: { size: 10 } } },
+    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.3)', font: { size: 10 }, stepSize: 1 }, beginAtZero: true }
+  }
+}
+
+// Category Horizontal Bar Chart
+const categoryChartData = computed(() => {
+  if (!coursesByCategory.value.length) return null
+  return {
+    labels: coursesByCategory.value.map(c => c.nombre.slice(0,12)),
+    datasets: [{
+      label: 'Cursos',
+      data: coursesByCategory.value.map(c => c._count.cursos),
+      backgroundColor: '#fbbf24',
+      borderRadius: 4,
+      barPercentage: 0.6
+    }]
+  }
+})
+
+const horizontalBarOptions = {
+  indexAxis: 'y',
+  responsive: true, maintainAspectRatio: false,
+  plugins: { legend: { display: false }, tooltip: barChartOptions.plugins.tooltip },
+  scales: {
+    x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.3)', font: { size: 10 }, stepSize: 1 }, beginAtZero: true },
+    y: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.5)', font: { size: 10 } } }
+  }
+}
+
+// Eval Results Doughnut
+const evalChartData = computed(() => {
+  if (!evaluationResults.value) return null
+  return {
+    labels: ['Aprobados', 'Reprobados'],
+    datasets: [{
+      data: [evaluationResults.value.aprobados, evaluationResults.value.reprobados],
+      backgroundColor: ['#34d399', '#f43f5e'],
+      borderColor: 'rgba(15,23,42,0.8)',
+      borderWidth: 2,
+      hoverOffset: 4
+    }]
+  }
+})
+
+const evalDoughnutOptions = {
+  responsive: true, maintainAspectRatio: false, cutout: '70%',
+  plugins: {
+    legend: { position: 'bottom', labels: { color: 'rgba(255,255,255,0.5)', font: { size: 10 }, usePointStyle: true, padding: 10 } },
+    tooltip: barChartOptions.plugins.tooltip
   }
 }
 
