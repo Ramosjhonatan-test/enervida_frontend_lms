@@ -360,7 +360,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, onUnmounted } from 'vue'
+import { ref, shallowRef, onMounted, computed, onUnmounted } from 'vue'
 import { Bar, Doughnut, Line } from 'vue-chartjs'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement, Filler, Tooltip, Legend } from 'chart.js'
 import api from '@/services/api'
@@ -369,7 +369,7 @@ import * as XLSX from 'xlsx'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement, Filler, Tooltip, Legend)
 
-const expandedChart = ref(null)
+const expandedChart = shallowRef(null)
 const chartRef = ref(null)
 
 const exportStatus = ref({
