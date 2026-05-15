@@ -71,7 +71,7 @@
           </div>
           <div class="flex items-center gap-3">
             <button @click="expandChart({
-              type: Bar, data: barChartData, options: barChartOptions,
+              type: Bar, data: barChartData, expandedOptions: barChartExpandedOptions, options: barChartOptions,
               title: 'Inscripciones por Mes', subtitle: 'Tendencia',
               icon: 'bar_chart', iconBg: 'bg-cyan-500/10', iconColor: 'text-cyan-400', textColor: 'text-cyan-400'
             })" 
@@ -100,7 +100,7 @@
           </div>
           <div class="flex items-center gap-3">
             <button @click="expandChart({
-              type: Doughnut, data: doughnutChartData, options: doughnutOptions,
+              type: Doughnut, data: doughnutChartData, expandedData: doughnutChartDataExpanded, expandedOptions: doughnutExpandedOptions, options: doughnutOptions,
               title: 'Top Cursos', subtitle: 'Popularidad',
               icon: 'donut_large', iconBg: 'bg-violet-500/10', iconColor: 'text-violet-400', textColor: 'text-violet-400'
             })" 
@@ -137,7 +137,7 @@
           </div>
           <div class="flex items-center gap-2">
             <button @click="expandChart({
-              type: Line, data: usersChartData, options: lineOptions,
+              type: Line, data: usersChartData, expandedOptions: lineExpandedOptions, options: lineOptions,
               title: 'Nuevos Usuarios', subtitle: 'Crecimiento',
               icon: 'group_add', iconBg: 'bg-emerald-500/10', iconColor: 'text-emerald-400', textColor: 'text-emerald-400'
             })" 
@@ -164,7 +164,7 @@
           </div>
           <div class="flex items-center gap-2">
             <button @click="expandChart({
-              type: Bar, data: categoryChartData, options: horizontalBarOptions,
+              type: Bar, data: categoryChartData, expandedData: categoryChartDataExpanded, expandedOptions: horizontalBarExpandedOptions, options: horizontalBarOptions,
               title: 'Cursos por Categoría', subtitle: 'Distribución',
               icon: 'category', iconBg: 'bg-amber-500/10', iconColor: 'text-amber-400', textColor: 'text-amber-400'
             })" 
@@ -191,7 +191,7 @@
           </div>
           <div class="flex items-center gap-2">
             <button @click="expandChart({
-              type: Doughnut, data: evalChartData, options: evalDoughnutOptions,
+              type: Doughnut, data: evalChartData, expandedOptions: evalDoughnutExpandedOptions, options: evalDoughnutOptions,
               title: 'Evaluaciones', subtitle: 'Rendimiento',
               icon: 'quiz', iconBg: 'bg-rose-500/10', iconColor: 'text-rose-400', textColor: 'text-rose-400'
             })" 
@@ -346,8 +346,8 @@
                    :is="expandedChart.type" 
                    ref="chartRef"
                    v-if="expandedChart.data"
-                   :data="expandedChart.data" 
-                   :options="{ ...expandedChart.options, maintainAspectRatio: false }" 
+                   :data="expandedChart.expandedData || expandedChart.data" 
+                   :options="{ ...(expandedChart.expandedOptions || expandedChart.options), maintainAspectRatio: false }" 
                    class="max-h-full max-w-full"
                  />
                </div>
@@ -583,8 +583,8 @@ const barChartData = computed(() => {
       data: stats.value.trend.map(t => t.count),
       backgroundColor: (ctx) => {
         const g = ctx.chart.ctx.createLinearGradient(0, 0, 0, 280)
-        g.addColorStop(0, 'rgba(34, 211, 238, 0.8)')
-        g.addColorStop(1, 'rgba(34, 211, 238, 0.2)')
+        g.addColorStop(0, 'rgba(34, 211, 238, 1)')
+        g.addColorStop(1, 'rgba(34, 211, 238, 0.6)')
         return g
       },
       borderColor: '#22d3ee',
@@ -628,6 +628,41 @@ const barChartOptions = {
   }
 }
 
+const barChartExpandedOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: { 
+      display: true, 
+      position: 'top',
+      labels: { color: 'rgba(255,255,255,0.8)', font: { size: 14, weight: 'bold' }, padding: 20 }
+    },
+    tooltip: {
+      backgroundColor: 'rgba(15,23,42,0.95)',
+      titleColor: '#22d3ee',
+      bodyColor: '#e2e8f0',
+      borderColor: 'rgba(34,211,238,0.3)',
+      borderWidth: 1,
+      cornerRadius: 12,
+      padding: 16,
+      titleFont: { size: 16, weight: 'bold' },
+      bodyFont: { size: 14 },
+      displayColors: true
+    }
+  },
+  scales: {
+    x: {
+      grid: { display: false },
+      ticks: { color: 'rgba(255,255,255,0.8)', font: { size: 13, weight: 'bold' } }
+    },
+    y: {
+      grid: { color: 'rgba(255,255,255,0.1)', drawBorder: false },
+      ticks: { color: 'rgba(255,255,255,0.8)', font: { size: 13 }, stepSize: 1 },
+      beginAtZero: true
+    }
+  }
+}
+
 // Doughnut Chart
 const chartColors = ['#22d3ee', '#a78bfa', '#34d399', '#fbbf24', '#f87171']
 
@@ -641,6 +676,21 @@ const doughnutChartData = computed(() => {
       borderColor: 'rgba(15,23,42,0.8)',
       borderWidth: 4,
       hoverOffset: 8
+    }]
+  }
+})
+
+const doughnutChartDataExpanded = computed(() => {
+  if (!topCourses.value.length) return null
+  return {
+    labels: topCourses.value.map(c => c.titulo),
+    datasets: [{
+      label: 'Inscripciones',
+      data: topCourses.value.map(c => c._count.inscripciones),
+      backgroundColor: chartColors,
+      borderColor: 'rgba(15,23,42,0.8)',
+      borderWidth: 4,
+      hoverOffset: 12
     }]
   }
 })
@@ -663,6 +713,19 @@ const doughnutOptions = {
       cornerRadius: 12,
       padding: 14
     }
+  }
+}
+
+const doughnutExpandedOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  cutout: '50%',
+  plugins: {
+    legend: {
+      position: 'right',
+      labels: { color: 'rgba(255,255,255,0.8)', font: { size: 14, weight: 'bold' }, padding: 24, usePointStyle: true, pointStyleWidth: 12 }
+    },
+    tooltip: barChartExpandedOptions.plugins.tooltip
   }
 }
 
@@ -696,17 +759,43 @@ const lineOptions = {
   }
 }
 
+const lineExpandedOptions = {
+  responsive: true, maintainAspectRatio: false,
+  plugins: { 
+    legend: { display: true, position: 'top', labels: { color: 'rgba(255,255,255,0.8)', font: { size: 14, weight: 'bold' } } }, 
+    tooltip: barChartExpandedOptions.plugins.tooltip 
+  },
+  scales: {
+    x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.8)', font: { size: 13, weight: 'bold' } } },
+    y: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: 'rgba(255,255,255,0.8)', font: { size: 13 }, stepSize: 1 }, beginAtZero: true }
+  }
+}
+
 // Category Horizontal Bar Chart
 const categoryChartData = computed(() => {
   if (!coursesByCategory.value.length) return null
   return {
-    labels: coursesByCategory.value.map(c => c.nombre.slice(0,12)),
+    labels: coursesByCategory.value.map(c => c.nombre.length > 12 ? c.nombre.slice(0, 12) + '…' : c.nombre),
     datasets: [{
       label: 'Cursos',
       data: coursesByCategory.value.map(c => c._count.cursos),
       backgroundColor: '#fbbf24',
       borderRadius: 4,
       barPercentage: 0.6
+    }]
+  }
+})
+
+const categoryChartDataExpanded = computed(() => {
+  if (!coursesByCategory.value.length) return null
+  return {
+    labels: coursesByCategory.value.map(c => c.nombre), // Texto completo
+    datasets: [{
+      label: 'Cursos',
+      data: coursesByCategory.value.map(c => c._count.cursos),
+      backgroundColor: '#fbbf24',
+      borderRadius: 6,
+      barPercentage: 0.7
     }]
   }
 })
@@ -718,6 +807,19 @@ const horizontalBarOptions = {
   scales: {
     x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.3)', font: { size: 10 }, stepSize: 1 }, beginAtZero: true },
     y: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.5)', font: { size: 10 } } }
+  }
+}
+
+const horizontalBarExpandedOptions = {
+  indexAxis: 'y',
+  responsive: true, maintainAspectRatio: false,
+  plugins: { 
+    legend: { display: true, position: 'top', labels: { color: 'rgba(255,255,255,0.8)', font: { size: 14, weight: 'bold' } } }, 
+    tooltip: barChartExpandedOptions.plugins.tooltip 
+  },
+  scales: {
+    x: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: 'rgba(255,255,255,0.8)', font: { size: 13 }, stepSize: 1 }, beginAtZero: true },
+    y: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.8)', font: { size: 14, weight: 'bold' } } }
   }
 }
 
@@ -741,6 +843,14 @@ const evalDoughnutOptions = {
   plugins: {
     legend: { position: 'bottom', labels: { color: 'rgba(255,255,255,0.5)', font: { size: 10 }, usePointStyle: true, padding: 10 } },
     tooltip: barChartOptions.plugins.tooltip
+  }
+}
+
+const evalDoughnutExpandedOptions = {
+  responsive: true, maintainAspectRatio: false, cutout: '60%',
+  plugins: {
+    legend: { position: 'right', labels: { color: 'rgba(255,255,255,0.8)', font: { size: 14, weight: 'bold' }, usePointStyle: true, padding: 24 } },
+    tooltip: barChartExpandedOptions.plugins.tooltip
   }
 }
 
