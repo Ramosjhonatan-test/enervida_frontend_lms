@@ -78,11 +78,11 @@
               </td>
               <td class="p-6 text-right">
                 <div class="flex justify-end gap-2">
-                  <button @click="openEdit(cat)" class="w-10 h-10 rounded-xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-blue-500/10 hover:text-blue-500 transition-all" title="Editar">
-                    <span class="material-symbols-outlined text-sm">edit</span>
+                  <button @click="openEdit(cat)" class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 hover:bg-blue-600 hover:text-white transition-all" title="Editar">
+                    <span class="material-symbols-outlined text-xl">edit</span>
                   </button>
-                  <button @click="deleteCategoria(cat.id)" class="w-10 h-10 rounded-xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-red-500/10 hover:text-red-500 transition-all" title="Eliminar">
-                    <span class="material-symbols-outlined text-sm">delete</span>
+                  <button @click="deleteCategoria(cat.id)" class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-600 hover:text-white transition-all" title="Eliminar">
+                    <span class="material-symbols-outlined text-xl">delete</span>
                   </button>
                 </div>
               </td>

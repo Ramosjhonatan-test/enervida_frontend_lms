@@ -168,11 +168,11 @@
               </td>
               <td class="p-8 text-right">
                 <div class="flex justify-end gap-3">
-                  <button @click="openEdit(rol)" class="w-12 h-12 rounded-2xl bg-on-surface/[0.04] flex items-center justify-center text-on-surface/20 hover:bg-blue-600 hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-sm" title="Editar Configuración">
-                    <span class="material-symbols-outlined text-lg">edit_note</span>
+                  <button @click="openEdit(rol)" class="w-11 h-11 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 hover:bg-blue-600 hover:text-white hover:-translate-y-1 transition-all duration-300" title="Editar Configuración">
+                    <span class="material-symbols-outlined text-xl">edit_note</span>
                   </button>
-                  <button v-if="!isSystemRole(rol.nombre)" @click="deleteRol(rol.id)" class="w-12 h-12 rounded-2xl bg-on-surface/[0.04] flex items-center justify-center text-on-surface/20 hover:bg-red-600 hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-sm" title="Eliminar Rol">
-                    <span class="material-symbols-outlined text-lg">delete_sweep</span>
+                  <button v-if="!isSystemRole(rol.nombre)" @click="deleteRol(rol.id)" class="w-11 h-11 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-600 hover:text-white hover:-translate-y-1 transition-all duration-300" title="Eliminar Rol">
+                    <span class="material-symbols-outlined text-xl">delete_sweep</span>
                   </button>
                 </div>
               </td>

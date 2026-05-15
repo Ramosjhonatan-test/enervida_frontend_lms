@@ -77,14 +77,14 @@
               </td>
               <td class="p-6 text-right">
                 <div class="flex justify-end gap-2">
-                   <button @click="toggleStatus(usuario)" class="w-9 h-9 rounded-lg bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-accent-neon/10 hover:text-accent-neon transition-all" title="Cambiar Estado">
-                    <span class="material-symbols-outlined text-sm">{{ usuario.estado === 'ACTIVO' ? 'block' : 'check_circle' }}</span>
+                   <button @click="toggleStatus(usuario)" class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 hover:bg-emerald-600 hover:text-white transition-all" title="Cambiar Estado">
+                    <span class="material-symbols-outlined text-xl">{{ usuario.estado === 'ACTIVO' ? 'block' : 'check_circle' }}</span>
                   </button>
-                  <router-link :to="'/admin/estudiantes/editar/' + usuario.id" class="w-9 h-9 rounded-lg bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-blue-500/10 hover:text-blue-500 transition-all">
-                    <span class="material-symbols-outlined text-sm">edit</span>
+                  <router-link :to="'/admin/estudiantes/editar/' + usuario.id" class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 hover:bg-blue-600 hover:text-white transition-all">
+                    <span class="material-symbols-outlined text-xl">edit</span>
                   </router-link>
-                  <button @click="deleteUsuario(usuario.id)" class="w-9 h-9 rounded-lg bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-red-500/10 hover:text-red-500 transition-all">
-                    <span class="material-symbols-outlined text-sm">delete</span>
+                  <button @click="deleteUsuario(usuario.id)" class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-600 hover:text-white transition-all">
+                    <span class="material-symbols-outlined text-xl">delete</span>
                   </button>
                 </div>
               </td>

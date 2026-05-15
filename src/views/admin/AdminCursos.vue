@@ -131,17 +131,17 @@
             <div class="flex gap-2">
               <router-link 
                 :to="'/admin/cursos/' + curso.id" 
-                class="w-11 h-11 rounded-2xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-accent-neon/10 hover:text-accent-neon transition-all hover:shadow-neon-sm"
+                class="w-11 h-11 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 hover:bg-blue-600 hover:text-white transition-all duration-300"
                 title="Editar Curso"
               >
-                <span class="material-symbols-outlined text-lg">edit</span>
+                <span class="material-symbols-outlined text-xl">edit</span>
               </router-link>
               <button 
                 @click="deleteCurso(curso.id)" 
-                class="w-11 h-11 rounded-2xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-red-500/10 hover:text-red-500 transition-all hover:shadow-[0_0_15px_rgba(239,68,68,0.2)]"
+                class="w-11 h-11 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-600 hover:text-white transition-all duration-300"
                 title="Eliminar"
               >
-                <span class="material-symbols-outlined text-lg">delete</span>
+                <span class="material-symbols-outlined text-xl">delete</span>
               </button>
             </div>
           </div>

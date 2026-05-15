@@ -142,18 +142,18 @@
               </td>
               <td class="p-6 text-right">
                 <div class="flex justify-end gap-2">
-                  <router-link :to="{ name: 'admin-estudiante-detalle', params: { id: estudiante.id } }" class="w-10 h-10 rounded-xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-accent-neon/10 hover:text-accent-neon transition-all" title="Ver Detalle">
-                    <span class="material-symbols-outlined text-sm">visibility</span>
+                  <router-link :to="{ name: 'admin-estudiante-detalle', params: { id: estudiante.id } }" class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500 hover:bg-cyan-600 hover:text-white transition-all" title="Ver Detalle">
+                    <span class="material-symbols-outlined text-xl">visibility</span>
                   </router-link>
-                  <router-link :to="'/admin/estudiantes/editar/' + estudiante.id" class="w-10 h-10 rounded-xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-blue-500/10 hover:text-blue-500 transition-all" title="Editar">
-                    <span class="material-symbols-outlined text-sm">edit</span>
+                  <router-link :to="'/admin/estudiantes/editar/' + estudiante.id" class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 hover:bg-blue-600 hover:text-white transition-all" title="Editar">
+                    <span class="material-symbols-outlined text-xl">edit</span>
                   </router-link>
-                  <button @click="toggleStatus(estudiante)" class="w-10 h-10 rounded-xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-accent-neon/10 hover:text-accent-neon transition-all" title="Alternar Estado">
-                    <span class="material-symbols-outlined text-sm">{{ estudiante.estado === 'ACTIVO' ? 'block' : 'check_circle' }}</span>
+                  <button @click="toggleStatus(estudiante)" class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 hover:bg-emerald-600 hover:text-white transition-all" title="Alternar Estado">
+                    <span class="material-symbols-outlined text-xl">{{ estudiante.estado === 'ACTIVO' ? 'block' : 'check_circle' }}</span>
                   </button>
-                  <button @click="deleteEstudiante(estudiante.id)" class="w-10 h-10 rounded-xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-red-500/10 hover:text-red-500 transition-all" title="Eliminar">
-                    <span class="material-symbols-outlined text-sm">delete</span>
-                  </button>
+                  <button @click="deleteEstudiante(estudiante.id)" class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-600 hover:text-white transition-all" title="Eliminar">
+                    <span class="material-symbols-outlined text-xl">delete</span>
+                  </button>on>
                 </div>
               </td>
             </tr>

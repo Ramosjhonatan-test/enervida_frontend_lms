@@ -3,8 +3,8 @@
     <!-- Header with Back Button -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
       <div class="flex items-center gap-6">
-        <button @click="$router.back()" class="w-12 h-12 rounded-2xl bg-on-surface/5 flex items-center justify-center text-on-surface/60 hover:bg-accent-neon/10 hover:text-accent-neon transition-all">
-          <span class="material-symbols-outlined">arrow_back</span>
+        <button @click="$router.back()" class="w-11 h-11 rounded-xl bg-on-surface/10 flex items-center justify-center text-on-surface/60 hover:bg-on-surface/20 transition-all" title="Volver">
+          <span class="material-symbols-outlined text-xl">arrow_back</span>
         </button>
         <div>
           <h2 class="text-3xl font-black text-on-surface font-lexend tracking-tighter">Detalle del <span class="text-accent-neon italic">Estudiante</span></h2>
@@ -89,7 +89,7 @@
               </div>
             </div>
 
-            <button @click="liberateDevices" class="w-full py-4 rounded-2xl bg-red-500/10 text-red-500 text-[10px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all flex items-center justify-center gap-2">
+            <button @click="liberateDevices" class="w-full py-4 rounded-xl bg-red-500/10 text-red-500 text-[10px] font-black uppercase tracking-widest hover:bg-red-600 hover:text-white transition-all flex items-center justify-center gap-2">
               <span class="material-symbols-outlined text-sm">lock_open</span>
               Liberar Cuenta (Desvincular)
             </button>
@@ -161,7 +161,7 @@
                   <span :class="['px-2 py-0.5 text-[8px] font-black rounded-md uppercase tracking-widest', ins.estado === 'ACTIVO' ? 'bg-green-500/20 text-green-500' : 'bg-yellow-500/20 text-yellow-500']">
                     {{ ins.estado }}
                   </span>
-                  <button v-if="ins.estado === 'PENDIENTE'" @click="approveEnrollment(ins.id)" class="px-3 py-1 bg-green-500 text-white text-[9px] font-black rounded-lg hover:bg-green-600 transition-colors">
+                  <button v-if="ins.estado === 'PENDIENTE'" @click="approveEnrollment(ins.id)" class="px-3 py-1.5 bg-emerald-500/10 text-emerald-500 text-[9px] font-black rounded-lg hover:bg-emerald-600 hover:text-white transition-all uppercase tracking-wider">
                     Aprobar Pago
                   </button>
                 </div>
