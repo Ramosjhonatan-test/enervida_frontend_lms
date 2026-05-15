@@ -63,14 +63,24 @@
       :style="{ animationDelay: '500ms' }"
     >
       <!-- Bar Chart - Inscripciones por Mes -->
-      <article class="glass-card-premium rounded-[40px] p-8 !border-none shadow-xl">
+      <article class="glass-card-premium rounded-[40px] p-8 !border-none shadow-xl group/card relative">
         <div class="mb-8 flex items-center justify-between">
           <div>
             <p class="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-400 italic">Tendencia</p>
             <h3 class="mt-2 font-lexend text-2xl font-black tracking-tight">Inscripciones por Mes</h3>
           </div>
-          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400">
-            <span class="material-symbols-outlined">bar_chart</span>
+          <div class="flex items-center gap-3">
+            <button @click="expandChart({
+              type: Bar, data: barChartData, options: barChartOptions,
+              title: 'Inscripciones por Mes', subtitle: 'Tendencia',
+              icon: 'bar_chart', iconBg: 'bg-cyan-500/10', iconColor: 'text-cyan-400', textColor: 'text-cyan-400'
+            })" 
+            class="opacity-0 group-hover/card:opacity-100 w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-all" title="Agrandar gráfico">
+              <span class="material-symbols-outlined text-lg">open_in_full</span>
+            </button>
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400">
+              <span class="material-symbols-outlined">bar_chart</span>
+            </div>
           </div>
         </div>
         <div class="h-[280px] relative">
@@ -82,14 +92,24 @@
       </article>
 
       <!-- Doughnut Chart - Top Courses -->
-      <article class="glass-card-premium rounded-[40px] p-8 !border-none shadow-xl">
+      <article class="glass-card-premium rounded-[40px] p-8 !border-none shadow-xl group/card relative">
         <div class="mb-8 flex items-center justify-between">
           <div>
             <p class="text-[10px] font-black uppercase tracking-[0.3em] text-violet-400 italic">Popularidad</p>
             <h3 class="mt-2 font-lexend text-2xl font-black tracking-tight">Top Cursos</h3>
           </div>
-          <div class="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center text-violet-400">
-            <span class="material-symbols-outlined">donut_large</span>
+          <div class="flex items-center gap-3">
+            <button @click="expandChart({
+              type: Doughnut, data: doughnutChartData, options: doughnutOptions,
+              title: 'Top Cursos', subtitle: 'Popularidad',
+              icon: 'donut_large', iconBg: 'bg-violet-500/10', iconColor: 'text-violet-400', textColor: 'text-violet-400'
+            })" 
+            class="opacity-0 group-hover/card:opacity-100 w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-all" title="Agrandar gráfico">
+              <span class="material-symbols-outlined text-lg">open_in_full</span>
+            </button>
+            <div class="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center text-violet-400">
+              <span class="material-symbols-outlined">donut_large</span>
+            </div>
           </div>
         </div>
         <div class="h-[280px] flex items-center justify-center">
@@ -109,14 +129,24 @@
       :style="{ animationDelay: '600ms' }"
     >
       <!-- Users by Month -->
-      <article class="glass-card-premium rounded-[32px] p-6 !border-none shadow-lg">
+      <article class="glass-card-premium rounded-[32px] p-6 !border-none shadow-lg group/card relative">
         <div class="mb-6 flex items-center justify-between">
           <div>
             <p class="text-[9px] font-black uppercase tracking-[0.3em] text-emerald-400 italic">Crecimiento</p>
             <h3 class="mt-1 font-lexend text-lg font-black tracking-tight">Nuevos Usuarios</h3>
           </div>
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400">
-            <span class="material-symbols-outlined text-lg">group_add</span>
+          <div class="flex items-center gap-2">
+            <button @click="expandChart({
+              type: Line, data: usersChartData, options: lineOptions,
+              title: 'Nuevos Usuarios', subtitle: 'Crecimiento',
+              icon: 'group_add', iconBg: 'bg-emerald-500/10', iconColor: 'text-emerald-400', textColor: 'text-emerald-400'
+            })" 
+            class="opacity-0 group-hover/card:opacity-100 w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-all" title="Agrandar gráfico">
+              <span class="material-symbols-outlined text-base">open_in_full</span>
+            </button>
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+              <span class="material-symbols-outlined text-lg">group_add</span>
+            </div>
           </div>
         </div>
         <div class="h-[200px]">
@@ -126,14 +156,24 @@
       </article>
 
       <!-- Courses by Category -->
-      <article class="glass-card-premium rounded-[32px] p-6 !border-none shadow-lg">
+      <article class="glass-card-premium rounded-[32px] p-6 !border-none shadow-lg group/card relative">
         <div class="mb-6 flex items-center justify-between">
           <div>
             <p class="text-[9px] font-black uppercase tracking-[0.3em] text-amber-400 italic">Distribución</p>
             <h3 class="mt-1 font-lexend text-lg font-black tracking-tight">Cursos por Categoría</h3>
           </div>
-          <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400">
-            <span class="material-symbols-outlined text-lg">category</span>
+          <div class="flex items-center gap-2">
+            <button @click="expandChart({
+              type: Bar, data: categoryChartData, options: horizontalBarOptions,
+              title: 'Cursos por Categoría', subtitle: 'Distribución',
+              icon: 'category', iconBg: 'bg-amber-500/10', iconColor: 'text-amber-400', textColor: 'text-amber-400'
+            })" 
+            class="opacity-0 group-hover/card:opacity-100 w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-all" title="Agrandar gráfico">
+              <span class="material-symbols-outlined text-base">open_in_full</span>
+            </button>
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400">
+              <span class="material-symbols-outlined text-lg">category</span>
+            </div>
           </div>
         </div>
         <div class="h-[200px]">
@@ -143,14 +183,24 @@
       </article>
 
       <!-- Eval Results -->
-      <article class="glass-card-premium rounded-[32px] p-6 !border-none shadow-lg">
+      <article class="glass-card-premium rounded-[32px] p-6 !border-none shadow-lg group/card relative">
         <div class="mb-6 flex items-center justify-between">
           <div>
             <p class="text-[9px] font-black uppercase tracking-[0.3em] text-rose-400 italic">Rendimiento</p>
             <h3 class="mt-1 font-lexend text-lg font-black tracking-tight">Evaluaciones</h3>
           </div>
-          <div class="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center text-rose-400">
-            <span class="material-symbols-outlined text-lg">quiz</span>
+          <div class="flex items-center gap-2">
+            <button @click="expandChart({
+              type: Doughnut, data: evalChartData, options: evalDoughnutOptions,
+              title: 'Evaluaciones', subtitle: 'Rendimiento',
+              icon: 'quiz', iconBg: 'bg-rose-500/10', iconColor: 'text-rose-400', textColor: 'text-rose-400'
+            })" 
+            class="opacity-0 group-hover/card:opacity-100 w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-all" title="Agrandar gráfico">
+              <span class="material-symbols-outlined text-base">open_in_full</span>
+            </button>
+            <div class="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center text-rose-400">
+              <span class="material-symbols-outlined text-lg">quiz</span>
+            </div>
           </div>
         </div>
         <div class="h-[200px] flex justify-center">
@@ -238,6 +288,44 @@
         </div>
       </article>
     </section>
+
+    <!-- Expand Chart Modal -->
+    <Teleport to="body">
+      <Transition name="fade">
+        <div v-if="expandedChart" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#09090b]/80 backdrop-blur-md p-4 sm:p-8" @click.self="expandedChart = null">
+          <div class="glass-card-premium w-full max-w-6xl h-[85vh] flex flex-col rounded-[32px] overflow-hidden shadow-2xl relative border border-white/10 animate-scale-up">
+            <!-- Header -->
+            <div class="px-8 py-6 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+              <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-2xl flex items-center justify-center shadow-inner" :class="expandedChart.iconBg">
+                  <span class="material-symbols-outlined text-3xl" :class="expandedChart.iconColor">{{ expandedChart.icon }}</span>
+                </div>
+                <div>
+                  <p class="text-[11px] font-black uppercase tracking-[0.3em] italic" :class="expandedChart.textColor">{{ expandedChart.subtitle }}</p>
+                  <h3 class="mt-1 font-lexend text-3xl font-black tracking-tight text-white">{{ expandedChart.title }}</h3>
+                </div>
+              </div>
+              <button @click="expandedChart = null" class="w-12 h-12 rounded-full bg-white/5 hover:bg-white/10 hover:text-rose-400 flex items-center justify-center transition-all">
+                <span class="material-symbols-outlined text-2xl">close</span>
+              </button>
+            </div>
+            
+            <!-- Body -->
+            <div class="flex-1 p-8 relative flex items-center justify-center min-h-0 bg-gradient-to-b from-white/[0.02] to-transparent">
+               <div class="w-full h-full relative flex items-center justify-center">
+                 <component 
+                   :is="expandedChart.type" 
+                   v-if="expandedChart.data"
+                   :data="expandedChart.data" 
+                   :options="{ ...expandedChart.options, maintainAspectRatio: false }" 
+                   class="max-h-full max-w-full"
+                 />
+               </div>
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
@@ -248,6 +336,11 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, L
 import api from '@/services/api'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement, Filler, Tooltip, Legend)
+
+const expandedChart = ref(null)
+const expandChart = (config) => {
+  expandedChart.value = config
+}
 
 const stats = ref({})
 const topCourses = ref([])
@@ -529,6 +622,24 @@ const timeAgo = (date) => {
 <style scoped>
 .animate-slide-up {
   animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 @keyframes slideUp {
