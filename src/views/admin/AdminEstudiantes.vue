@@ -1,45 +1,94 @@
 <template>
-  <div class="space-y-10 animate-fade-in">
-    <!-- Header -->
-    <div class="panel-hero p-6 sm:p-8">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div>
-          <h2 class="text-3xl font-black text-on-surface font-lexend tracking-tighter">Gestión de <span class="text-accent-neon italic">Estudiantes</span></h2>
-          <p class="text-on-surface/40 mt-1 text-xs font-bold uppercase tracking-widest">Administra los usuarios inscritos en la plataforma</p>
+  <div class="space-y-10 animate-fade-in text-on-surface">
+    <!-- Header & Hero -->
+    <div class="panel-hero p-10 relative overflow-hidden group rounded-[40px] border border-on-surface/5 bg-gradient-to-br from-on-surface/[0.03] to-transparent">
+      <div class="absolute -right-20 -top-20 w-80 h-80 bg-accent-neon/10 rounded-full blur-[100px] group-hover:bg-accent-neon/20 transition-all duration-1000"></div>
+      <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-primary/5 rounded-full blur-[80px]"></div>
+
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-10">
+        <div class="flex-1">
+          <div class="flex items-center gap-4 mb-3">
+            <div class="w-16 h-16 rounded-2xl bg-accent-neon/20 flex items-center justify-center text-accent-neon shadow-neon-sm animate-pulse-slow border border-accent-neon/30">
+              <span class="material-symbols-outlined text-4xl">group</span>
+            </div>
+            <div>
+              <h2 class="text-3xl md:text-5xl font-black text-on-surface font-lexend tracking-tighter leading-none">
+                Gestión de <span class="text-accent-neon italic">Estudiantes</span>
+              </h2>
+              <p class="text-on-surface/50 text-xs font-bold uppercase tracking-[0.4em] mt-3 flex items-center gap-2">
+                <span class="flex h-2 w-2 relative">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-neon opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-neon"></span>
+                </span>
+                COMUNIDAD Y SEGUIMIENTO ACADÉMICO
+              </p>
+            </div>
+          </div>
         </div>
-        <router-link to="/admin/estudiantes/nuevo" class="btn-premium btn-primary-neon !py-4 gap-2">
-          <span class="material-symbols-outlined text-sm">person_add</span>
-          Nuevo Estudiante
-        </router-link>
+
+        <div class="flex flex-wrap items-center gap-4">
+          <div class="relative group">
+            <span class="absolute left-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/30 group-focus-within:text-accent-neon transition-all scale-110">search</span>
+            <input 
+              v-model="searchQuery" 
+              type="text" 
+              placeholder="Buscar estudiante..." 
+              class="input-cyber !pl-14 !py-4 !text-sm w-full md:w-80 transition-all"
+            />
+          </div>
+          <router-link to="/admin/estudiantes/nuevo" class="btn-premium btn-primary-neon !py-4 px-8 group/btn relative overflow-hidden">
+             <div class="absolute inset-0 bg-accent-neon/5 translate-y-full group-hover/btn:translate-y-0 transition-transform"></div>
+             <span class="material-symbols-outlined text-lg relative">person_add</span>
+             <span class="relative">Nuevo Estudiante</span>
+          </router-link>
+        </div>
       </div>
     </div>
 
     <!-- Stats Row -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="glass-card-premium p-8 rounded-[32px] border-accent-neon/10 group hover:border-accent-neon/20 transition-all">
-        <div class="flex items-center gap-4 mb-4">
-          <div class="w-12 h-12 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon">
-            <span class="material-symbols-outlined">group</span>
-          </div>
-          <span class="text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Total Alumnos</span>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div class="glass-card rounded-[2.5rem] p-8 border-accent-neon/10 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
+        <div class="w-16 h-16 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon group-hover:shadow-neon-sm transition-all border border-accent-neon/5">
+          <span class="material-symbols-outlined text-3xl">groups</span>
         </div>
-        <p class="text-4xl font-black text-on-surface">{{ estudiantes.length }}</p>
+        <div>
+          <p class="text-[10px] font-black text-on-surface/40 uppercase tracking-widest mb-1">Total Estudiantes</p>
+          <p class="text-4xl font-black text-on-surface font-lexend tracking-tight">{{ estudiantes.length }}</p>
+        </div>
       </div>
-      <div class="glass-card-premium p-8 rounded-[32px] border-accent-neon/10 group hover:border-accent-neon/20 transition-all">
-        <div class="flex items-center gap-4 mb-4">
-          <div class="w-12 h-12 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon">
-            <span class="material-symbols-outlined">how_to_reg</span>
-          </div>
-          <span class="text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Activos</span>
+      <div class="glass-card rounded-[2.5rem] p-8 border-accent-solar/10 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
+        <div class="w-16 h-16 rounded-2xl bg-accent-solar/10 flex items-center justify-center text-accent-solar group-hover:shadow-solar-sm transition-all border border-accent-solar/5">
+          <span class="material-symbols-outlined text-3xl">how_to_reg</span>
         </div>
-        <p class="text-4xl font-black text-on-surface">{{ estudiantes.filter(e => e.estado === 'ACTIVO').length }}</p>
+        <div>
+          <p class="text-[10px] font-black text-on-surface/40 uppercase tracking-widest mb-1">Alumnos Activos</p>
+          <p class="text-4xl font-black text-on-surface font-lexend tracking-tight">{{ estudiantes.filter(e => e.estado === 'ACTIVO').length }}</p>
+        </div>
+      </div>
+      <div class="glass-card rounded-[2.5rem] p-8 border-blue-500/10 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
+        <div class="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:shadow-blue-500/20 transition-all border border-blue-500/5">
+          <span class="material-symbols-outlined text-3xl">verified</span>
+        </div>
+        <div>
+          <p class="text-[10px] font-black text-on-surface/40 uppercase tracking-widest mb-1">Verificados</p>
+          <p class="text-4xl font-black text-on-surface font-lexend tracking-tight">{{ estudiantes.filter(e => e.correo_verificado).length }}</p>
+        </div>
+      </div>
+      <div class="glass-card rounded-[2.5rem] p-8 border-red-500/10 flex items-center gap-6 group hover:-translate-y-1 transition-all duration-500">
+        <div class="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 group-hover:shadow-red-500/20 transition-all border border-red-500/5">
+          <span class="material-symbols-outlined text-3xl">block</span>
+        </div>
+        <div>
+          <p class="text-[10px] font-black text-on-surface/40 uppercase tracking-widest mb-1">Suspendidos</p>
+          <p class="text-4xl font-black text-on-surface font-lexend tracking-tight">{{ estudiantes.filter(e => e.estado !== 'ACTIVO').length }}</p>
+        </div>
       </div>
     </div>
 
     <!-- Students Table -->
     <div class="glass-card-premium rounded-[40px] overflow-hidden border-accent-neon/10">
       <div class="overflow-x-auto">
-        <table class="w-full min-w-[900px] text-left border-collapse">
+        <table class="w-full min-w-[1000px] text-left border-collapse">
           <thead>
             <tr class="bg-on-surface/[0.03]">
               <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Estudiante</th>
@@ -50,29 +99,38 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-on-surface/[0.06]">
-            <tr v-for="estudiante in estudiantes" :key="estudiante.id" class="group hover:bg-on-surface/[0.03] transition-colors">
+            <tr v-for="estudiante in filteredEstudiantes" :key="estudiante.id" class="group hover:bg-on-surface/[0.03] transition-colors">
               <td class="p-6">
-                <div class="flex items-center gap-4">
-                  <div class="w-10 h-10 rounded-xl bg-on-surface/5 overflow-hidden border border-on-surface/5">
-                    <img :src="estudiante.imagen_perfil || 'https://i.pravatar.cc/150?u=' + estudiante.id" class="w-full h-full object-cover" />
+                <div class="flex items-center gap-4 group/user">
+                  <div class="relative shrink-0">
+                    <router-link :to="{ name: 'admin-estudiante-detalle', params: { id: estudiante.id } }" class="relative block">
+                      <div class="w-14 h-14 rounded-[20px] bg-on-surface/5 overflow-hidden border border-on-surface/10 group-hover/user:border-accent-neon/40 transition-all duration-500 shadow-xl">
+                        <img :src="estudiante.imagen_perfil || 'https://i.pravatar.cc/150?u=' + estudiante.id" class="w-full h-full object-cover group-hover/user:scale-110 transition-transform duration-700" />
+                        <div class="absolute inset-0 bg-accent-neon/20 opacity-0 group-hover/user:opacity-100 flex items-center justify-center transition-all duration-500 backdrop-blur-[2px]">
+                          <span class="material-symbols-outlined text-white text-xl">visibility</span>
+                        </div>
+                      </div>
+                    </router-link>
                   </div>
-                  <div>
-                    <p class="text-sm font-black text-on-surface">{{ estudiante.nombres }} {{ estudiante.apellidos }}</p>
-                    <p class="text-[10px] text-on-surface/40 font-bold uppercase tracking-tighter">Desde: {{ new Date(estudiante.fecha_creacion).toLocaleDateString() }}</p>
+                  <div class="flex flex-col">
+                    <router-link :to="{ name: 'admin-estudiante-detalle', params: { id: estudiante.id } }" class="text-base font-black text-on-surface hover:text-accent-neon transition-all duration-300 tracking-tight leading-tight">
+                      {{ estudiante.nombres }} {{ estudiante.apellidos }}
+                    </router-link>
+                    <span class="text-[10px] text-on-surface/40 font-bold uppercase tracking-tighter mt-1">Registrado: {{ new Date(estudiante.fecha_creacion).toLocaleDateString() }}</span>
                   </div>
                 </div>
+              </td>
+              <td class="p-6">
+                <span class="text-xs font-black text-on-surface/60 tracking-wider">{{ estudiante.ci || 'PENDIENTE' }}</span>
               </td>
               <td class="p-6">
                 <div class="flex flex-col gap-1">
-                  <span class="text-sm text-on-surface/80 font-bold flex items-center gap-2">
+                  <span class="text-xs text-on-surface/80 font-bold flex items-center gap-2">
                     {{ estudiante.correo }}
                     <span v-if="estudiante.correo_verificado" class="material-symbols-outlined text-[14px] text-blue-500" title="Verificado">verified</span>
                   </span>
-                  <span class="text-[10px] text-on-surface/40 font-black uppercase tracking-widest">{{ estudiante.telefono || 'Sin Teléfono' }}</span>
+                  <span class="text-[9px] text-on-surface/40 font-black tracking-widest uppercase">{{ estudiante.telefono || 'Sin Teléfono' }}</span>
                 </div>
-              </td>
-              <td class="p-6">
-                <span class="text-xs font-black text-on-surface/60">{{ estudiante.ci || 'Pte. Registro' }}</span>
               </td>
               <td class="p-6">
                 <div class="flex items-center gap-2">
@@ -84,7 +142,7 @@
               </td>
               <td class="p-6 text-right">
                 <div class="flex justify-end gap-2">
-                  <router-link :to="'/admin/estudiantes/' + estudiante.id" class="w-10 h-10 rounded-xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-accent-neon/10 hover:text-accent-neon transition-all" title="Ver Detalle">
+                  <router-link :to="{ name: 'admin-estudiante-detalle', params: { id: estudiante.id } }" class="w-10 h-10 rounded-xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-accent-neon/10 hover:text-accent-neon transition-all" title="Ver Detalle">
                     <span class="material-symbols-outlined text-sm">visibility</span>
                   </router-link>
                   <router-link :to="'/admin/estudiantes/editar/' + estudiante.id" class="w-10 h-10 rounded-xl bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-blue-500/10 hover:text-blue-500 transition-all" title="Editar">
@@ -99,7 +157,7 @@
                 </div>
               </td>
             </tr>
-            <tr v-if="estudiantes.length === 0">
+            <tr v-if="filteredEstudiantes.length === 0">
               <td colspan="5" class="p-20 text-center">
                 <div class="flex flex-col items-center gap-4 text-on-surface/20">
                   <span class="material-symbols-outlined text-6xl">group_off</span>
@@ -115,7 +173,7 @@
     <!-- Loading Overlay -->
     <div v-if="loading" class="fixed inset-0 bg-background/60 backdrop-blur-md z-[200] flex items-center justify-center">
       <div class="flex flex-col items-center gap-6">
-        <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-accent-neon shadow-[0_0_20px_var(--accent-neon)]"></div>
+        <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-accent-neon shadow-neon-sm"></div>
         <p class="text-[10px] font-black text-accent-neon uppercase tracking-[0.4em]">Cargando Estudiantes...</p>
       </div>
     </div>
@@ -123,13 +181,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import api from '@/services/api'
 import { useNotificationStore } from '@/stores/notificationStore'
 import { useModalStore } from '@/stores/modalStore'
 
 const estudiantes = ref([])
 const loading = ref(true)
+const searchQuery = ref('')
 const notificationStore = useNotificationStore()
 const modalStore = useModalStore()
 
@@ -144,6 +203,17 @@ const fetchEstudiantes = async () => {
     loading.value = false
   }
 }
+
+const filteredEstudiantes = computed(() => {
+  if (!searchQuery.value) return estudiantes.value
+  const q = searchQuery.value.toLowerCase()
+  return estudiantes.value.filter(e => 
+    e.nombres?.toLowerCase().includes(q) ||
+    e.apellidos?.toLowerCase().includes(q) ||
+    e.correo?.toLowerCase().includes(q) ||
+    e.ci?.includes(q)
+  )
+})
 
 const toggleStatus = async (estudiante) => {
   try {

@@ -1,131 +1,181 @@
 <template>
   <div class="space-y-10 animate-fade-in text-on-surface">
-    <!-- Header -->
-    <div class="panel-hero p-6 sm:p-8">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div>
-          <h2 class="text-3xl font-black text-on-surface font-lexend tracking-tighter">Control de <span class="text-accent-neon italic">Dispositivos</span></h2>
-          <p class="text-on-surface/40 mt-1 text-xs font-bold uppercase tracking-widest">Seguridad y gestión de sesiones activas en la plataforma</p>
+    <!-- Header & Hero -->
+    <div class="panel-hero p-10 relative overflow-hidden group rounded-[40px] bg-on-surface/[0.03] !border-none">
+      <div class="absolute -right-20 -top-20 w-80 h-80 bg-accent-neon/10 rounded-full blur-[100px] group-hover:bg-accent-neon/20 transition-all duration-1000"></div>
+      <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-primary/5 rounded-full blur-[80px]"></div>
+
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-10">
+        <div class="flex-1">
+          <div class="flex items-center gap-4 mb-3">
+            <div class="w-16 h-16 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon shadow-neon-sm animate-pulse-slow">
+              <span class="material-symbols-outlined text-4xl">devices</span>
+            </div>
+            <div>
+              <h2 class="text-xl md:text-2xl font-black text-on-surface font-lexend tracking-tighter leading-none">
+                Control de <span class="text-accent-neon italic">Dispositivos</span>
+              </h2>
+              <p class="text-on-surface/50 text-[10px] font-bold uppercase tracking-[0.3em] mt-3 flex items-center gap-2">
+                <span class="flex h-1.5 w-1.5 relative">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-neon opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-accent-neon"></span>
+                </span>
+                GESTIÓN DE SEGURIDAD Y ACCESOS
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="flex gap-4">
+
+        <div class="flex flex-wrap items-center gap-4">
           <div class="relative group">
-            <span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/30 text-sm">search</span>
+            <span class="absolute left-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface/30 group-focus-within:text-accent-neon transition-all scale-110">search</span>
             <input 
               v-model="searchQuery" 
               type="text" 
-              placeholder="Buscar por usuario o IP..." 
-              class="input-cyber !pl-10 !py-3 !text-xs w-64"
+              placeholder="Buscar usuario o IP..." 
+              class="input-cyber !pl-14 !py-4 !text-sm w-full md:w-80 transition-all border-none bg-on-surface/[0.04]"
             />
           </div>
-          <button @click="fetchDispositivos" class="btn-premium btn-primary-neon !py-4 gap-2">
-            <span class="material-symbols-outlined text-sm">refresh</span>
-            Actualizar
+          <button @click="fetchDispositivos" class="btn-premium !bg-on-surface/[0.06] hover:!bg-accent-neon !text-on-surface hover:!text-white !py-4 px-8 group/btn relative overflow-hidden shadow-none border-none">
+             <span class="material-symbols-outlined text-lg transition-transform group-hover/btn:rotate-180 duration-500 relative" :class="{ 'animate-spin': loading }">refresh</span>
+             <span class="relative font-bold">Actualizar</span>
           </button>
         </div>
       </div>
     </div>
 
     <!-- Stats Row -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="glass-card-premium p-6 border-accent-neon/10 flex items-center gap-4">
-        <div class="w-12 h-12 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon">
-          <span class="material-symbols-outlined">devices</span>
-        </div>
-        <div>
-          <p class="text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Sesiones Totales</p>
-          <p class="text-2xl font-black text-on-surface">{{ dispositivos.length }}</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="bg-on-surface/[0.04] rounded-[40px] p-8 group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden shadow-xl shadow-black/5 !border-none">
+        <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-accent-neon/5 rounded-full blur-3xl group-hover:bg-accent-neon/10 transition-colors"></div>
+        <div class="flex items-center gap-6 relative z-10">
+          <div class="w-16 h-16 rounded-2xl bg-accent-neon/10 flex items-center justify-center text-accent-neon group-hover:bg-accent-neon group-hover:text-white transition-all duration-500 border-none">
+            <span class="material-symbols-outlined text-3xl">devices</span>
+          </div>
+          <div>
+            <p class="text-[11px] font-black text-on-surface/40 uppercase tracking-[0.2em] mb-1">Sesiones Activas</p>
+            <div class="flex items-baseline gap-2">
+              <p class="text-4xl font-black text-on-surface font-lexend tracking-tight">{{ dispositivos.length }}</p>
+              <span class="text-xs font-bold text-green-500 flex items-center gap-1">
+                <span class="material-symbols-outlined text-xs">trending_up</span>
+                En línea
+              </span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="glass-card-premium p-6 border-accent-solar/10 flex items-center gap-4">
-        <div class="w-12 h-12 rounded-2xl bg-accent-solar/10 flex items-center justify-center text-accent-solar">
-          <span class="material-symbols-outlined">person</span>
-        </div>
-        <div>
-          <p class="text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Usuarios Únicos</p>
-          <p class="text-2xl font-black text-on-surface">{{ uniqueUsers }}</p>
+
+      <div class="bg-on-surface/[0.04] rounded-[40px] p-8 group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden shadow-xl shadow-black/5 !border-none">
+        <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-accent-solar/5 rounded-full blur-3xl group-hover:bg-accent-solar/10 transition-colors"></div>
+        <div class="flex items-center gap-6 relative z-10">
+          <div class="w-16 h-16 rounded-2xl bg-accent-solar/10 flex items-center justify-center text-accent-solar group-hover:bg-accent-solar group-hover:text-white transition-all duration-500 border-none">
+            <span class="material-symbols-outlined text-3xl">person</span>
+          </div>
+          <div>
+            <p class="text-[11px] font-black text-on-surface/40 uppercase tracking-[0.2em] mb-1">Usuarios Únicos</p>
+            <p class="text-4xl font-black text-on-surface font-lexend tracking-tight">{{ uniqueUsers }}</p>
+          </div>
         </div>
       </div>
-      <div class="glass-card-premium p-6 border-red-500/10 flex items-center gap-4">
-        <div class="w-12 h-12 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500">
-          <span class="material-symbols-outlined">security</span>
-        </div>
-        <div>
-          <p class="text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Alertas de Riesgo</p>
-          <p class="text-2xl font-black text-on-surface">{{ riskAlerts }}</p>
+
+      <div class="bg-on-surface/[0.04] rounded-[40px] p-8 group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden shadow-xl shadow-black/5 !border-none">
+        <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-red-500/5 rounded-full blur-3xl group-hover:bg-red-500/10 transition-colors"></div>
+        <div class="flex items-center gap-6 relative z-10">
+          <div class="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all duration-500">
+            <span class="material-symbols-outlined text-3xl">security</span>
+          </div>
+          <div>
+            <p class="text-[11px] font-black text-on-surface/40 uppercase tracking-[0.2em] mb-1">Alertas de Riesgo</p>
+            <div class="flex items-center gap-3">
+              <p class="text-4xl font-black text-on-surface font-lexend tracking-tight">{{ riskAlerts }}</p>
+              <span v-if="riskAlerts > 0" class="px-2 py-1 rounded-lg bg-red-500/10 text-red-500 text-[10px] font-black uppercase tracking-widest animate-pulse">Crítico</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Devices Table -->
-    <div class="glass-card-premium rounded-[40px] overflow-hidden border-accent-neon/10">
+    <div class="bg-on-surface/[0.02] rounded-[40px] overflow-hidden mb-20 shadow-xl shadow-black/5 border-none">
       <div class="overflow-x-auto">
-        <table class="w-full min-w-[1000px] text-left border-collapse">
+        <table class="w-full min-w-[1100px] text-left border-separate border-spacing-0">
           <thead>
             <tr class="bg-on-surface/[0.03]">
-              <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Usuario</th>
-              <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Dispositivo / SO</th>
-              <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Navegador</th>
-              <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">IP / Ubicación</th>
-              <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest">Última Actividad</th>
-              <th class="p-6 text-[10px] font-black text-on-surface/40 uppercase tracking-widest text-right">Acciones</th>
+              <th class="p-8 text-[11px] font-black text-on-surface/40 uppercase tracking-[0.2em]">Usuario</th>
+              <th class="p-8 text-[11px] font-black text-on-surface/40 uppercase tracking-[0.2em]">Dispositivo / SO</th>
+              <th class="p-8 text-[11px] font-black text-on-surface/40 uppercase tracking-[0.2em]">Navegador</th>
+              <th class="p-8 text-[11px] font-black text-on-surface/40 uppercase tracking-[0.2em]">IP / Estado</th>
+              <th class="p-8 text-[11px] font-black text-on-surface/40 uppercase tracking-[0.2em]">Última Actividad</th>
+              <th class="p-8 text-[11px] font-black text-on-surface/40 uppercase tracking-[0.2em] text-right">Gestión</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-on-surface/[0.06]">
-            <tr v-for="dispositivo in filteredDispositivos" :key="dispositivo.id" class="group hover:bg-on-surface/[0.03] transition-colors">
-              <td class="p-6">
+          <tbody class="bg-transparent">
+            <tr v-for="dispositivo in filteredDispositivos" :key="dispositivo.id" class="group hover:bg-on-surface/[0.03] transition-all duration-500">
+              <td class="p-8">
+                <span v-if="dispositivo.usuario" class="text-sm font-bold text-on-surface">
+                  {{ dispositivo.usuario.nombres }} {{ dispositivo.usuario.apellidos }}
+                </span>
+                <span v-else class="text-sm text-on-surface/40 italic">Desconocido</span>
+              </td>
+              <td class="p-8">
                 <div class="flex items-center gap-4">
-                  <div class="w-10 h-10 rounded-xl bg-on-surface/5 overflow-hidden border border-on-surface/5">
-                    <img :src="dispositivo.usuario?.imagen_perfil || 'https://i.pravatar.cc/150?u=' + dispositivo.usuario?.id" class="w-full h-full object-cover" />
+                  <div class="w-10 h-10 rounded-xl bg-on-surface/5 flex items-center justify-center text-on-surface/60 group-hover:text-accent-neon transition-colors">
+                    <span class="material-symbols-outlined text-2xl">
+                      {{ getDeviceIcon(dispositivo.sistema_operativo) }}
+                    </span>
                   </div>
                   <div>
-                    <p class="text-sm font-black text-on-surface">{{ dispositivo.usuario?.nombres }} {{ dispositivo.usuario?.apellidos }}</p>
-                    <p class="text-[9px] text-accent-neon font-bold uppercase tracking-widest">{{ dispositivo.usuario?.correo }}</p>
+                    <p class="text-sm font-black text-on-surface tracking-tight leading-none">{{ dispositivo.sistema_operativo || 'Desconocido' }}</p>
+                    <p class="text-[10px] text-on-surface/40 font-bold uppercase tracking-widest mt-1">{{ dispositivo.nombre_dispositivo || 'Dispositivo Genérico' }}</p>
                   </div>
                 </div>
               </td>
-              <td class="p-6">
+              <td class="p-8">
+                <div class="flex items-center gap-2">
+                  <span class="px-3 py-1.5 rounded-xl bg-on-surface/5 text-xs text-on-surface/60 font-black tracking-tight group-hover:text-accent-solar transition-all">
+                    {{ dispositivo.navegador || 'Desconocido' }}
+                  </span>
+                </div>
+              </td>
+              <td class="p-8">
+                <div class="flex flex-col gap-1.5">
+                  <div class="flex items-center gap-2">
+                    <span class="text-sm font-black text-on-surface tracking-tighter">{{ dispositivo.direccion_ip }}</span>
+                    <span v-if="dispositivo.fingerprint" class="w-2 h-2 rounded-full bg-blue-500/60"></span>
+                  </div>
+                  <div class="flex items-center gap-1 opacity-20 group-hover:opacity-60 transition-opacity">
+                    <span class="material-symbols-outlined text-xs">verified_user</span>
+                    <span class="text-[9px] font-black uppercase tracking-[0.1em]">
+                      {{ dispositivo.fingerprint ? 'Sesión Firmada' : 'Firma no disponible' }}
+                    </span>
+                  </div>
+                </div>
+              </td>
+              <td class="p-8">
                 <div class="flex items-center gap-3">
-                  <span class="material-symbols-outlined text-on-surface/40 text-lg">
-                    {{ getDeviceIcon(dispositivo.sistema_operativo) }}
-                  </span>
-                  <div>
-                    <p class="text-xs font-bold text-on-surface">{{ dispositivo.sistema_operativo || 'Desconocido' }}</p>
-                    <p class="text-[9px] text-on-surface/40 font-black tracking-widest">{{ dispositivo.nombre_dispositivo || 'Genérico' }}</p>
+                  <div :class="['w-2 h-2 rounded-full', dispositivo.activo ? 'bg-green-500' : 'bg-on-surface/10']"></div>
+                  <div class="flex flex-col">
+                    <span class="text-xs font-black text-on-surface/80">{{ formatDate(dispositivo.ultimo_acceso).split(' ')[0] }}</span>
+                    <span class="text-[10px] text-on-surface/40 font-bold uppercase tracking-tighter mt-0.5">{{ formatDate(dispositivo.ultimo_acceso).split(' ')[1] }}</span>
                   </div>
                 </div>
               </td>
-              <td class="p-6">
-                <div class="flex items-center gap-2">
-                  <span class="text-xs text-on-surface/80 font-bold">{{ dispositivo.navegador || 'N/A' }}</span>
-                </div>
-              </td>
-              <td class="p-6">
-                <div class="flex flex-col gap-1">
-                  <span class="text-xs text-on-surface/80 font-bold">{{ dispositivo.direccion_ip }}</span>
-                  <span class="text-[9px] text-on-surface/40 font-black tracking-widest">{{ dispositivo.fingerprint ? 'Sesión Verificada' : 'Ubicación no disponible' }}</span>
-                </div>
-              </td>
-              <td class="p-6">
-                <div class="flex items-center gap-2">
-                  <div :class="['w-1.5 h-1.5 rounded-full', dispositivo.activo ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]' : 'bg-on-surface/20']"></div>
-                  <span class="text-xs font-bold text-on-surface/60">
-                    {{ formatDate(dispositivo.ultimo_acceso) }}
-                  </span>
-                </div>
-              </td>
-              <td class="p-6 text-right">
+              <td class="p-8 text-right">
                 <button 
                   @click="revokeSession(dispositivo.id)" 
-                  class="btn-premium bg-red-500/10 text-red-500 hover:bg-red-500 border-red-500/20 !px-4 !py-2.5 gap-2 text-[10px]"
+                  class="btn-premium group/revoke hover:!bg-red-500/10 !text-on-surface/20 hover:!text-red-500 !px-5 !py-3 gap-2 text-[10px] shadow-none border-none bg-transparent"
                 >
-                  <span class="material-symbols-outlined text-sm">logout</span>
-                  Revocar
+                  <span class="material-symbols-outlined text-lg">no_accounts</span>
+                  <span class="font-black uppercase tracking-widest">Revocar</span>
                 </button>
               </td>
             </tr>
             <tr v-if="filteredDispositivos.length === 0">
-              <td colspan="6" class="p-10 text-center text-on-surface/40 font-bold italic">
-                No se encontraron dispositivos activos...
+              <td colspan="6" class="p-20 text-center">
+                <div class="flex flex-col items-center gap-4 opacity-10">
+                  <span class="material-symbols-outlined text-8xl">search_off</span>
+                  <p class="text-xl font-black uppercase tracking-[0.2em]">No hay resultados</p>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -266,11 +316,5 @@ onMounted(() => {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-.panel-hero {
-  background: linear-gradient(135deg, rgba(var(--accent-neon-rgb), 0.05) 0%, rgba(var(--accent-solar-rgb), 0.05) 100%);
-  border: 1px solid rgba(var(--accent-neon-rgb), 0.1);
-  border-radius: 40px;
 }
 </style>

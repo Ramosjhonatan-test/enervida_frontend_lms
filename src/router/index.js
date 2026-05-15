@@ -166,6 +166,11 @@ const router = createRouter({
           name: 'admin-certificado-editor',
           component: () => import('../views/admin/AdminCertificadoEditor.vue'),
           props: true
+        },
+        {
+          path: 'archivos',
+          name: 'admin-archivos',
+          component: () => import('../views/admin/AdminArchivos.vue')
         }
       ]
     },

@@ -194,6 +194,7 @@ const categorizedLinks = [
     title: 'Sistema',
     links: [
       { text: 'Notificaciones', icon: 'notifications_active', path: '/admin/notificaciones' },
+      { text: 'Archivos', icon: 'folder_open', path: '/admin/archivos' },
     ]
   }
 ]
