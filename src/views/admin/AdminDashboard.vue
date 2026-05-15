@@ -305,9 +305,38 @@
                   <h3 class="mt-1 font-lexend text-3xl font-black tracking-tight text-white">{{ expandedChart.title }}</h3>
                 </div>
               </div>
-              <button @click="expandedChart = null" class="w-12 h-12 rounded-full bg-white/5 hover:bg-white/10 hover:text-rose-400 flex items-center justify-center transition-all">
-                <span class="material-symbols-outlined text-2xl">close</span>
-              </button>
+              <div class="flex items-center gap-2 sm:gap-4">
+                <div class="flex items-center gap-2 bg-white/5 p-1 rounded-2xl border border-white/5">
+                  <button @click="exportChart('pdf')" :disabled="exportStatus.pdf !== 'idle'" class="relative h-10 px-3 sm:px-4 rounded-xl hover:bg-rose-500/20 text-white/70 hover:text-rose-400 disabled:opacity-50 disabled:cursor-not-allowed font-bold text-[10px] sm:text-xs tracking-wider transition-all flex items-center justify-center min-w-[70px] sm:min-w-[85px] overflow-hidden" title="Exportar a PDF">
+                    <div v-if="exportStatus.pdf === 'idle'" class="flex items-center gap-1.5 transition-all">
+                      <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                      <span class="hidden sm:inline">PDF</span>
+                    </div>
+                    <span v-else-if="exportStatus.pdf === 'loading'" class="material-symbols-outlined text-[18px] animate-spin text-rose-400">sync</span>
+                    <span v-else-if="exportStatus.pdf === 'success'" class="material-symbols-outlined text-[22px] text-emerald-400 animate-bounce">check_circle</span>
+                  </button>
+                  <button @click="exportChart('image')" :disabled="exportStatus.image !== 'idle'" class="relative h-10 px-3 sm:px-4 rounded-xl hover:bg-emerald-500/20 text-white/70 hover:text-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed font-bold text-[10px] sm:text-xs tracking-wider transition-all flex items-center justify-center min-w-[70px] sm:min-w-[85px] overflow-hidden" title="Exportar a Imagen">
+                    <div v-if="exportStatus.image === 'idle'" class="flex items-center gap-1.5 transition-all">
+                      <span class="material-symbols-outlined text-[18px]">image</span>
+                      <span class="hidden sm:inline">IMG</span>
+                    </div>
+                    <span v-else-if="exportStatus.image === 'loading'" class="material-symbols-outlined text-[18px] animate-spin text-emerald-400">sync</span>
+                    <span v-else-if="exportStatus.image === 'success'" class="material-symbols-outlined text-[22px] text-emerald-400 animate-bounce">check_circle</span>
+                  </button>
+                  <button @click="exportChart('excel')" :disabled="exportStatus.excel !== 'idle'" class="relative h-10 px-3 sm:px-4 rounded-xl hover:bg-amber-500/20 text-white/70 hover:text-amber-400 disabled:opacity-50 disabled:cursor-not-allowed font-bold text-[10px] sm:text-xs tracking-wider transition-all flex items-center justify-center min-w-[70px] sm:min-w-[85px] overflow-hidden" title="Exportar a Excel">
+                    <div v-if="exportStatus.excel === 'idle'" class="flex items-center gap-1.5 transition-all">
+                      <span class="material-symbols-outlined text-[18px]">table_view</span>
+                      <span class="hidden sm:inline">XLS</span>
+                    </div>
+                    <span v-else-if="exportStatus.excel === 'loading'" class="material-symbols-outlined text-[18px] animate-spin text-amber-400">sync</span>
+                    <span v-else-if="exportStatus.excel === 'success'" class="material-symbols-outlined text-[22px] text-emerald-400 animate-bounce">check_circle</span>
+                  </button>
+                </div>
+                <div class="w-px h-8 bg-white/10"></div>
+                <button @click="expandedChart = null" class="w-12 h-12 rounded-full bg-white/5 hover:bg-white/10 hover:text-rose-400 flex items-center justify-center transition-all">
+                  <span class="material-symbols-outlined text-2xl">close</span>
+                </button>
+              </div>
             </div>
             
             <!-- Body -->
@@ -315,6 +344,7 @@
                <div class="w-full h-full relative flex items-center justify-center">
                  <component 
                    :is="expandedChart.type" 
+                   ref="chartRef"
                    v-if="expandedChart.data"
                    :data="expandedChart.data" 
                    :options="{ ...expandedChart.options, maintainAspectRatio: false }" 
@@ -334,12 +364,138 @@ import { ref, onMounted, computed, onUnmounted } from 'vue'
 import { Bar, Doughnut, Line } from 'vue-chartjs'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement, Filler, Tooltip, Legend } from 'chart.js'
 import api from '@/services/api'
+import jsPDF from 'jspdf'
+import * as XLSX from 'xlsx'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement, Filler, Tooltip, Legend)
 
 const expandedChart = ref(null)
+const chartRef = ref(null)
+
+const exportStatus = ref({
+  pdf: 'idle',
+  image: 'idle',
+  excel: 'idle'
+})
+
 const expandChart = (config) => {
   expandedChart.value = config
+}
+
+const exportChart = async (format) => {
+  if (!expandedChart.value) return
+  if (exportStatus.value[format] !== 'idle') return
+  
+  const title = expandedChart.value.title.replace(/\s+/g, '_').toLowerCase()
+  exportStatus.value[format] = 'loading'
+  
+  try {
+    let downloadAction = null;
+    
+    // Simular un tiempo de procesamiento para el spinner
+    await new Promise(r => setTimeout(r, 600));
+
+    if (format === 'excel') {
+      const data = expandedChart.value.data
+      const labels = data.labels
+      const dataset = data.datasets[0] // Asumimos un solo dataset para estos gráficos
+
+      const rows = labels.map((label, index) => ({
+        Etiqueta: label,
+        Valor: dataset.data[index]
+      }))
+      
+      const worksheet = XLSX.utils.json_to_sheet(rows)
+      const workbook = XLSX.utils.book_new()
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Datos")
+      
+      downloadAction = () => XLSX.writeFile(workbook, `${title}_${Date.now()}.xlsx`)
+    } else {
+      const chartInstance = chartRef.value?.chart
+      if (!chartInstance) throw new Error("Chart not ready")
+      const base64Image = chartInstance.toBase64Image()
+
+      if (format === 'image') {
+        const a = document.createElement('a')
+        a.href = base64Image
+        a.download = `${title}_${Date.now()}.png`
+        downloadAction = () => a.click()
+      } else if (format === 'pdf') {
+        const pdf = new jsPDF('landscape')
+        
+        // Customizing PDF Layout (Professional)
+        pdf.setFillColor(15, 23, 42) // Dark slate background for header
+        pdf.rect(0, 0, 297, 45, 'F')
+        
+        const logoUrl = '/logo-light.webp'
+        const loadImg = (src) => new Promise((resolve, reject) => {
+          const img = new Image()
+          img.onload = () => resolve(img)
+          img.onerror = reject
+          img.src = src
+        })
+        
+        try {
+           const img = await loadImg(logoUrl)
+           const canvas = document.createElement('canvas')
+           canvas.width = img.width
+           canvas.height = img.height
+           const ctx = canvas.getContext('2d')
+           ctx.drawImage(img, 0, 0)
+           const logoData = canvas.toDataURL('image/png')
+           pdf.addImage(logoData, 'PNG', 15, 10, 35, 25)
+        } catch(e) {
+           console.warn("Could not load logo", e)
+        }
+
+        // Title and Subtitle
+        pdf.setTextColor(255, 255, 255)
+        pdf.setFontSize(24)
+        pdf.setFont('helvetica', 'bold')
+        pdf.text("Reporte Estadístico", 60, 22)
+        
+        pdf.setFontSize(14)
+        pdf.setFont('helvetica', 'normal')
+        pdf.setTextColor(34, 211, 238) // Cyan-400
+        pdf.text(expandedChart.value.title.toUpperCase(), 60, 32)
+        
+        // Date on the right
+        pdf.setTextColor(255, 255, 255)
+        pdf.setFontSize(10)
+        const dateStr = new Date().toLocaleDateString('es-BO', { year: 'numeric', month: 'long', day: 'numeric' })
+        pdf.text(`Fecha: ${dateStr}`, 275, 25, { align: 'right' })
+
+        // Draw chart background
+        pdf.setFillColor(248, 250, 252) // slate-50
+        pdf.rect(15, 50, 267, 140, 'F')
+
+        // Insert chart
+        pdf.addImage(base64Image, 'PNG', 20, 55, 257, 130)
+        
+        // Footer
+        pdf.setFillColor(241, 245, 249) // slate-100
+        pdf.rect(0, 195, 297, 15, 'F')
+        pdf.setTextColor(100, 116, 139)
+        pdf.setFontSize(10)
+        pdf.text("Generado por el Sistema de Administración LMS", 15, 204)
+        pdf.text("Confidencial - Uso Interno", 282, 204, { align: 'right' })
+
+        downloadAction = () => pdf.save(`${title}_${Date.now()}.pdf`)
+      }
+    }
+
+    exportStatus.value[format] = 'success'
+    setTimeout(() => {
+      if (downloadAction) downloadAction()
+      setTimeout(() => {
+        exportStatus.value[format] = 'idle'
+      }, 500)
+    }, 1200)
+
+  } catch(e) {
+    console.error("Export error:", e)
+    exportStatus.value[format] = 'idle'
+  }
 }
 
 const stats = ref({})
@@ -357,7 +513,7 @@ let timeInterval = null
 const updateTime = () => {
   const now = new Date()
   currentDate.value = now.toLocaleDateString('es-BO', { weekday: 'long', day: 'numeric', month: 'long' })
-  currentHour.value = now.toLocaleTimeString('es-BO', { hour: '2-digit', minute: '2-digit' })
+  currentHour.value = now.toLocaleTimeString('es-BO', { hour: '2-digit', minute: '2-digit'})
 }
 
 const formatMoney = (val) => `${Number(val || 0).toLocaleString('es-BO', { minimumFractionDigits: 2 })} Bs`
