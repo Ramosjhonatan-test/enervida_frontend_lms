@@ -21,7 +21,7 @@
             </div>
             <div class="mt-auto pt-8">
               <div class="relative group overflow-hidden rounded-[2.5rem]">
-                <img src="https://thumbs.dreamstime.com/b/sunset-sostenible-e%C3%B3lica-solar-y-energ%C3%ADa-limpia-una-puesta-de-sol-impresionante-ilumina-planta-moderna-con-variedad-paneles-391580783.jpg" alt="Paneles solares" class="h-[310px] w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <img src="/images/acceso.webp" alt="Paneles solares" class="h-[310px] w-full object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-60"></div>
               </div>
             </div>

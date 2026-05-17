@@ -130,7 +130,7 @@
             </div>
             <div class="mt-auto pt-8">
               <div class="relative group overflow-hidden rounded-[2.5rem]">
-                <img src="https://st.depositphotos.com/1307373/3744/i/450/depositphotos_37441281-stock-photo-solar-energy-panels-with-wind.jpg" alt="Energia solar" class="h-[310px] w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <img src="/images/registro.webp" alt="Energia solar" class="h-[310px] w-full object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-60"></div>
               </div>
             </div>
