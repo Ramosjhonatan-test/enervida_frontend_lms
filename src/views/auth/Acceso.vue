@@ -16,8 +16,8 @@
             </button>
             <div class="mt-8 space-y-4 max-w-[44ch]">
               <p class="text-accent-neon text-xs uppercase tracking-[0.3em] font-black">Energia que da vida</p>
-              <h1 class="text-5xl leading-[0.95] font-black text-on-surface font-lexend">Potencia tu operacion solar con control total.</h1>
-              <p class="text-on-surface-variant text-lg leading-relaxed">Monitorea cursos, reportes y herramientas en un solo panel para avanzar mas rapido.</p>
+              <h1 class="text-5xl leading-[0.95] font-black text-on-surface font-lexend">Accede a nuestros cursos y aprende sobre energía solar.</h1>
+              <p class="text-on-surface-variant text-lg leading-relaxed">El conocimiento en energía solar es una necesidad para el futuro inmediato. Aprende con nosotros.</p>
             </div>
             <div class="mt-auto pt-8">
               <div class="relative group overflow-hidden rounded-[2.5rem]">
