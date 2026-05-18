@@ -8,7 +8,7 @@
       <Transition name="scale" appear>
         <div 
           v-show="isOpen"
-          class="relative w-full max-w-6xl h-auto max-h-[85vh] md:max-h-[92vh] overflow-y-auto md:overflow-hidden rounded-[32px] md:rounded-[48px] border border-white/10 bg-[#0b1220]/95 backdrop-blur-3xl shadow-[0_0_100px_-20px_rgba(0,0,0,0.5)] flex flex-col md:flex-row custom-scrollbar"
+          class="relative w-full max-w-6xl h-auto max-h-[85vh] md:max-h-[92vh] overflow-y-auto md:overflow-hidden rounded-[32px] md:rounded-[48px] !border-none bg-surface-glass/95 backdrop-blur-3xl shadow-2xl flex flex-col md:flex-row custom-scrollbar"
         >
           <!-- Decoration Orbs -->
           <div class="pointer-events-none absolute -left-20 -top-20 h-64 w-64 rounded-full bg-accent-neon/10 blur-[100px]"></div>
@@ -17,16 +17,16 @@
           <!-- Close Button -->
           <button 
             @click="close"
-            class="absolute top-4 right-4 md:top-8 md:right-8 z-50 h-10 w-10 md:h-12 md:w-12 rounded-2xl bg-white/5 text-white/60 hover:bg-accent-neon hover:text-primary transition-all duration-300 backdrop-blur-md border border-white/10 flex items-center justify-center group"
+            class="absolute top-4 right-4 md:top-8 md:right-8 z-50 h-10 w-10 md:h-12 md:w-12 rounded-2xl bg-on-surface/5 text-on-surface/60 hover:bg-accent-neon hover:text-primary transition-all duration-300 backdrop-blur-md !border-none flex items-center justify-center group"
           >
             <span class="material-symbols-outlined transition-transform group-hover:rotate-90">close</span>
           </button>
 
           <!-- Left Side: Premium Sidebar (Image + Header Info) -->
-          <div class="w-full md:w-[40%] flex flex-col border-b md:border-b-0 md:border-r border-white/10 shrink-0 bg-[#070c14]/40">
+          <div class="w-full md:w-[40%] flex flex-col border-b md:border-b-0 md:border-r border-on-surface/5 shrink-0 bg-on-surface/[0.02]">
             <!-- Image Container -->
             <div class="relative w-full p-6 md:p-8 pb-3 md:pb-4">
-              <div class="aspect-video w-full overflow-hidden rounded-[24px] border border-white/10 shadow-2xl relative group/img">
+              <div class="aspect-video w-full overflow-hidden rounded-[24px] !border-none shadow-2xl relative group/img">
                 <img 
                   :src="getFileUrl(course?.miniatura_url)" 
                   class="h-full w-full object-cover transition-transform duration-700 group-hover/img:scale-105" 
@@ -42,24 +42,24 @@
               <div class="space-y-3 md:space-y-4">
                 <!-- Badges -->
                 <div class="flex flex-wrap gap-2">
-                  <span class="inline-flex items-center rounded-full bg-accent-neon/10 border border-accent-neon/30 px-3 py-1 text-[8px] md:text-[9px] font-black uppercase tracking-[0.15em] text-accent-neon shadow-neon-sm">
+                  <span class="inline-flex items-center rounded-full bg-accent-neon/10 !border-none px-3 py-1 text-[8px] md:text-[9px] font-black uppercase tracking-[0.15em] text-accent-neon shadow-neon-sm">
                     {{ course?.categoria?.nombre || 'Especialidad' }}
                   </span>
-                  <span class="inline-flex items-center rounded-full bg-white/5 border border-white/10 px-3 py-1 text-[8px] md:text-[9px] font-black uppercase tracking-[0.15em] text-white/60">
+                  <span class="inline-flex items-center rounded-full bg-on-surface/5 !border-none px-3 py-1 text-[8px] md:text-[9px] font-black uppercase tracking-[0.15em] text-on-surface/60">
                     {{ course?.nivel }}
                   </span>
                 </div>
 
                 <!-- Title -->
-                <h2 class="font-lexend text-xl md:text-2xl lg:text-3xl font-black leading-tight text-white">
+                <h2 class="font-lexend text-xl md:text-2xl lg:text-3xl font-black leading-tight text-on-surface">
                   {{ course?.titulo }}
                 </h2>
               </div>
 
               <!-- Price Container -->
-              <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+              <div class="pt-4 border-t border-on-surface/5 flex items-center justify-between">
                 <div class="flex flex-col">
-                  <span class="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-white/40">Inversión del programa</span>
+                  <span class="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-on-surface/40">Inversión del Curso</span>
                   <div class="flex items-baseline gap-1 mt-1">
                     <span class="text-2xl md:text-[28px] lg:text-4xl font-black text-accent-neon tracking-tighter">{{ course?.precio || '0' }}</span>
                     <span class="text-[10px] md:text-xs font-black text-accent-neon uppercase">BS</span>
@@ -70,10 +70,10 @@
           </div>
 
           <!-- Right Side: Structured Information -->
-          <div class="flex-1 flex flex-col min-w-0 bg-[#0b1220]/50 relative">
+          <div class="flex-1 flex flex-col min-w-0 bg-background/50 relative">
             <div class="flex-1 overflow-y-visible md:overflow-y-auto custom-scrollbar p-6 md:p-10 lg:p-12 space-y-8">
               <!-- Navigation Tabs -->
-              <div class="flex items-center gap-4 sm:gap-8 border-b border-white/5 pb-2 shrink-0 overflow-x-auto hide-scrollbar">
+              <div class="flex items-center gap-4 sm:gap-8 border-b border-on-surface/5 pb-2 shrink-0 overflow-x-auto hide-scrollbar">
                 <button 
                   @click="activeTab = 'general'"
                   :class="[
@@ -124,8 +124,8 @@
 
                   <!-- Key Features / What's Included -->
                   <section class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
-                    <div v-if="course?.certificado_habilitado" class="flex flex-col gap-4 rounded-[24px] md:rounded-[32px] bg-white/[0.03] border border-white/5 p-6 md:p-8 group hover:bg-white/[0.05] hover:border-accent-neon/20 transition-all duration-500">
-                      <div class="h-12 w-12 md:h-14 md:w-14 rounded-2xl bg-accent-neon/10 flex items-center justify-center border border-accent-neon/20 group-hover:scale-110 transition-transform">
+                    <div v-if="course?.certificado_habilitado" class="flex flex-col gap-4 rounded-[24px] md:rounded-[32px] bg-on-surface/[0.03] !border-none p-6 md:p-8 group hover:bg-on-surface/[0.05] transition-all duration-500">
+                      <div class="h-12 w-12 md:h-14 md:w-14 rounded-2xl bg-accent-neon/10 flex items-center justify-center !border-none group-hover:scale-110 transition-transform">
                         <span class="material-symbols-outlined text-accent-neon text-2xl md:text-3xl">verified</span>
                       </div>
                       <div>
@@ -134,8 +134,8 @@
                       </div>
                     </div>
                     
-                    <div class="flex flex-col gap-4 rounded-[24px] md:rounded-[32px] bg-white/[0.03] border border-white/5 p-6 md:p-8 group hover:bg-white/[0.05] hover:border-accent-solar/20 transition-all duration-500">
-                      <div class="h-12 w-12 md:h-14 md:w-14 rounded-2xl bg-accent-solar/10 flex items-center justify-center border border-accent-solar/20 group-hover:scale-110 transition-transform">
+                    <div class="flex flex-col gap-4 rounded-[24px] md:rounded-[32px] bg-on-surface/[0.03] !border-none p-6 md:p-8 group hover:bg-on-surface/[0.05] transition-all duration-500">
+                      <div class="h-12 w-12 md:h-14 md:w-14 rounded-2xl bg-accent-solar/10 flex items-center justify-center !border-none group-hover:scale-110 transition-transform">
                         <span class="material-symbols-outlined text-accent-solar text-2xl md:text-3xl">all_inclusive</span>
                       </div>
                       <div>
@@ -144,8 +144,8 @@
                       </div>
                     </div>
 
-                    <div class="flex flex-col gap-4 rounded-[24px] md:rounded-[32px] bg-white/[0.03] border border-white/5 p-6 md:p-8 group hover:bg-white/[0.05] hover:border-accent-neon/20 transition-all duration-500">
-                      <div class="h-12 w-12 md:h-14 md:w-14 rounded-2xl bg-accent-neon/10 flex items-center justify-center border border-accent-neon/20 group-hover:scale-110 transition-transform">
+                    <div class="flex flex-col gap-4 rounded-[24px] md:rounded-[32px] bg-on-surface/[0.03] !border-none p-6 md:p-8 group hover:bg-on-surface/[0.05] transition-all duration-500">
+                      <div class="h-12 w-12 md:h-14 md:w-14 rounded-2xl bg-accent-neon/10 flex items-center justify-center !border-none group-hover:scale-110 transition-transform">
                         <span class="material-symbols-outlined text-accent-neon text-2xl md:text-3xl">devices</span>
                       </div>
                       <div>
@@ -165,7 +165,7 @@
 
                   <div class="grid grid-cols-1 gap-4">
                     <template v-if="course?.modulos?.length">
-                      <div v-for="(modulo, index) in course.modulos" :key="modulo.id || index" class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 p-5 md:p-6 rounded-[24px] bg-white/[0.02] border border-white/5 group hover:border-accent-solar/30 transition-all">
+                      <div v-for="(modulo, index) in course.modulos" :key="modulo.id || index" class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 p-5 md:p-6 rounded-[24px] bg-on-surface/[0.02] !border-none group hover:bg-on-surface/[0.04] transition-all">
                         <div class="flex items-center gap-4 sm:gap-5">
                           <div class="h-10 w-10 md:h-12 md:w-12 shrink-0 rounded-xl bg-accent-solar/10 flex items-center justify-center text-accent-solar font-black text-base md:text-lg group-hover:bg-accent-solar group-hover:text-primary transition-all">
                             {{ index + 1 }}
@@ -176,11 +176,11 @@
                           </div>
                         </div>
                         <div class="sm:ml-auto shrink-0 pl-14 sm:pl-0">
-                          <span class="inline-block px-3 py-1 rounded-full bg-white/5 text-[9px] text-white/50 font-bold uppercase border border-white/5">Módulo</span>
+                          <span class="inline-block px-3 py-1 rounded-full bg-on-surface/5 text-[9px] text-on-surface/50 font-bold uppercase !border-none">Módulo</span>
                         </div>
                       </div>
                     </template>
-                    <div v-else class="flex flex-col items-center justify-center p-12 text-center border border-white/5 rounded-[24px] bg-white/[0.02]">
+                    <div v-else class="flex flex-col items-center justify-center p-12 text-center !border-none rounded-[24px] bg-on-surface/[0.02]">
                       <span class="material-symbols-outlined text-4xl text-on-surface/20 mb-3">auto_stories</span>
                       <p class="text-sm font-medium text-on-surface/40">Aún no hay módulos publicados para este curso.</p>
                     </div>
@@ -190,7 +190,7 @@
             </div>
 
             <!-- Fixed CTA Footer at the bottom of Right Side (Sticky on Mobile, Relative on Desktop) -->
-            <div class="sticky md:relative bottom-0 p-6 md:p-8 border-t border-white/10 flex justify-center md:justify-end shrink-0 z-20 bg-[#0b1220]/95 backdrop-blur-md shadow-[0_-10px_20px_rgba(0,0,0,0.3)]">
+            <div class="sticky md:relative bottom-0 p-6 md:p-8 border-t border-on-surface/5 flex justify-center md:justify-end shrink-0 z-20 bg-surface-glass/95 backdrop-blur-md shadow-[0_-10px_20px_rgba(0,0,0,0.3)]">
               <button 
                 v-if="!isEnrolled"
                 @click="$emit('enroll', course)"
@@ -203,7 +203,7 @@
               </button>
               <div 
                 v-else
-                class="h-14 md:h-16 w-full md:w-auto flex items-center justify-center gap-2 px-8 md:px-12 rounded-2xl border border-accent-neon/30 bg-accent-neon/10 text-accent-neon text-[9px] md:text-[10px] font-black uppercase tracking-widest"
+                class="h-14 md:h-16 w-full md:w-auto flex items-center justify-center gap-2 px-8 md:px-12 rounded-2xl !border-none bg-accent-neon/10 text-accent-neon text-[9px] md:text-[10px] font-black uppercase tracking-widest"
               >
                 <span class="material-symbols-outlined text-[16px]">check_circle</span>
                 YA ESTÁS INSCRITO

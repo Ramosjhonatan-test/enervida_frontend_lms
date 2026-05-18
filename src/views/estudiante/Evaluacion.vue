@@ -1,7 +1,8 @@
 <template>
   <div class="min-h-screen bg-background text-on-surface font-lexend">
-    <header class="sticky top-0 z-40 border-b border-on-surface/5 bg-background/85 px-4 py-4 backdrop-blur-xl md:px-8">
-      <div class="mx-auto flex max-w-6xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <header class="sticky top-0 z-40 bg-background/85 px-4 py-4 backdrop-blur-xl md:px-8">
+      <div class="absolute bottom-0 left-0 right-0 h-px bg-on-surface/5"></div>
+      <div class="mx-auto flex max-w-6xl flex-col gap-4 md:flex-row md:items-center md:justify-between relative z-10">
         <div class="flex min-w-0 items-center gap-4">
           <div class="flex h-12 w-12 items-center justify-center rounded-[18px] bg-accent-neon shadow-lg shadow-accent-neon/20">
             <span class="material-symbols-outlined font-black text-primary">assignment</span>
@@ -13,7 +14,7 @@
         </div>
 
         <div class="flex items-center justify-between gap-3 md:justify-end">
-          <div v-if="!finished && !bloqueado" class="flex items-center gap-3 rounded-2xl border border-on-surface/5 bg-on-surface/5 px-4 py-3">
+          <div v-if="!finished && !bloqueado" class="flex items-center gap-3 rounded-2xl !border-none bg-on-surface/5 px-4 py-3">
             <span class="material-symbols-outlined animate-pulse text-accent-neon">timer</span>
             <span :class="['text-lg font-black tabular-nums md:text-xl', timeLeft < 60 ? 'text-red-500' : 'text-on-surface']">
               {{ formatTime(timeLeft) }}
@@ -21,7 +22,7 @@
           </div>
 
           <!-- Intentos restantes -->
-          <div v-if="!finished && !bloqueado && maxIntentos > 0" class="hidden items-center gap-2 rounded-2xl border border-on-surface/5 bg-on-surface/5 px-4 py-3 sm:flex">
+          <div v-if="!finished && !bloqueado && maxIntentos > 0" class="hidden items-center gap-2 rounded-2xl !border-none bg-on-surface/5 px-4 py-3 sm:flex">
             <span class="material-symbols-outlined text-accent-solar text-sm">replay</span>
             <span class="text-xs font-black text-on-surface/60">{{ intentosRestantes }} intento(s)</span>
           </div>
@@ -41,8 +42,8 @@
 
       <!-- Bloqueado: sin intentos disponibles -->
       <div v-else-if="bloqueado" class="mx-auto w-full max-w-3xl animate-in fade-in">
-        <div class="glass-card-premium relative overflow-hidden rounded-[32px] border border-red-500/20 p-8 text-center shadow-2xl shadow-red-500/10 md:rounded-[48px] md:p-12">
-          <div class="mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-[32px] border border-red-500/20 bg-red-500/10 text-red-500">
+        <div class="glass-card-premium relative overflow-hidden rounded-[32px] !border-none bg-red-500/5 p-8 text-center shadow-2xl shadow-red-500/10 md:rounded-[48px] md:p-12">
+          <div class="mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-[32px] !border-none bg-red-500/10 text-red-500">
             <span class="material-symbols-outlined text-5xl font-black">block</span>
           </div>
           <h2 class="text-4xl font-black tracking-tight md:text-5xl">Sin intentos</h2>
@@ -75,7 +76,7 @@
                 ></div>
               </div>
             </div>
-            <span class="self-start rounded-full border border-accent-neon/20 bg-accent-neon/10 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-accent-neon md:self-auto">
+            <span class="self-start rounded-full !border-none bg-accent-neon/10 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-accent-neon md:self-auto">
               {{ currentQuestion?.puntos }} puntos
             </span>
           </div>
@@ -91,14 +92,14 @@
                 :key="resp.id"
                 @click="selectAnswer(resp.id)"
                 :class="[
-                  'flex w-full items-start gap-4 rounded-[24px] border p-4 text-left transition-all duration-300 md:p-6',
-                  answers[currentQuestion.id] === resp.id ? 'border-accent-neon/40 bg-accent-neon/10 shadow-lg' : 'border-transparent bg-on-surface/5 hover:border-on-surface/10 hover:bg-on-surface/10'
+                  'flex w-full items-start gap-4 rounded-[24px] p-4 text-left transition-all duration-300 md:p-6 !border-none',
+                  answers[currentQuestion.id] === resp.id ? 'bg-accent-neon/10 shadow-lg' : 'bg-on-surface/5 hover:bg-on-surface/10'
                 ]"
               >
                 <div
                   :class="[
-                    'flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border-2 transition-all',
-                    answers[currentQuestion.id] === resp.id ? 'border-accent-neon bg-accent-neon text-primary' : 'border-on-surface/10 text-transparent'
+                    'flex h-8 w-8 shrink-0 items-center justify-center rounded-xl transition-all',
+                    answers[currentQuestion.id] === resp.id ? 'bg-accent-neon text-primary shadow-[0_0_10px_var(--accent-neon)]' : 'bg-on-surface/10 text-transparent'
                   ]"
                 >
                   <span class="material-symbols-outlined text-sm font-black">check</span>
@@ -140,10 +141,10 @@
 
         <!-- RESULTADOS -->
         <div v-else-if="finished" class="mx-auto w-full max-w-3xl animate-in fade-in">
-          <div :class="['glass-card-premium relative overflow-hidden rounded-[32px] border p-8 text-center shadow-2xl md:rounded-[48px] md:p-12', passed ? 'border-accent-neon/20 shadow-accent-neon/10' : 'border-red-500/20 shadow-red-500/10']">
+          <div :class="['glass-card-premium relative overflow-hidden rounded-[32px] !border-none p-8 text-center shadow-2xl md:rounded-[48px] md:p-12', passed ? 'bg-accent-neon/5 shadow-accent-neon/10' : 'bg-red-500/5 shadow-red-500/10']">
             <div v-if="passed" class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,_var(--accent-neon)_0%,_transparent_70%)] opacity-10"></div>
 
-            <div :class="['relative z-10 mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-[32px] border shadow-inner', passed ? 'border-accent-neon/20 bg-accent-neon/10 text-accent-neon' : 'border-red-500/20 bg-red-500/10 text-red-500']">
+            <div :class="['relative z-10 mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-[32px] !border-none shadow-inner', passed ? 'bg-accent-neon/10 text-accent-neon' : 'bg-red-500/10 text-red-500']">
               <span class="material-symbols-outlined text-5xl font-black">{{ passed ? 'workspace_premium' : 'error' }}</span>
             </div>
 
@@ -155,15 +156,15 @@
             </p>
 
             <div class="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <div class="rounded-[28px] border border-on-surface/5 bg-on-surface/5 p-6">
+              <div class="rounded-[28px] !border-none bg-on-surface/5 p-6">
                 <p class="mb-2 text-[10px] font-black uppercase tracking-widest text-on-surface/40">Tu puntaje</p>
                 <h4 :class="['text-4xl font-black', passed ? 'text-accent-neon' : 'text-red-500']">{{ Math.round(score) }}%</h4>
               </div>
-              <div class="rounded-[28px] border border-on-surface/5 bg-on-surface/5 p-6">
+              <div class="rounded-[28px] !border-none bg-on-surface/5 p-6">
                 <p class="mb-2 text-[10px] font-black uppercase tracking-widest text-on-surface/40">Aprobacion</p>
                 <h4 class="text-4xl font-black text-on-surface">{{ Math.round(evaluacion.nota_aprobacion) }}%</h4>
               </div>
-              <div class="rounded-[28px] border border-on-surface/5 bg-on-surface/5 p-6">
+              <div class="rounded-[28px] !border-none bg-on-surface/5 p-6">
                 <p class="mb-2 text-[10px] font-black uppercase tracking-widest text-on-surface/40">Intentos</p>
                 <h4 class="text-4xl font-black text-on-surface">{{ intentosUsados }}/{{ maxIntentos }}</h4>
               </div>
@@ -180,7 +181,7 @@
                 Reintentar ({{ intentosRestantes }} restante{{ intentosRestantes > 1 ? 's' : '' }})
               </button>
 
-              <div v-if="!passed && intentosRestantes <= 0" class="flex w-full items-center justify-center gap-2 rounded-2xl border border-red-500/20 bg-red-500/10 px-6 py-4 text-sm font-bold text-red-400">
+              <div v-if="!passed && intentosRestantes <= 0" class="flex w-full items-center justify-center gap-2 rounded-2xl !border-none bg-red-500/10 px-6 py-4 text-sm font-bold text-red-400">
                 <span class="material-symbols-outlined text-lg">block</span>
                 Sin intentos restantes
               </div>

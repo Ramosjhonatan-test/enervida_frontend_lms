@@ -35,13 +35,13 @@
           :key="ins.id"
           class="course-card-premium group"
         >
-          <div class="relative h-56 overflow-hidden">
+          <div class="relative aspect-video overflow-hidden">
             <img :src="getFileUrl(ins.curso?.miniatura_url)" class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-            <div class="absolute bottom-6 left-6 flex flex-wrap gap-2">
+            <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 flex flex-wrap gap-2">
               <span
                 :class="[
-                  'rounded-full px-4 py-1.5 text-[9px] font-black uppercase tracking-widest shadow-xl',
+                  'rounded-full px-3 py-1 sm:px-4 sm:py-1.5 text-[8px] sm:text-[9px] font-black uppercase tracking-widest shadow-xl',
                   ins.estado === 'COMPLETADO' ? 'bg-emerald-500 text-white' :
                   ins.estado === 'ACTIVO' ? 'bg-accent-neon text-primary' :
                   'bg-accent-solar text-primary'
@@ -49,27 +49,27 @@
               >
                 {{ ins.estado === 'COMPLETADO' ? '✓ Completado' : ins.estado }}
               </span>
-              <span class="rounded-full border border-on-surface/10 bg-on-surface/5 backdrop-blur-md px-4 py-1.5 text-[9px] font-black uppercase tracking-widest text-on-surface/80">
+              <span class="rounded-full !border-none bg-on-surface/5 backdrop-blur-md px-3 py-1 sm:px-4 sm:py-1.5 text-[8px] sm:text-[9px] font-black uppercase tracking-widest text-on-surface/80">
                 {{ ins.curso?.nivel || 'Ruta guiada' }}
               </span>
             </div>
           </div>
 
-          <div class="flex flex-1 flex-col p-5 sm:p-8">
+          <div class="flex flex-1 flex-col p-5 sm:p-6 md:p-8">
             <div class="flex items-start justify-between gap-4">
-              <h3 class="font-lexend text-2xl font-black leading-tight text-on-surface group-hover:text-accent-neon transition-colors">
+              <h3 class="font-lexend text-lg sm:text-xl md:text-2xl font-black leading-tight text-on-surface group-hover:text-accent-neon transition-colors">
                 {{ ins.curso?.titulo }}
               </h3>
               <span :class="[
-                'rounded-full border px-3 py-1 text-[9px] font-black uppercase tracking-[0.2em]',
-                ins.estado === 'COMPLETADO' ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400' : 'border-accent-neon/20 bg-accent-neon/10 text-accent-neon'
+                'rounded-full !border-none px-2 py-1 sm:px-3 sm:py-1 text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] whitespace-nowrap shrink-0',
+                ins.estado === 'COMPLETADO' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-accent-neon/10 text-accent-neon'
               ]">
                 {{ ins.estado === 'COMPLETADO' ? '100%' : Math.round(ins.porcentaje_progreso || 0) + '%' }}
               </span>
             </div>
 
-            <div class="mt-8 flex flex-col gap-3">
-              <div class="flex justify-between text-[10px] font-black uppercase tracking-widest text-on-surface/30">
+            <div class="mt-6 sm:mt-8 flex flex-col gap-3">
+              <div class="flex justify-between text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-on-surface/30">
                 <span>Progreso actual</span>
                 <span :class="ins.estado === 'COMPLETADO' ? 'text-emerald-400' : 'text-accent-neon'">
                   {{ ins.estado === 'COMPLETADO' ? 'Finalizado' : Math.round(ins.porcentaje_progreso || 0) + '%' }}
@@ -86,17 +86,17 @@
               </div>
             </div>
 
-            <p class="mt-6 text-sm leading-relaxed text-on-surface/50">
+            <p class="mt-4 sm:mt-6 text-xs sm:text-sm leading-relaxed text-on-surface/50">
               {{ ins.estado === 'COMPLETADO' ? 'Has finalizado este curso exitosamente. Tu certificado ya está disponible para descarga.' :
                  ins.estado === 'ACTIVO' ? 'Listo para continuar donde lo dejaste desde cualquier dispositivo.' :
                  'Tu solicitud sigue en revisión y quedará habilitada cuando sea aprobada por administración.' }}
             </p>
 
-            <div class="mt-10">
+            <div class="mt-6 sm:mt-auto pt-6">
               <!-- COMPLETADO: mostrar estado y link a certificados -->
               <div v-if="ins.estado === 'COMPLETADO'" class="flex flex-col gap-4">
-                <router-link to="/student/certificates" class="btn-premium btn-secondary-glass !w-full !py-4 !text-[11px] gap-2">
-                  <span class="material-symbols-outlined text-lg">workspace_premium</span>
+                <router-link to="/student/certificates" class="btn-premium btn-secondary-glass !w-full !py-3 sm:!py-4 !text-[10px] sm:!text-[11px] gap-2">
+                  <span class="material-symbols-outlined text-base sm:text-lg">workspace_premium</span>
                   Ver certificado
                 </router-link>
               </div>
@@ -105,15 +105,15 @@
               <router-link
                 v-else-if="ins.estado === 'ACTIVO'"
                 :to="'/student/course/' + ins.curso_id"
-                class="btn-premium btn-primary-neon !w-full !py-4 !text-[11px]"
+                class="btn-premium btn-primary-neon !w-full !py-3 sm:!py-4 !text-[10px] sm:!text-[11px] flex justify-center items-center gap-2"
               >
                 {{ (ins.porcentaje_progreso || 0) > 0 ? 'Continuar curso' : 'Empezar curso' }}
-                <span class="material-symbols-outlined text-lg">play_arrow</span>
+                <span class="material-symbols-outlined text-base sm:text-lg">play_arrow</span>
               </router-link>
 
               <!-- PENDIENTE: esperando aprobación -->
-              <div v-else class="rounded-3xl border border-dashed border-on-surface/10 bg-on-surface/5 p-6 text-center">
-                <span class="text-[10px] font-black uppercase tracking-widest text-on-surface/30">Esperando aprobación</span>
+              <div v-else class="rounded-2xl !border-none bg-on-surface/5 p-4 sm:p-6 text-center">
+                <span class="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-on-surface/30">Esperando aprobación</span>
               </div>
             </div>
           </div>

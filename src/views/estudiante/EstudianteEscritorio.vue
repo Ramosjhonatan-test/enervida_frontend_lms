@@ -13,7 +13,7 @@
           <EstudiantePageHeader
             :eyebrow="`Hola, ${authStore.user?.nombres || 'Estudiante'}`"
             title="Tu"
-            highlight="Escritorio"
+            highlight="Escritorio "
             description="Bienvenido de nuevo. Aquí tienes un resumen de tu actividad para continuar tu formación."
           />
         </div>
@@ -24,13 +24,13 @@
             <!-- Curso Principal / Hero -->
             <section v-if="ultimoCurso" class="panel-hero group relative p-5 sm:p-8 md:p-12 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500 rounded-3xl sm:rounded-[48px]">
               <div class="flex flex-col gap-6 md:gap-10 xl:flex-row xl:items-center">
-                <div class="relative aspect-video w-full shrink-0 overflow-hidden rounded-2xl sm:rounded-[32px] border border-on-surface/10 shadow-2xl xl:w-[320px]">
+                <div class="relative aspect-video w-full shrink-0 overflow-hidden rounded-2xl sm:rounded-[32px] !border-none shadow-2xl xl:w-[320px]">
                   <img :src="getFileUrl(ultimoCurso.curso?.miniatura_url)" class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
                   <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
                 </div>
                 
                 <div class="flex-grow min-w-0">
-                  <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-accent-neon/10 px-4 py-1.5 border border-accent-neon/20">
+                  <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-accent-neon/10 px-4 py-1.5 !border-none">
                     <span class="relative flex h-2 w-2">
                       <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-neon opacity-75"></span>
                       <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-neon"></span>
@@ -70,7 +70,7 @@
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div v-for="ins in otrosCursos" :key="ins.id" class="course-card-premium group relative flex items-center gap-4 sm:gap-6 p-4 sm:p-5 transition-all rounded-2xl sm:rounded-[28px]">
-                  <div class="h-16 w-20 sm:h-20 sm:w-24 shrink-0 overflow-hidden rounded-xl sm:rounded-2xl border border-on-surface/5 bg-on-surface/5">
+                  <div class="h-16 w-20 sm:h-20 sm:w-24 shrink-0 overflow-hidden rounded-xl sm:rounded-2xl !border-none bg-on-surface/5">
                     <img :src="getFileUrl(ins.curso?.miniatura_url)" class="h-full w-full object-cover" />
                   </div>
                   <div class="min-w-0 flex-grow">
@@ -107,8 +107,8 @@
                         <span class="text-xs font-bold text-accent-neon">{{ curso.precio === 0 ? 'Gratis' : curso.precio + ' Bs' }}</span>
                       </div>
                       <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full">
-                        <button @click="openCourseDetails(curso)" class="flex-1 text-[9px] font-black uppercase tracking-widest py-2.5 px-3 rounded-xl border border-on-surface/10 hover:border-accent-neon hover:text-accent-neon transition-all text-center">Ver detalles</button>
-                        <button v-if="isEnrolled(curso.id)" disabled class="btn-premium flex items-center justify-center gap-2 flex-1 !rounded-xl !px-3 !py-2.5 !text-[9px] bg-on-surface/10 text-on-surface/50 border border-on-surface/10 cursor-not-allowed">
+                        <button @click="openCourseDetails(curso)" class="flex-1 text-[9px] font-black uppercase tracking-widest py-2.5 px-3 rounded-xl !border-none bg-on-surface/5 hover:bg-on-surface/10 hover:text-accent-neon transition-all text-center">Ver detalles</button>
+                        <button v-if="isEnrolled(curso.id)" disabled class="btn-premium flex items-center justify-center gap-2 flex-1 !rounded-xl !px-3 !py-2.5 !text-[9px] bg-on-surface/10 text-on-surface/50 !border-none cursor-not-allowed">
                           <span class="material-symbols-outlined text-[12px]">check_circle</span>
                           Inscrito
                         </button>
@@ -121,7 +121,7 @@
             </section>
 
             <!-- Estado vacío si no hay cursos -->
-            <section v-if="!ultimoCurso && inscripciones.length === 0" class="course-card-premium flex flex-col items-center justify-center p-8 sm:p-16 text-center rounded-3xl sm:rounded-[48px] border-dashed">
+            <section v-if="!ultimoCurso && inscripciones.length === 0" class="course-card-premium flex flex-col items-center justify-center p-8 sm:p-16 text-center rounded-3xl sm:rounded-[48px] !border-none bg-on-surface/5">
               <div class="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-accent-neon/10 text-accent-neon">
                 <span class="material-symbols-outlined text-4xl">school</span>
               </div>
@@ -142,7 +142,7 @@
               <p class="text-sm text-on-surface/60 leading-relaxed">
                 ¡Nueva sección de laboratorios próximamente! Prepárate para aplicar tus conocimientos en entornos reales.
               </p>
-              <div class="mt-6 pt-6 border-t border-on-surface/5 flex items-center justify-between">
+              <div class="mt-6 pt-6 border-t !border-on-surface/5 flex items-center justify-between">
                 <span class="text-[9px] font-black uppercase tracking-widest text-on-surface/30">Hace 2 horas</span>
                 <button class="text-[9px] font-black uppercase tracking-widest text-accent-neon">Saber más</button>
               </div>
@@ -170,9 +170,9 @@
               </div>
               
               <div class="space-y-4">
-                <div v-for="clase in liveClasses.slice(0, 3)" :key="clase.id" class="course-card-premium p-4 sm:p-5 flex flex-col gap-3 transition-all hover:border-accent-neon/20 rounded-2xl sm:rounded-[28px]">
+                <div v-for="clase in liveClasses.slice(0, 3)" :key="clase.id" class="course-card-premium p-4 sm:p-5 flex flex-col gap-3 transition-all hover:bg-on-surface/[0.08] rounded-2xl sm:rounded-[28px]">
                   <div class="flex items-center justify-between">
-                    <span class="text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded bg-accent-neon/10 text-accent-neon border border-accent-neon/10">Clase</span>
+                    <span class="text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded bg-accent-neon/10 text-accent-neon !border-none">Clase</span>
                     <span class="text-[9px] font-bold text-on-surface/30">{{ formatDate(clase.fecha) }}</span>
                   </div>
                   <h4 class="font-lexend font-black text-sm truncate">{{ clase.titulo }}</h4>

@@ -34,43 +34,43 @@
           :key="curso.id"
           class="course-card-premium group"
         >
-          <div class="relative h-48 md:h-56 overflow-hidden">
+          <div class="relative aspect-video overflow-hidden">
             <img :src="getFileUrl(curso.miniatura_url)" class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-            <span class="absolute bottom-6 left-6 rounded-full bg-accent-neon px-4 py-2 text-[9px] font-black uppercase tracking-widest text-primary shadow-xl">
+            <span class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 rounded-full bg-accent-neon px-3 py-1.5 sm:px-4 sm:py-2 text-[9px] font-black uppercase tracking-widest text-primary shadow-xl">
               {{ curso.nivel || 'Básico' }}
             </span>
           </div>
 
-          <div class="flex flex-1 flex-col p-6 md:p-8">
-            <div class="mb-6 flex items-center justify-between gap-3">
-              <span class="rounded-full border border-accent-neon/20 bg-accent-neon/10 px-3 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-accent-neon">
+          <div class="flex flex-1 flex-col p-5 sm:p-6 md:p-8">
+            <div class="mb-4 sm:mb-6 flex flex-wrap items-center justify-between gap-3">
+              <span class="rounded-full !border-none bg-accent-neon/10 px-3 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-accent-neon">
                 {{ curso.categoria?.nombre || 'Curso' }}
               </span>
-              <span class="text-[10px] font-black uppercase tracking-widest text-on-surface/30">Acceso guiado</span>
+              <span class="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-on-surface/30">Acceso guiado</span>
             </div>
 
-            <h3 class="font-lexend text-xl md:text-2xl font-black leading-tight text-on-surface group-hover:text-accent-neon transition-colors">
+            <h3 class="font-lexend text-lg sm:text-xl md:text-2xl font-black leading-tight text-on-surface group-hover:text-accent-neon transition-colors">
               {{ curso.titulo }}
             </h3>
-            <p class="mt-4 line-clamp-3 text-xs md:text-sm leading-relaxed text-on-surface/50">
+            <p class="mt-3 sm:mt-4 line-clamp-3 text-xs sm:text-sm leading-relaxed text-on-surface/50">
               {{ curso.descripcion_corta || 'Formación técnica especializada para avanzar con criterio y buen ritmo.' }}
             </p>
 
-            <div class="mt-auto flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between pt-6 md:pt-10">
-              <div class="flex sm:flex-col justify-between items-center sm:items-start w-full sm:w-auto border-b border-on-surface/5 pb-3 sm:border-0 sm:pb-0">
-                <p class="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface/30">Inversión</p>
-                <span class="text-xl md:text-2xl font-black text-accent-neon">{{ curso.precio || '0.00' }} <span class="text-[10px]">BS</span></span>
+            <div class="mt-6 sm:mt-auto flex flex-col gap-4 pt-4 sm:pt-6 md:pt-10">
+              <div class="flex justify-between items-center pb-3">
+                <p class="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-on-surface/30">Inversión</p>
+                <span class="text-lg sm:text-xl md:text-2xl font-black text-accent-neon">{{ curso.precio || '0.00' }} <span class="text-[9px] sm:text-[10px]">BS</span></span>
               </div>
-              <div class="flex flex-row gap-2 w-full sm:w-auto">
-                <button @click="openCourseDetails(curso)" class="flex-1 sm:flex-none text-[9px] font-black uppercase tracking-widest py-3 px-5 rounded-xl border border-on-surface/10 hover:border-accent-neon hover:text-accent-neon transition-all text-center">
+              <div class="flex flex-col sm:flex-row gap-2 w-full">
+                <button @click="openCourseDetails(curso)" class="w-full sm:w-1/2 text-[9px] sm:text-[10px] font-black uppercase tracking-widest py-3 sm:py-4 rounded-xl !border-none bg-on-surface/5 hover:bg-on-surface/10 hover:text-accent-neon transition-all text-center">
                   Ver detalles
                 </button>
-                <button v-if="isEnrolled(curso.id)" disabled class="btn-premium flex-1 sm:flex-none flex items-center justify-center gap-2 !rounded-xl !px-6 !py-3 !text-[10px] bg-on-surface/10 text-on-surface/50 border border-on-surface/10 cursor-not-allowed">
+                <button v-if="isEnrolled(curso.id)" disabled class="btn-premium w-full sm:w-1/2 flex items-center justify-center gap-2 !rounded-xl !py-3 sm:!py-4 !text-[9px] sm:!text-[10px] bg-on-surface/10 text-on-surface/50 !border-none cursor-not-allowed">
                   <span class="material-symbols-outlined text-sm">check_circle</span>
                   Inscrito
                 </button>
-                <button v-else @click="$emit('enroll', curso.id)" class="btn-premium btn-primary-neon flex-1 sm:flex-none !rounded-xl !px-6 !py-3 !text-[10px]">
+                <button v-else @click="$emit('enroll', curso.id)" class="btn-premium btn-primary-neon w-full sm:w-1/2 !rounded-xl !py-3 sm:!py-4 !text-[9px] sm:!text-[10px]">
                   Inscribirme
                 </button>
               </div>

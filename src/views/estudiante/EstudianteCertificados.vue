@@ -45,7 +45,7 @@
                 <h3 class="mt-6 font-lexend text-2xl font-black leading-tight text-on-surface/90">{{ cert.curso?.titulo }}</h3>
               </div>
               
-              <div class="rounded-2xl border border-on-surface/10 bg-on-surface/5 backdrop-blur-md px-6 py-4">
+              <div class="rounded-2xl !border-none bg-on-surface/5 backdrop-blur-md px-6 py-4">
                 <p class="text-[9px] font-black uppercase tracking-[0.3em] text-on-surface/30">Código de validación</p>
                 <p class="mt-2 text-xs font-black uppercase tracking-[0.2em] text-accent-neon">{{ cert.codigo_certificado }}</p>
               </div>
@@ -53,12 +53,12 @@
           </div>
 
           <div class="flex flex-1 flex-col p-8">
-            <div class="mb-6 flex items-center justify-between gap-4 border-b border-on-surface/5 pb-6">
+            <div class="mb-6 flex items-center justify-between gap-4 pb-6">
               <div class="flex flex-col">
                 <span class="text-[9px] font-black uppercase tracking-widest text-on-surface/30">Emisión</span>
                 <span class="text-sm font-bold text-on-surface/80">{{ formatDate(cert.fecha_emision) }}</span>
               </div>
-              <span class="rounded-full bg-emerald-500/10 px-4 py-1.5 text-[9px] font-black uppercase tracking-widest text-emerald-400 border border-emerald-500/20">Aprobado</span>
+              <span class="rounded-full bg-emerald-500/10 px-4 py-1.5 text-[9px] font-black uppercase tracking-widest text-emerald-400 !border-none">Aprobado</span>
             </div>
 
             <p class="mb-8 text-sm leading-relaxed text-on-surface/50">

@@ -9,7 +9,7 @@
     />
 
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-      <section class="course-card-premium group rounded-[40px] border-admin-border p-8 text-center transition-all hover:border-accent-neon/30">
+      <section class="course-card-premium group rounded-[40px] !border-none p-8 text-center transition-all hover:bg-on-surface/[0.08]">
         <div class="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-3xl bg-accent-neon/10 text-accent-neon shadow-inner">
           <span class="material-symbols-outlined text-4xl">contact_support</span>
         </div>
@@ -18,7 +18,7 @@
         <button class="btn-premium btn-primary-neon mt-8 !w-full !py-4 !text-[10px]">Ir a FAQs</button>
       </section>
 
-      <section class="course-card-premium group rounded-[40px] border-admin-border bg-gradient-to-b from-accent-neon/5 to-transparent p-8 text-center transition-all hover:border-accent-neon/30">
+      <section class="course-card-premium group rounded-[40px] !border-none bg-gradient-to-b from-accent-neon/5 to-transparent p-8 text-center transition-all hover:bg-on-surface/[0.08]">
         <div class="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-3xl bg-accent-neon text-primary shadow-neon-sm">
           <span class="material-symbols-outlined text-4xl">chat</span>
         </div>
@@ -30,7 +30,7 @@
         </a>
       </section>
 
-      <section class="course-card-premium group rounded-[40px] border-admin-border p-8 text-center transition-all hover:border-accent-neon/30">
+      <section class="course-card-premium group rounded-[40px] !border-none p-8 text-center transition-all hover:bg-on-surface/[0.08]">
         <div class="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-3xl bg-accent-neon/10 text-accent-neon shadow-inner">
           <span class="material-symbols-outlined text-4xl">mail</span>
         </div>
@@ -46,13 +46,13 @@
           <p class="text-[10px] font-black uppercase tracking-[0.24em] text-accent-neon">Monitoreo</p>
           <h3 class="mt-2 font-lexend text-2xl font-black tracking-tight">Estado de servicios</h3>
         </div>
-        <span class="rounded-full border border-green-500/20 bg-green-500/10 px-4 py-2 text-[10px] font-black uppercase tracking-[0.22em] text-green-500">
+        <span class="rounded-full !border-none bg-green-500/10 px-4 py-2 text-[10px] font-black uppercase tracking-[0.22em] text-green-500">
           Todo operativo
         </span>
       </div>
 
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <div v-for="service in services" :key="service.name" class="flex items-center justify-between rounded-2xl border admin-line admin-soft-bg p-4">
+        <div v-for="service in services" :key="service.name" class="flex items-center justify-between rounded-2xl !border-none bg-on-surface/5 p-4">
           <div class="flex items-center gap-4">
             <div class="h-2.5 w-2.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
             <span class="text-xs font-black uppercase tracking-widest text-on-surface/60">{{ service.name }}</span>

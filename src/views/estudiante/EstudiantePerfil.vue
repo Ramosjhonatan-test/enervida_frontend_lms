@@ -15,7 +15,7 @@
             <p class="text-[10px] font-black uppercase tracking-[0.22em] text-accent-neon">Datos personales</p>
             <h2 class="mt-2 font-lexend text-2xl font-black tracking-tight">Informacion de la cuenta</h2>
           </div>
-          <span class="rounded-full border border-accent-neon/20 bg-accent-neon/10 px-4 py-2 text-[10px] font-black uppercase tracking-[0.22em] text-accent-neon">
+          <span class="rounded-full !border-none bg-accent-neon/10 px-4 py-2 text-[10px] font-black uppercase tracking-[0.22em] text-accent-neon">
             Perfil editable
           </span>
         </div>
@@ -24,28 +24,28 @@
           <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div class="space-y-2">
               <label class="px-1 text-[10px] font-black uppercase tracking-widest text-on-surface/40">Nombres</label>
-              <input v-model="form.nombres" type="text" required class="input-cyber !rounded-2xl" placeholder="Tus nombres" />
+              <input v-model="form.nombres" type="text" required class="input-cyber !rounded-2xl !bg-on-surface/[0.04] !border-none w-full" placeholder="Tus nombres" />
             </div>
             <div class="space-y-2">
               <label class="px-1 text-[10px] font-black uppercase tracking-widest text-on-surface/40">Apellidos</label>
-              <input v-model="form.apellidos" type="text" required class="input-cyber !rounded-2xl" placeholder="Tus apellidos" />
+              <input v-model="form.apellidos" type="text" required class="input-cyber !rounded-2xl !bg-on-surface/[0.04] !border-none w-full" placeholder="Tus apellidos" />
             </div>
             <div class="space-y-2">
               <label class="px-1 text-[10px] font-black uppercase tracking-widest text-on-surface/40">Correo electronico</label>
-              <input :value="authStore.user?.correo" type="email" readonly class="input-cyber !rounded-2xl cursor-not-allowed border-dashed opacity-50" />
+              <input :value="authStore.user?.correo" type="email" readonly class="input-cyber !rounded-2xl !bg-on-surface/[0.04] !border-none w-full cursor-not-allowed opacity-50" />
             </div>
             <div class="space-y-2">
               <label class="px-1 text-[10px] font-black uppercase tracking-widest text-on-surface/40">Cedula / DNI</label>
-              <input v-model="form.ci" type="text" required class="input-cyber !rounded-2xl" placeholder="Documento de identidad" />
+              <input v-model="form.ci" type="text" required class="input-cyber !rounded-2xl !bg-on-surface/[0.04] !border-none w-full" placeholder="Documento de identidad" />
             </div>
             <div class="space-y-2">
               <label class="px-1 text-[10px] font-black uppercase tracking-widest text-on-surface/40">WhatsApp / Telefono</label>
-              <input v-model="form.telefono" type="text" required class="input-cyber !rounded-2xl" placeholder="+591 ..." />
+              <input v-model="form.telefono" type="text" required class="input-cyber !rounded-2xl !bg-on-surface/[0.04] !border-none w-full" placeholder="+591 ..." />
             </div>
             <div class="space-y-2">
               <label class="px-1 text-[10px] font-black uppercase tracking-widest text-on-surface/40">Nueva contrasena</label>
               <div class="relative">
-                <input v-model="form.contrasena" :type="showPassword ? 'text' : 'password'" class="input-cyber !rounded-2xl pr-14" placeholder="Dejar en blanco para mantener" />
+                <input v-model="form.contrasena" :type="showPassword ? 'text' : 'password'" class="input-cyber !rounded-2xl !bg-on-surface/[0.04] !border-none w-full pr-14" placeholder="Dejar en blanco para mantener" />
                 <button type="button" @click="showPassword = !showPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface/30 hover:text-accent-neon">
                   <span class="material-symbols-outlined text-xl">{{ showPassword ? 'visibility_off' : 'visibility' }}</span>
                 </button>
@@ -60,7 +60,7 @@
               <div v-else class="animate-spin rounded-full h-4 w-4 border-t-2 border-primary"></div>
               {{ saving ? 'Guardando...' : 'Guardar perfil' }}
             </button>
-            <button type="button" class="btn-premium btn-secondary-glass !w-full sm:!w-auto !px-8 !py-5">
+            <button type="button" class="btn-premium glass-card !bg-on-surface/[0.05] !border-none !w-full sm:!w-auto !px-8 !py-5">
               Ver historial
             </button>
           </div>
@@ -70,7 +70,7 @@
       <aside class="space-y-8">
         <section class="course-card-premium overflow-hidden p-8 text-center">
           <div class="relative mx-auto mb-6 h-32 w-32">
-            <div class="flex h-full w-full items-center justify-center rounded-[40px] border-2 border-dashed border-accent-neon/30 bg-accent-neon/5 text-4xl font-black text-accent-neon shadow-inner">
+            <div class="flex h-full w-full items-center justify-center rounded-[40px] !border-none bg-accent-neon/5 text-4xl font-black text-accent-neon shadow-inner">
               <img
                 v-if="profileImageUrl && !profileImageFailed"
                 :src="profileImageUrl"
@@ -87,12 +87,12 @@
           <h2 class="text-xl font-black">{{ authStore.user?.nombres }} {{ authStore.user?.apellidos }}</h2>
           <p class="mt-1 text-[10px] font-black uppercase tracking-widest text-on-surface/35">Estudiante verificado</p>
 
-          <div class="mt-8 grid grid-cols-2 gap-4 border-t admin-line pt-8">
-            <div class="rounded-2xl border admin-line bg-on-surface/[0.03] p-4 text-center">
+          <div class="mt-8 grid grid-cols-2 gap-4 pt-8">
+            <div class="rounded-2xl !border-none bg-on-surface/[0.03] p-4 text-center">
               <p class="text-2xl font-black text-accent-neon">{{ stats.completedCourses }}</p>
               <p class="text-[9px] font-black uppercase tracking-widest text-on-surface/30">Cursos</p>
             </div>
-            <div class="rounded-2xl border admin-line bg-on-surface/[0.03] p-4 text-center">
+            <div class="rounded-2xl !border-none bg-on-surface/[0.03] p-4 text-center">
               <p class="text-2xl font-black text-accent-neon">{{ stats.certificates }}</p>
               <p class="text-[9px] font-black uppercase tracking-widest text-on-surface/30">Certificados </p>
             </div>
@@ -105,7 +105,7 @@
             Seguridad de cuenta
           </h3>
           
-          <div v-if="activeDevice" class="mb-6 p-4 rounded-2xl bg-accent-neon/5 border border-accent-neon/10 animate-in slide-in-from-bottom-2">
+          <div v-if="activeDevice" class="mb-6 p-4 rounded-2xl bg-accent-neon/5 !border-none animate-in slide-in-from-bottom-2">
             <div class="flex items-center gap-4">
               <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-accent-neon/10 text-accent-neon">
                 <span class="material-symbols-outlined text-2xl">{{ getDeviceIcon(activeDevice.sistema_operativo) }}</span>
@@ -115,7 +115,7 @@
                 <p class="text-[10px] font-bold text-on-surface/60 uppercase">{{ activeDevice.sistema_operativo }} • {{ activeDevice.navegador }}</p>
               </div>
             </div>
-            <div class="mt-4 pt-4 border-t border-accent-neon/10 space-y-2">
+            <div class="mt-4 pt-4 space-y-2">
               <div class="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-on-surface/40">
                 <span>Último acceso</span>
                 <span class="text-on-surface/60">{{ activeDevice.ultimo_acceso ? new Date(activeDevice.ultimo_acceso).toLocaleDateString() : 'Nunca' }}</span>
@@ -138,7 +138,7 @@
             </li>
           </ul>
 
-          <div class="mt-8 p-4 rounded-xl bg-on-surface/5 text-[10px] font-bold text-on-surface/40 leading-relaxed border-l-2 border-accent-neon/30">
+          <div class="mt-8 p-4 rounded-xl bg-accent-neon/5 text-[10px] font-bold text-on-surface/40 leading-relaxed !border-none">
             * Su cuenta está vinculada a este equipo para mayor seguridad. Si necesita cambiar de dispositivo, contacte a soporte técnico para "Liberar" su cuenta.
           </div>
         </section>

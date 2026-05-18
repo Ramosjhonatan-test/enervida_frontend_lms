@@ -8,7 +8,7 @@
       ></div>
     </transition>
 
-    <nav class="fixed left-0 right-0 top-0 z-[100] border-b admin-line bg-surface-glass/90 backdrop-blur-2xl">
+    <nav class="fixed left-0 right-0 top-0 z-[100] !border-none bg-surface-glass/90 backdrop-blur-2xl">
       <div class="flex h-20 items-center justify-between gap-3 px-4 md:px-8 xl:px-12">
         <div class="flex min-w-0 items-center gap-3 md:gap-10">
           <button
@@ -51,7 +51,7 @@
             <span class="text-[9px] font-black uppercase tracking-widest text-on-surface/35">Estudiante</span>
             <span class="max-w-[160px] truncate text-xs font-bold">{{ authStore.user?.nombres || 'Mi cuenta' }}</span>
           </div>
-          <div class="hidden rounded-2xl border admin-line admin-soft-bg px-3 py-2 lg:flex lg:flex-col">
+          <div class="hidden rounded-2xl !border-none !bg-on-surface/[0.04] px-3 py-2 lg:flex lg:flex-col">
             <span class="text-[9px] font-black uppercase tracking-[0.2em] text-on-surface/30">Vista actual</span>
             <span class="text-[11px] font-black uppercase tracking-widest text-accent-neon">{{ currentNavLabel }}</span>
           </div>
@@ -66,7 +66,7 @@
           <router-link to="/student/support" class="flex h-10 w-10 items-center justify-center rounded-xl bg-on-surface/5 text-on-surface/45 transition hover:text-accent-neon" title="Soporte y ayuda">
             <span class="material-symbols-outlined text-xl">help</span>
           </router-link>
-          <router-link to="/student/profile" class="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl border admin-line admin-soft-bg text-sm font-black text-accent-neon" aria-label="Perfil">
+          <router-link to="/student/profile" class="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl !border-none !bg-on-surface/[0.04] text-sm font-black text-accent-neon" aria-label="Perfil">
             <img
               v-if="profileImageUrl && !profileImageFailed"
               :src="profileImageUrl"
@@ -83,29 +83,73 @@
         </div>
       </div>
 
-      <transition name="fade-slide">
+      <!-- Drawer de menú móvil superior-izquierdo -->
+      <transition
+        enter-active-class="transition ease-out duration-300"
+        enter-from-class="-translate-x-full opacity-0"
+        enter-to-class="translate-x-0 opacity-100"
+        leave-active-class="transition ease-in duration-200"
+        leave-from-class="translate-x-0 opacity-100"
+        leave-to-class="-translate-x-full opacity-0"
+      >
         <div
           v-if="isMobileMenuOpen"
-          class="border-t admin-line bg-background/95 px-4 pb-5 pt-4 shadow-2xl lg:hidden"
+          class="fixed inset-y-0 left-0 z-[101] w-4/5 max-w-sm flex flex-col !border-none bg-background/95 shadow-2xl backdrop-blur-3xl lg:hidden"
         >
-          <div class="mb-4 rounded-[28px] border admin-line bg-on-surface/[0.03] p-4">
-            <p class="text-[10px] font-black uppercase tracking-[0.22em] text-on-surface/35">Navegacion</p>
-            <p class="mt-2 text-lg font-lexend font-black">{{ currentNavLabel }}</p>
+          <div class="flex items-center justify-between px-6 h-20 !border-none">
+            <AppLogo :img-style="{ height: 'clamp(1.5rem, 3vw, 2.5rem)' }" img-class="w-auto object-contain" />
+            <button
+              type="button"
+              class="admin-soft-hover grid h-10 w-10 place-items-center rounded-xl text-on-surface"
+              @click="isMobileMenuOpen = false"
+              aria-label="Cerrar menu"
+            >
+              <span class="material-symbols-outlined">close</span>
+            </button>
           </div>
 
-          <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+          <div class="flex-1 overflow-y-auto px-4 py-6 flex flex-col gap-2">
+            <div class="mb-2 px-2">
+              <p class="text-[10px] font-black uppercase tracking-[0.22em] text-on-surface/35">Menú Principal</p>
+            </div>
             <router-link
               v-for="link in navLinks"
               :key="link.id"
               :to="link.to"
               :class="[
-                'rounded-2xl px-4 py-4 text-sm font-black uppercase tracking-[0.18em] transition-all',
-                isStudentRoute(link.to) ? 'bg-accent-neon text-primary shadow-neon-sm' : 'admin-soft-bg text-on-surface/65'
+                'flex items-center gap-4 rounded-2xl px-4 py-4 text-sm font-black uppercase tracking-[0.18em] transition-all',
+                isStudentRoute(link.to) ? 'bg-accent-neon text-primary shadow-neon-sm' : 'hover:bg-on-surface/5 text-on-surface/65'
               ]"
               @click="isMobileMenuOpen = false"
             >
               {{ link.text }}
             </router-link>
+          </div>
+
+          <div class="p-6 !border-none bg-on-surface/[0.02]">
+            <div class="flex items-center gap-4 mb-6">
+              <img
+                v-if="profileImageUrl && !profileImageFailed"
+                :src="profileImageUrl"
+                class="h-12 w-12 rounded-full object-cover !border-none"
+                @error="profileImageFailed = true"
+              />
+              <div v-else class="flex h-12 w-12 items-center justify-center rounded-full bg-accent-neon/10 text-accent-neon font-black">
+                {{ userInitials }}
+              </div>
+              <div class="flex flex-col">
+                <span class="text-xs font-black truncate max-w-[150px]">{{ authStore.user?.nombres || 'Estudiante' }}</span>
+                <span class="text-[10px] font-bold text-on-surface/50 uppercase tracking-widest">Mi Cuenta</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between gap-2">
+              <router-link to="/student/profile" @click="isMobileMenuOpen = false" class="btn-premium flex-1 !rounded-xl !py-3 !text-[10px] !bg-on-surface/[0.04] !border-none text-center">
+                Mi Perfil
+              </router-link>
+              <button @click="handleLogout" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-solar/10 text-accent-solar hover:bg-accent-solar/20 !border-none transition-all">
+                <span class="material-symbols-outlined text-lg">logout</span>
+              </button>
+            </div>
           </div>
         </div>
       </transition>
@@ -131,10 +175,10 @@
     <transition name="fade-slide">
       <div v-if="showCompleteProfile" class="fixed inset-0 z-[200] flex items-center justify-center p-4 overflow-y-auto">
         <div class="absolute inset-0 bg-background/80 backdrop-blur-xl" @click="showCompleteProfile = false"></div>
-        <div class="glass-card-premium relative w-full max-w-4xl overflow-hidden rounded-3xl sm:rounded-[48px] border border-accent-neon/20 p-5 sm:p-8 md:p-12 shadow-2xl my-auto">
+        <div class="glass-card-premium relative w-full max-w-4xl overflow-hidden rounded-3xl sm:rounded-[48px] !border-none p-5 sm:p-8 md:p-12 shadow-2xl my-auto">
           <div class="relative z-10">
             <div class="mb-6 sm:mb-10 text-center">
-              <div class="mx-auto mb-4 sm:mb-6 flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl sm:rounded-3xl border border-accent-neon/20 bg-accent-neon/10 shadow-inner">
+              <div class="mx-auto mb-4 sm:mb-6 flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl sm:rounded-3xl !border-none bg-accent-neon/10 shadow-inner">
                 <span class="material-symbols-outlined text-3xl sm:text-4xl text-accent-neon">verified_user</span>
               </div>
               <h2 class="font-lexend text-2xl sm:text-3xl font-black tracking-tight">Verificación de <span class="text-gradient-neon">identidad</span></h2>
@@ -145,13 +189,13 @@
 
             <form @submit.prevent="handleCompleteProfile">
               <div class="mb-6 sm:mb-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-                <input v-model="profileForm.nombres" type="text" required placeholder="Nombres" class="input-cyber !rounded-2xl" />
-                <input v-model="profileForm.apellidos" type="text" required placeholder="Apellidos" class="input-cyber !rounded-2xl" />
-                <input :value="authStore.user?.correo" type="email" readonly class="input-cyber !rounded-2xl cursor-not-allowed border-dashed opacity-50" />
-                <input v-model="profileForm.ci" type="text" required placeholder="Cédula / DNI" class="input-cyber !rounded-2xl" />
-                <input v-model="profileForm.telefono" type="text" required placeholder="WhatsApp / Celular" class="input-cyber !rounded-2xl" />
+                <input v-model="profileForm.nombres" type="text" required placeholder="Nombres" class="input-cyber !bg-on-surface/[0.04] !border-none !rounded-2xl" />
+                <input v-model="profileForm.apellidos" type="text" required placeholder="Apellidos" class="input-cyber !bg-on-surface/[0.04] !border-none !rounded-2xl" />
+                <input :value="authStore.user?.correo" type="email" readonly class="input-cyber !bg-on-surface/[0.04] !border-none !rounded-2xl cursor-not-allowed opacity-50" />
+                <input v-model="profileForm.ci" type="text" required placeholder="Cédula / DNI" class="input-cyber !bg-on-surface/[0.04] !border-none !rounded-2xl" />
+                <input v-model="profileForm.telefono" type="text" required placeholder="WhatsApp / Celular" class="input-cyber !bg-on-surface/[0.04] !border-none !rounded-2xl" />
                 <div class="relative">
-                  <input v-model="profileForm.contrasena" :type="showPassword ? 'text' : 'password'" placeholder="Contraseña (Opcional)" class="input-cyber !rounded-2xl" />
+                  <input v-model="profileForm.contrasena" :type="showPassword ? 'text' : 'password'" placeholder="Contraseña (Opcional)" class="input-cyber !bg-on-surface/[0.04] !border-none !rounded-2xl" />
                   <button type="button" @click="showPassword = !showPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface/30 hover:text-accent-neon">
                     <span class="material-symbols-outlined text-xl">{{ showPassword ? 'visibility_off' : 'visibility' }}</span>
                   </button>

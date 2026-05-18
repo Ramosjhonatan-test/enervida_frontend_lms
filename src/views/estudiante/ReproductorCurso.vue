@@ -11,11 +11,12 @@
     <div class="flex min-h-screen">
       <aside
         :class="[
-          'fixed inset-y-0 left-0 z-50 flex w-[88vw] max-w-sm flex-col border-r border-on-surface/5 bg-background/95 backdrop-blur-2xl transition-transform duration-300 lg:sticky lg:top-0 lg:h-screen lg:w-[360px] lg:max-w-none lg:translate-x-0',
+          'fixed inset-y-0 left-0 z-50 flex w-[88vw] max-w-sm flex-col bg-background/95 backdrop-blur-2xl transition-transform duration-300 lg:sticky lg:top-0 lg:h-screen lg:w-[360px] lg:max-w-none lg:translate-x-0',
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         ]"
       >
-        <div class="border-b border-on-surface/5 p-6">
+        <div class="p-6 relative">
+          <div class="absolute bottom-0 left-6 right-6 h-px bg-on-surface/5"></div>
           <div class="mb-6 flex items-center justify-between gap-4">
             <router-link to="/student/dashboard" class="flex items-center gap-3 text-accent-neon transition hover:gap-4">
               <span class="material-symbols-outlined text-sm font-black">arrow_back</span>
@@ -60,8 +61,8 @@
                 @click="selectLeccion(leccion)"
                 :aria-current="activeLeccion?.id === leccion.id ? 'true' : undefined"
                 :class="[
-                  'w-full rounded-2xl px-3 py-3 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-neon/50',
-                  activeLeccion?.id === leccion.id ? 'bg-accent-neon/10 border border-accent-neon/20 shadow-[0_4px_15px_rgba(16,185,129,0.1)]' : 'hover:bg-on-surface/5 border border-transparent hover:border-on-surface/10'
+                  'w-full rounded-2xl px-3 py-3 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-neon/50 !border-none',
+                  activeLeccion?.id === leccion.id ? 'bg-accent-neon/10 shadow-[0_4px_15px_rgba(16,185,129,0.1)]' : 'hover:bg-on-surface/5'
                 ]"
               >
                 <div class="flex items-start gap-3">
@@ -90,8 +91,9 @@
       </aside>
 
       <main class="flex min-w-0 flex-1 flex-col">
-        <header class="sticky top-0 z-30 border-b border-on-surface/5 bg-background/85 px-4 py-4 backdrop-blur-xl md:px-6 lg:px-10">
-          <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <header class="sticky top-0 z-30 bg-background/85 px-4 py-4 backdrop-blur-xl md:px-6 lg:px-10">
+          <div class="absolute bottom-0 left-0 right-0 h-px bg-on-surface/5"></div>
+          <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between relative z-10">
             <div class="flex min-w-0 items-center gap-3">
               <button @click="isSidebarOpen = !isSidebarOpen" class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-on-surface/5 text-on-surface/60 hover:text-accent-neon transition-all">
                 <span class="material-symbols-outlined">{{ isSidebarOpen ? 'menu_open' : 'menu' }}</span>
@@ -103,7 +105,7 @@
             </div>
 
             <div class="flex items-center justify-between gap-3 md:justify-end">
-              <div class="rounded-2xl border border-on-surface/5 bg-on-surface/[0.03] px-4 py-2">
+              <div class="rounded-2xl !border-none bg-on-surface/[0.05] px-4 py-2">
                 <p class="text-[9px] font-black uppercase tracking-[0.2em] text-on-surface/30">Avance</p>
                 <p class="text-sm font-black text-accent-neon">{{ Math.round(progresoGeneral) }}%</p>
               </div>
@@ -130,7 +132,7 @@
               
               <!-- Content Area (Video/PDF) -->
               <div class="flex-1 w-full flex flex-col gap-6">
-                <div v-if="activeLeccion.tipo_contenido === 'VIDEO'" class="aspect-video w-full overflow-hidden rounded-[28px] border border-on-surface/10 bg-black shadow-2xl relative group">
+                <div v-if="activeLeccion.tipo_contenido === 'VIDEO'" class="aspect-video w-full overflow-hidden rounded-[28px] !border-none bg-black shadow-2xl relative group">
                   <iframe
                     v-if="isYoutube(activeLeccion.video_url)"
                     :src="getYoutubeEmbed(activeLeccion.video_url)"
@@ -147,13 +149,13 @@
 
                 <div v-else-if="activeLeccion.tipo_contenido === 'PDF'" class="w-full flex flex-col gap-4">
                   <!-- Desktop/Large screens: Premium Iframe -->
-                  <div class="hidden lg:block h-[68vh] min-h-[460px] w-full overflow-hidden rounded-[28px] border border-on-surface/10 bg-on-surface/[0.03] shadow-lg">
+                  <div class="hidden lg:block h-[68vh] min-h-[460px] w-full overflow-hidden rounded-[28px] !border-none bg-on-surface/[0.05] shadow-lg">
                     <iframe :src="getFileUrl(activeLeccion.pdf_url)" class="h-full w-full" frameborder="0"></iframe>
                   </div>
                   
                   <!-- Mobile/Tablet screens: Interactive Card -->
-                  <div class="lg:hidden glass-card-premium rounded-[28px] p-6 text-center flex flex-col items-center justify-center border border-on-surface/10 bg-on-surface/[0.03] py-12">
-                    <div class="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-accent-neon/10 text-accent-neon border border-accent-neon/20 shadow-inner">
+                  <div class="lg:hidden glass-card-premium rounded-[28px] p-6 text-center flex flex-col items-center justify-center !border-none bg-on-surface/[0.05] py-12">
+                    <div class="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-accent-neon/10 text-accent-neon !border-none shadow-inner">
                       <span class="material-symbols-outlined text-3xl font-black">picture_as_pdf</span>
                     </div>
                     <h3 class="font-lexend text-lg font-black mb-2 text-on-surface">Documento de Lectura</h3>
@@ -170,10 +172,10 @@
             </div>
 
             <!-- Lesson Info & Actions -->
-            <div class="glass-card-premium rounded-[32px] p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm border border-on-surface/5">
+            <div class="glass-card-premium rounded-[32px] p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm !border-none bg-on-surface/[0.03]">
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-3 mb-2">
-                  <span class="px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] rounded-full bg-accent-neon/10 text-accent-neon border border-accent-neon/20">{{ activeLeccion.tipo_contenido }}</span>
+                  <span class="px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] rounded-full bg-accent-neon/10 text-accent-neon !border-none">{{ activeLeccion.tipo_contenido }}</span>
                   <p class="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface/40">Leccion activa</p>
                 </div>
                 <h2 class="font-lexend text-2xl font-black tracking-tight text-on-surface line-clamp-2">{{ activeLeccion.titulo }}</h2>
@@ -189,7 +191,7 @@
                   :disabled="marking"
                   :class="[
                     'btn-premium !w-full md:!w-auto !justify-center !px-6 !py-3.5 gap-2.5 transition-all duration-300',
-                    leccionCompletada(activeLeccion.id) ? 'bg-accent-neon/10 border border-accent-neon/30 text-accent-neon shadow-[0_0_15px_rgba(16,185,129,0.15)]' : 'btn-primary-neon shadow-lg'
+                    leccionCompletada(activeLeccion.id) ? 'bg-accent-neon/10 !border-none text-accent-neon shadow-[0_0_15px_rgba(16,185,129,0.15)]' : 'btn-primary-neon shadow-lg'
                   ]"
                 >
                   <span class="material-symbols-outlined text-[18px] font-black">{{ leccionCompletada(activeLeccion.id) ? 'check_circle' : 'task_alt' }}</span>
@@ -199,7 +201,7 @@
             </div>
 
             <!-- Additional Description -->
-            <div v-if="activeLeccion.descripcion && activeLeccion.tipo_contenido !== 'PDF'" class="glass-card rounded-[32px] p-6 md:p-8 lg:p-10 border border-on-surface/5 bg-surface-container">
+            <div v-if="activeLeccion.descripcion && activeLeccion.tipo_contenido !== 'PDF'" class="glass-card rounded-[32px] p-6 md:p-8 lg:p-10 !border-none bg-on-surface/[0.03]">
               <h3 class="text-sm font-black uppercase tracking-widest text-on-surface/80 mb-6 flex items-center gap-2">
                 <span class="material-symbols-outlined text-accent-neon">info</span>
                 Acerca de esta lección
@@ -208,10 +210,10 @@
             </div>
 
             <!-- Exam CTA (Visible when 100% completed) -->
-            <div v-if="curso?.evaluaciones?.length > 0 && Math.round(progresoGeneral) === 100" class="mt-4 glass-card-premium relative overflow-hidden rounded-[32px] p-8 md:p-12 text-center border-accent-neon/30 shadow-[0_10px_40px_-10px_rgba(16,185,129,0.2)]">
+            <div v-if="curso?.evaluaciones?.length > 0 && Math.round(progresoGeneral) === 100" class="mt-4 glass-card-premium relative overflow-hidden rounded-[32px] p-8 md:p-12 text-center !border-none shadow-[0_10px_40px_-10px_rgba(16,185,129,0.2)] bg-on-surface/5">
               <div class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,_var(--accent-neon)_0%,_transparent_70%)] opacity-5"></div>
               <div class="relative z-10 flex flex-col items-center">
-                <div class="mb-6 flex h-20 w-20 items-center justify-center rounded-[24px] bg-accent-neon/10 text-accent-neon border border-accent-neon/20">
+                <div class="mb-6 flex h-20 w-20 items-center justify-center rounded-[24px] bg-accent-neon/10 text-accent-neon !border-none">
                   <span class="material-symbols-outlined text-4xl font-black">workspace_premium</span>
                 </div>
                 <h3 class="font-lexend text-2xl md:text-3xl font-black tracking-tight text-on-surface mb-3">¡Has completado el contenido!</h3>

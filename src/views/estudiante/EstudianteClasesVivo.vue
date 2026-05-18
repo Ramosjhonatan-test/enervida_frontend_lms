@@ -34,7 +34,7 @@
           :key="clase.id"
           class="course-card-premium group flex flex-col p-8"
         >
-          <div class="mb-8 flex items-center justify-between gap-4 border-b border-on-surface/5 pb-8">
+          <div class="mb-8 flex items-center justify-between gap-4 pb-8">
             <div class="flex flex-col">
               <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent-neon">{{ formatDate(clase.fecha_inicio) }}</span>
               <span class="mt-1 text-sm font-bold text-on-surface/40">{{ formatTime(clase.fecha_inicio) }}</span>
@@ -49,8 +49,8 @@
             {{ clase.descripcion || 'Sesión interactiva en vivo para resolver dudas y profundizar en el contenido del curso.' }}
           </p>
 
-          <div class="mt-10 flex items-center gap-4 rounded-3xl border border-on-surface/5 bg-on-surface/5 p-4 transition-colors group-hover:bg-on-surface/10">
-            <div class="h-12 w-12 shrink-0 overflow-hidden rounded-2xl border border-on-surface/10 bg-on-surface/5 shadow-xl">
+          <div class="mt-10 flex items-center gap-4 rounded-3xl !border-none bg-on-surface/5 p-4 transition-colors group-hover:bg-on-surface/10">
+            <div class="h-12 w-12 shrink-0 overflow-hidden rounded-2xl !border-none bg-on-surface/5 shadow-xl">
               <img :src="getImageUrl(clase.curso?.miniatura_url)" class="h-full w-full object-cover" />
             </div>
             <div class="min-w-0">
@@ -64,7 +64,7 @@
               Unirme ahora
               <span class="material-symbols-outlined text-lg">open_in_new</span>
             </a>
-            <div v-else class="rounded-3xl border border-dashed border-on-surface/10 bg-on-surface/5 p-6 text-center">
+            <div v-else class="rounded-3xl !border-none bg-on-surface/5 p-6 text-center">
               <span class="text-[10px] font-black uppercase tracking-widest text-on-surface/30">Link no disponible</span>
             </div>
           </div>
