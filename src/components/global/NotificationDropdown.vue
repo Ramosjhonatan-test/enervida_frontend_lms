@@ -2,14 +2,14 @@
   <div class="relative" ref="dropdownRef">
     <!-- Trigger Button -->
     <button 
-      @click="toggleDropdown" 
+      @click.stop="toggleDropdown" 
       class="relative flex h-10 w-10 items-center justify-center rounded-xl bg-on-surface/5 text-on-surface/45 transition hover:text-accent-neon hover:bg-accent-neon/10"
       aria-label="Notificaciones"
     >
-      <span class="material-symbols-outlined text-xl">notifications</span>
+      <span class="material-symbols-outlined text-xl pointer-events-none">notifications</span>
       
       <!-- Unread Badge -->
-      <span v-if="unreadCount > 0" class="absolute right-2 top-2 flex h-2 w-2">
+      <span v-if="unreadCount > 0" class="absolute right-2 top-2 flex h-2 w-2 pointer-events-none">
         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-neon opacity-75"></span>
         <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-neon"></span>
       </span>
@@ -19,9 +19,9 @@
     <transition name="fade-slide">
       <div 
         v-if="isOpen" 
-        class="absolute right-0 top-12 mt-2 w-80 sm:w-96 origin-top-right overflow-hidden rounded-2xl border admin-line bg-surface/95 backdrop-blur-xl shadow-2xl z-[150]"
+        class="fixed left-4 right-4 top-20 sm:absolute sm:left-auto sm:right-0 sm:top-14 sm:mt-2 w-auto sm:w-96 origin-top sm:origin-top-right overflow-hidden rounded-3xl border border-black/5 dark:border-white/10 bg-white dark:bg-[#121A2A] shadow-[0_30px_60px_rgba(0,0,0,0.15)] dark:shadow-[0_30px_60px_rgba(0,0,0,0.8)] z-[9999]"
       >
-        <div class="border-b admin-line p-4 flex items-center justify-between bg-on-surface/[0.02]">
+        <div class="border-b border-white/5 p-4 flex items-center justify-between bg-white/[0.02]">
           <h3 class="font-lexend font-black text-sm uppercase tracking-widest text-on-surface">Notificaciones</h3>
           <span v-if="unreadCount > 0" class="text-[10px] font-bold text-accent-neon bg-accent-neon/10 px-2 py-0.5 rounded-full">
             {{ unreadCount }} nuevas

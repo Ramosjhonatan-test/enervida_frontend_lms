@@ -1,5 +1,5 @@
 <template>
-  <div class="course-card-premium group relative flex flex-col overflow-hidden rounded-[32px] border border-white/10 bg-surface-card/30 backdrop-blur-xl transition-all duration-700 hover:-translate-y-4 hover:border-accent-neon/60 hover:shadow-[0_40px_80px_-20px_rgba(6,182,212,0.3)]">
+  <div class="course-card-premium group relative flex flex-col overflow-hidden rounded-[32px] bg-surface-card/30 backdrop-blur-xl transition-all duration-700 hover:-translate-y-4 hover:shadow-[0_40px_80px_-20px_rgba(6,182,212,0.3)] !border-none">
     <!-- Super Glass Glow (Dynamic effect on hover) -->
     <div class="absolute inset-0 pointer-events-none transition-opacity duration-700 opacity-0 group-hover:opacity-100">
       <div class="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-accent-neon/15 blur-[100px] animate-pulse"></div>
@@ -20,7 +20,7 @@
       
       <!-- Premium Badge -->
       <div class="absolute top-4 right-4 z-10 opacity-0 translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
-        <div class="flex items-center gap-1.5 rounded-xl bg-white/10 backdrop-blur-2xl border border-white/20 px-3 py-1.5 shadow-xl">
+        <div class="flex items-center gap-1.5 rounded-xl bg-white/10 backdrop-blur-2xl px-3 py-1.5 shadow-xl !border-none">
           <span class="material-symbols-outlined text-accent-neon text-sm">workspace_premium</span>
           <span class="text-[8px] font-black uppercase tracking-[0.2em] text-white">Certificado</span>
         </div>
@@ -28,7 +28,7 @@
 
       <!-- Nivel Tag -->
       <div class="absolute bottom-4 left-4 z-10">
-        <div class="flex items-center gap-2 rounded-full bg-surface-card/60 backdrop-blur-2xl border border-white/10 px-4 py-1.5 shadow-2xl">
+        <div class="flex items-center gap-2 rounded-full bg-surface-card/60 backdrop-blur-2xl px-4 py-1.5 shadow-2xl !border-none">
           <span class="relative flex h-1.5 w-1.5">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-neon opacity-75"></span>
             <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-accent-neon"></span>
@@ -41,7 +41,7 @@
 
       <!-- Play Icon Overlay -->
       <div class="absolute inset-0 z-20 flex items-center justify-center opacity-0 transition-all duration-500 group-hover:opacity-100 scale-75 group-hover:scale-100">
-        <div class="h-20 w-20 rounded-full bg-accent-neon/30 backdrop-blur-xl flex items-center justify-center border border-white/20 shadow-[0_0_50px_rgba(6,182,212,0.4)]">
+        <div class="h-20 w-20 rounded-full bg-accent-neon/30 backdrop-blur-xl flex items-center justify-center shadow-[0_0_50px_rgba(6,182,212,0.4)] !border-none">
           <span class="material-symbols-outlined text-white text-5xl">play_circle</span>
         </div>
       </div>
@@ -51,7 +51,7 @@
     <div class="relative z-10 flex flex-1 flex-col p-6 lg:p-9">
       <!-- Categoría y Rating -->
       <div class="mb-5 flex items-center justify-between">
-        <span class="inline-flex items-center rounded-xl bg-accent-neon/10 border border-accent-neon/20 px-3 py-1.5 text-[8px] font-black uppercase tracking-[0.25em] text-accent-neon shadow-sm">
+        <span class="inline-flex items-center rounded-xl bg-accent-neon/10 px-3 py-1.5 text-[8px] font-black uppercase tracking-[0.25em] text-accent-neon shadow-sm !border-none">
           {{ course?.categoria?.nombre || 'Especialidad' }}
         </span>
         <div class="flex items-center gap-1 text-accent-solar">
@@ -71,9 +71,9 @@
       </p>
 
       <!-- Stats Grid Premium -->
-      <div class="mt-8 grid grid-cols-2 gap-4 border-t border-white/5 pt-6">
+      <div class="mt-8 grid grid-cols-2 gap-4 pt-6 !border-none">
         <div class="flex items-center gap-3">
-          <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 border border-white/5 group-hover:border-accent-neon/20 transition-colors">
+          <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 transition-colors !border-none">
             <span class="material-symbols-outlined text-accent-neon text-lg">auto_stories</span>
           </div>
           <div class="flex flex-col">
@@ -82,7 +82,7 @@
           </div>
         </div>
         <div class="flex items-center gap-3">
-          <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 border border-white/5 group-hover:border-accent-solar/20 transition-colors">
+          <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 transition-colors !border-none">
             <span class="material-symbols-outlined text-accent-solar text-lg">schedule</span>
           </div>
           <div class="flex flex-col">
@@ -136,7 +136,7 @@
           <!-- Botón Ver Detalles (Now more prominent) -->
           <button 
             @click.stop="$emit('view-details', course)"
-            class="group/btn relative flex-1 h-14 overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition-all hover:bg-white/10 hover:border-accent-neon/40 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)]"
+            class="group/btn relative flex-1 h-14 overflow-hidden rounded-2xl bg-white/5 transition-all hover:bg-white/10 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)] !border-none"
           >
             <div class="absolute inset-0 bg-gradient-to-r from-accent-neon/0 via-accent-neon/10 to-accent-neon/0 -translate-x-full group-hover/btn:animate-shimmer"></div>
             <span class="relative z-10 flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-white group-hover/btn:text-accent-neon transition-colors">
@@ -172,7 +172,7 @@
 
           <div 
             v-else-if="inscription && inscription.estado === 'PENDIENTE'"
-            class="flex-[1.5] h-14 rounded-2xl border-2 border-dashed border-accent-solar/20 bg-accent-solar/5 px-6 text-[10px] font-black uppercase tracking-[0.25em] text-accent-solar text-center flex items-center justify-center gap-3"
+            class="flex-[1.5] h-14 rounded-2xl bg-accent-solar/5 px-6 text-[10px] font-black uppercase tracking-[0.25em] text-accent-solar text-center flex items-center justify-center gap-3 !border-none"
           >
             <span class="material-symbols-outlined text-lg animate-spin">history</span>
             EN ESPERA
@@ -245,7 +245,7 @@ defineEmits(['action', 'view-details'])
 }
 
 .glass-progress-bar {
-  @apply w-full overflow-hidden rounded-full bg-white/5 border border-white/5 shadow-inner;
+  @apply w-full overflow-hidden rounded-full bg-white/5 shadow-inner !border-none;
 }
 
 .glass-progress-fill {

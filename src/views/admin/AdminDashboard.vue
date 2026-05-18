@@ -21,7 +21,7 @@
       </div>
 
       <!-- Right: Date/Time (Redesigned) -->
-      <div class="relative z-10 flex items-center gap-4 bg-surface/40 backdrop-blur-md border border-white/5 rounded-[20px] px-5 py-3">
+      <div class="relative z-10 flex items-center gap-4 bg-surface/40 backdrop-blur-md !border-none rounded-[20px] px-5 py-3 shadow-sm">
         <div class="text-right">
           <p class="text-[9px] font-black uppercase tracking-[0.2em] text-cyan-400 mb-0.5">{{ currentDate }}</p>
           <p class="text-xl font-black font-lexend tracking-tighter text-on-surface leading-none">{{ currentHour }}</p>
@@ -293,9 +293,9 @@
     <Teleport to="body">
       <Transition name="fade">
         <div v-if="expandedChart" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#09090b]/80 backdrop-blur-md p-4 sm:p-8" @click.self="expandedChart = null">
-          <div class="glass-card-premium w-full max-w-6xl h-[85vh] flex flex-col rounded-[32px] overflow-hidden shadow-2xl relative border border-white/10 animate-scale-up">
+          <div class="glass-card-premium w-full max-w-6xl h-[85vh] flex flex-col rounded-[32px] overflow-hidden shadow-2xl relative !border-none animate-scale-up">
             <!-- Header -->
-            <div class="px-8 py-6 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+            <div class="px-8 py-6 !border-none flex items-center justify-between bg-white/[0.02] shadow-sm">
               <div class="flex items-center gap-4">
                 <div class="w-14 h-14 rounded-2xl flex items-center justify-center shadow-inner" :class="expandedChart.iconBg">
                   <span class="material-symbols-outlined text-3xl" :class="expandedChart.iconColor">{{ expandedChart.icon }}</span>
@@ -306,7 +306,7 @@
                 </div>
               </div>
               <div class="flex items-center gap-2 sm:gap-4">
-                <div class="flex items-center gap-2 bg-white/5 p-1 rounded-2xl border border-white/5">
+                <div class="flex items-center gap-2 bg-white/5 p-1 rounded-2xl !border-none shadow-inner">
                   <button @click="exportChart('pdf')" :disabled="exportStatus.pdf !== 'idle'" class="relative h-10 px-3 sm:px-4 rounded-xl hover:bg-rose-500/20 text-white/70 hover:text-rose-400 disabled:opacity-50 disabled:cursor-not-allowed font-bold text-[10px] sm:text-xs tracking-wider transition-all flex items-center justify-center min-w-[70px] sm:min-w-[85px] overflow-hidden" title="Exportar a PDF">
                     <div v-if="exportStatus.pdf === 'idle'" class="flex items-center gap-1.5 transition-all">
                       <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>

@@ -692,7 +692,7 @@
 
 .student-empty {
   border-radius: 2rem;
-  border: 1px dashed color-mix(in srgb, var(--admin-border-strong) 75%, transparent 25%);
+  border: none;
   background:
     radial-gradient(circle at top, color-mix(in srgb, var(--accent-neon) 8%, transparent 92%) 0%, transparent 40%),
     color-mix(in srgb, var(--surface-container) 86%, transparent 14%);

@@ -1,6 +1,6 @@
 <template>
   <div 
-    class="admin-card group relative overflow-hidden rounded-[40px] border-admin-border p-8 transition-all duration-500 hover:-translate-y-2 hover:border-accent-neon/30 hover:shadow-2xl hover:shadow-accent-neon/10"
+    class="admin-card !border-none group relative overflow-hidden rounded-[40px] p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-accent-neon/10"
   >
     <!-- Background Decor -->
     <div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-accent-neon/5 blur-3xl transition-all group-hover:bg-accent-neon/10"></div>
@@ -8,10 +8,10 @@
     <div class="relative z-10">
       <div 
         :class="[
-          'mb-8 flex h-20 w-20 items-center justify-center rounded-3xl border shadow-inner transition-all duration-500 group-hover:scale-110',
+          'mb-8 flex h-20 w-20 items-center justify-center rounded-3xl shadow-inner transition-all duration-500 group-hover:scale-110 !border-none',
           type === 'biotech' 
-            ? 'border-accent-neon/20 bg-accent-neon/10 text-accent-neon' 
-            : 'border-accent-solar/20 bg-accent-solar/10 text-accent-solar'
+            ? 'bg-accent-neon/10 text-accent-neon' 
+            : 'bg-accent-solar/10 text-accent-solar'
         ]"
       >
         <span class="material-symbols-outlined text-4xl font-black">{{ icon }}</span>
@@ -36,8 +36,8 @@
 
       <div class="mt-10 flex items-center justify-between gap-4">
         <div class="flex -space-x-3">
-          <div v-for="i in 3" :key="i" class="h-8 w-8 rounded-full border-2 border-background bg-on-surface/10"></div>
-          <div class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-background bg-accent-neon/10 text-[8px] font-black text-accent-neon">
+          <div v-for="i in 3" :key="i" class="h-8 w-8 rounded-full bg-on-surface/10 !border-none shadow-sm"></div>
+          <div class="flex h-8 w-8 items-center justify-center rounded-full bg-accent-neon/10 text-[8px] font-black text-accent-neon !border-none shadow-sm">
             +12
           </div>
         </div>

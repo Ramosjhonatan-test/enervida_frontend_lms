@@ -72,7 +72,7 @@
                     </span>
                     <!-- Role change fast-action -->
                     <div class="absolute top-full left-1/2 -translate-x-1/2 mt-3 opacity-0 invisible group-hover/rol:opacity-100 group-hover/rol:visible transition-all z-20 flex flex-col glass-card-premium !bg-background/95 rounded-2xl shadow-2xl overflow-hidden p-2 min-w-[140px] !border-none">
-                      <p class="text-[9px] font-black text-on-surface/30 uppercase tracking-widest p-2 border-b border-on-surface/5 mb-1">Cambiar Rol</p>
+                      <p class="text-[9px] font-black text-on-surface/30 uppercase tracking-widest p-2 pb-3 mb-1 !border-none">Cambiar Rol</p>
                       <button v-for="r in roles" :key="r.id" @click="changeRole(usuario.id, r.id)" class="px-3 py-2 text-[10px] font-black text-left hover:bg-accent-neon/10 hover:text-accent-neon rounded-xl transition-all capitalize">
                         {{ r.nombre }}
                       </button>

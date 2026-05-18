@@ -23,7 +23,7 @@
           </button>
 
           <!-- Left Side: Premium Sidebar (Image + Header Info) -->
-          <div class="w-full md:w-[40%] flex flex-col border-b md:border-b-0 md:border-r border-on-surface/5 shrink-0 bg-on-surface/[0.02]">
+          <div class="w-full md:w-[40%] flex flex-col shrink-0 bg-on-surface/[0.02] !border-none">
             <!-- Image Container -->
             <div class="relative w-full p-6 md:p-8 pb-3 md:pb-4">
               <div class="aspect-video w-full overflow-hidden rounded-[24px] !border-none shadow-2xl relative group/img">
@@ -57,7 +57,7 @@
               </div>
 
               <!-- Price Container -->
-              <div class="pt-4 border-t border-on-surface/5 flex items-center justify-between">
+              <div class="pt-4 flex items-center justify-between !border-none">
                 <div class="flex flex-col">
                   <span class="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-on-surface/40">Inversión del Curso</span>
                   <div class="flex items-baseline gap-1 mt-1">
@@ -73,7 +73,7 @@
           <div class="flex-1 flex flex-col min-w-0 bg-background/50 relative">
             <div class="flex-1 overflow-y-visible md:overflow-y-auto custom-scrollbar p-6 md:p-10 lg:p-12 space-y-8">
               <!-- Navigation Tabs -->
-              <div class="flex items-center gap-4 sm:gap-8 border-b border-on-surface/5 pb-2 shrink-0 overflow-x-auto hide-scrollbar">
+              <div class="flex items-center gap-4 sm:gap-8 pb-2 shrink-0 overflow-x-auto hide-scrollbar !border-none">
                 <button 
                   @click="activeTab = 'general'"
                   :class="[
@@ -103,7 +103,7 @@
                   <!-- Detailed Description Section -->
                   <section class="space-y-6">
                     <div class="flex items-center gap-4">
-                      <div class="flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-2xl bg-accent-neon/10 border border-accent-neon/20">
+                      <div class="flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-2xl bg-accent-neon/10 !border-none">
                         <span class="material-symbols-outlined text-accent-neon">subject</span>
                       </div>
                       <div>
@@ -190,7 +190,7 @@
             </div>
 
             <!-- Fixed CTA Footer at the bottom of Right Side (Sticky on Mobile, Relative on Desktop) -->
-            <div class="sticky md:relative bottom-0 p-6 md:p-8 border-t border-on-surface/5 flex justify-center md:justify-end shrink-0 z-20 bg-surface-glass/95 backdrop-blur-md shadow-[0_-10px_20px_rgba(0,0,0,0.3)]">
+            <div class="sticky md:relative bottom-0 p-6 md:p-8 flex justify-center md:justify-end shrink-0 z-20 bg-surface-glass/95 backdrop-blur-md shadow-[0_-10px_20px_rgba(0,0,0,0.3)] !border-none">
               <button 
                 v-if="!isEnrolled"
                 @click="$emit('enroll', course)"

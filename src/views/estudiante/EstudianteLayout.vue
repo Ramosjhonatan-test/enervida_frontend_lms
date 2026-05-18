@@ -3,7 +3,7 @@
     <transition name="fade">
       <div
         v-if="isMobileMenuOpen"
-        class="fixed inset-0 z-[95] bg-background/75 backdrop-blur-xl lg:hidden"
+        class="fixed inset-0 z-[104] bg-background/80 backdrop-blur-sm lg:hidden"
         @click="isMobileMenuOpen = false"
       ></div>
     </transition>
@@ -82,78 +82,98 @@
           </button>
         </div>
       </div>
+    </nav>
 
-      <!-- Drawer de menú móvil superior-izquierdo -->
-      <transition
-        enter-active-class="transition ease-out duration-300"
-        enter-from-class="-translate-x-full opacity-0"
-        enter-to-class="translate-x-0 opacity-100"
-        leave-active-class="transition ease-in duration-200"
-        leave-from-class="translate-x-0 opacity-100"
-        leave-to-class="-translate-x-full opacity-0"
+    <!-- Menú móvil Bottom Sheet (Estilo App Nativa) -->
+    <transition
+      enter-active-class="transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
+      enter-from-class="translate-y-full opacity-0"
+      enter-to-class="translate-y-0 opacity-100"
+      leave-active-class="transition-all duration-300 ease-[cubic-bezier(0.4,0,1,1)]"
+      leave-from-class="translate-y-0 opacity-100"
+      leave-to-class="translate-y-full opacity-0"
+    >
+      <div
+        v-if="isMobileMenuOpen"
+        class="fixed inset-x-0 bottom-0 z-[105] flex flex-col rounded-t-[2.5rem] bg-surface-glass/95 backdrop-blur-3xl border-t border-white/5 shadow-[0_-20px_50px_rgba(0,0,0,0.5)] lg:hidden max-h-[85vh]"
       >
-        <div
-          v-if="isMobileMenuOpen"
-          class="fixed inset-y-0 left-0 z-[101] w-4/5 max-w-sm flex flex-col !border-none bg-background/95 shadow-2xl backdrop-blur-3xl lg:hidden"
-        >
-          <div class="flex items-center justify-between px-6 h-20 !border-none">
-            <AppLogo :img-style="{ height: 'clamp(1.5rem, 3vw, 2.5rem)' }" img-class="w-auto object-contain" />
+        <!-- Drag Handle & Header -->
+        <div class="flex flex-col items-center pt-4 pb-2 shrink-0">
+          <div class="h-1.5 w-12 rounded-full bg-white/20 mb-4"></div>
+          <div class="flex w-full items-center justify-between px-8">
+            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-on-surface/50">Navegación</h3>
             <button
               type="button"
-              class="admin-soft-hover grid h-10 w-10 place-items-center rounded-xl text-on-surface"
+              class="grid h-8 w-8 place-items-center rounded-full bg-white/5 text-on-surface hover:bg-white/10 transition-colors"
               @click="isMobileMenuOpen = false"
-              aria-label="Cerrar menu"
             >
-              <span class="material-symbols-outlined">close</span>
+              <span class="material-symbols-outlined text-sm">close</span>
             </button>
           </div>
+        </div>
 
-          <div class="flex-1 overflow-y-auto px-4 py-6 flex flex-col gap-2">
-            <div class="mb-2 px-2">
-              <p class="text-[10px] font-black uppercase tracking-[0.22em] text-on-surface/35">Menú Principal</p>
-            </div>
+        <div class="flex-1 overflow-y-auto px-6 py-6">
+          <div class="grid grid-cols-2 gap-3">
             <router-link
-              v-for="link in navLinks"
+              v-for="(link, index) in navLinks"
               :key="link.id"
               :to="link.to"
-              :class="[
-                'flex items-center gap-4 rounded-2xl px-4 py-4 text-sm font-black uppercase tracking-[0.18em] transition-all',
-                isStudentRoute(link.to) ? 'bg-accent-neon text-primary shadow-neon-sm' : 'hover:bg-on-surface/5 text-on-surface/65'
-              ]"
-              @click="isMobileMenuOpen = false"
+              custom
+              v-slot="{ navigate, href }"
             >
-              {{ link.text }}
+              <a
+                :href="href"
+                @click="(e) => { navigate(e); isMobileMenuOpen = false; }"
+                :style="{ animationDelay: `${index * 60 + 100}ms` }"
+                :class="[
+                  'animate-pop-in flex flex-col items-center justify-center gap-3 rounded-3xl p-5 transition-colors duration-300',
+                  isStudentRoute(link.to) ? 'bg-accent-neon/10 border border-accent-neon/20 shadow-neon-sm' : 'bg-white/5 border border-white/5 hover:bg-white/10'
+                ]"
+              >
+                <span 
+                  class="material-symbols-outlined text-3xl transition-transform group-hover:scale-110 duration-300"
+                  :class="isStudentRoute(link.to) ? 'text-accent-neon' : 'text-on-surface/50'"
+                >
+                  {{ getIconForRoute(link.id) }}
+                </span>
+                <span 
+                  class="text-[10px] font-black uppercase tracking-wider text-center"
+                  :class="isStudentRoute(link.to) ? 'text-accent-neon' : 'text-on-surface/80'"
+                >
+                  {{ link.text }}
+                </span>
+              </a>
             </router-link>
           </div>
+        </div>
 
-          <div class="p-6 !border-none bg-on-surface/[0.02]">
-            <div class="flex items-center gap-4 mb-6">
-              <img
-                v-if="profileImageUrl && !profileImageFailed"
-                :src="profileImageUrl"
-                class="h-12 w-12 rounded-full object-cover !border-none"
-                @error="profileImageFailed = true"
-              />
-              <div v-else class="flex h-12 w-12 items-center justify-center rounded-full bg-accent-neon/10 text-accent-neon font-black">
-                {{ userInitials }}
-              </div>
-              <div class="flex flex-col">
-                <span class="text-xs font-black truncate max-w-[150px]">{{ authStore.user?.nombres || 'Estudiante' }}</span>
-                <span class="text-[10px] font-bold text-on-surface/50 uppercase tracking-widest">Mi Cuenta</span>
-              </div>
+        <!-- Perfil inferior -->
+        <div class="shrink-0 p-6 border-t border-white/5 bg-black/20">
+          <div class="flex items-center gap-4">
+            <img
+              v-if="profileImageUrl && !profileImageFailed"
+              :src="profileImageUrl"
+              class="h-12 w-12 rounded-full object-cover ring-2 ring-white/10"
+              @error="profileImageFailed = true"
+            />
+            <div v-else class="flex h-12 w-12 items-center justify-center rounded-full bg-accent-neon/10 text-accent-neon font-black shadow-inner ring-2 ring-accent-neon/20">
+              {{ userInitials }}
             </div>
-            <div class="flex items-center justify-between gap-2">
-              <router-link to="/student/profile" @click="isMobileMenuOpen = false" class="btn-premium flex-1 !rounded-xl !py-3 !text-[10px] !bg-on-surface/[0.04] !border-none text-center">
-                Mi Perfil
+            
+            <div class="flex-1 min-w-0">
+              <span class="block text-sm font-black truncate">{{ authStore.user?.nombres || 'Estudiante' }}</span>
+              <router-link to="/student/profile" @click="isMobileMenuOpen = false" class="text-[10px] font-bold text-accent-neon uppercase tracking-widest mt-0.5 inline-block">
+                Ver mi perfil &rarr;
               </router-link>
-              <button @click="handleLogout" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-solar/10 text-accent-solar hover:bg-accent-solar/20 !border-none transition-all">
-                <span class="material-symbols-outlined text-lg">logout</span>
-              </button>
             </div>
+
+            <button @click="handleLogout" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-solar/10 text-accent-solar hover:bg-accent-solar/20 transition-colors">
+              <span class="material-symbols-outlined">logout</span>
+            </button>
           </div>
         </div>
-      </transition>
-    </nav>
+      </div>
+    </transition>
 
     <main class="mx-auto max-w-[1600px] px-4 pb-12 pt-28 md:px-8 xl:px-12">
       <router-view v-slot="{ Component }">
@@ -308,6 +328,18 @@ onUnmounted(() => {
   document.body.style.overflow = ''
 })
 
+function getIconForRoute(id) {
+  const icons = {
+    'dashboard': 'home',
+    'catalog': 'explore',
+    'my-courses': 'play_circle',
+    'labs': 'science',
+    'certificates': 'workspace_premium',
+    'live-classes': 'sensors'
+  }
+  return icons[id] || 'circle'
+}
+
 function normalizeArray(value) {
   return Array.isArray(value) ? value : []
 }
@@ -458,5 +490,21 @@ async function enrollInCourse(cursoId) {
     radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--accent-neon) 12%, transparent 88%) 0%, transparent 36%),
     linear-gradient(135deg, color-mix(in srgb, var(--surface-container) 94%, transparent 6%) 0%, color-mix(in srgb, var(--background) 82%, var(--surface-container) 18%) 100%);
   box-shadow: 0 30px 60px -30px var(--clay-shadow-dark);
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-pop-in {
+  opacity: 0;
+  animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 </style>
