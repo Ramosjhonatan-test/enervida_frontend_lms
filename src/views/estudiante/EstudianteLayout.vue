@@ -129,22 +129,22 @@
     </main>
 
     <transition name="fade-slide">
-      <div v-if="showCompleteProfile" class="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-6">
+      <div v-if="showCompleteProfile" class="fixed inset-0 z-[200] flex items-center justify-center p-4 overflow-y-auto">
         <div class="absolute inset-0 bg-background/80 backdrop-blur-xl" @click="showCompleteProfile = false"></div>
-        <div class="glass-card-premium relative w-full max-w-4xl overflow-hidden rounded-[48px] border-accent-neon/20 p-8 shadow-2xl md:p-12">
+        <div class="glass-card-premium relative w-full max-w-4xl overflow-hidden rounded-3xl sm:rounded-[48px] border border-accent-neon/20 p-5 sm:p-8 md:p-12 shadow-2xl my-auto">
           <div class="relative z-10">
-            <div class="mb-10 text-center">
-              <div class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl border border-accent-neon/20 bg-accent-neon/10 shadow-inner">
-                <span class="material-symbols-outlined text-4xl text-accent-neon">verified_user</span>
+            <div class="mb-6 sm:mb-10 text-center">
+              <div class="mx-auto mb-4 sm:mb-6 flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl sm:rounded-3xl border border-accent-neon/20 bg-accent-neon/10 shadow-inner">
+                <span class="material-symbols-outlined text-3xl sm:text-4xl text-accent-neon">verified_user</span>
               </div>
-              <h2 class="font-lexend text-3xl font-black tracking-tight">Verificacion de <span class="text-gradient-neon">identidad</span></h2>
-              <p class="mt-4 text-[11px] font-black uppercase leading-relaxed tracking-[0.2em] text-on-surface-variant opacity-70">
-                Confirma tus datos para la emision de certificados oficiales.
+              <h2 class="font-lexend text-2xl sm:text-3xl font-black tracking-tight">Verificación de <span class="text-gradient-neon">identidad</span></h2>
+              <p class="mt-3 sm:mt-4 text-[10px] sm:text-[11px] font-black uppercase leading-relaxed tracking-[0.2em] text-on-surface-variant opacity-70">
+                Confirma tus datos para la emisión de certificados oficiales.
               </p>
             </div>
 
             <form @submit.prevent="handleCompleteProfile">
-              <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+              <div class="mb-6 sm:mb-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
                 <input v-model="profileForm.nombres" type="text" required placeholder="Nombres" class="input-cyber !rounded-2xl" />
                 <input v-model="profileForm.apellidos" type="text" required placeholder="Apellidos" class="input-cyber !rounded-2xl" />
                 <input :value="authStore.user?.correo" type="email" readonly class="input-cyber !rounded-2xl cursor-not-allowed border-dashed opacity-50" />
@@ -158,8 +158,8 @@
                 </div>
               </div>
 
-              <div class="flex flex-col gap-4 pt-4">
-                <button type="submit" :disabled="savingProfile" class="btn-premium btn-primary-neon !w-full !py-5">
+              <div class="flex flex-col gap-4 pt-2 sm:pt-4">
+                <button type="submit" :disabled="savingProfile" class="btn-premium btn-primary-neon !w-full !py-4 sm:!py-5 !text-[11px] font-black uppercase tracking-widest shadow-neon-sm">
                   {{ savingProfile ? 'Procesando...' : 'Confirmar datos y solicitar' }}
                 </button>
                 <button type="button" @click="showCompleteProfile = false" class="text-[10px] font-black uppercase tracking-[0.3em] text-on-surface/25 transition hover:text-on-surface">Posponer solicitud</button>
@@ -219,7 +219,7 @@ const navLinks = [
 ]
 
 const enrolledCourseIds = computed(() => new Set(inscripciones.value.map((ins) => ins.curso_id || ins.curso?.id)))
-const availableCourses = computed(() => catalogCursos.value.filter((curso) => !enrolledCourseIds.value.has(curso.id)))
+const availableCourses = computed(() => catalogCursos.value)
 const ultimoCurso = computed(() => {
   const activas = inscripciones.value.filter((ins) => ins.estado === 'ACTIVO' && ins.porcentaje_progreso < 100)
   return [...activas].sort((a, b) => (b.id || 0) - (a.id || 0))[0] || null

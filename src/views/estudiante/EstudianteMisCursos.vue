@@ -18,7 +18,7 @@
         <div v-for="i in 3" :key="i" class="h-96 course-card-premium loading-pulse"></div>
       </div>
 
-      <div v-else-if="inscripciones.length === 0" class="student-empty flex flex-col items-center justify-center p-16 text-center">
+      <div v-else-if="inscripciones.length === 0" class="student-empty flex flex-col items-center justify-center p-8 sm:p-16 text-center">
         <div class="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-accent-neon/10 text-accent-neon">
           <span class="material-symbols-outlined text-5xl">school</span>
         </div>
@@ -55,7 +55,7 @@
             </div>
           </div>
 
-          <div class="flex flex-1 flex-col p-8">
+          <div class="flex flex-1 flex-col p-5 sm:p-8">
             <div class="flex items-start justify-between gap-4">
               <h3 class="font-lexend text-2xl font-black leading-tight text-on-surface group-hover:text-accent-neon transition-colors">
                 {{ ins.curso?.titulo }}
@@ -121,7 +121,7 @@
       </div>
     </div>
   </div>
-</template>te>
+</template>
 
 <script setup>
 import { computed } from 'vue'

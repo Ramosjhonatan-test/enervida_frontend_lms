@@ -56,9 +56,11 @@
               <button
                 v-for="leccion in modulo.lecciones"
                 :key="leccion.id"
+                type="button"
                 @click="selectLeccion(leccion)"
+                :aria-current="activeLeccion?.id === leccion.id ? 'true' : undefined"
                 :class="[
-                  'w-full rounded-2xl px-3 py-3 text-left transition-all',
+                  'w-full rounded-2xl px-3 py-3 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-neon/50',
                   activeLeccion?.id === leccion.id ? 'bg-accent-neon/10 border border-accent-neon/20 shadow-[0_4px_15px_rgba(16,185,129,0.1)]' : 'hover:bg-on-surface/5 border border-transparent hover:border-on-surface/10'
                 ]"
               >
@@ -143,8 +145,26 @@
                   </div>
                 </div>
 
-                <div v-else-if="activeLeccion.tipo_contenido === 'PDF'" class="h-[68vh] min-h-[460px] w-full overflow-hidden rounded-[28px] border border-on-surface/10 bg-on-surface/[0.03] shadow-lg">
-                  <iframe :src="getFileUrl(activeLeccion.pdf_url)" class="h-full w-full" frameborder="0"></iframe>
+                <div v-else-if="activeLeccion.tipo_contenido === 'PDF'" class="w-full flex flex-col gap-4">
+                  <!-- Desktop/Large screens: Premium Iframe -->
+                  <div class="hidden lg:block h-[68vh] min-h-[460px] w-full overflow-hidden rounded-[28px] border border-on-surface/10 bg-on-surface/[0.03] shadow-lg">
+                    <iframe :src="getFileUrl(activeLeccion.pdf_url)" class="h-full w-full" frameborder="0"></iframe>
+                  </div>
+                  
+                  <!-- Mobile/Tablet screens: Interactive Card -->
+                  <div class="lg:hidden glass-card-premium rounded-[28px] p-6 text-center flex flex-col items-center justify-center border border-on-surface/10 bg-on-surface/[0.03] py-12">
+                    <div class="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-accent-neon/10 text-accent-neon border border-accent-neon/20 shadow-inner">
+                      <span class="material-symbols-outlined text-3xl font-black">picture_as_pdf</span>
+                    </div>
+                    <h3 class="font-lexend text-lg font-black mb-2 text-on-surface">Documento de Lectura</h3>
+                    <p class="text-xs text-on-surface/50 max-w-xs mb-6 leading-relaxed">
+                      Para una lectura óptima y fluida en dispositivos móviles, abre este PDF en pantalla completa.
+                    </p>
+                    <a :href="getFileUrl(activeLeccion.pdf_url)" target="_blank" class="btn-premium btn-primary-neon !px-8 !py-4 gap-2 text-xs w-full sm:w-auto inline-flex justify-center items-center shadow-neon-sm">
+                      <span class="material-symbols-outlined text-base">open_in_new</span>
+                      Abrir en pantalla completa
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
